@@ -18,4 +18,4 @@ jobs:
     - name: Run containers
       run: docker-compose up -d
     - name: Execute tests (Unit and Feature tests) via PHPUnit
-      run: docker-compose exec app phpunit
+      run: docker-compose exec -T app phpunit
