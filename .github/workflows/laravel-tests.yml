@@ -1,5 +1,5 @@
 on: push
-name: CI
+name: Laravel tests
 jobs:
   phpunit:
     runs-on: ubuntu-latest
