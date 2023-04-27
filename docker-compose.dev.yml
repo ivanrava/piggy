@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  # Mailpit for testing e-mail functionalities
+  mailpit:
+    container_name: mailpit
+    image: axllent/mailpit:latest
+    # Disable logging
+    logging:
+      driver: 'none'
+    ports:
+      - "8025:8025"
+    networks:
+      app-network:
+  # Web interface for DB management
+  adminer:
+    container_name: adminer
+    image: adminer:latest
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      app-network:
+  # PostgreSQL DB
+  db:
+    # We open the ports for PHPStorm DB connections
+    ports:
+      - "5432:5432"

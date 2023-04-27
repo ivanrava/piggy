@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+    # The Laravel application, contains the PHP code
+    app:
+        container_name: app
+        build:
+            context: ./
+            dockerfile: app.dockerfile
+        # For convenience, should we ever chroot in the container...
+        working_dir: /var/www
+        # Volume for hot changes
+        volumes:
+            - ./:/var/www
+        environment:
+            DB_CONNECTION: pgsql
+            DB_PORT: 5432
+            DB_HOST: db
+            DB_DATABASE: ${DB_DATABASE}
+            DB_USERNAME: ${DB_USERNAME}
+            DB_PASSWORD: ${DB_PASSWORD}
+            # By default, connect to mailpit
+            MAIL_HOST: ${MAIL_HOST:-mailpit}
+            MAIL_PORT: ${MAIL_PORT:-1025}
+        networks:
+            app-network:
+        # Wait for the DB
+        depends_on:
+            - db
+    # A NGINX reverse proxy which connects to the PHP-FPM app and provides access to it
+    web:
+        container_name: web
+        build:
+            context: ./
+            dockerfile: web.dockerfile
+        working_dir: /var/www
+        # We use the same volume as the PHP app (the source code)
+        volumes:
+            - ./:/var/www
+        ports:
+            - "80:80"
+        depends_on:
+            - app
+        networks:
+            app-network:
+    # PostgreSQL DB
+    db:
+        container_name: db
+        image: postgres:latest
+        restart: always
+        # Persistent volume for DB data
+        volumes:
+            - dbdata:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: ${DB_DATABASE}
+        networks:
+            app-network:
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+            interval: 1m30s
+            timeout: 10s
+            retries: 3
+
+networks:
+    app-network:
+
+volumes:
+    dbdata:
