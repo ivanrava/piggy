@@ -5,20 +5,23 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: kirschbaumdevelopment/laravel-test-runner:8.1
- 
+
     steps:
     - uses: actions/checkout@v1
       with:
         fetch-depth: 1
- 
+
     - name: Install composer dependencies
       run: |
         composer install --no-scripts
- 
+
     - name: Prepare Laravel Application
       run: |
         cp .env.example .env
         php artisan key:generate
- 
+
     - name: Run Testsuite
+      env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit tests/
