@@ -20,6 +20,11 @@ jobs:
         cp .env.example .env
         php artisan key:generate
 
+    - name: Create Database
+      run: |
+        mkdir -p database
+        touch database/database.sqlite
+
     - name: Run Testsuite
       env:
         DB_CONNECTION: sqlite
