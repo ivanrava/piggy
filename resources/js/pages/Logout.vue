@@ -3,13 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import axios from "axios";
-import {useRouter} from "vue-router";
+import {useAuth} from "../composables/useAuth";
 
-const router = useRouter();
-axios.post("/logout").then(() => {
-    router.replace("/login")
-})
+const {logout} = useAuth();
+logout();
 </script>
 
 <style scoped>

@@ -9,25 +9,14 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
-import axios from "axios";
-import {useRouter} from "vue-router";
+import {useAuth} from "../composables/useAuth";
 
 const form = ref({
     email: '',
     password: ''
 })
 
-interface LoginPayload {
-    email: string,
-    password: string
-}
-
-const router = useRouter();
-async function login(payload: LoginPayload) {
-    axios.post("/login", payload).then(() => {
-        router.push('/me')
-    })
-}
+const {login} = useAuth()
 </script>
 
 <style scoped>

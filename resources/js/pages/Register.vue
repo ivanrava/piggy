@@ -11,9 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import {ref, onMounted} from "vue"
-import axios from "axios"
-import {useRouter} from "vue-router";
+import {ref} from "vue"
+import {useAuth} from "../composables/useAuth";
 
 const form = ref({
     name: '',
@@ -22,27 +21,7 @@ const form = ref({
     password_confirmation: ''
 })
 
-interface RegisterPayload {
-    name: string,
-    email: string,
-    password: string,
-    password_confirmation: string
-}
-
-const router = useRouter()
-async function register(payload: RegisterPayload)  {
-    await axios.post("/register", payload);
-    axios.post("/login", {
-        email: payload.email,
-        password: payload.password
-    }).then(() => {
-        router.push('/me')
-    })
-}
-
-onMounted(() => {
-    console.log(axios.defaults.baseURL)
-})
+const {register} = useAuth();
 </script>
 
 <style scoped>
