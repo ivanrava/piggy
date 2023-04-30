@@ -1,16 +1,11 @@
-import { createWebHistory, createRouter } from "vue-router";
-
-const Login = () => import('@/pages/Login.vue')
-const Register = () => import('@/pages/Register.vue')
-const Me = () => import('@/pages/Me.vue')
-
+import {createRouter, createWebHistory} from "vue-router";
 import axios from "axios";
 
 const routes = [
     {
         name: 'register',
         path: '/register',
-        component: Register,
+        component: () => import('@/pages/Register.vue'),
         meta: {
             title: 'Register',
             requiresAuth: false
@@ -19,7 +14,7 @@ const routes = [
     {
         name: 'login',
         path: '/login',
-        component: Login,
+        component: () => import('@/pages/Login.vue'),
         meta: {
             title: 'Login',
             requiresAuth: false
@@ -28,7 +23,7 @@ const routes = [
     {
         name: 'me',
         path: '/me',
-        component: Me,
+        component: () => import('@/pages/Me.vue'),
         meta: {
             title: 'Profile information',
             requiresAuth: true
