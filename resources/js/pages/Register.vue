@@ -30,8 +30,8 @@ interface RegisterPayload {
 }
 
 const router = useRouter()
-async function register(payload: RegisterPayload) {
-    const res = await axios.post("/register", payload)
+async function register(payload: RegisterPayload)  {
+    await axios.post("/register", payload);
     axios.post("/login", {
         email: payload.email,
         password: payload.password
