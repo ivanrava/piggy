@@ -1,8 +1,15 @@
 import { createWebHistory, createRouter } from "vue-router";
 
 const Login = () => import('@/pages/Login.vue')
+const Register = () => import('@/pages/Register.vue')
+const Me = () => import('@/pages/Me.vue')
 
 const routes = [
+    {
+        name: 'register',
+        path: '/register',
+        component: Register,
+    },
     {
         name: 'login',
         path: '/login',
@@ -11,6 +18,16 @@ const routes = [
             middleware: 'guest',
             title: 'Login'
         }
+    },
+    {
+        name: 'me',
+        path: '/me',
+        component: Me,
+    },
+    {
+        name: 'logout',
+        path: '/logout',
+        component: () => import('@/pages/Logout.vue')
     }
 ]
 
