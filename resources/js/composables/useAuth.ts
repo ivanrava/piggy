@@ -1,5 +1,6 @@
 import axios from "axios";
 import {useRouter} from "vue-router";
+import {ref} from "vue";
 
 interface LoginPayload {
     email: string,
@@ -25,9 +26,15 @@ interface User {
     updated_at: Date;
 }
 
+// TODO: refactor/move into state
+const user = ref<User | null>(null)
+
 export const useAuth = () => {
     const router = useRouter()
     async function getUser(): Promise<User | null> {
+        if (user.value)
+            return user.value;
+
         try {
             const res = await axios.get("/user")
             const user = res.data;
@@ -46,6 +53,9 @@ export const useAuth = () => {
             return null;
         }
     }
+    async function initUser() {
+        user.value = await getUser()
+    }
     async function login(payload: LoginPayload) {
         axios.post("/login", payload).then(() => {
             router.push('/me')
@@ -53,6 +63,7 @@ export const useAuth = () => {
     }
     async function logout() {
         axios.post("/logout").then(() => {
+            user.value = null;
             router.replace("/login")
         })
     }
@@ -63,5 +74,5 @@ export const useAuth = () => {
             password: payload.password
         });
     }
-    return {login, logout, register}
+    return {login, logout, register, initUser, user}
 }

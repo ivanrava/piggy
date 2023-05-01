@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory} from "vue-router";
-import axios from "axios";
+import {useAuth} from "../composables/useAuth";
 
 const routes = [
     {
@@ -45,22 +45,21 @@ const router = createRouter({
     routes,
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     if (to.meta.requiresAuth) {
-        axios.get('/user').then(() => {
+        const {user, initUser} = useAuth()
+        await initUser()
+        if (!user.value) {
+            next({
+                path: '/login'
+            })
+        } else {
             next();
-        }).catch((error) => {
-            if (error.response.status === 401) {
-                next({
-                    path: '/login'
-                })
-            }
-        }).finally(() => {
-            document.title = to.meta.title
-        })
+        }
     } else {
         next();
     }
+    document.title = to.meta.title
 })
 
 export default router
