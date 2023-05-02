@@ -1,7 +1,9 @@
 /**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
+ * We load the Axios HTTP library, and we set it up for the communication between the SPA and the Laravel endpoints.
+ * - we set the BASE_URL
+ * - we set some good headers
+ * - we add an interceptor for handling expired session redirects
+ * - we initially call the /csrf-cookie endpoint from Sanctum for establishing CSRF protection
  */
 
 import axios from 'axios';
@@ -21,7 +23,7 @@ axios.interceptors.response.use(
     (error) => {
         if ([401, 419].includes(error.response.status) && !error.request.responseURL.endsWith('/api/user')) {
             const {logout} = useAuth();
-            logout();
+            void logout();
         } else {
             return Promise.reject(error)
         }
