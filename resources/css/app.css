@@ -4,12 +4,12 @@
 
 @layer base {
     h1 {
-        @apply text-4xl;
+        @apply text-4xl my-4;
     }
     h2 {
-        @apply text-2xl;
+        @apply text-2xl my-2;
     }
     h3 {
-        @apply text-lg;
+        @apply text-lg my-1;
     }
 }
