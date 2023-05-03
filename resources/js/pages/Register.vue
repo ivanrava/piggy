@@ -1,19 +1,22 @@
 <template>
-    <h1>Register</h1>
-    <form @submit.prevent="register(form)">
-        <input name="name" placeholder="Name" v-model="form.name">
-        <input name="email" placeholder="E-mail" v-model="form.email">
-        <input name="password" placeholder="Password" v-model="form.password">
-        <input placeholder="Confirm password" v-model="form.password_confirmation">
-        <submit-button>Register</submit-button>
-    </form>
-    <router-link to="/login">Login link</router-link>
+    <main class="w-1/2 flex flex-col justify-center align-middle text-right">
+        <h1>Register</h1>
+        <form @submit.prevent="register(form)">
+            <form-input name="name" placeholder="Name" v-model="form.name"/>
+            <form-input name="email" placeholder="E-mail" type="email" v-model="form.email"/>
+            <form-input name="password" placeholder="Password" type="password" v-model="form.password"/>
+            <form-input name="password_confirmation" placeholder="Confirm password" type="password" v-model="form.password_confirmation"/>
+            <submit-button>Sign up</submit-button>
+        </form>
+        <router-link to="/login">Login link</router-link>
+    </main>
 </template>
 
 <script setup lang="ts">
 import {ref} from "vue"
 import {useAuth} from "../composables/useAuth";
 import SubmitButton from "../components/SubmitButton.vue";
+import FormInput from "../components/FormInput.vue";
 
 const form = ref({
     name: '',
