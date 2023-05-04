@@ -28,7 +28,7 @@
       <submit-button>Sign up</submit-button>
     </form>
     <span class="text-xs mt-4">
-      Do you already have a profile?
+      Have you got a <i>deja-vu</i>?
       <router-link to="/login">
         Go the login page
       </router-link>

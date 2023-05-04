@@ -1,5 +1,5 @@
 <template>
-  <main class="flex justify-center items-center bg-pink-950 w-full">
+  <main class="flex justify-center items-center bg-pink-50 w-full">
     <div class="w-5/6 h-5/6 bg-stone-50 flex justify-stretch content-stretch gap-24 rounded-lg shadow-2xl">
       <div class="basis-1 grow pl-32 flex flex-col justify-center items-center">
         <img
