@@ -1,10 +1,18 @@
 <template>
-    <input v-model="value" :placeholder="placeholder" :name="name" :type="type" />
-    <ul>
-        <li v-for="error in errors" class="text-left text-xs text-red-400">
-            {{ error }}
-        </li>
-    </ul>
+  <input
+    v-model="value"
+    :placeholder="placeholder"
+    :name="name"
+    :type="type"
+  >
+  <ul>
+    <li
+      v-for="error in errors"
+      class="text-left text-xs text-red-400"
+    >
+      {{ error }}
+    </li>
+  </ul>
 </template>
 
 <script setup lang="ts">
