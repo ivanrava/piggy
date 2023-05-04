@@ -27,12 +27,12 @@ const hasDisabledStyle = computed(() => {
 
 <style scoped>
 button {
-    @apply p-2 rounded-md m-1 transition-all w-32;
+    @apply py-4 px-8 rounded-md m-1 transition-all text-slate-50;
 }
 button.active {
-    @apply bg-amber-200 hover:bg-amber-400;
+    @apply bg-pink-800 hover:bg-pink-700;
 }
 button.disabled {
-    @apply bg-amber-200 opacity-40 cursor-default;
+    @apply bg-pink-400 opacity-40 cursor-default;
 }
 </style>
