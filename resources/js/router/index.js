@@ -66,7 +66,7 @@ router.beforeEach(async (to, from, next) => {
     } else {
         next();
     }
-    document.title = to.meta.title
+    document.title = `${to.meta.title} | Piggy`
 })
 
 export default router
