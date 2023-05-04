@@ -12,7 +12,7 @@
           class="flex text-center h-2/6"
         >
           <transition
-            name="fade"
+            name="slide-fade"
             mode="out-in"
           >
             <component :is="Component" />
@@ -33,14 +33,20 @@
 
 </script>
 
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
+<style scoped lang="scss">
+$slide_amount: 40px;
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.4s ease-out;
 }
 
-.fade-enter-from,
-.fade-leave-to {
+.slide-fade-enter-from {
+  transform: translateX(-$slide_amount);
+  opacity: 0;
+}
+
+.slide-fade-leave-to {
+  transform: translateX($slide_amount);
   opacity: 0;
 }
 </style>
