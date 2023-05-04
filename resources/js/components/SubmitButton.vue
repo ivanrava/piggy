@@ -27,7 +27,7 @@ const hasDisabledStyle = computed(() => {
 
 <style scoped>
 button {
-    @apply py-3 px-6 rounded-md m-1 transition-all text-slate-50;
+    @apply py-3 px-6 rounded-md my-1 transition-all text-slate-50;
 }
 button.active {
     @apply bg-pink-800 hover:bg-pink-700;
