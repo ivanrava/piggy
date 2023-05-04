@@ -1,15 +1,32 @@
 <template>
-    <main class="flex flex-col justify-center align-middle">
-        <h1>Login</h1>
-        <form @submit.prevent="login(form)" class="flex flex-col">
-            <form-input v-model="form.email"
-                        name="email" placeholder="E-mail" type="email" />
-            <form-input v-model="form.password"
-                        name="password" placeholder="Password" type="password" />
-            <submit-button>Sign in</submit-button>
-        </form>
-        <router-link to="/register">Sign up</router-link>
-    </main>
+  <main class="flex flex-col justify-center align-middle">
+    <h1>Login</h1>
+    <form
+      class="flex flex-col"
+      @submit.prevent="login(form)"
+    >
+      <form-input
+        v-model="form.email"
+        name="email"
+        placeholder="E-mail"
+        type="email"
+      />
+      <form-input
+        v-model="form.password"
+        name="password"
+        placeholder="Password"
+        type="password"
+      />
+      <submit-button>Sign in</submit-button>
+    </form>
+
+    <span class="text-xs mt-4">
+      Are you new here?
+      <router-link to="/register">
+        Create a new profile
+      </router-link>
+    </span>
+  </main>
 </template>
 
 <script setup lang="ts">
