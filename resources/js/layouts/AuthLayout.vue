@@ -7,7 +7,17 @@
           class="w-1/3 mb-16"
           src="/logo-align-left.svg"
         >
-        <router-view class="flex text-center h-2/6" />
+        <router-view
+          v-slot="{ Component }"
+          class="flex text-center h-2/6"
+        >
+          <transition
+            name="fade"
+            mode="out-in"
+          >
+            <component :is="Component" />
+          </transition>
+        </router-view>
       </div>
       <div class="basis-1 grow flex flex-col justify-center items-center pr-32">
         <img
@@ -24,5 +34,13 @@
 </script>
 
 <style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
 
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>
