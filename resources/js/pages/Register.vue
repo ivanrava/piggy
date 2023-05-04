@@ -1,5 +1,5 @@
 <template>
-    <main class="w-1/2 flex flex-col justify-center align-middle text-right">
+    <main class="flex flex-col justify-center align-middle">
         <h1>Register</h1>
         <form @submit.prevent="register(form)">
             <form-input name="name" placeholder="Name" v-model="form.name"/>
@@ -8,7 +8,7 @@
             <form-input name="password_confirmation" placeholder="Confirm password" type="password" v-model="form.password_confirmation"/>
             <submit-button>Sign up</submit-button>
         </form>
-        <router-link to="/login">Login link</router-link>
+        <router-link to="/login">Sign in</router-link>
     </main>
 </template>
 

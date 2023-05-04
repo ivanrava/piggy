@@ -1,13 +1,14 @@
 <template>
-    <main class="w-1/2 flex flex-col justify-center align-middle text-right">
+    <main class="flex flex-col justify-center align-middle">
         <h1>Login</h1>
-        <form @submit.prevent="login(form)" class="flex flex-col items-end w-auto">
+        <form @submit.prevent="login(form)" class="flex flex-col">
             <form-input v-model="form.email"
                         name="email" placeholder="E-mail" type="email" />
             <form-input v-model="form.password"
                         name="password" placeholder="Password" type="password" />
             <submit-button>Sign in</submit-button>
         </form>
+        <router-link to="/register">Sign up</router-link>
     </main>
 </template>
 

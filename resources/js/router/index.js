@@ -1,24 +1,31 @@
 import {createRouter, createWebHistory} from "vue-router";
 import {useAuth} from "../composables/useAuth";
+import AuthLayout from "../layouts/AuthLayout.vue";
 
 const routes = [
     {
-        name: 'register',
-        path: '/register',
-        component: () => import('@/pages/Register.vue'),
-        meta: {
-            title: 'Register',
-            requiresAuth: false
-        }
-    },
-    {
-        name: 'login',
-        path: '/login',
-        component: () => import('@/pages/Login.vue'),
-        meta: {
-            title: 'Login',
-            requiresAuth: false
-        }
+        path: '/',
+        component: AuthLayout,
+        children: [
+            {
+                name: 'register',
+                path: '/register',
+                component: () => import('@/pages/Register.vue'),
+                meta: {
+                    title: 'Register',
+                    requiresAuth: false
+                }
+            },
+            {
+                name: 'login',
+                path: '/login',
+                component: () => import('@/pages/Login.vue'),
+                meta: {
+                    title: 'Login',
+                    requiresAuth: false
+                }
+            },
+        ]
     },
     {
         name: 'me',
