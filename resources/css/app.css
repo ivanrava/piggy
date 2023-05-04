@@ -4,13 +4,13 @@
 
 @layer base {
     h1 {
-        @apply text-4xl my-4 font-light;
+        @apply text-4xl my-4 font-extralight;
     }
     h2 {
-        @apply text-2xl my-2 font-light;
+        @apply text-2xl my-2 font-extralight;
     }
     h3 {
-        @apply text-lg my-1 font-light;
+        @apply text-lg my-1 font-extralight;
     }
     a {
         @apply underline text-gray-400 text-xs hover:text-gray-600 transition-all;
