@@ -1,6 +1,8 @@
 <template>
   <main class="flex flex-col justify-center align-middle">
-    <h1>Login</h1>
+    <h1 class="font-serif">
+      Login
+    </h1>
     <form
       class="flex flex-col"
       @submit.prevent="login(form)"

@@ -1,7 +1,12 @@
 <template>
   <main class="flex flex-col justify-center align-middle">
-    <h1>Register</h1>
-    <form class="flex flex-col" @submit.prevent="register(form)">
+    <h1 class="font-serif">
+      Register
+    </h1>
+    <form
+      class="flex flex-col"
+      @submit.prevent="register(form)"
+    >
       <form-input
         v-model="form.name"
         name="name"

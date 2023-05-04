@@ -1,10 +1,12 @@
 <template>
-    <button :disabled="isDisabled"
-            :class="hasDisabledStyle ? 'disabled' : 'active'"
-            @click="isLoading=true">
-        <slot v-if="!isLoading"></slot>
-        <span v-else>Loading</span>
-    </button>
+  <button
+    :disabled="isDisabled"
+    :class="hasDisabledStyle ? 'disabled' : 'active'"
+    @click="isLoading=true"
+  >
+    <slot v-if="!isLoading" />
+    <span v-else>Loading</span>
+  </button>
 </template>
 
 <script setup lang="ts">
@@ -27,7 +29,7 @@ const hasDisabledStyle = computed(() => {
 
 <style scoped>
 button {
-    @apply py-3 px-6 rounded-md my-1 transition-all text-slate-50 font-medium;
+    @apply py-3 px-6 rounded-md my-1 transition-all text-slate-50 font-normal;
 }
 button.active {
     @apply bg-pink-300 hover:bg-pink-100;
