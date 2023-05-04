@@ -12,6 +12,7 @@ module.exports = {
         extend: {
             fontFamily: {
                 'sans': ['Inter', ...defaultTheme.fontFamily.sans],
+                'serif': ['Josefin Slab', ...defaultTheme.fontFamily.serif],
                 'mono': ['Ubuntu Mono', ...defaultTheme.fontFamily.mono]
             }
         },
