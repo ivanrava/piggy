@@ -1,5 +1,6 @@
 <template>
   <button
+    class="focus:outline-none transition-all ring-pink-300/20 focus:ring-4"
     :disabled="isDisabled"
     :class="hasDisabledStyle ? 'disabled' : 'active'"
     @click="isLoading=true"

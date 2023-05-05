@@ -1,5 +1,6 @@
 <template>
   <input
+    class="focus:outline-none transition-all ring-pink-300/20 focus:ring-4"
     v-model="value"
     :placeholder="placeholder"
     :name="name"
