@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from "vue-router";
 import {useAuth} from "../composables/useAuth";
 import AuthLayout from "../layouts/AuthLayout.vue";
+import DashboardLayout from "../layouts/DashboardLayout.vue";
 
 const routes = [
     {
@@ -25,6 +26,21 @@ const routes = [
                     requiresAuth: false
                 }
             },
+        ]
+    },
+    {
+        path: '/',
+        component: DashboardLayout,
+        children: [
+            {
+                name: 'home',
+                path: '/home',
+                component: () => import('@/pages/Home.vue'),
+                meta: {
+                    title: 'Home',
+                    requiresAuth: true
+                }
+            }
         ]
     },
     {

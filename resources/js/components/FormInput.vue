@@ -2,15 +2,15 @@
   <div class="my-1">
     <input
       class="focus:outline-none transition-all ring-pink-300/20 focus:ring-4 p-2 bg-slate-100 w-64 rounded-t-sm text-sm font-mono"
-      :class="{'rounded-b-sm': errors.length == 0}"
+      :class="{'rounded-b-sm': fullErrors.length == 0}"
       v-model="value"
       :placeholder="placeholder"
       :name="name"
       :type="type"
     >
-    <ul class="p-2 bg-red-50 bg-opacity-30 rounded-b-md" v-if="errors.length > 0">
+    <ul class="p-2 bg-red-50 bg-opacity-30 rounded-b-md" v-if="fullErrors.length > 0">
       <li
-        v-for="error in errors"
+        v-for="error in fullErrors"
         class="text-left text-xs text-red-400"
       >
         <i-fa6-regular-circle-xmark class="inline" />
@@ -39,7 +39,7 @@ const props = defineProps({
         default: 'text'
     },
     errors: {
-        type: Array,
+        type: Array<String>,
         default: []
     }
 })
@@ -53,4 +53,25 @@ const value = computed({
         emit('update:modelValue', value)
     }
 })
+
+const validators = {
+  email: {
+    'Please insert a correct email address': (email) => {
+      const emailRegex = new RegExp(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/, "gm")
+      return emailRegex.test(email)
+    }
+  }
+}
+
+const fullErrors = computed<Array<String>>(() => {
+  const myErrors = [];
+  if (props.type in validators) {
+    for (const [message, validator] of Object.entries(validators[props.type])) {
+      if (validator(value))
+        myErrors.push(message)
+    }
+  }
+
+  return props.errors
+});
 </script>

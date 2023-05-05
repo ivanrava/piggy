@@ -26,6 +26,8 @@ interface User {
     updated_at: Date;
 }
 
+const homePath: string = '/home';
+
 // TODO: refactor/move into state
 const user = ref<User | null>(null)
 const errors = ref<Object>({})
@@ -61,7 +63,7 @@ export const useAuth = () => {
     async function login(payload: LoginPayload) {
         loading.value = true;
         axios.post("/login", payload).then(() => {
-            router.push('/me')
+            router.push(homePath)
             errors.value = [];
         }).catch(({response}) => {
             errors.value = response.data.errors;
