@@ -12,18 +12,21 @@
         name="email"
         placeholder="E-mail"
         type="email"
+        :errors="errors.email"
       />
       <form-input
         v-model="form.password"
         name="password"
         placeholder="Password"
         type="password"
+        :errors="errors.password"
       />
-      <submit-button>Sign in</submit-button>
+      <submit-button :is-loading="loading">
+        Sign in
+      </submit-button>
     </form>
 
     <span class="text-xs mt-4">
-      Are you new here?
       <router-link to="/register">
         Create a new profile
       </router-link>
@@ -42,7 +45,7 @@ const form = ref({
     password: ''
 })
 
-const {login} = useAuth()
+const {login, errors, loading} = useAuth()
 </script>
 
 <style scoped>

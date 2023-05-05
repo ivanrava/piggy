@@ -11,26 +11,30 @@
         v-model="form.name"
         name="name"
         placeholder="Name"
+        :errors="errors.name"
       />
       <form-input
         v-model="form.email"
         name="email"
         placeholder="E-mail"
         type="email"
+        :errors="errors.email"
       />
       <form-input
         v-model="form.password"
         name="password"
         placeholder="Password"
         type="password"
+        :errors="errors.password"
       />
       <form-input
         v-model="form.password_confirmation"
         name="password_confirmation"
         placeholder="Confirm password"
         type="password"
+        :errors="errors.password_confirmation"
       />
-      <submit-button>Sign up</submit-button>
+      <submit-button :is-loading="loading">Sign up</submit-button>
     </form>
     <span class="text-xs mt-4">
       Have you got a <i>deja-vu</i>?
@@ -54,7 +58,7 @@ const form = ref({
     password_confirmation: ''
 })
 
-const {register} = useAuth();
+const {register, errors, loading} = useAuth();
 </script>
 
 <style scoped>

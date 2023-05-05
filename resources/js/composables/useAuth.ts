@@ -28,6 +28,8 @@ interface User {
 
 // TODO: refactor/move into state
 const user = ref<User | null>(null)
+const errors = ref<Object>({})
+const loading = ref<Boolean>(false)
 
 export const useAuth = () => {
     const router = useRouter()
@@ -57,22 +59,35 @@ export const useAuth = () => {
         user.value = await getUser()
     }
     async function login(payload: LoginPayload) {
+        loading.value = true;
         axios.post("/login", payload).then(() => {
             router.push('/me')
+            errors.value = [];
+        }).catch(({response}) => {
+            errors.value = response.data.errors;
+        }).finally(() => {
+            loading.value = false;
         })
     }
     async function logout() {
+        loading.value = true;
         axios.post("/logout").then(() => {
             user.value = null;
             router.replace("/login")
+        }).finally(() => {
+            loading.value = false;
         })
     }
     async function register(payload: RegisterPayload)  {
-        await axios.post("/register", payload);
-        await login({
-            email: payload.email,
-            password: payload.password
+        loading.value = true;
+        axios.post("/register", payload).then(() => {
+            login({
+                email: payload.email,
+                password: payload.password
+            });
+        }).finally(() => {
+            loading.value = false;
         });
     }
-    return {login, logout, register, initUser, user}
+    return {login, logout, register, initUser, user, errors, loading}
 }

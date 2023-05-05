@@ -3,10 +3,12 @@
     class="focus:outline-none transition-all ring-pink-300/20 focus:ring-4"
     :disabled="isDisabled"
     :class="hasDisabledStyle ? 'disabled' : 'active'"
-    @click="isLoading=true"
   >
     <slot v-if="!isLoading" />
-    <span v-else>Loading</span>
+    <span v-else>
+      <i-fa6-solid-circle-notch class="inline animate-spin" />
+      Loading
+    </span>
   </button>
 </template>
 
@@ -18,13 +20,16 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    isLoading: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const isDisabled = ref(props.startsDisabled)
-const isLoading = ref(false)
 
 const hasDisabledStyle = computed(() => {
-    return isDisabled.value || isLoading.value
+    return isDisabled.value || props.isLoading
 })
 </script>
 

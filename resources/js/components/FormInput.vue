@@ -1,23 +1,27 @@
 <template>
-  <input
-    class="focus:outline-none transition-all ring-pink-300/20 focus:ring-4"
-    v-model="value"
-    :placeholder="placeholder"
-    :name="name"
-    :type="type"
-  >
-  <ul>
-    <li
-      v-for="error in errors"
-      class="text-left text-xs text-red-400"
+  <div class="my-1">
+    <input
+      class="focus:outline-none transition-all ring-pink-300/20 focus:ring-4 p-2 bg-slate-100 w-64 rounded-t-sm text-sm font-mono"
+      :class="{'rounded-b-sm': errors.length == 0}"
+      v-model="value"
+      :placeholder="placeholder"
+      :name="name"
+      :type="type"
     >
-      {{ error }}
-    </li>
-  </ul>
+    <ul class="p-2 bg-red-50 bg-opacity-30 rounded-b-md" v-if="errors.length > 0">
+      <li
+        v-for="error in errors"
+        class="text-left text-xs text-red-400"
+      >
+        <i-fa6-regular-circle-xmark class="inline" />
+        {{ error }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import {computed} from "vue";
 
 const props = defineProps({
     modelValue: {
@@ -33,6 +37,10 @@ const props = defineProps({
     type: {
         type: String,
         default: 'text'
+    },
+    errors: {
+        type: Array,
+        default: []
     }
 })
 const emit = defineEmits(['update:modelValue'])
@@ -45,12 +53,4 @@ const value = computed({
         emit('update:modelValue', value)
     }
 })
-
-const errors = ref([])
 </script>
-
-<style scoped>
-input {
-    @apply p-2 bg-slate-100 my-1 w-64 rounded-sm text-sm font-mono;
-}
-</style>
