@@ -3,10 +3,10 @@
     <nav-bar/>
     <div class="flex w-full h-full">
       <side-bar/>
-      <main class="p-4">
+      <main class="p-4 w-full">
         <router-view
           v-slot="{ Component }"
-          class="flex"
+          class="flex w-full"
         >
           <transition
             name="fade"
