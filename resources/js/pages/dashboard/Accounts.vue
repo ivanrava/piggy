@@ -7,7 +7,7 @@
       </tr>
     </thead>
     <tbody>
-      <account-row v-for="account in accounts" :account="account" />
+      <account-row v-for="account in accounts" :account="account" :key="account.name" />
     </tbody>
   </table>
 </template>
