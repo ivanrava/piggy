@@ -24,7 +24,10 @@
       <i-fa6-solid-circle-notch class="inline animate-spin" />
       Loading
     </span>
-    <div class="flex justify-start mb-1 ml-2" v-if="actualPages > 1">
+    <div
+      v-if="actualPages > 1"
+      class="flex justify-start mb-1 ml-2"
+    >
       <span
         v-for="i in actualPages"
         :key="i"
@@ -40,7 +43,7 @@
         v-for="icon in currentPage"
         :key="icon"
         :class="{'bg-red-400/20': selected === icon}"
-        class="text-5xl hover:ring-1 ring-red-200/50 hover:shadow-md p-2 rounded-xl transition-all"
+        class="text-5xl hover:ring-1 ring-red-200/50 hover:shadow-md p-2 w-12 rounded-xl transition-all cursor-pointer"
         :icon="icon"
         @click="selected = icon"
       />
@@ -87,5 +90,4 @@ const currentPage = computed(() => {
 </script>
 
 <style scoped>
-
 </style>
