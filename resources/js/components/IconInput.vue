@@ -18,6 +18,12 @@
       Showing {{ total }} icons.
     </span>
     <span
+      v-else-if="!isLoading && total == 0 && prompt.length > 0"
+      class="p-3 text-xs opacity-50"
+    >
+      Nothing found.
+    </span>
+    <span
       v-else-if="isLoading"
       class="p-3 text-xs opacity-50"
     >
