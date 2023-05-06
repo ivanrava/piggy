@@ -5,14 +5,16 @@
       <side-bar/>
       <main class="p-4 w-full">
         <router-view
-          v-slot="{ Component }"
+          v-slot="{ Component, route }"
           class="flex w-full"
         >
           <transition
             name="fade"
             mode="out-in"
           >
-            <component :is="Component" />
+            <div :key="route.name">
+              <component :is="Component" />
+            </div>
           </transition>
         </router-view>
       </main>
