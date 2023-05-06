@@ -36,9 +36,9 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
-import {useAuth} from "../composables/useAuth";
-import SubmitButton from "../components/SubmitButton.vue";
-import FormInput from "../components/FormInput.vue";
+import {useAuth} from "../../composables/useAuth";
+import SubmitButton from "../../components/SubmitButton.vue";
+import FormInput from "../../components/FormInput.vue";
 
 const form = ref({
     email: '',
