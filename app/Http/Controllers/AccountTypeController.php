@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAccountTypeRequest;
 use App\Http\Requests\UpdateAccountTypeRequest;
 use App\Models\AccountType;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 class AccountTypeController extends Controller
@@ -12,9 +13,9 @@ class AccountTypeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): string
+    public function index(): JsonResponse
     {
-        return AccountType::all()->toJson();
+        return response()->json(AccountType::all());
     }
 
     /**
@@ -31,9 +32,9 @@ class AccountTypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(AccountType $accountType): string
+    public function show(AccountType $accountType): JsonResponse
     {
-        return $accountType->toJson();
+        return response()->json($accountType);
     }
 
     /**
