@@ -21,4 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/account_types', [AccountTypeController::class, 'index']);
-Route::apiResource('account', AccountController::class);
+Route::apiResource('accounts', AccountController::class);
