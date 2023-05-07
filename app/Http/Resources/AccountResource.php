@@ -17,12 +17,12 @@ class AccountResource extends JsonResource
     {
         return [
             'name' => $this->name,
-            'initial_balance' => $this->initial_balance,
+            'balance' => $this->initial_balance,
             'type' => $this->type->type,
             'color' => $this->color,
             'icon' => $this->icon,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'last_update' => $this->updated_at
         ];
     }
 }
