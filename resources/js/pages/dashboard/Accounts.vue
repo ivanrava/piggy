@@ -7,7 +7,7 @@
       </tr>
     </thead>
     <tbody>
-      <account-row v-for="account in accounts" :account="account" />
+      <account-row v-for="account in accounts" :account="account" :key="account.name" />
     </tbody>
   </table>
 </template>
@@ -17,6 +17,22 @@ import AccountRow from "../../components/AccountRow.vue";
 import {ref} from "vue";
 
 const accounts = ref([
+  {
+    icon: 'fluent:wallet-credit-card-16-filled',
+    name: 'Wallet',
+    type: 'Cash',
+    balance: '300€',
+    last_update: 'Last update 3 minutes ago',
+    color: '#00BFA6',
+  },
+  {
+    icon: 'vaadin:handshake',
+    name: 'TFR DiRete',
+    type: 'Investments',
+    balance: '224€',
+    last_update: 'Last update 16 minutes ago',
+    color: '#F9A826',
+  }
 ]);
 </script>
 
