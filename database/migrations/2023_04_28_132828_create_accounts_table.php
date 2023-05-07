@@ -15,17 +15,15 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            //$table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->foreignId('account_type_id')->constrained();
             $table->decimal('initial_balance', self::TOTAL_DIGITS, 2);
             $table->string('name');
             $table->string('icon');
-            // TODO: maybe a rigid length?
-            $table->string('color');
+            $table->string('color', 6);
             $table->date('opening');
             $table->date('closing')->nullable();
-            // TODO: add a maximum length
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

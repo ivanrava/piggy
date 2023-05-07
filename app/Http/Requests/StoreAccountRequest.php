@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreAccountRequest extends FormRequest
@@ -17,12 +18,12 @@ class StoreAccountRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        return array_merge(UpdateAccountRequest::VALIDATION_RULES, [
+            'initial_balance' => 'required|decimal:2|max_digits:10',
+        ]);
     }
 }
