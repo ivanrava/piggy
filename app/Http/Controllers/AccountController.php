@@ -6,6 +6,7 @@ use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
 use App\Models\Account;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class AccountController extends Controller
 {
@@ -20,9 +21,20 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAccountRequest $request)
+    public function store(StoreAccountRequest $request): Response
     {
-        //
+        $account = new Account();
+        $account->initial_balance = $request->initial_balance;
+        $account->user_id = $request->user()->id;
+        $account->account_type_id = $request->account_type_id;
+        $account->name = $request->name;
+        $account->icon = $request->icon;
+        $account->color = $request->color;
+        $account->opening = $request->opening;
+        $account->closing = $request->closing;
+        $account->description = $request->description;
+        $account->save();
+        return response()->noContent(201);
     }
 
     /**
@@ -36,16 +48,26 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAccountRequest $request, Account $account)
+    public function update(UpdateAccountRequest $request, Account $account): Response
     {
-        //
+        $account->user_id = $request->user()->id;
+        $account->account_type_id = $request->account_type_id;
+        $account->name = $request->name;
+        $account->icon = $request->icon;
+        $account->color = $request->color;
+        $account->opening = $request->opening;
+        $account->closing = $request->closing;
+        $account->description = $request->description;
+        $account->save();
+        return response()->noContent();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Account $account)
+    public function destroy(Account $account): Response
     {
-        //
+        $account->delete();
+        return response()->noContent();
     }
 }
