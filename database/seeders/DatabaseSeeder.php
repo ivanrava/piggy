@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             AccountTypeSeeder::class
         ]);
         User::factory()->count(3)->create()->each(function (User $user) {
-            $user->accounts()->saveMany(Account::factory()->count(10)->make());
+            $user->accounts()->saveMany(Account::factory()->count(25)->make());
         });
     }
 }

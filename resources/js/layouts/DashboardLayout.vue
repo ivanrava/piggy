@@ -3,7 +3,7 @@
     <nav-bar/>
     <div class="flex w-full h-full">
       <side-bar/>
-      <main class="p-4 w-full">
+      <main class="w-full">
         <router-view
           v-slot="{ Component, route }"
           class="flex w-full"
@@ -12,7 +12,7 @@
             name="fade"
             mode="out-in"
           >
-            <div :key="route.name">
+            <div :key="route.name" class="h-full">
               <component :is="Component" />
             </div>
           </transition>
