@@ -42,8 +42,11 @@ class AccountController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Account $account): AccountResource
+    public function show(Request $request, Account $account): Response|AccountResource
     {
+        if ($account->user_id != $request->user()->id)
+            return response()->noContent(404);
+
         return new AccountResource($account);
     }
 
@@ -67,8 +70,11 @@ class AccountController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Account $account): Response
+    public function destroy(Request $request, Account $account): Response
     {
+        if ($account->user_id != $request->user()->id)
+            return response()->noContent(404);
+
         $account->delete();
         return response()->noContent();
     }

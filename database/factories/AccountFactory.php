@@ -31,7 +31,8 @@ class AccountFactory extends Factory
             'color' => substr(fake()->hexColor, 1),
             'opening' => $startDate,
             'closing' => fake()->optional()->dateTimeBetween(
-                $startDate->add(\DateInterval::createFromDateString('1 day'))
+                $startDate->add(\DateInterval::createFromDateString('1 day')),
+                $startDate->add(\DateInterval::createFromDateString('1 year'))
             ),
             'description' => fake()->text(500)
         ];
