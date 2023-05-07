@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
+use App\Http\Resources\AccountResource;
 use App\Models\Account;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
 class AccountController extends Controller
@@ -13,9 +15,9 @@ class AccountController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): AnonymousResourceCollection
     {
-        return response()->json(Account::all());
+        return AccountResource::collection($request->user()->accounts()->get());
     }
 
     /**
@@ -40,9 +42,9 @@ class AccountController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Account $account): JsonResponse
+    public function show(Account $account): AccountResource
     {
-        return response()->json($account);
+        return new AccountResource($account);
     }
 
     /**
