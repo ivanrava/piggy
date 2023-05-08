@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Beneficiary;
+use App\Models\Account;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class BeneficiarySeeder extends Seeder
+class AccountSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,6 +19,6 @@ class BeneficiarySeeder extends Seeder
 
     public static function seed(User $user): void
     {
-        $user->beneficiaries()->saveMany(Beneficiary::factory()->count(20)->make());
+        $user->accounts()->saveMany(Account::factory()->count(25)->make());
     }
 }
