@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Account
@@ -47,5 +48,25 @@ class Account extends Model
     public function type(): BelongsTo
     {
         return $this->belongsTo(AccountType::class, 'account_type_id', 'id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function in_transfers(): HasMany
+    {
+        return $this->hasMany(Transfer::class);
+    }
+
+    public function out_transfers(): HasMany
+    {
+        return $this->hasMany(Transfer::class);
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
     }
 }
