@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('beneficiary_id');
             $table->date('date');
             $table->decimal('amount', 10, 2);
-            $table->enum('type', ['out', 'in']);
             $table->text('notes')->nullable();
             $table->timestamps();
 

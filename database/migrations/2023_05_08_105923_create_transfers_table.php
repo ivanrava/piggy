@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('to_account_id');
             $table->date('date');
             $table->decimal('amount', 10, 2);
+            $table->text('notes')->nullable();
             $table->timestamps();
 
             $table->foreign('from_account_id')->references('id')->on('accounts');

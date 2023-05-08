@@ -17,7 +17,8 @@ class BeneficiaryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name,
+            'img' => fake()->imageUrl(width: 256, height: 256)
         ];
     }
 }
