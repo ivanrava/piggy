@@ -6,13 +6,15 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): AnonymousResourceCollection
     {
         return CategoryResource::collection($request->user()->categories()->get());
     }
@@ -28,9 +30,12 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(Request $request, Category $category): CategoryResource|Response
     {
-        //
+        if ($category->user_id != $request->user()->id)
+            return response()->noContent(404);
+
+        return new CategoryResource($category);
     }
 
     /**

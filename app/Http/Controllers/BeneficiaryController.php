@@ -7,6 +7,7 @@ use App\Http\Resources\BeneficiaryResource;
 use App\Models\Beneficiary;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class BeneficiaryController extends Controller
 {
@@ -29,9 +30,12 @@ class BeneficiaryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Beneficiary $beneficiary)
+    public function show(Request $request, Beneficiary $beneficiary): Response|BeneficiaryResource
     {
-        //
+        if ($beneficiary->user_id != $request->user()->id)
+            return response()->noContent(404);
+
+        return new BeneficiaryResource($beneficiary);
     }
 
     /**
