@@ -35,7 +35,7 @@ class BeneficiaryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBeneficiaryRequest $request, Beneficiary $beneficiary)
+    public function update(StoreBeneficiaryRequest $request, Beneficiary $beneficiary)
     {
         //
     }

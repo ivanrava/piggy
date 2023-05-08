@@ -35,7 +35,7 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTransactionRequest $request, Transaction $transaction)
+    public function update(StoreTransactionRequest $request, Transaction $transaction)
     {
         //
     }

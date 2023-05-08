@@ -35,7 +35,7 @@ class TransferController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTransferRequest $request, Transfer $transfer)
+    public function update(StoreTransferRequest $request, Transfer $transfer)
     {
         //
     }
