@@ -28,16 +28,19 @@ class DatabaseSeeder extends Seeder
                 $category->parent_category_id = fake()->randomElement([$category->id % 20 - 1 == 0 ? null : $category->id - 1, null]);
                 $category->save();
             });
-            $user->accounts()->saveMany(Account::factory()->count(25)->make()->each(
-                function (Account $account) use ($user) {
-                    #$account->transactions()->saveMany(Transaction::factory()->count(50)->make()->each(function (Transaction $trans) use ($user) {
-                    #    $trans->category_id = $user->categories()->inRandomOrder()->first()->id;
-                    #    $trans->beneficiary_id = $user->beneficiaries()->inRandomOrder()->first()->id;
-                    #}));
-                    #$account->in_transfers()->saveMany(Transfer::factory()->count(2)->make());
-                    #$account->out_transfers()->saveMany(Transfer::factory()->count(2)->make());
-                }
-            ));
+            $user->accounts()->saveMany(Account::factory()->count(25)->make());
+            $user->accounts()->each(function (Account $account) use ($user) {
+                $account->transactions()->saveMany(Transaction::factory()->count(50)->make()->each(function (Transaction $trans) use ($user) {
+                    $trans->category_id = $user->categories()->inRandomOrder()->first()->id;
+                    $trans->beneficiary_id = $user->beneficiaries()->inRandomOrder()->first()->id;
+                }));
+                $account->in_transfers()->saveMany(Transfer::factory()->count(2)->make()->each(function (Transfer $transfer) use ($user, $account) {
+                    $transfer->from_account_id = $user->accounts()->where('id', '!=', $account->id)->inRandomOrder()->first()->id;
+                }));
+                $account->out_transfers()->saveMany(Transfer::factory()->count(2)->make()->each(function (Transfer $transfer) use ($user, $account) {
+                    $transfer->to_account_id = $user->accounts()->where('id', '!=', $account->id)->inRandomOrder()->first()->id;
+                }));
+            });
         });
     }
 }
