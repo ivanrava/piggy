@@ -11,7 +11,7 @@ class StoreBeneficiaryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->id == $this->user_id;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreBeneficiaryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|max:100',
+            'img' => 'nullable|max:255',
         ];
     }
 }
