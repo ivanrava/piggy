@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTransferRequest;
-use App\Http\Requests\UpdateTransferRequest;
+use App\Http\Resources\TransferResource;
 use App\Models\Transfer;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class TransferController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request): AnonymousResourceCollection
     {
-        //
+        return TransferResource::collection($request->user()->transfers()->get());
     }
 
     /**
