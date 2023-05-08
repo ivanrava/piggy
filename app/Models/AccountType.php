@@ -18,6 +18,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $type
  * @method static \Illuminate\Database\Eloquent\Builder|AccountType whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|AccountType whereType($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Account> $accounts
+ * @property-read int|null $accounts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Account> $accounts
  * @mixin Eloquent
  */
 class AccountType extends Model

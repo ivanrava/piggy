@@ -6,6 +6,36 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * App\Models\Transaction
+ *
+ * @property-read \App\Models\Account|null $account
+ * @property-read \App\Models\Beneficiary|null $beneficiary
+ * @property-read \App\Models\Category|null $category
+ * @method static \Database\Factories\TransactionFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction query()
+ * @property int $id
+ * @property int $account_id
+ * @property int $category_id
+ * @property int $beneficiary_id
+ * @property string $date
+ * @property string $amount
+ * @property string|null $notes
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereAccountId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereBeneficiaryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Transaction extends Model
 {
     use HasFactory;

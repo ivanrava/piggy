@@ -46,6 +46,18 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereSurname($value)
  * @method static Builder|User whereUpdatedAt($value)
+ * @property string|null $two_factor_secret
+ * @property string|null $two_factor_recovery_codes
+ * @property-read Collection<int, \App\Models\Account> $accounts
+ * @property-read int|null $accounts_count
+ * @property-read Collection<int, \App\Models\Beneficiary> $beneficiaries
+ * @property-read int|null $beneficiaries_count
+ * @property-read Collection<int, \App\Models\Category> $categories
+ * @property-read int|null $categories_count
+ * @property-read Collection<int, \App\Models\Transfer> $transfers
+ * @property-read int|null $transfers_count
+ * @method static Builder|User whereTwoFactorRecoveryCodes($value)
+ * @method static Builder|User whereTwoFactorSecret($value)
  * @mixin Eloquent
  */
 class User extends Authenticatable

@@ -39,6 +39,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static Builder|Account whereOpening($value)
  * @method static Builder|Account whereUpdatedAt($value)
  * @method static Builder|Account whereUserId($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Transfer> $in_transfers
+ * @property-read int|null $in_transfers_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Transfer> $out_transfers
+ * @property-read int|null $out_transfers_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Transaction> $transactions
+ * @property-read int|null $transactions_count
+ * @property-read \App\Models\AccountType $type
+ * @property-read \App\Models\User $user
  * @mixin \Eloquent
  */
 class Account extends Model
@@ -67,6 +75,6 @@ class Account extends Model
 
     public function transactions(): HasMany
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class, 'account_id', 'id');
     }
 }
