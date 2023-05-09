@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AccountTypeSeeder::class
         ]);
-        User::factory()->count(3)->create()->each(function (User $user) {
+        User::factory()->count(2)->create()->each(function (User $user) {
             BeneficiarySeeder::seed($user);
             CategorySeeder::seed($user);
             AccountSeeder::seed($user);

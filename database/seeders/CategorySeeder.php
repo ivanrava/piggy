@@ -20,7 +20,7 @@ class CategorySeeder extends Seeder
 
     public static function seed(User $user): void
     {
-        $user->categories()->saveMany(Category::factory()->count(20)->make());
+        $user->categories()->saveMany(Category::factory()->count(5)->make());
         $user->categories()->each(function (Category $category) {
             $category->parent_category_id = fake()->randomElement([$category->id % 20 - 1 == 0 ? null : $category->id - 1, null]);
             $category->save();

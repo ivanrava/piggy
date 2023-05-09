@@ -19,6 +19,6 @@ class BeneficiarySeeder extends Seeder
 
     public static function seed(User $user): void
     {
-        $user->beneficiaries()->saveMany(Beneficiary::factory()->count(20)->make());
+        $user->beneficiaries()->saveMany(Beneficiary::factory()->count(5)->make());
     }
 }
