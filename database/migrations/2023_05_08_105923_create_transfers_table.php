@@ -13,15 +13,16 @@ return new class extends Migration
     {
         Schema::create('transfers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('from_account_id');
-            $table->foreignId('to_account_id');
+            $table->foreignId('from_account_id')->constrained(
+                table: 'accounts'
+            )->cascadeOnDelete();
+            $table->foreignId('to_account_id')->constrained(
+                table: 'accounts'
+            )->cascadeOnDelete();
             $table->date('date');
             $table->decimal('amount', 10, 2);
             $table->text('notes')->nullable();
             $table->timestamps();
-
-            $table->foreign('from_account_id')->references('id')->on('accounts');
-            $table->foreign('to_account_id')->references('id')->on('accounts');
         });
     }
 
