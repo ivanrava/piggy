@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -31,5 +32,24 @@ class CategoryTreeTest extends TestCase
                 'parent_category_id' => $parent->id
             ]);
         });
+        $this->assertEquals([], $children[0]->children->toArray());
+        $this->assertNotEquals([], $parent->children->toArray());
+    }
+
+    public function test_tree_serialization()
+    {
+        $user = User::factory()->createOne();
+        $parent = Category::factory()->createOne(['user_id' => $user->id]);
+        $children = Category::factory()->count(5)->make(['user_id' => $user->id]);
+        $parent->children()->saveMany($children);
+
+        $resource = new CategoryResource($parent);
+        $this->assertJson($resource->toJson());
+
+        $roots = $user->categories()->whereParentCategoryId(null);
+        $this->assertCount(1, $roots->get());
+
+        $resource = CategoryResource::collection($roots->get());
+        $this->assertJson($resource->toJson());
     }
 }

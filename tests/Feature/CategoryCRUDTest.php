@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -24,6 +24,12 @@ class CategoryCRUDTest extends TestCase
 
     public function test_category_index(): void
     {
+        $parent = Category::factory()->createOne(['user_id' => $this->user->id]);
+        $children = Category::factory()->count(2)->make(['user_id' => $this->user->id]);
+        $grandchildren = Category::factory()->count(1)->make(['user_id' => $this->user->id]);
+        $parent->children()->saveMany($children);
+        $children[1]->children()->saveMany($grandchildren);
+
         $response = $this->get('/api/categories');
 
         $response->assertStatus(200);
@@ -31,7 +37,13 @@ class CategoryCRUDTest extends TestCase
         $response->assertJsonFragment([
             'name' => $a_category->name,
             'icon' => $a_category->icon,
-            'parent_category' => $a_category->parent_category_id
+            'type' => $a_category->type
+        ]);
+        $response->assertJsonFragment([
+            'name' => $grandchildren[0]->name,
+            'icon' => $grandchildren[0]->icon,
+            'type' => $grandchildren[0]->type,
+            'children' => []
         ]);
     }
 
@@ -44,7 +56,30 @@ class CategoryCRUDTest extends TestCase
         $response->assertJsonFragment([
             'name' => $a_category->name,
             'icon' => $a_category->icon,
-            'parent_category' => $a_category->parent_category_id
+            'type' => $a_category->type
+    ]);
+}
+
+    public function test_category_show_with_children(): void
+    {
+        $parent = Category::factory()->createOne(['user_id' => $this->user->id]);
+        $children = Category::factory()->count(5)->make(['user_id' => $this->user->id]);
+        $grandchildren = Category::factory()->count(5)->make(['user_id' => $this->user->id]);
+        $parent->children()->saveMany($children);
+        $children[1]->children()->saveMany($grandchildren);
+
+        $response = $this->get('/api/categories/'.$parent->id);
+        $response->assertStatus(200);
+        $response->assertJsonFragment([
+            'name' => $parent->name,
+            'icon' => $parent->icon,
+            'type' => $parent->type
+        ]);
+        $response->assertJsonFragment([
+            'name' => $grandchildren[0]->name,
+            'icon' => $grandchildren[0]->icon,
+            'type' => $grandchildren[0]->type,
+            'children' => []
         ]);
     }
 
