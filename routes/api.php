@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AccountTypeController;
+use App\Http\Controllers\BeneficiaryController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +24,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::get('/account_types', [AccountTypeController::class, 'index']);
     Route::apiResource('accounts', AccountController::class);
+    Route::apiResource('beneficiaries', BeneficiaryController::class);
+    Route::apiResource('categories', CategoryController::class);
 });

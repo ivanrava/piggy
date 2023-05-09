@@ -22,9 +22,14 @@ class BeneficiaryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBeneficiaryRequest $request)
+    public function store(StoreBeneficiaryRequest $request): Response
     {
-        //
+        $beneficiary = new Beneficiary();
+        $beneficiary->user_id = $request->user()->id;
+        $beneficiary->name = $request->name;
+        $beneficiary->img = $request->img;
+        $beneficiary->save();
+        return response()->noContent(201);
     }
 
     /**
@@ -41,16 +46,24 @@ class BeneficiaryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreBeneficiaryRequest $request, Beneficiary $beneficiary)
+    public function update(StoreBeneficiaryRequest $request, Beneficiary $beneficiary): Response
     {
-        //
+        $beneficiary->user_id = $request->user()->id;
+        $beneficiary->name = $request->name;
+        $beneficiary->img = $request->img;
+        $beneficiary->save();
+        return response()->noContent();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Beneficiary $beneficiary)
+    public function destroy(Request $request, Beneficiary $beneficiary): Response
     {
-        //
+        if ($beneficiary->user_id != $request->user()->id)
+            return response()->noContent(404);
+
+        $beneficiary->delete();
+        return response()->noContent();
     }
 }
