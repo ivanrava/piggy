@@ -96,7 +96,7 @@ class BeneficiaryCRUDTest extends TestCase
     public function test_beneficiary_delete_errors_on_wrong_user(): void
     {
         $a_beneficiary = User::find(2)->beneficiaries()->first();
-        $response = $this->delete('/api/accounts/'.$a_beneficiary->id);
+        $response = $this->delete('/api/beneficiaries/'.$a_beneficiary->id);
         $response->assertStatus(404);
         $this->assertDatabaseHas('beneficiaries', [
             'id' => $a_beneficiary->id
