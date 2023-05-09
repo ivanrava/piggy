@@ -13,17 +13,13 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('account_id');
-            $table->foreignId('category_id');
-            $table->foreignId('beneficiary_id');
+            $table->foreignId('account_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('beneficiary_id')->constrained()->cascadeOnDelete();
             $table->date('date');
             $table->decimal('amount', 10, 2);
             $table->text('notes')->nullable();
             $table->timestamps();
-
-            $table->foreign('account_id')->references('id')->on('accounts');
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('beneficiary_id')->references('id')->on('beneficiaries');
         });
     }
 
