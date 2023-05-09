@@ -48,4 +48,14 @@ class Category extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'parent_category_id', 'id');
+    }
+
+    public function children(): HasMany
+    {
+        return $this->hasMany(Category::class, 'parent_category_id', 'id');
+    }
 }

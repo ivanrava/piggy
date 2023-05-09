@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('parent_category_id')->nullable();
+            $table->foreignId('parent_category_id')->nullable()->index('parent_category');
             $table->string('name');
             $table->enum('type', ['out', 'in']);
             $table->string('icon');
