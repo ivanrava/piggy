@@ -49,6 +49,15 @@ const routes = [
                     title: 'Accounts',
                     requiresAuth: true
                 }
+            },
+            {
+                name: 'categories',
+                path: '/categories',
+                component: () => import('@/pages/dashboard/Categories.vue'),
+                meta: {
+                    title: 'Categories',
+                    requiresAuth: true
+                }
             }
         ]
     },

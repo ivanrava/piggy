@@ -7,6 +7,13 @@ interface Account {
     color: string;
 }
 
+interface Category {
+    icon: string;
+    type: string;
+    name: string;
+    children: Array<Category>
+}
+
 export {
-    Account
+    Account, Category
 }
