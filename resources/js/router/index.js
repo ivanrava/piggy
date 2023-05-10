@@ -60,6 +60,15 @@ const routes = [
                 }
             },
             {
+                name: 'category-graph',
+                path: '/categories/graph',
+                component: () => import('../pages/dashboard/CategoryGraph.vue'),
+                meta: {
+                    title: 'Categories',
+                    requiresAuth: true,
+                }
+            },
+            {
                 name: 'beneficiaries',
                 path: '/beneficiaries',
                 component: () => import('@/pages/dashboard/Beneficiaries.vue'),

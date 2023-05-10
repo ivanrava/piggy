@@ -32,6 +32,7 @@ module.exports = {
                 950:'#622C2C',
             },
             red: colors.red,
+            green: colors.emerald,
             gray: colors.gray,
             slate: colors.slate,
             stone: colors.stone

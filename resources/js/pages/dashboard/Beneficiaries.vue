@@ -26,7 +26,7 @@ onMounted(async () => {
         v-for="beneficiary in beneficiaries"
         :src="beneficiary.img"
         :alt="beneficiary.name"
-        class="w-1/12 rounded-xl"
+        class="w-24 h-24 rounded-xl"
       />
     </section>
     <section>

@@ -12,7 +12,7 @@
             name="fade"
             mode="out-in"
           >
-            <div :key="route.name" class="h-full">
+            <div :key="route.name" class="h-full p-4">
               <component :is="Component" />
             </div>
           </transition>
