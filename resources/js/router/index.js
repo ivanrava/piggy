@@ -58,6 +58,15 @@ const routes = [
                     title: 'Categories',
                     requiresAuth: true
                 }
+            },
+            {
+                name: 'beneficiaries',
+                path: '/beneficiaries',
+                component: () => import('@/pages/dashboard/Beneficiaries.vue'),
+                meta: {
+                    title: 'Beneficiaries',
+                    requiresAuth: true
+                }
             }
         ]
     },
