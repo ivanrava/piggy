@@ -2,10 +2,11 @@
   <ul
     v-for="category in categories"
     :key="category.name"
-    class="list-disc ml-4"
+    class="ml-2"
   >
     <li>
-      {{ category.name }} / {{ category.type }}
+      <Icon :icon="category.icon" class="inline" />
+      {{ category.name }}
       <category-list :categories="category.children" />
     </li>
   </ul>
@@ -13,6 +14,7 @@
 
 <script setup lang="ts">
 import {Category} from '../composables/interfaces';
+import {Icon} from "@iconify/vue";
 
 defineProps<{
   categories: Array<Category>
