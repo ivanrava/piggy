@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import FormInput from "./FormInput.vue";
 import IconInput from "./IconInput.vue";
 import SelectInput from "./SelectInput.vue";

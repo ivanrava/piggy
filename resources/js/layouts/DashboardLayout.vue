@@ -24,8 +24,8 @@
 
 <script>
 import {defineComponent} from "vue";
-import NavBar from "../components/NavBar.vue";
-import SideBar from "../components/SideBar.vue";
+import NavBar from "../components/nav/NavBar.vue";
+import SideBar from "../components/nav/SideBar.vue";
 
 export default defineComponent({
   components: {SideBar, NavBar}

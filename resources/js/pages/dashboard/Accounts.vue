@@ -49,7 +49,7 @@
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import AccountCard from "../../components/AccountCard.vue";
-import FormAccount from "../../components/FormAccount.vue";
+import FormAccount from "../../components/form/FormAccount.vue";
 
 const accounts = ref([]);
 const isLoading = ref(false);

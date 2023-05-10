@@ -46,7 +46,7 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
-import BrandLogo from "../components/BrandLogo.vue";
+import BrandLogo from "../components/nav/BrandLogo.vue";
 
 const imgIdx = ref(0);
 const imgIdxMax = 2;

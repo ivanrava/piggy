@@ -14,7 +14,7 @@
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import CategoryList from "../../components/CategoryList.vue";
-import CategoryForm from "../../components/CategoryForm.vue";
+import CategoryForm from "../../components/form/CategoryForm.vue";
 
 const categories = ref([]);
 const isLoading = ref(false);

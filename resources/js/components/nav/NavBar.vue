@@ -7,7 +7,7 @@
 
 <script setup>
 import {defineComponent} from "vue";
-import BrandLogo from "../components/BrandLogo.vue";
+import BrandLogo from "./BrandLogo.vue";
 import {useRouter} from "vue-router";
 
 defineComponent({

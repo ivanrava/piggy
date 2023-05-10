@@ -61,7 +61,7 @@
 import {Icon} from "@iconify/vue";
 import FormInput from "./FormInput.vue";
 import {ref, watch, computed} from "vue";
-import {useDebouncedRef} from "../composables/performance";
+import {useDebouncedRef} from "../../composables/performance";
 
 const prompt = useDebouncedRef('');
 const icons = ref([]);
