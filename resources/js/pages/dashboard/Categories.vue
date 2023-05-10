@@ -1,11 +1,20 @@
 <template>
-  <category-list :categories="categories" />
+  <h1>Categories</h1>
+  <div class="flex flex-row h-full justify-between">
+    <section>
+      <category-list :categories="categories" />
+    </section>
+    <section>
+      <category-form />
+    </section>
+  </div>
 </template>
 
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import CategoryList from "../../components/CategoryList.vue";
+import CategoryForm from "../../components/CategoryForm.vue";
 
 const categories = ref([]);
 const isLoading = ref(false);
