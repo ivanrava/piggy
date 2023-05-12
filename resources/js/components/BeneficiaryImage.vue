@@ -2,10 +2,11 @@
 import {computed} from "vue";
 import {bottts, botttsNeutral, initials, loreleiNeutral, notionistsNeutral, shapes, thumbs} from "@dicebear/collection";
 import {createAvatar} from "@dicebear/core";
+import {Beneficiary} from '../composables/interfaces';
 
-const props = defineProps({
-  beneficiary: Object
-})
+const props = defineProps<{
+  beneficiary: Beneficiary
+}>();
 
 const allStyles = {
   'bottts': bottts,

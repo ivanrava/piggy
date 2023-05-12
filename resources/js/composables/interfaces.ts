@@ -8,12 +8,19 @@ interface Account {
 }
 
 interface Category {
+    id: number;
     icon: string;
     type: string;
     name: string;
     children: Array<Category>
 }
 
+interface Beneficiary {
+    name: string;
+    img: string;
+    created_at: string;
+}
+
 export {
-    Account, Category
+    Account, Category, Beneficiary
 }
