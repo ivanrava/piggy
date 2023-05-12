@@ -17,8 +17,8 @@ class BeneficiaryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name,
-            'img' => fake()->randomElement([fake()->imageUrl(width: 64, height: 64), fake()->randomElement(['shapes', 'bottts'])]),
+            'name' => fake()->randomElement([fake()->name, fake()->company]),
+            'img' => fake()->randomElement([fake()->randomElement(['shapes', 'bottts', 'thumbs'])]),
             'created_at' => fake()->dateTime
         ];
     }

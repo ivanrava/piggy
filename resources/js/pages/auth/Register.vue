@@ -9,27 +9,27 @@
     >
       <form-input
         v-model="form.name"
-        name="name"
+        name="Name"
         placeholder="Name"
         :errors="errors.name"
       />
       <form-input
         v-model="form.email"
-        name="email"
+        name="E-mail"
         placeholder="E-mail"
         type="email"
         :errors="errors.email"
       />
       <form-input
         v-model="form.password"
-        name="password"
+        name="Password"
         placeholder="Password"
         type="password"
         :errors="errors.password"
       />
       <form-input
         v-model="form.password_confirmation"
-        name="password_confirmation"
+        name="Confirm your password"
         placeholder="Confirm password"
         type="password"
         :errors="errors.password_confirmation"
