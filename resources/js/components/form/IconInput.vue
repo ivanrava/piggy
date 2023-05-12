@@ -52,7 +52,7 @@
         :class="{'bg-red-400/20': selected === icon}"
         class="text-5xl hover:ring-1 ring-red-200/50 hover:shadow-md p-2 w-12 rounded-xl transition-all cursor-pointer"
         :icon="icon"
-        @click="selected = icon"
+        @click="selected = icon; value = icon"
       />
     </div>
   </div>
@@ -74,6 +74,22 @@ const maxPages = 12;
 const actualPages = ref(0);
 const page = ref(1);
 const isLoading = ref(false);
+
+const props = defineProps({
+  modelValue: {
+    type: String,
+  },
+})
+
+const emit = defineEmits(['update:modelValue'])
+const value = computed({
+  get() {
+    return props.modelValue
+  },
+  set(value) {
+    emit('update:modelValue', value)
+  }
+})
 
 watch(prompt, async (newPrompt) => {
   if (newPrompt.length > 0) {
