@@ -18,7 +18,8 @@ class BeneficiaryFactory extends Factory
     {
         return [
             'name' => fake()->name,
-            'img' => fake()->imageUrl(width: 256, height: 256)
+            'img' => fake()->randomElement([fake()->imageUrl(width: 64, height: 64), fake()->randomElement(['shapes', 'bottts'])]),
+            'created_at' => fake()->dateTime
         ];
     }
 }

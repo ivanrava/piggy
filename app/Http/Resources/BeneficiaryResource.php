@@ -16,7 +16,8 @@ class BeneficiaryResource extends JsonResource
     {
         return [
             'name' => $this->name,
-            'img' => $this->img
+            'img' => $this->img,
+            'created_at' => $this->created_at->diffForHumans()
         ];
     }
 }

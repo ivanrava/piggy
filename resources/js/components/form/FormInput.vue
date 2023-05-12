@@ -1,8 +1,8 @@
 <template>
-  <div class="my-1">
-    <label-input :for="name">{{ placeholder }}</label-input>
+  <div class="my-1 w-48">
+    <label-input :for="name">{{ name }}</label-input>
     <input
-      class="focus:outline-none transition-all ring-pink-300/20 focus:ring-4 p-2 bg-slate-100 w-64 rounded-t-sm text-sm font-mono"
+      class="focus:outline-none transition-all ring-pink-300/20 focus:ring-4 p-2 bg-slate-100 w-full rounded-t-sm text-sm font-mono"
       :class="{'rounded-b-sm': fullErrors.length == 0}"
       v-model="value"
       :placeholder="placeholder"

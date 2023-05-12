@@ -16,7 +16,7 @@ class BeneficiaryController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        return BeneficiaryResource::collection($request->user()->beneficiaries()->get());
+        return BeneficiaryResource::collection($request->user()->beneficiaries()->orderBy('name')->get());
     }
 
     /**

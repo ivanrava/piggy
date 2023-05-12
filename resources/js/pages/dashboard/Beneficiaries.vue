@@ -2,6 +2,7 @@
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import BeneficiaryForm from "../../components/form/BeneficiaryForm.vue";
+import BeneficiaryCard from "../../components/BeneficiaryCard.vue";
 
 const beneficiaries = ref([]);
 const isLoading = ref(false);
@@ -20,18 +21,14 @@ onMounted(async () => {
 
 <template>
   <h1>Beneficiaries</h1>
-  <div class="flex flex-row justify-between">
-    <section class="flex flex-wrap gap-4">
-      <img
+  <div class="flex flex-col justify-between">
+    <section class="flex flex-wrap gap-4 justify-start">
+      <beneficiary-card
         v-for="beneficiary in beneficiaries"
-        :src="beneficiary.img"
-        :alt="beneficiary.name"
-        class="w-24 h-24 rounded-xl"
+        :beneficiary="beneficiary"
       />
     </section>
-    <section>
-      <beneficiary-form />
-    </section>
+    <beneficiary-form />
   </div>
 </template>
 
