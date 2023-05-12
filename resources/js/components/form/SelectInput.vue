@@ -35,17 +35,19 @@ const value = computed({
 </script>
 
 <template>
-  <label-input :for="name">{{ label }}</label-input>
-  <select
-    :name="name"
-    class="focus:outline-none transition-all ring-pink-300/20 focus:ring-4 p-2 bg-slate-100 w-64 rounded-sm text-sm font-mono"
-    v-model="value"
-  >
-    <option disabled value="">Please select one</option>
-    <option v-for="option in options" :value="option.value">
-      {{ option.option }}
-    </option>
-  </select>
+  <div class="my-1">
+    <label-input :for="name">{{ name }}</label-input>
+    <select
+      :name="name"
+      class="focus:outline-none transition-all ring-pink-300/20 focus:ring-4 p-2 bg-slate-100 w-48 rounded-sm text-sm font-mono"
+      v-model="value"
+    >
+      <option disabled value="">Please select one</option>
+      <option v-for="option in options" :value="option.value">
+        {{ option.option }}
+      </option>
+    </select>
+  </div>
 </template>
 
 <style scoped>

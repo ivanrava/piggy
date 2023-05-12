@@ -1,8 +1,9 @@
 <template>
-  <div class="w-96">
+  <div class="w-full">
+    <label-input>Icon</label-input>
     <form-input
       v-model="prompt"
-      class="w-full"
+      class="!w-full"
       placeholder="Start searching for an icon"
     />
     <span
@@ -62,6 +63,7 @@ import {Icon} from "@iconify/vue";
 import FormInput from "./FormInput.vue";
 import {ref, watch, computed} from "vue";
 import {useDebouncedRef} from "../../composables/performance";
+import LabelInput from "./LabelInput.vue";
 
 const prompt = useDebouncedRef('');
 const icons = ref([]);

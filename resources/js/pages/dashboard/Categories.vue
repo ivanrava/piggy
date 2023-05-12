@@ -1,26 +1,30 @@
 <template>
-  <div class="flex flex-row h-full justify-between">
-    <section>
-      <h1>Categories</h1>
-      <category-list :categories="categories" />
-      <vue-tree
-        style="width: 700px; height: 400px; border: 1px solid gray;"
-        :dataset="categories"
-        :config="{ nodeWidth: 160, nodeHeight: 20, levelHeight: 100 }"
-      >
-        <template v-slot:node="{ node, collapsed }">
+  <h1>Categories</h1>
+  <div class="flex flex-col h-full w-full justify-between">
+    <section class="flex flex-row w-full justify-between">
+      <div>
+        <category-list :categories="categories" />
+      </div>
+      <aside>
+        <vue-tree
+          class="w-[900px] h-[400px] bg-stone-100 shadow-inset rounded-lg"
+          :dataset="categories"
+          :config="{ nodeWidth: 160, nodeHeight: 20, levelHeight: 80 }"
+        >
+          <template v-slot:node="{ node, collapsed }">
           <span
             class="font-bold text-xs p-2 text-slate-50 rounded-sm shadow-sm"
-            :style="{ border: collapsed ? '2px solid grey' : '' }"
+            :style="{ border: collapsed ? '8px solid grey' : '' }"
             :class="node.type === 'out' ? 'bg-red-400' : 'bg-green-400'"
           >
             <Icon :icon="node.icon" class="inline" />
             {{ node.name }}
           </span>
-        </template>
-      </vue-tree>
+          </template>
+        </vue-tree>
+      </aside>
     </section>
-    <section>
+    <section class="flex flex-row">
       <category-form />
     </section>
   </div>
