@@ -1,9 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import BeneficiaryImage from "./BeneficiaryImage.vue";
+import {Beneficiary} from "../composables/interfaces";
 
-const props = defineProps({
-  beneficiary: Object
-})
+defineProps<{
+  beneficiary: Beneficiary
+}>()
 </script>
 
 <template>

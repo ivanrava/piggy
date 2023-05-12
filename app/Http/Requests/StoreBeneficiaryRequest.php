@@ -11,7 +11,7 @@ class StoreBeneficiaryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->id == $this->user_id;
+        return true;
     }
 
     /**

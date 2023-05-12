@@ -1,9 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import FormInput from "./FormInput.vue";
-import {ref} from "vue";
+import {ref, computed} from "vue";
 import BeneficiaryImage from "../BeneficiaryImage.vue";
 import SubmitButton from "./SubmitButton.vue";
 import {Icon} from "@iconify/vue";
+import axios from "axios";
 
 const name = ref('');
 const showForm = ref(false);
@@ -26,13 +27,38 @@ const beneficiaryTypes = [
 const imgForType = function(type) {
   const defaultStyles = {
     person: 'bottts',
-    generic: 'shapes',
-    company: 'initials'
+    generic: 'shapes'
   }
   if (type === 'company')
     return 'https://logo.clearbit.com/'+domain.value
+  else
+    return defaultStyles[type]
+}
 
-  return defaultStyles[type]
+interface StoreBeneficiaryPayload {
+  name: string;
+  img: string;
+}
+
+const form = computed(() => {
+  return {
+    name: name.value,
+    img: imgForType(beneficiaryType.value)
+  }
+})
+
+const loading = ref(false);
+const errors = ref({});
+const storeBeneficiary = function (payload: StoreBeneficiaryPayload) {
+  loading.value = true;
+  axios.post("/beneficiaries", payload).then(() => {
+    showForm.value = false;
+    errors.value = [];
+  }).catch(({response}) => {
+    errors.value = response.data.errors;
+  }).finally(() => {
+    loading.value = false;
+  })
 }
 </script>
 
@@ -53,13 +79,19 @@ const imgForType = function(type) {
           v-for="t in beneficiaryTypes"
           class="m-2 pb-1 border-pink-100/20 text-pink-700/70 font-light border-b-2 transition-all rounded-none hover:border-red-700/60 hover:text-red-700"
           :class="{'!border-pink-700 !text-pink-950 !font-normal': t.id === beneficiaryType}"
-          @click="beneficiaryType = t.id; style = styleForType(beneficiaryType)"
+          @click="beneficiaryType = t.id"
         >
           {{ t.display }}
         </button>
       </div>
-      <form class="flex flex-wrap justify-start items-center   h-24 gap-4">
-        <beneficiary-image class="!w-20 !h-20" :beneficiary="{name: name, img: imgForType(beneficiaryType)}" />
+      <form
+        class="flex flex-wrap justify-start items-center h-24 gap-4"
+        @submit.prevent="storeBeneficiary(form)"
+      >
+        <beneficiary-image
+          class="!w-20 !h-20"
+          :beneficiary="form"
+        />
         <aside class="flex flex-row justify-center">
           <Transition name="fade" mode="out-in">
             <div v-if="beneficiaryType === 'company'" class="flex flex-row justify-around w-80">
