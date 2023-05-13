@@ -1,11 +1,11 @@
 <template>
-  <div class="px-3">
+  <div class="my-1 px-3">
     <label-input>Color</label-input>
-    <div class="py-2 flex justify-center relative">
+    <div class="py-0.5 flex justify-center relative">
       <Icon
         id="iconPicker"
         ref="iconPicker"
-        icon="material-symbols:circle"
+        icon="tabler:square-rounded-filled"
         class="text-3xl cursor-pointer"
         :style="{color: value}"
         @click="showPicker = !showPicker"
@@ -18,6 +18,7 @@
           <Sketch
             v-model="value"
             v-click-outside="closePicker"
+            :preset-colors="preset"
           />
         </div>
       </Transition>
@@ -31,6 +32,25 @@ import {computed, ref} from "vue";
 import {Icon} from "@iconify/vue";
 import LabelInput from "./LabelInput.vue";
 
+const preset = [
+  '#111',
+  '#181FB5',
+  '#184D6F',
+  '#4B733D',
+  '#28A941',
+  '#18ADA2',
+  '#B8A500',
+  '#DC5235',
+  '#d70646',
+  '#69182e',
+  '#75288c',
+  '#e0349e',
+  '#D981D3',
+  '#7371CF',
+  '#7F7F7F',
+  '#8D535D',
+]
+
 const closePicker = () => {
   if (showPicker.value)
     showPicker.value = false;
@@ -42,7 +62,7 @@ const vClickOutside = {
     document.body.addEventListener('click', () => {
       el.__ClickOutsideHandler__ = (event) => {
         let isIconPicker = false;
-        if ('nearestViewportElement' in event.target && 'id' in event.target)
+        if ('nearestViewportElement' in event.target && 'id' in event.target.nearestViewportElement)
           isIconPicker = event.target.nearestViewportElement.id === 'iconPicker';
         if (!(el === event.target || el.contains(event.target) || isIconPicker)) {
           binding.value(event)

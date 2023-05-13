@@ -1,16 +1,22 @@
 <template>
   <div class="my-1 w-48">
-    <label-input :for="name">{{ name }}</label-input>
+    <label-input :for="name">
+      {{ name }}
+    </label-input>
     <input
+      :id="name"
+      v-model="value"
       class="focus:outline-none transition-all ring-pink-300/20 focus:ring-4 p-2 bg-slate-100 w-full rounded-t-sm text-sm font-mono"
       :class="{'rounded-b-sm': fullErrors.length == 0}"
-      v-model="value"
       :placeholder="placeholder"
       :name="name"
       :type="type"
-      :id="name"
+      v-bind="$attrs"
     >
-    <ul class="p-2 bg-red-50 bg-opacity-30 rounded-b-md" v-if="fullErrors.length > 0">
+    <ul
+      v-if="fullErrors.length > 0"
+      class="p-2 bg-red-50 bg-opacity-30 rounded-b-md"
+    >
       <li
         v-for="error in fullErrors"
         class="text-left text-xs text-red-400"

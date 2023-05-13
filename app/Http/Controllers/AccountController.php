@@ -31,7 +31,7 @@ class AccountController extends Controller
         $account->account_type_id = $request->account_type_id;
         $account->name = $request->name;
         $account->icon = $request->icon;
-        $account->color = $request->color;
+        $account->color = $request->color();
         $account->opening = $request->opening;
         $account->closing = $request->closing;
         $account->description = $request->description;
@@ -59,7 +59,7 @@ class AccountController extends Controller
         $account->account_type_id = $request->account_type_id;
         $account->name = $request->name;
         $account->icon = $request->icon;
-        $account->color = $request->color;
+        $account->color = $request->color();
         $account->opening = $request->opening;
         $account->closing = $request->closing;
         $account->description = $request->description;

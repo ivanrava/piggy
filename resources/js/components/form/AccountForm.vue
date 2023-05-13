@@ -42,22 +42,24 @@
             v-model="form.opening"
             type="date"
             name="Opening date"
-            class="!w-1/3"
+            class="!w-full"
           />
           <form-input
             v-model="form.closing"
             type="date"
             name="Closing date"
-            class="!w-1/3"
+            class="!w-full"
           />
           <form-input
             v-model="form.initial_balance"
             type="number"
             name="Balance"
-            class="!w-1/4"
+            class="!w-full"
+            step="0.01"
+            min="0"
           />
         </div>
-        <icon-input />
+        <icon-input v-model="form.icon" />
         <form-textarea
           v-model="form.description"
           name="Description"

@@ -19,6 +19,6 @@ class AccountSeeder extends Seeder
 
     public static function seed(User $user): void
     {
-        $user->accounts()->saveMany(Account::factory()->count(3)->make());
+        $user->accounts()->saveMany(Account::factory()->count(30)->make());
     }
 }

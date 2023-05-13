@@ -12,7 +12,7 @@ class StoreAccountRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->id == $this->user_id;
+        return true;
     }
 
     /**
@@ -25,5 +25,10 @@ class StoreAccountRequest extends FormRequest
         return array_merge(UpdateAccountRequest::VALIDATION_RULES, [
             'initial_balance' => 'required|decimal:2|between:0,99999999.99',
         ]);
+    }
+
+    public function color(): string
+    {
+        return substr($this->color, 1);
     }
 }

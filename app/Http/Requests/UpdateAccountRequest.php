@@ -11,7 +11,7 @@ class UpdateAccountRequest extends FormRequest
         'account_type_id' => 'required|exists:account_types,id',
         'name' => 'required|max:50',
         'icon' => 'required|max:200',
-        'color' => 'required|max:6|min:6',
+        'color' => 'required|max:7|min:7',
         'opening' => 'required|date',
         'closing' => 'nullable|date|after:opening',
         'description' => 'nullable|max:500'
@@ -33,5 +33,10 @@ class UpdateAccountRequest extends FormRequest
     public function rules(): array
     {
         return self::VALIDATION_RULES;
+    }
+
+    public function color(): string
+    {
+        return substr($this->color, 1);
     }
 }
