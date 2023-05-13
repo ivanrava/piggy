@@ -51,18 +51,22 @@ const categoryTypes = [
 <template>
   <Transition name="slide-fade">
     <aside
-      class="fixed bottom-8 right-8 bg-slate-50 p-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10"
       v-if="showForm"
+      class="fixed bottom-8 right-8 bg-slate-50 p-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10"
     >
       <header class="flex flex-row justify-between items-center">
         <h2>Add a new category</h2>
-        <a class="flex flex-row items-center cursor-pointer" @click="showForm = false">
+        <a
+          class="flex flex-row items-center cursor-pointer"
+          @click="showForm = false"
+        >
           <span class="mr-1">Close</span>
         </a>
       </header>
       <div class="button-group">
         <button
           v-for="t in categoryTypes"
+          :key="t.id"
           class="m-2 pb-1 border-pink-100/20 text-pink-700/70 font-light border-b-2 transition-all rounded-none hover:border-red-700/60 hover:text-red-700"
           :class="{'!border-pink-700 !text-pink-950 !font-normal': t.id === form.type}"
           @click="form.type = t.id"
@@ -74,7 +78,12 @@ const categoryTypes = [
         class="flex flex-col justify-center items-center gap-4 w-96"
         @submit.prevent="storeCategory(form)"
       >
-        <form-input class="!w-full" placeholder="Food" name="Category name" v-model="name" />
+        <form-input
+          v-model="form.name"
+          class="!w-full"
+          placeholder="Food"
+          name="Category name"
+        />
         <icon-input />
         <submit-button>
           Confirm
@@ -82,8 +91,14 @@ const categoryTypes = [
       </form>
     </aside>
   </Transition>
-  <submit-button class="fixed right-12 bottom-12 flex items-center shadow-lg" @click="showForm = true">
-    <Icon icon="material-symbols:format-list-bulleted-add-rounded" class="inline"/>
+  <submit-button
+    class="fixed right-12 bottom-12 flex items-center shadow-lg"
+    @click="showForm = true"
+  >
+    <Icon
+      icon="material-symbols:format-list-bulleted-add-rounded"
+      class="inline"
+    />
     <span class="ml-1">Add new</span>
   </submit-button>
 </template>
