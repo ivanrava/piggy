@@ -23,7 +23,7 @@ class StoreAccountRequest extends FormRequest
     public function rules(): array
     {
         return array_merge(UpdateAccountRequest::VALIDATION_RULES, [
-            'initial_balance' => 'required|decimal:2|between:0,99999999.99',
+            'initial_balance' => 'required|decimal:0,2|between:0,99999999.99',
         ]);
     }
 

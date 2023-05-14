@@ -50,13 +50,9 @@
             name="Closing date"
             class="!w-full"
           />
-          <form-input
+          <decimal-input
             v-model="form.initial_balance"
-            type="number"
             name="Balance"
-            class="!w-full"
-            step="0.01"
-            min="0"
           />
         </div>
         <icon-input v-model="form.icon" />
@@ -93,13 +89,14 @@ import axios from "axios";
 import IconInput from "./IconInput.vue";
 import FormTextarea from "./FormTextarea.vue";
 import ColorPicker from "./ColorPicker.vue";
+import DecimalInput from "./DecimalInput.vue";
 
 const showForm = ref(false);
 
 interface StoreAccountPayload {
   name: string;
   account_type_id: number;
-  initial_balance: number;
+  initial_balance: string;
   icon: string;
   color: string;
   opening: string;

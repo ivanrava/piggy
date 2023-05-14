@@ -26,7 +26,7 @@ class StoreTransactionRequest extends FormRequest
             'category_id' => 'required|exists:categories,id',
             'beneficiary_id' => 'required|exists:beneficiaries,id',
             'date' => 'required|date',
-            'amount' => 'required|decimal:2|between:0,99999999.99',
+            'amount' => 'required|decimal:0,2|between:0,99999999.99',
             'notes' => 'nullable|max:500'
         ];
     }

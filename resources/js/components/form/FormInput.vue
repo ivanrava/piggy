@@ -19,6 +19,7 @@
     >
       <li
         v-for="error in fullErrors"
+        :key="error"
         class="text-left text-xs text-red-400"
       >
         <i-fa6-regular-circle-xmark class="inline" />
