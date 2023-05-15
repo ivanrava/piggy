@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import FormInput from "./FormInput.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import SubmitButton from "./SubmitButton.vue";
 import {Icon} from "@iconify/vue";
 import axios from "axios";
 import IconInput from "./IconInput.vue";
+import SelectInput from "./SelectInput.vue";
 
 const showForm = ref(false);
 
@@ -46,6 +47,15 @@ const categoryTypes = [
     display: 'Income'
   }
 ]
+
+const fathers = ref([]);
+onMounted(() =>  {
+  axios.get("/categories").then(({data}) => {
+    fathers.value = data.data;
+  }).catch(({response}) => {
+    errors.value = response.data.errors;
+  })
+});
 </script>
 
 <template>
@@ -84,7 +94,12 @@ const categoryTypes = [
           placeholder="Food"
           name="Category name"
         />
-        <icon-input />
+        <select-input
+          :options="fathers"
+          name="Parent category"
+          v-model="form.parent_category_id"
+        />
+        <icon-input v-model="form.icon" />
         <submit-button>
           Confirm
         </submit-button>
@@ -117,3 +132,4 @@ const categoryTypes = [
   transform: translateX(120%);
 }
 </style>
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>

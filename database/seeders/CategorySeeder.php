@@ -20,7 +20,7 @@ class CategorySeeder extends Seeder
 
     public static function seed(User $user): void
     {
-        $user->categories()->saveMany(Category::factory()->count(10)->make());
+        $user->categories()->saveMany(Category::factory()->count(20)->make());
         $user->categories()->each(
             fn (Category $parent) => self::maybeAddRandomChildren($parent)
         );
@@ -39,7 +39,7 @@ class CategorySeeder extends Seeder
 
         // Adds a random number of children of coherent user and type
         $children = Category::factory()->count(
-            fake()->randomElement([1, 2])
+            fake()->randomElement([1, 2, 3])
         )->make(['user_id' => $parent->user_id, 'type' => $parent->type]);
         $parent->children()->saveMany($children);
     }
