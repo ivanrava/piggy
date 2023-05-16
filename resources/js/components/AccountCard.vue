@@ -2,6 +2,7 @@
   <article
     class="flex items-center text-slate-50 p-2 rounded-lg drop-shadow-xl cursor-pointer"
     :style="{backgroundColor: `#${account.color}`}"
+    @click="router.push('/accounts/'+account.id)"
   >
     <Icon :icon="account.icon" class="text-4xl" />
     <div class="flex flex-col ml-2">
@@ -14,6 +15,8 @@
 <script setup lang="ts">
 import {Icon} from "@iconify/vue";
 import {Account} from '../composables/interfaces';
+import {useRouter} from "vue-router";
+const router = useRouter()
 
 defineProps<{
   account: Account

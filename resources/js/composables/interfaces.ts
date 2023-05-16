@@ -1,4 +1,5 @@
 interface Account {
+    id: bigint;
     icon: string;
     name: string;
     type: string;

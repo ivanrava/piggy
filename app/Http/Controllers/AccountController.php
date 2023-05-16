@@ -47,7 +47,18 @@ class AccountController extends Controller
         if ($account->user_id != $request->user()->id)
             return response()->noContent(404);
 
-        return new AccountResource($account);
+        return new AccountResource($account->load([
+            'transactions' => [
+                'beneficiary',
+                'category'
+            ],
+            'in_transfers' => [
+                'from_account'
+            ],
+            'out_transfers' => [
+                'to_account'
+            ]
+        ]));
     }
 
     /**

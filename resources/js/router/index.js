@@ -51,6 +51,15 @@ const routes = [
                 }
             },
             {
+                name: 'accounts.id',
+                path: '/accounts/:id',
+                component: () => import('@/pages/dashboard/AccountShow.vue'),
+                meta: {
+                    title: 'Account transactions',
+                    requiresAuth: true
+                }
+            },
+            {
                 name: 'categories',
                 path: '/categories',
                 component: () => import('@/pages/dashboard/Categories.vue'),
