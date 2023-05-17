@@ -7,6 +7,7 @@ import {useRoute} from "vue-router";
 import {AgGridVue} from "ag-grid-vue3";
 import BeneficiaryRenderer from "../../components/renderers/BeneficiaryRenderer.vue";
 import CategoryRenderer from "../../components/renderers/CategoryRenderer.vue";
+import AmountRenderer from "../../components/renderers/AmountRenderer.vue";
 const route = useRoute();
 
 const account = ref({});
@@ -69,6 +70,7 @@ const stringComparator = (valA, valB) => {
       {
         headerName: 'Amount', field: 'amount',
         valueFormatter: currencyFormatter,
+        cellRenderer: AmountRenderer,
         comparator: (valA, valB) => {
           return valA - valB
         },
