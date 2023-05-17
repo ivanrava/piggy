@@ -33,19 +33,44 @@ const onGridReady = (params) => {
     defaultMinWidth: 100,
   })
 }
+
+const stringComparator = (valA, valB) => {
+  if (valA.name == valB.name)
+    return 0;
+  return (valA.name > valB.name) ? 1 : -1;
+}
 </script>
 
 <template>
   <h1>{{ account.name }} transactions</h1>
   <ag-grid-vue
     class="ag-theme-alpine h-3/4 w-full"
-    :columnDefs="[
-      {headerName: 'Beneficiary', field: 'beneficiary', cellRenderer: BeneficiaryRenderer, autoHeight: true},
-      {headerName: 'Category', field: 'category', cellRenderer: CategoryRenderer},
-      {headerName: 'Date', field: 'date', valueFormatter: dateFormatter},
-      {headerName: 'Amount', field: 'amount', valueFormatter: currencyFormatter},
+    :animate-rows="true"
+    :default-col-def="{sortable: true}"
+    :column-defs="[
+      {
+        headerName: 'Beneficiary', field: 'beneficiary',
+        cellRenderer: BeneficiaryRenderer, autoHeight: true,
+        comparator: stringComparator
+      },
+      {
+        headerName: 'Category', field: 'category',
+        cellRenderer: CategoryRenderer,
+        comparator: stringComparator
+      },
+      {
+        headerName: 'Date', field: 'date',
+        valueFormatter: dateFormatter
+      },
+      {
+        headerName: 'Amount', field: 'amount',
+        valueFormatter: currencyFormatter,
+        comparator: (valA, valB) => {
+          return valA - valB
+        }
+      },
     ]"
-    :rowData="account.transactions"
+    :row-data="account.transactions"
     @grid-ready="onGridReady"
   >
   </ag-grid-vue>
