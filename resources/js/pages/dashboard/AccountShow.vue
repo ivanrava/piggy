@@ -25,6 +25,14 @@ const dateFormatter = (date) => {
 const currencyFormatter = (curr) => {
   return curr.value.toString() + ' €'
 }
+
+const gridApi = ref({});
+const onGridReady = (params) => {
+  gridApi.value = params.api;
+  params.api.sizeColumnsToFit({
+    defaultMinWidth: 100,
+  })
+}
 </script>
 
 <template>
@@ -38,6 +46,7 @@ const currencyFormatter = (curr) => {
       {headerName: 'Amount', field: 'amount', valueFormatter: currencyFormatter},
     ]"
     :rowData="account.transactions"
+    @grid-ready="onGridReady"
   >
   </ag-grid-vue>
 </template>
