@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
+import "ag-grid-community/styles/ag-theme-material.css";
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
@@ -44,7 +44,7 @@ const stringComparator = (valA, valB) => {
 <template>
   <h1>{{ account.name }} transactions</h1>
   <ag-grid-vue
-    class="ag-theme-alpine h-3/4 w-full"
+    class="ag-theme-material h-3/4 w-full"
     :animate-rows="true"
     :default-col-def="{sortable: true}"
     :column-defs="[
