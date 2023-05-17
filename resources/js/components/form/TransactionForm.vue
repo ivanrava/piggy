@@ -4,30 +4,36 @@ import {onMounted, ref} from "vue";
 import SubmitButton from "./SubmitButton.vue";
 import {Icon} from "@iconify/vue";
 import axios from "axios";
-import IconInput from "./IconInput.vue";
 import SelectInput from "./SelectInput.vue";
+import FormTextarea from "./FormTextarea.vue";
+import BeneficiaryImage from "../BeneficiaryImage.vue";
+import DecimalInput from "./DecimalInput.vue";
 
 const showForm = ref(false);
 
-interface StoreCategoryPayload {
-  name: string;
-  type: string;
-  icon: string;
-  parent_category_id: number;
+interface StoreTransactionPayload {
+  account_id: number;
+  category_id: number;
+  beneficiary_id: number;
+  date: string;
+  amount: number;
+  notes: string;
 }
 
 const form = ref({
-  name: '',
-  type: 'out',
-  icon: '',
-  parent_category_id: null
+  account_id: null,
+  category_id: null,
+  beneficiary_id: null,
+  date: '',
+  amount: 0,
+  notes: ''
 })
 
 const loading = ref(false);
 const errors = ref({});
-const storeCategory = function (payload: StoreCategoryPayload) {
+const storeTransaction = function (payload: StoreTransactionPayload) {
   loading.value = true;
-  axios.post("/categories", payload).then(() => {
+  axios.post("/transactions", payload).then(() => {
     showForm.value = false;
     errors.value = [];
   }).catch(({response}) => {
@@ -37,21 +43,18 @@ const storeCategory = function (payload: StoreCategoryPayload) {
   })
 }
 
-const categoryTypes = [
-  {
-    id: 'out',
-    display: 'Expense'
-  },
-  {
-    id: 'in',
-    display: 'Income'
-  }
-]
-
-const fathers = ref([]);
+const categories = ref([]);
 onMounted(() =>  {
   axios.get("/categories").then(({data}) => {
-    fathers.value = data.data;
+    categories.value = data.data;
+  }).catch(({response}) => {
+    errors.value = response.data.errors;
+  })
+});
+const beneficiaries = ref([]);
+onMounted(() =>  {
+  axios.get("/beneficiaries").then(({data}) => {
+    beneficiaries.value = data.data;
   }).catch(({response}) => {
     errors.value = response.data.errors;
   })
@@ -65,7 +68,7 @@ onMounted(() =>  {
       class="fixed bottom-8 right-8 bg-slate-50 p-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10"
     >
       <header class="flex flex-row justify-between items-center">
-        <h2>Add a new category</h2>
+        <h2>New transaction</h2>
         <a
           class="flex flex-row items-center cursor-pointer"
           @click="showForm = false"
@@ -73,37 +76,49 @@ onMounted(() =>  {
           <span class="mr-1">Close</span>
         </a>
       </header>
-      <div class="button-group">
-        <button
-          v-for="t in categoryTypes"
-          :key="t.id"
-          class="m-2 pb-1 border-pink-100/20 text-pink-700/70 font-light border-b-2 transition-all rounded-none hover:border-red-700/60 hover:text-red-700"
-          :class="{'!border-pink-700 !text-pink-950 !font-normal': t.id === form.type}"
-          @click="form.type = t.id"
-        >
-          {{ t.display }}
-        </button>
-      </div>
       <form
         class="flex flex-col justify-center items-center gap-4 w-96"
-        @submit.prevent="storeCategory(form)"
+        @submit.prevent="storeTransaction(form)"
       >
-        <form-input
-          v-model="form.name"
-          class="!w-full"
-          placeholder="Food"
-          name="Category name"
-        />
         <select-input
-          :options="fathers"
-          name="Parent category"
-          v-model="form.parent_category_id"
-          v-slot="{ option }"
+          :options="beneficiaries"
+          name="Beneficiary"
+          v-model="form.beneficiary_id"
+          v-slot="{option}"
+        >
+          <article class="flex items-center">
+            <beneficiary-image :beneficiary="option" class="!w-12 !h-12" />
+            <span class="option__title">{{ option.name }}</span>
+          </article>
+        </select-input>
+        <select-input
+          :options="categories"
+          name="Category"
+          v-model="form.category_id"
+          v-slot="{option}"
         >
           <Icon :icon="option.icon" class="inline mr-1" />
           <span class="option__title">{{ option.name }}</span>
         </select-input>
-        <icon-input v-model="form.icon" />
+        <div class="w-full flex justify-between">
+          <form-input
+            v-model="form.date"
+            type="date"
+            name="Date"
+            class="!w-full"
+          />
+          <decimal-input
+            v-model="form.amount"
+            name="Amount"
+            class="!w-full"
+          />
+        </div>
+        <form-textarea
+          v-model="form.notes"
+          name="Notes"
+          class="!w-full"
+          placeholder="Details, notes or whatever you like"
+        />
         <submit-button>
           Confirm
         </submit-button>
@@ -115,7 +130,7 @@ onMounted(() =>  {
     @click="showForm = true"
   >
     <Icon
-      icon="material-symbols:format-list-bulleted-add-rounded"
+      icon="material-symbols:currency-exchange"
       class="inline"
     />
     <span class="ml-1">Add new</span>

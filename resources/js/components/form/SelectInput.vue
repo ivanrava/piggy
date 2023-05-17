@@ -38,12 +38,14 @@ const emit = defineEmits(['update:modelValue'])
       label="name"
     >
       <template #singleLabel="props">
-        <Icon :icon="props.option.icon" class="inline mr-1" />
-        <span class="option__title">{{ props.option.name }}</span>
+        <slot :option="props.option">
+          <span class="option__title">{{ props.option.name }}</span>
+        </slot>
       </template>
       <template #option="props">
-        <Icon :icon="props.option.icon" class="inline mr-1" />
-        <span class="option__title">{{ props.option.name }}</span>
+        <slot :option="props.option">
+          <span class="option__title">{{ props.option.name }}</span>
+        </slot>
       </template>
     </VueMultiselect>
   </div>

@@ -8,6 +8,7 @@ import {AgGridVue} from "ag-grid-vue3";
 import BeneficiaryRenderer from "../../components/renderers/BeneficiaryRenderer.vue";
 import CategoryRenderer from "../../components/renderers/CategoryRenderer.vue";
 import AmountRenderer from "../../components/renderers/AmountRenderer.vue";
+import TransactionForm from "../../components/form/TransactionForm.vue";
 const route = useRoute();
 
 const account = ref({});
@@ -81,6 +82,7 @@ const stringComparator = (valA, valB) => {
     @grid-ready="onGridReady"
   >
   </ag-grid-vue>
+  <transaction-form />
 </template>
 
 <style>
