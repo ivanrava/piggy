@@ -44,7 +44,9 @@ const stringComparator = (valA, valB) => {
 <template>
   <h1>{{ account.name }} transactions</h1>
   <ag-grid-vue
-    class="ag-theme-material h-3/4 w-full"
+    class="ag-theme-material h-4/5 w-full"
+    :pagination="true"
+    :pagination-auto-page-size="true"
     :animate-rows="true"
     :default-col-def="{sortable: true}"
     :column-defs="[
