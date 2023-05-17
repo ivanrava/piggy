@@ -17,7 +17,9 @@ class TransferResource extends JsonResource
         return [
             'date' => $this->date,
             'amount' => $this->amount,
-            'notes' => $this->notes
+            'notes' => $this->notes,
+            'from' => new AccountResource($this->whenLoaded('from_account')),
+            'to' => new AccountResource($this->whenLoaded('to_account'))
         ];
     }
 }
