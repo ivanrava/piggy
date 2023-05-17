@@ -92,4 +92,7 @@ const stringComparator = (valA, valB) => {
   @apply text-right;
   font-size: 0.8rem;
 }
+.ag-header-cell-label {
+  font-size: 1.2rem;
+}
 </style>
