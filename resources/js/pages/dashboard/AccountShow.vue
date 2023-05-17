@@ -60,11 +60,13 @@ const stringComparator = (valA, valB) => {
       },
       {
         headerName: 'Date', field: 'date',
+        type: 'rightAligned',
         valueFormatter: dateFormatter
       },
       {
         headerName: 'Amount', field: 'amount',
         valueFormatter: currencyFormatter,
+        type: 'rightAligned',
         comparator: (valA, valB) => {
           return valA - valB
         }
