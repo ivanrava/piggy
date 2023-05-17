@@ -1,3 +1,11 @@
+interface Transaction {
+    date: string;
+    amount: string;
+    notes: string;
+    category: Category;
+    beneficiary: Beneficiary;
+}
+
 interface Account {
     id: bigint;
     icon: string;
@@ -6,6 +14,7 @@ interface Account {
     balance: string;
     last_update: string;
     color: string;
+    transactions: Array<Transaction>;
 }
 
 interface Category {
