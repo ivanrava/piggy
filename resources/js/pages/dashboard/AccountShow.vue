@@ -44,7 +44,7 @@ const stringComparator = (valA, valB) => {
 <template>
   <h1>{{ account.name }} transactions</h1>
   <ag-grid-vue
-    class="ag-theme-material h-4/5 w-full"
+    class="ag-theme-material ag-theme-piggy h-4/5 w-full"
     :pagination="true"
     :pagination-auto-page-size="true"
     :animate-rows="true"
@@ -63,15 +63,16 @@ const stringComparator = (valA, valB) => {
       {
         headerName: 'Date', field: 'date',
         type: 'rightAligned',
-        valueFormatter: dateFormatter
+        valueFormatter: dateFormatter,
+        cellClass: 'date-cell'
       },
       {
         headerName: 'Amount', field: 'amount',
         valueFormatter: currencyFormatter,
-        type: 'rightAligned',
         comparator: (valA, valB) => {
           return valA - valB
-        }
+        },
+        cellClass: 'amount-cell'
       },
     ]"
     :row-data="account.transactions"
@@ -80,6 +81,15 @@ const stringComparator = (valA, valB) => {
   </ag-grid-vue>
 </template>
 
-<style scoped>
-
+<style>
+.ag-theme-piggy {
+  --ag-font-family: 'Inter', sans;
+}
+.amount-cell {
+  font-size: 1.2rem;
+}
+.date-cell {
+  @apply text-right;
+  font-size: 0.8rem;
+}
 </style>
