@@ -82,7 +82,7 @@ const stringComparator = (valA, valB) => {
     @grid-ready="onGridReady"
   >
   </ag-grid-vue>
-  <transaction-form />
+  <transaction-form :account-id="account.id" />
 </template>
 
 <style>

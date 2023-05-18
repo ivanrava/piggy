@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import FormInput from "./FormInput.vue";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watchEffect} from "vue";
 import SubmitButton from "./SubmitButton.vue";
 import {Icon} from "@iconify/vue";
 import axios from "axios";
@@ -10,6 +10,10 @@ import BeneficiaryImage from "../BeneficiaryImage.vue";
 import DecimalInput from "./DecimalInput.vue";
 
 const showForm = ref(false);
+
+const props = defineProps<{
+  accountId: number;
+}>();
 
 interface StoreTransactionPayload {
   account_id: number;
@@ -44,21 +48,23 @@ const storeTransaction = function (payload: StoreTransactionPayload) {
 }
 
 const categories = ref([]);
+const beneficiaries = ref([]);
 onMounted(() =>  {
+  // Fetch categories
   axios.get("/categories").then(({data}) => {
     categories.value = data.data;
   }).catch(({response}) => {
     errors.value = response.data.errors;
   })
-});
-const beneficiaries = ref([]);
-onMounted(() =>  {
+  // Fetch categories
   axios.get("/beneficiaries").then(({data}) => {
     beneficiaries.value = data.data;
   }).catch(({response}) => {
     errors.value = response.data.errors;
   })
 });
+
+watchEffect(() => form.value.account_id = props.accountId);
 </script>
 
 <template>
