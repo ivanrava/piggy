@@ -91,8 +91,7 @@ onMounted(() =>  {
         <form-input
           v-model="form.name"
           class="!w-full"
-          placeholder="Food"
-          name="Category name"
+          label="Category name"
         />
         <select-input
           :options="fathers"

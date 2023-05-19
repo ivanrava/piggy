@@ -1,6 +1,5 @@
 <template>
-  <div class="my-1 px-3">
-    <label-input>Color</label-input>
+  <div class="m-1 flex flex-col justify-center">
     <div class="py-0.5 flex justify-center relative">
       <Icon
         id="iconPicker"

@@ -1,10 +1,9 @@
 <template>
   <div class="w-full">
-    <label-input>Icon</label-input>
     <form-input
       v-model="prompt"
       class="!w-full"
-      placeholder="Start searching for an icon"
+      label="Icon"
     />
     <span
       v-if="!isLoading && total >= pageLimit"

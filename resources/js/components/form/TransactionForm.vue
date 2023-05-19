@@ -110,20 +110,19 @@ watchEffect(() => form.value.account_id = props.accountId);
           <form-input
             v-model="form.date"
             type="date"
-            name="Date"
+            label="Date"
             class="!w-full"
           />
           <decimal-input
             v-model="form.amount"
-            name="Amount"
+            label="Amount"
             class="!w-full"
           />
         </div>
         <form-textarea
           v-model="form.notes"
-          name="Notes"
+          label="Notes"
           class="!w-full"
-          placeholder="Details, notes or whatever you like"
         />
         <submit-button>
           Confirm

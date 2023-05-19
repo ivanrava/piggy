@@ -9,35 +9,31 @@
     >
       <form-input
         v-model="form.name"
-        name="Name"
-        placeholder="Name"
+        label="Name"
         :errors="errors.name"
       />
       <form-input
         v-model="form.email"
-        name="E-mail"
-        placeholder="E-mail"
+        label="E-mail"
         type="email"
         :errors="errors.email"
       />
       <form-input
         v-model="form.password"
-        name="Password"
-        placeholder="Password"
+        label="Password"
         type="password"
         :errors="errors.password"
       />
       <form-input
         v-model="form.password_confirmation"
-        name="Confirm your password"
-        placeholder="Confirm password"
+        label="Confirm your password"
         type="password"
         :errors="errors.password_confirmation"
       />
       <submit-button :is-loading="loading">Sign up</submit-button>
     </form>
     <span class="text-xs mt-4">
-      Have you got a <i>deja-vu</i>?
+      Had a <i>deja-vu</i>?
       <router-link to="/login">
         Go the login page
       </router-link>

@@ -32,33 +32,32 @@
           <form-input
             v-model="form.name"
             class="!w-full"
-            placeholder="MasterCard"
-            name="Account name"
+            label="Account name"
           />
-          <color-picker v-model="form.color" />
+          <color-picker v-model="form.color" class="!ml-3" />
         </div>
         <div class="w-full flex flex-row justify-between">
           <form-input
             v-model="form.opening"
             type="date"
-            name="Opening date"
+            label="Opening date"
             class="!w-full"
           />
           <form-input
             v-model="form.closing"
             type="date"
-            name="Closing date"
+            label="Closing date"
             class="!w-full"
           />
           <decimal-input
             v-model="form.initial_balance"
-            name="Balance"
+            label="Balance"
           />
         </div>
         <icon-input v-model="form.icon" />
         <form-textarea
           v-model="form.description"
-          name="Description"
+          label="Description"
           class="!w-full"
           placeholder="Details, notes or whatever you like"
         />

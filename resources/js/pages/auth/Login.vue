@@ -9,15 +9,13 @@
     >
       <form-input
         v-model="form.email"
-        name="E-mail"
-        placeholder="E-mail"
+        label="E-mail"
         type="email"
         :errors="errors.email"
       />
       <form-input
         v-model="form.password"
-        name="Password"
-        placeholder="Password"
+        label="Password"
         type="password"
         :errors="errors.password"
       />

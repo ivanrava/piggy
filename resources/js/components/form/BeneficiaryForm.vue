@@ -95,14 +95,14 @@ const storeBeneficiary = function (payload: StoreBeneficiaryPayload) {
         <aside class="flex flex-row justify-center">
           <Transition name="fade" mode="out-in">
             <div v-if="beneficiaryType === 'company'" class="flex flex-row justify-around w-80">
-              <form-input class="mr-4 !w-40" placeholder="Google" name="Company name" v-model="name" />
-              <form-input class="mr-4 !w-36" placeholder="google.com" name="Company domain" v-model="domain" v-if="beneficiaryType === 'company'" />
+              <form-input class="mr-4 !w-40" label="Company name" v-model="name" />
+              <form-input class="mr-4 !w-36" label="Company domain" v-model="domain" v-if="beneficiaryType === 'company'" />
             </div>
             <div class="w-80" v-else-if="beneficiaryType === 'person'">
-              <form-input class="mr-4 !w-72" placeholder="John Smith" name="Beneficiary name" v-model="name" />
+              <form-input class="mr-4 !w-72" label="Beneficiary name" v-model="name" />
             </div>
             <div class="w-80" v-else>
-              <form-input class="mr-4 !w-72" placeholder="Food" name="Generic beneficiary name" v-model="name" />
+              <form-input class="mr-4 !w-72" label="Generic beneficiary name" v-model="name" />
             </div>
           </Transition>
           <submit-button>

@@ -1,15 +1,19 @@
 <template>
-  <div class="my-1 w-48">
-    <label-input :for="name">
-      {{ name }}
+  <div class="my-1 w-48 relative">
+    <label-input
+      :for="label"
+      class="absolute left-2.5 top-3 transition-all px-1 bg-stone-50 rounded-t-md"
+      :class="{'!-top-2.5': focused || value.length > 0, '!text-pink-200': focused}"
+    >
+      {{ label }}
     </label-input>
     <textarea
-      :id="name"
+      :id="label"
       v-model="value"
-      class="focus:outline-none transition-all ring-pink-300/20 focus:ring-4 p-2 bg-slate-100 w-full rounded-t-sm text-sm font-mono"
-      :class="{'rounded-b-sm': fullErrors.length == 0}"
-      :placeholder="placeholder"
-      :name="name"
+      class="focus:outline-none transition-all ring-pink-300/20 bg-stone-50 focus:border-pink-200/40 focus:ring-4 outline-none rounded-md border-2 ring-0 p-2 w-full text-sm font-mono"
+      :name="label"
+      @focus="focused = true"
+      @blur="focused = false"
     />
     <ul
       v-if="fullErrors.length > 0"
@@ -27,18 +31,14 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from "vue";
+import {computed, ref} from "vue";
 import LabelInput from "./LabelInput.vue";
 
 const props = defineProps({
     modelValue: {
         type: String,
     },
-    placeholder: {
-        type: String,
-        default: null
-    },
-    name: {
+    label: {
         type: String,
     },
     errors: {
@@ -56,6 +56,8 @@ const value = computed({
         emit('update:modelValue', value)
     }
 })
+
+const focused = ref(false);
 
 const validators = {
   email: {
