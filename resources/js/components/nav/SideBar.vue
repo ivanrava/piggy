@@ -1,30 +1,35 @@
 <template>
-  <nav class="bg-pink-100/20 w-1/6 h-full">
-    <ul>
+  <nav class="bg-red-200/20 w-1/5 h-full">
+    <ul class="flex flex-col justify-center">
       <li>
-        Data tracking
-        <ul>
-          <li>
-            <router-link to="/accounts"><i-tabler-credit-card /> Accounts</router-link>
-          </li>
-          <li>
-            <router-link to="/categories"><i-carbon-category-new-each /> Categories</router-link>
-          </li>
-          <li>
-            <router-link to="/beneficiaries"><i-fluent-people-money-20-filled /> Beneficiaries</router-link>
-          </li>
-        </ul>
+        <router-link to="/accounts">
+          <i-tabler-credit-card/>
+          Accounts
+        </router-link>
       </li>
       <li>
-        Reporting
-        <ul>
-          <li>
-            <router-link to="/report"><i-clarity-date-outline-alerted /> Custom report</router-link>
-          </li>
-          <li>
-            <router-link to="/stats"><i-carbon-quadrant-plot /> Statistics</router-link>
-          </li>
-        </ul>
+        <router-link to="/categories">
+          <i-carbon-category-new-each/>
+          Categories
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/beneficiaries">
+          <i-fluent-people-money-20-filled/>
+          Beneficiaries
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/report">
+          <i-clarity-date-outline-alerted/>
+          Custom report
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/stats">
+          <i-carbon-quadrant-plot/>
+          Statistics
+        </router-link>
       </li>
     </ul>
   </nav>
@@ -32,12 +37,23 @@
 
 <style scoped>
 ul > li {
-  @apply m-3 uppercase font-bold tracking-wide text-red-950;
+  @apply mx-8 my-4 font-medium tracking-widest text-sm;
 }
-ul > li > ul > li {
-  @apply m-3 capitalize font-medium text-sm text-stone-500 hover:text-stone-950 transition-all tracking-widest;
-}
+
 svg {
-  @apply inline;
+  @apply inline text-xl mr-3;
+}
+
+.router-link-active {
+  @apply text-red-600;
+}
+
+.router-link-active::before {
+  content: '';
+  @apply bg-red-600 block w-2 h-5 rounded-r-2xl absolute left-0;
+}
+
+a {
+  @apply transition-all text-black;
 }
 </style>
