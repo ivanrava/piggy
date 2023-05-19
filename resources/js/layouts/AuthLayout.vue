@@ -2,10 +2,10 @@
   <main class="flex justify-center items-center bg-pink-50 w-full">
     <div class="w-5/6 h-5/6 bg-stone-50 flex justify-stretch content-stretch rounded-lg shadow-2xl">
       <div class="basis-1 grow pl-32 flex flex-col justify-center items-center">
-        <brand-logo class="w-1/3 mb-16" />
+        <brand-logo class="w-1/3 mt-16" />
         <router-view
           v-slot="{ Component }"
-          class="flex text-center h-2/6"
+          class="flex text-center h-2/3"
         >
           <transition
             name="slide-fade"
