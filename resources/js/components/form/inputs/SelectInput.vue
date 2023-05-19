@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import LabelInput from "./LabelInput.vue";
-import {Icon} from "@iconify/vue";
 import VueMultiselect from "vue-multiselect";
+import 'vue-multiselect/dist/vue-multiselect.css';
 
 const props = defineProps({
   modelValue: {
@@ -51,6 +51,3 @@ const emit = defineEmits(['update:modelValue'])
   </div>
 </template>
 
-<style scoped>
-
-</style>

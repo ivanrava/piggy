@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import FormInput from "./FormInput.vue";
+import FormInput from "../inputs/FormInput.vue";
 import {ref, computed} from "vue";
-import BeneficiaryImage from "../BeneficiaryImage.vue";
-import SubmitButton from "./SubmitButton.vue";
+import BeneficiaryImage from "../../BeneficiaryImage.vue";
+import SubmitButton from "../inputs/SubmitButton.vue";
 import {Icon} from "@iconify/vue";
 import axios from "axios";
 

@@ -8,7 +8,7 @@ import {AgGridVue} from "ag-grid-vue3";
 import BeneficiaryRenderer from "../../components/renderers/BeneficiaryRenderer.vue";
 import CategoryRenderer from "../../components/renderers/CategoryRenderer.vue";
 import AmountRenderer from "../../components/renderers/AmountRenderer.vue";
-import TransactionForm from "../../components/form/TransactionForm.vue";
+import TransactionForm from "../../components/form/crud/TransactionForm.vue";
 import {Account} from "../../composables/interfaces";
 const route = useRoute();
 

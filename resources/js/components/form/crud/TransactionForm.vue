@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import FormInput from "./FormInput.vue";
+import FormInput from "../inputs/FormInput.vue";
 import {onMounted, ref, watchEffect} from "vue";
-import SubmitButton from "./SubmitButton.vue";
+import SubmitButton from "../inputs/SubmitButton.vue";
 import {Icon} from "@iconify/vue";
 import axios from "axios";
-import SelectInput from "./SelectInput.vue";
-import FormTextarea from "./FormTextarea.vue";
-import BeneficiaryImage from "../BeneficiaryImage.vue";
-import DecimalInput from "./DecimalInput.vue";
+import SelectInput from "../inputs/SelectInput.vue";
+import FormTextarea from "../inputs/FormTextarea.vue";
+import BeneficiaryImage from "../../BeneficiaryImage.vue";
+import DecimalInput from "../inputs/DecimalInput.vue";
 
 const showForm = ref(false);
 
@@ -156,4 +156,3 @@ watchEffect(() => form.value.account_id = props.accountId);
   transform: translateX(120%);
 }
 </style>
-<style src="vue-multiselect/dist/vue-multiselect.css"></style>

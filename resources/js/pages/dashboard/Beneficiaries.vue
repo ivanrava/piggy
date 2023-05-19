@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
 import axios from "axios";
-import BeneficiaryForm from "../../components/form/BeneficiaryForm.vue";
+import BeneficiaryForm from "../../components/form/crud/BeneficiaryForm.vue";
 import BeneficiaryCard from "../../components/BeneficiaryCard.vue";
 
 const beneficiaries = ref([]);

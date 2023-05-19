@@ -80,15 +80,15 @@
 </template>
 
 <script setup lang="ts">
-import FormInput from "./FormInput.vue";
+import FormInput from "../inputs/FormInput.vue";
 import {onMounted, ref} from "vue";
-import SubmitButton from "./SubmitButton.vue";
+import SubmitButton from "../inputs/SubmitButton.vue";
 import {Icon} from "@iconify/vue";
 import axios from "axios";
-import IconInput from "./IconInput.vue";
-import FormTextarea from "./FormTextarea.vue";
-import ColorPicker from "./ColorPicker.vue";
-import DecimalInput from "./DecimalInput.vue";
+import IconInput from "../inputs/IconInput.vue";
+import FormTextarea from "../inputs/FormTextarea.vue";
+import ColorPicker from "../inputs/ColorPicker.vue";
+import DecimalInput from "../inputs/DecimalInput.vue";
 
 const showForm = ref(false);
 

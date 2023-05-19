@@ -34,7 +34,7 @@
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import CategoryList from "../../components/CategoryList.vue";
-import CategoryForm from "../../components/form/CategoryForm.vue";
+import CategoryForm from "../../components/form/crud/CategoryForm.vue";
 import VueTree from '@ssthouse/vue3-tree-chart';
 import "@ssthouse/vue3-tree-chart/dist/vue3-tree-chart.css";
 import {Icon} from "@iconify/vue";
