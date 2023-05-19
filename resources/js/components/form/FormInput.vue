@@ -7,6 +7,18 @@
     >
       {{ label }}
     </label-input>
+    <Icon
+      v-if="(type === 'password' || type === 'pw-show') && label.toLowerCase().indexOf('confirm') === -1"
+      :icon="showPassword ? 'mingcute:eye-fill' : 'mingcute:eye-close-fill'"
+      class="absolute right-2.5 top-3 cursor-pointer transition-all hover:text-gray-700"
+      :class="showPassword ? 'text-gray-500' : 'text-gray-400'"
+      @click="showPassword = !showPassword; type = type == 'pw-show' ? 'password' : 'pw-show'"
+    />
+    <Icon
+      v-else
+      class="absolute right-2.5 top-3 text-gray-400"
+      :icon="icon"
+    />
     <input
       :id="label"
       v-model="value"
@@ -36,6 +48,7 @@
 <script setup lang="ts">
 import {computed, ref} from "vue";
 import LabelInput from "./LabelInput.vue";
+import {Icon} from "@iconify/vue";
 
 const props = defineProps({
     modelValue: {
@@ -65,6 +78,14 @@ const value = computed({
 })
 
 const focused = ref(false);
+const showPassword = ref(false);
+const icon = computed(() => {
+  const icons = {
+    'text': 'ph:text-aa-bold',
+    'email': 'ion:mail-outline'
+  }
+  return icons[props.type];
+})
 
 const validators = {
   email: {
