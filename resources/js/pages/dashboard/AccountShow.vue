@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
 import {AgGridVue} from "ag-grid-vue3";
@@ -9,9 +9,10 @@ import BeneficiaryRenderer from "../../components/renderers/BeneficiaryRenderer.
 import CategoryRenderer from "../../components/renderers/CategoryRenderer.vue";
 import AmountRenderer from "../../components/renderers/AmountRenderer.vue";
 import TransactionForm from "../../components/form/TransactionForm.vue";
+import {Account} from "../../composables/interfaces";
 const route = useRoute();
 
-const account = ref({});
+const account = ref<Account>(null);
 const errors = ref([]);
 onMounted(() => {
   axios.get("/accounts/"+route.params.id).then(({data}) => {
@@ -41,24 +42,31 @@ const stringComparator = (valA, valB) => {
     return 0;
   return (valA.name > valB.name) ? 1 : -1;
 }
+
+const transactions = computed(() => {
+  if (account.value !== null) {
+    const transfers = account.value.in_transfers.concat(account.value.out_transfers);
+    console.log(account.value.transactions.concat(transfers))
+    return account.value.transactions.concat(transfers)
+  }
+})
 </script>
 
 <template>
-  <h1>{{ account.name }} transactions</h1>
+  <h1 v-if="account">{{ account.name }} transactions</h1>
   <ag-grid-vue
     class="ag-theme-material ag-theme-piggy h-4/5 w-full"
     :pagination="true"
     :pagination-auto-page-size="true"
     :animate-rows="true"
-    :default-col-def="{sortable: true}"
     :column-defs="[
       {
-        headerName: 'Beneficiary', field: 'beneficiary',
+        headerName: 'Beneficiary', field: 'data',
         cellRenderer: BeneficiaryRenderer, autoHeight: true,
         comparator: stringComparator
       },
       {
-        headerName: 'Category', field: 'category',
+        headerName: 'Category', field: 'data',
         cellRenderer: CategoryRenderer,
         comparator: stringComparator
       },
@@ -66,7 +74,8 @@ const stringComparator = (valA, valB) => {
         headerName: 'Date', field: 'date',
         type: 'rightAligned',
         valueFormatter: dateFormatter,
-        cellClass: 'date-cell'
+        cellClass: 'date-cell',
+        sortable: true
       },
       {
         headerName: 'Amount', field: 'amount',
@@ -75,14 +84,15 @@ const stringComparator = (valA, valB) => {
         comparator: (valA, valB) => {
           return valA - valB
         },
-        cellClass: 'amount-cell'
+        cellClass: 'amount-cell',
+        sortable: true
       },
     ]"
-    :row-data="account.transactions"
+    :row-data="transactions"
     @grid-ready="onGridReady"
   >
   </ag-grid-vue>
-  <transaction-form :account-id="account.id" />
+  <transaction-form v-if="account" :account-id="account.id" />
 </template>
 
 <style>

@@ -1,15 +1,16 @@
 <template>
-  <article
-    class="flex items-center text-slate-50 p-2 rounded-lg drop-shadow-xl cursor-pointer"
+  <router-link
+    class="flex items-center text-slate-50 drop-shadow-xl cursor-pointer unstyled"
+    :class="small ? 'rounded-md px-2' : 'rounded-lg p-2'"
     :style="{backgroundColor: `#${account.color}`}"
-    @click="router.push('/accounts/'+account.id)"
+    :to="'/accounts/'+account.id"
   >
-    <Icon :icon="account.icon" class="text-4xl" />
+    <Icon :icon="account.icon" :class="small ? 'text-2xl' : 'text-4xl'" />
     <div class="flex flex-col ml-2">
-      <b>{{ account.name }}</b>
-      <small class="text-stone-100 font-light">{{ account.type }}</small>
+      <b :class="{'leading-4 text-xs': small}">{{ account.name }}</b>
+      <small class="text-stone-100 font-light" :class="{'text-[8px] leading-[0.8]': small}">{{ account.type }}</small>
     </div>
-  </article>
+  </router-link>
 </template>
 
 <script setup lang="ts">
@@ -18,11 +19,17 @@ import {Account} from '../composables/interfaces';
 import {useRouter} from "vue-router";
 const router = useRouter()
 
-defineProps<{
-  account: Account
-}>();
+withDefaults(defineProps<{
+  account: Account,
+  small: boolean
+}>(), {
+  small: false
+})
+
 </script>
 
 <style scoped>
-
+a {
+  @apply no-underline;
+}
 </style>

@@ -6,7 +6,10 @@ export default defineComponent({
   props: ['params'],
   computed: {
     isOut() {
-      return this.params.data.category.type === 'out'
+      if ('category' in this.params.data)
+        return this.params.data.category.type === 'out'
+      else
+        return 'to' in this.params.data
     }
   }
 })

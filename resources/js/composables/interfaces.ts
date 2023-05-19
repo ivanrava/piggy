@@ -1,9 +1,17 @@
 interface Transaction {
+    category: Category;
+    beneficiary: Beneficiary;
     date: string;
     amount: string;
     notes: string;
-    category: Category;
-    beneficiary: Beneficiary;
+}
+
+interface Transfer {
+    from_account_id: number;
+    to_account_id: number;
+    date: string;
+    amount: string;
+    notes: string;
 }
 
 interface Account {
@@ -15,6 +23,8 @@ interface Account {
     last_update: string;
     color: string;
     transactions: Array<Transaction>;
+    in_transfers: Array<Transfer>;
+    out_transfers: Array<Transfer>;
 }
 
 interface Category {
@@ -32,5 +42,5 @@ interface Beneficiary {
 }
 
 export {
-    Account, Category, Beneficiary
+    Account, Category, Beneficiary, Transaction, Transfer
 }

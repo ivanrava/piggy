@@ -12,7 +12,7 @@
             name="fade"
             mode="out-in"
           >
-            <div :key="route.name" class="h-full p-4">
+            <div :key="route.fullPath" class="h-full p-4">
               <component :is="Component" />
             </div>
           </transition>
@@ -26,8 +26,10 @@
 import {defineComponent} from "vue";
 import NavBar from "../components/nav/NavBar.vue";
 import SideBar from "../components/nav/SideBar.vue";
+import {useRoute} from "vue-router";
 
 export default defineComponent({
+  methods: {useRoute},
   components: {SideBar, NavBar}
 })
 </script>
