@@ -19,7 +19,7 @@
   <!--    </tbody>-->
   <!--  </table>-->
   <div class="flex flex-col justify-between h-full">
-    <section class="p-4">
+    <section>
       <h1>Accounts</h1>
       <div class="flex flex-wrap gap-4">
         <account-card
