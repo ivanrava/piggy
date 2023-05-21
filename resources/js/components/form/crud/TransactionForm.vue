@@ -115,7 +115,7 @@ watchEffect(() => form.value.account_id = props.accountId);
           />
           <span class="option__title text-sm">{{ option.name }}</span>
         </select-input>
-        <div class="w-full flex justify-between">
+        <div class="w-full flex justify-between gap-4">
           <form-input
             v-model="form.date"
             type="date"

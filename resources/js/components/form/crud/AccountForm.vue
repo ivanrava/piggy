@@ -36,7 +36,7 @@
           />
           <color-picker v-model="form.color" class="!ml-3" />
         </div>
-        <div class="w-full flex flex-row justify-between">
+        <div class="w-full flex flex-row gap-2 justify-between">
           <form-input
             v-model="form.opening"
             type="date"
