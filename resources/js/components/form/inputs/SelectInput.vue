@@ -27,7 +27,7 @@ const emit = defineEmits(['update:modelValue'])
 </script>
 
 <template>
-  <div class="my-1 w-full">
+  <div class="w-full">
     <label-input
       :for="name"
       class="ml-1"
@@ -36,7 +36,7 @@ const emit = defineEmits(['update:modelValue'])
     </label-input>
     <VueMultiselect
       :options="options"
-      class="w-full"
+      class="w-full rounded-md border-2"
       :model-value="options.find(t=>t.id === modelValue)"
       track-by="id"
       label="name"

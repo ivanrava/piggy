@@ -98,7 +98,7 @@ watchEffect(() => form.value.account_id = props.accountId);
           <article class="flex items-center">
             <beneficiary-image
               :beneficiary="option"
-              class="!p-0 mr-1 !w-4 !h-4 !rounded-sm"
+              class="!p-0 mr-2 !w-4 !h-4 !rounded-sm"
             />
             <span class="option__title text-sm">{{ option.name }}</span>
           </article>
