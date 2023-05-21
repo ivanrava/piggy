@@ -2,6 +2,7 @@
 import LabelInput from "./LabelInput.vue";
 import VueMultiselect from "vue-multiselect";
 import 'vue-multiselect/dist/vue-multiselect.css';
+import {ref} from "vue";
 
 const props = defineProps({
   modelValue: {
@@ -24,6 +25,7 @@ const props = defineProps({
   }
 })
 const emit = defineEmits(['update:modelValue'])
+const focused = ref(false);
 </script>
 
 <template>
@@ -31,16 +33,20 @@ const emit = defineEmits(['update:modelValue'])
     <label-input
       :for="name"
       class="ml-1"
+      :class="{'!-top-2.5': focused, '!text-pink-200': focused}"
     >
       {{ name }}
     </label-input>
     <VueMultiselect
       :options="options"
-      class="w-full rounded-md border-2"
+      class="w-full rounded-md border-2 outline-none transition-all ring-0 ring-pink-300/20"
+      :class="{'border-pink-200/40 ring-4': focused}"
       :model-value="options.find(t=>t.id === modelValue)"
       track-by="id"
       label="name"
       @update:model-value="emit('update:modelValue', $event.id)"
+      @open="focused = true"
+      @close="focused = false"
     >
       <template #singleLabel="props">
         <slot :option="props.option">
@@ -82,6 +88,28 @@ const emit = defineEmits(['update:modelValue'])
 }
 
 .multiselect__placeholder {
-  color: #999999;
+  padding-top: 0;
+  color: #555;
+  @apply font-serif;
+}
+
+.multiselect__tags {
+  border: none;
+  @apply bg-stone-50 text-slate-900;
+}
+
+.multiselect__single, .multiselect__input {
+  @apply bg-stone-50;
+  font-size: 14px;
+  padding-left: 0;
+}
+
+.multiselect__input {
+  @apply font-serif;
+  margin-top: 2px;
+}
+
+.option__title {
+  @apply font-mono;
 }
 </style>
