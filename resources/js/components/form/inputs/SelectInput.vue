@@ -28,14 +28,19 @@ const emit = defineEmits(['update:modelValue'])
 
 <template>
   <div class="my-1 w-full">
-    <label-input :for="name">{{ name }}</label-input>
+    <label-input
+      :for="name"
+      class="ml-1"
+    >
+      {{ name }}
+    </label-input>
     <VueMultiselect
       :options="options"
       class="w-full"
       :model-value="options.find(t=>t.id === modelValue)"
-      @update:model-value="emit('update:modelValue', $event.id)"
       track-by="id"
       label="name"
+      @update:model-value="emit('update:modelValue', $event.id)"
     >
       <template #singleLabel="props">
         <slot :option="props.option">
@@ -51,3 +56,32 @@ const emit = defineEmits(['update:modelValue'])
   </div>
 </template>
 
+<style>
+.multiselect__tag {
+  @apply bg-pink-300;
+}
+
+.multiselect__option--highlight {
+  @apply bg-pink-300;
+}
+
+.multiselect__option--highlight:after {
+  @apply bg-pink-300;
+}
+
+.multiselect__option--selected.multiselect__option--highlight {
+  background: #798b91;
+}
+
+.multiselect__option--selected.multiselect__option--highlight:after {
+  background: #798b91;
+}
+
+.multiselect__tag-icon:hover {
+  @apply bg-pink-300;
+}
+
+.multiselect__placeholder {
+  color: #999999;
+}
+</style>

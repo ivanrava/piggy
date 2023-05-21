@@ -53,7 +53,7 @@ const imageSrc = computed(() => {
     class="w-16 h-16 rounded-xl p-2"
     alt=""
     @error="$event.target.src = fallbackAvatar(beneficiary.name)"
-  />
+  >
 </template>
 
 <style scoped>

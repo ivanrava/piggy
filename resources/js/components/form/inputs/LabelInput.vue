@@ -7,7 +7,10 @@ const props = defineProps({
 </script>
 
 <template>
-  <label class="block mb-2 font-bold tracking-wide text-sm font-serif text-gray-500" :for="props.for">
-    <slot/>
+  <label
+    class="block mb-0.5 font-bold tracking-wide text-sm font-serif text-gray-500"
+    :for="props.for"
+  >
+    <slot />
   </label>
 </template>
