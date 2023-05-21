@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col w-full">
-    <nav-bar/>
+    <nav-bar />
     <div class="flex w-full h-full">
-      <side-bar/>
+      <side-bar />
       <main class="w-full">
         <router-view
           v-slot="{ Component, route }"
@@ -12,7 +12,10 @@
             name="fade"
             mode="out-in"
           >
-            <div :key="route.fullPath" class="h-full p-4">
+            <div
+              :key="route.fullPath"
+              class="h-full p-4"
+            >
               <component :is="Component" />
             </div>
           </transition>
@@ -26,10 +29,8 @@
 import {defineComponent} from "vue";
 import NavBar from "../components/nav/NavBar.vue";
 import SideBar from "../components/nav/SideBar.vue";
-import {useRoute} from "vue-router";
 
 export default defineComponent({
-  methods: {useRoute},
   components: {SideBar, NavBar}
 })
 </script>
@@ -37,7 +38,7 @@ export default defineComponent({
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.2s ease;
 }
 
 .fade-enter-from,
