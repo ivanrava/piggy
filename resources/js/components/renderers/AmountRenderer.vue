@@ -18,7 +18,7 @@ export default defineComponent({
 <template>
   <span :class="isOut ? 'text-red-700' : 'text-green-700'">
     <span v-if="isOut" class="mr-0.5">-</span>
-    <span>{{ this.params.valueFormatted }}</span>
+    <span>{{ params.valueFormatted }}</span>
   </span>
 </template>
 

@@ -33,12 +33,15 @@ const form = ref({
   notes: ''
 })
 
+const emit = defineEmits(['added']);
+
 const loading = ref(false);
 const errors = ref({});
 const storeTransaction = function (payload: StoreTransactionPayload) {
   loading.value = true;
-  axios.post("/transactions", payload).then(() => {
+  axios.post("/transactions", payload).then(({data}) => {
     showForm.value = false;
+    emit('added', data.data);
     errors.value = [];
   }).catch(({response}) => {
     errors.value = response.data.errors;
@@ -87,24 +90,30 @@ watchEffect(() => form.value.account_id = props.accountId);
         @submit.prevent="storeTransaction(form)"
       >
         <select-input
+          v-slot="{option}"
+          v-model="form.beneficiary_id"
           :options="beneficiaries"
           name="Beneficiary"
-          v-model="form.beneficiary_id"
-          v-slot="{option}"
         >
           <article class="flex items-center">
-            <beneficiary-image :beneficiary="option" class="!w-12 !h-12" />
-            <span class="option__title">{{ option.name }}</span>
+            <beneficiary-image
+              :beneficiary="option"
+              class="!p-0 mr-1 !w-4 !h-4 !rounded-sm"
+            />
+            <span class="option__title text-sm">{{ option.name }}</span>
           </article>
         </select-input>
         <select-input
+          v-slot="{option}"
+          v-model="form.category_id"
           :options="categories"
           name="Category"
-          v-model="form.category_id"
-          v-slot="{option}"
         >
-          <Icon :icon="option.icon" class="inline mr-1" />
-          <span class="option__title">{{ option.name }}</span>
+          <Icon
+            :icon="option.icon"
+            class="inline mr-1"
+          />
+          <span class="option__title text-sm">{{ option.name }}</span>
         </select-input>
         <div class="w-full flex justify-between">
           <form-input

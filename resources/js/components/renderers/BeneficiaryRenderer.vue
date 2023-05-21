@@ -9,7 +9,6 @@ export default defineComponent({
   props: ['params'],
   computed: {
     isBeneficiary() {
-      console.log(this.params.data)
       return 'beneficiary' in this.params.data;
     },
     beneficiary() {
@@ -23,12 +22,25 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="flex items-center" v-if="isBeneficiary">
-    <beneficiary-image :beneficiary="beneficiary" class="!w-12 !h-12" />
+  <div
+    v-if="isBeneficiary"
+    class="flex items-center"
+  >
+    <beneficiary-image
+      :beneficiary="beneficiary"
+      class="!w-12 !h-12"
+    />
     <span class="text-xs font-semibold">{{ beneficiary.name }}</span>
   </div>
-  <div class="flex items-center" v-else>
-    <account-card :account="account" :small="true" class="!h-9 leading-normal my-1 mx-2 drop-shadow-sm" />
+  <div
+    v-else
+    class="flex items-center"
+  >
+    <account-card
+      :account="account"
+      :small="true"
+      class="!h-9 leading-normal my-1 mx-2 drop-shadow-sm"
+    />
   </div>
 </template>
 

@@ -21,18 +21,18 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTransactionRequest $request): \Illuminate\Http\Response
+    public function store(StoreTransactionRequest $request): TransactionResource
     {
 
-        $category = new Transaction();
-        $category->account_id = $request->account_id;
-        $category->beneficiary_id = $request->beneficiary_id;
-        $category->category_id = $request->category_id;
-        $category->notes = $request->notes;
-        $category->amount = $request->amount;
-        $category->date = $request->date;
-        $category->save();
-        return response()->noContent(201);
+        $transaction = new Transaction();
+        $transaction->account_id = $request->account_id;
+        $transaction->beneficiary_id = $request->beneficiary_id;
+        $transaction->category_id = $request->category_id;
+        $transaction->notes = $request->notes;
+        $transaction->amount = $request->amount;
+        $transaction->date = $request->date;
+        $transaction->save();
+        return new TransactionResource($transaction);
     }
 
     /**

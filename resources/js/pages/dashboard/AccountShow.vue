@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, ref, watchEffect} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
 import {AgGridVue} from "ag-grid-vue3";
@@ -21,6 +21,9 @@ onMounted(() => {
       state: [{ colId: 'date', sort: 'desc' }],
       defaultState: { sort: null },
     });
+    gridApi.value.sizeColumnsToFit({
+      defaultMinWidth: 100,
+    })
   }).catch(({response}) => {
     errors.value = response.data.errors;
   })
@@ -38,9 +41,6 @@ const columnApi = ref({});
 const onGridReady = (params) => {
   gridApi.value = params.api;
   columnApi.value = params.columnApi;
-  params.api.sizeColumnsToFit({
-    defaultMinWidth: 100,
-  })
 }
 
 const stringComparator = (valA, valB) => {
@@ -56,6 +56,13 @@ const transactions = computed(() => {
   }
   return [];
 })
+
+const addedTransactions = ref([]);
+watchEffect(() => {
+  if ('setRowData' in gridApi.value) {
+    gridApi.value?.setRowData(transactions.value.concat(addedTransactions.value));
+  }
+});
 </script>
 
 <template>
@@ -102,6 +109,7 @@ const transactions = computed(() => {
   <transaction-form
     v-if="account"
     :account-id="account.id"
+    @added="(trans) => addedTransactions.push(trans)"
   />
 </template>
 
