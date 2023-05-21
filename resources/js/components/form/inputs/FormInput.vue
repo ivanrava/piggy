@@ -2,8 +2,8 @@
   <div class="my-2 w-48 relative">
     <label-input
       :for="label"
-      class="absolute left-2.5 top-3 text-gray-500 cursor-text transition-all px-1 bg-stone-50 rounded-t-md"
-      :class="{'!-top-2.5': focused || value.length > 0, '!text-pink-200': focused}"
+      class="z-10 absolute left-2.5 top-3 text-gray-500 cursor-text transition-all px-1 bg-stone-50 rounded-t-md"
+      :class="{'!-top-2.5': focused || isFieldNonEmpty, '!text-pink-200': focused}"
     >
       {{ label }}
     </label-input>
@@ -61,6 +61,10 @@ const props = defineProps({
         type: String,
         default: 'text'
     },
+    forceUp: {
+      type: Boolean,
+      default: false,
+    },
     errors: {
         type: Array<String>,
         default: []
@@ -77,11 +81,14 @@ const value = computed({
     }
 })
 
+const isFieldNonEmpty = computed(() => {
+  return props.forceUp || value.value.length > 0 || props.type === 'date';
+})
 const focused = ref(false);
 const showPassword = ref(false);
 const icon = computed(() => {
   const icons = {
-    'text': 'ph:text-aa-bold',
+    'text': props.forceUp ? '' : 'ph:text-aa-bold',
     'email': 'ion:mail-outline'
   }
   return icons[props.type];

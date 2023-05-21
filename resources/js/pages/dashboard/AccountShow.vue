@@ -17,6 +17,10 @@ const errors = ref([]);
 onMounted(() => {
   axios.get("/accounts/"+route.params.id).then(({data}) => {
     account.value = data.data;
+    columnApi.value.applyColumnState({
+      state: [{ colId: 'date', sort: 'desc' }],
+      defaultState: { sort: null },
+    });
   }).catch(({response}) => {
     errors.value = response.data.errors;
   })
@@ -30,8 +34,10 @@ const currencyFormatter = (curr) => {
 }
 
 const gridApi = ref({});
+const columnApi = ref({});
 const onGridReady = (params) => {
   gridApi.value = params.api;
+  columnApi.value = params.columnApi;
   params.api.sizeColumnsToFit({
     defaultMinWidth: 100,
   })
@@ -46,14 +52,16 @@ const stringComparator = (valA, valB) => {
 const transactions = computed(() => {
   if (account.value !== null) {
     const transfers = account.value.in_transfers.concat(account.value.out_transfers);
-    console.log(account.value.transactions.concat(transfers))
     return account.value.transactions.concat(transfers)
   }
+  return [];
 })
 </script>
 
 <template>
-  <h1 v-if="account">{{ account.name }} transactions</h1>
+  <h1 v-if="account">
+    {{ account.name }} transactions
+  </h1>
   <ag-grid-vue
     class="ag-theme-material ag-theme-piggy h-4/5 w-full"
     :pagination="true"
@@ -90,9 +98,11 @@ const transactions = computed(() => {
     ]"
     :row-data="transactions"
     @grid-ready="onGridReady"
-  >
-  </ag-grid-vue>
-  <transaction-form v-if="account" :account-id="account.id" />
+  />
+  <transaction-form
+    v-if="account"
+    :account-id="account.id"
+  />
 </template>
 
 <style>

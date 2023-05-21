@@ -44,6 +44,7 @@ const {inputRef} = useCurrencyInput({
     v-model.number="value"
     type="text"
     :name="name"
+    :force-up="true"
   />
 </template>
 
