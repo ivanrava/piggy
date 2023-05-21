@@ -12,7 +12,7 @@
       <Transition name="fade">
         <div
           v-show="showPicker"
-          class="absolute z-10 top-12 right-2"
+          class="absolute z-50 top-12 right-2"
         >
           <Sketch
             v-model="value"
