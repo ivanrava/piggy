@@ -15,7 +15,7 @@
       @click="showPassword = !showPassword; type = type == 'pw-show' ? 'password' : 'pw-show'"
     />
     <Icon
-      v-else
+      v-else-if="type !== 'date'"
       class="absolute right-2.5 top-3 text-gray-400"
       :icon="icon"
     />
