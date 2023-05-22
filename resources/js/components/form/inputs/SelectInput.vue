@@ -3,6 +3,7 @@ import LabelInput from "./LabelInput.vue";
 import VueMultiselect from "vue-multiselect";
 import 'vue-multiselect/dist/vue-multiselect.css';
 import {ref} from "vue";
+import {Icon} from "@iconify/vue";
 
 const props = defineProps({
   modelValue: {
@@ -57,6 +58,12 @@ const focused = ref(false);
         <slot :option="props.option">
           <span class="option__title">{{ props.option.name }}</span>
         </slot>
+      </template>
+      <template #noResult="props">
+        <span class="option__title">
+          <Icon icon="ri:emotion-sad-line" class="inline"/>
+          No elements found.
+        </span>
       </template>
     </VueMultiselect>
   </div>
