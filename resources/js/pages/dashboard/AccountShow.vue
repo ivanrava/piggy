@@ -71,6 +71,7 @@ watchEffect(() => {
   </h1>
   <ag-grid-vue
     class="ag-theme-material ag-theme-piggy h-4/5 w-full"
+    :suppress-cell-focus="true"
     :pagination="true"
     :pagination-auto-page-size="true"
     :animate-rows="true"
