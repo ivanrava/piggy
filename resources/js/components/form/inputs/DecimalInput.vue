@@ -1,47 +1,39 @@
-<script setup lang="ts">
-import {computed} from "vue";
+<script lang="ts">
 import FormInput from "./FormInput.vue";
-import {useCurrencyInput} from "vue-currency-input";
+import { useCurrencyInput } from "vue-currency-input";
 
-const props = defineProps({
-  modelValue: {
-    type: Number,
+export default {
+  name: "ElCurrencyInput",
+  components: {FormInput},
+  props: {
+    modelValue: Number,
+    name: String,
   },
-  name: {
-    type: String,
-  },
-})
-const emit = defineEmits(['update:modelValue'])
+  setup() {
+    const { inputRef, formattedValue } = useCurrencyInput({
+      currency: "EUR",
+      valueRange: {
+        min: 0,
+        max: 99999999.99
+      },
+      precision: 2,
+      hideCurrencySymbolOnFocus: true,
+      hideGroupingSeparatorOnFocus: true,
+      hideNegligibleDecimalDigitsOnFocus: true,
+      autoDecimalDigits: false,
+      useGrouping: true,
+      accountingSign: false
+    });
 
-const value = computed({
-  get() {
-    return props.modelValue
+    return { inputRef, formattedValue };
   },
-  set(value) {
-    emit('update:modelValue', value)
-  }
-})
-
-const {inputRef} = useCurrencyInput({
-  currency: "EUR",
-  valueRange: {
-    min: 0,
-    max: 99999999.99
-  },
-  precision: 2,
-  hideCurrencySymbolOnFocus: true,
-  hideGroupingSeparatorOnFocus: true,
-  hideNegligibleDecimalDigitsOnFocus: true,
-  autoDecimalDigits: false,
-  useGrouping: true,
-  accountingSign: false
-})
+};
 </script>
 
 <template>
   <form-input
     ref="inputRef"
-    v-model.number="value"
+    v-model="formattedValue"
     type="text"
     :name="name"
     :force-up="true"
