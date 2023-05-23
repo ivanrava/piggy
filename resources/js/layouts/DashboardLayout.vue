@@ -1,27 +1,29 @@
 <template>
-  <div class="flex flex-col w-full">
+  <div class="flex flex-col w-full bg-pink-50">
     <nav-bar />
-    <div class="flex w-full h-full">
-      <side-bar />
-      <main class="w-full">
-        <router-view
-          v-slot="{ Component, route }"
-          class="flex w-full"
-        >
-          <transition
-            name="fade"
-            mode="out-in"
+    <section class="px-3 pb-3 pt-1.5 h-full">
+      <div class="flex w-full h-full bg-pink-200/50 rounded-3xl shadow-inner">
+        <side-bar class="rounded-l-3xl w-1/5" />
+        <main class="w-full bg-stone-200 rounded-r-3xl overflow-scroll">
+          <router-view
+            v-slot="{ Component, route }"
+            class="flex w-full"
           >
-            <div
-              :key="route.fullPath"
-              class="h-full p-4"
+            <transition
+              name="fade"
+              mode="out-in"
             >
-              <component :is="Component" />
-            </div>
-          </transition>
-        </router-view>
-      </main>
-    </div>
+              <div
+                :key="route.fullPath"
+                class="h-full p-4"
+              >
+                <component :is="Component" />
+              </div>
+            </transition>
+          </router-view>
+        </main>
+      </div>
+    </section>
   </div>
 </template>
 

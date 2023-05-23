@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-red-200/20 w-1/5 h-full">
+  <nav class="bg-stone-300/80 h-full">
     <ul class="flex flex-col justify-center">
       <li>
         <router-link to="/accounts">
@@ -37,7 +37,7 @@
 
 <style scoped>
 ul > li {
-  @apply mx-8 my-4 font-medium tracking-widest text-sm;
+  @apply mx-6 my-4 font-medium tracking-widest text-sm;
 }
 
 svg {
@@ -45,12 +45,12 @@ svg {
 }
 
 .router-link-active {
-  @apply text-red-600;
+  @apply text-red-800/70;
 }
 
 .router-link-active::before {
   content: '';
-  @apply bg-red-600 block w-2 h-5 rounded-r-2xl absolute left-0;
+  @apply bg-red-800/70 block w-1 h-4 rounded-r-2xl absolute left-0;
 }
 
 a {
