@@ -40,6 +40,8 @@ class BeneficiaryController extends Controller
         if ($beneficiary->user_id != $request->user()->id)
             return response()->noContent(404);
 
+        $beneficiary->load('transactions');
+
         return new BeneficiaryResource($beneficiary);
     }
 

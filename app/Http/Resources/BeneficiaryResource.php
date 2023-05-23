@@ -18,7 +18,8 @@ class BeneficiaryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'img' => $this->img,
-            'created_at' => $this->created_at->diffForHumans()
+            'created_at' => $this->created_at->diffForHumans(),
+            'transactions' => TransactionResource::collection($this->whenLoaded('transactions'))
         ];
     }
 }

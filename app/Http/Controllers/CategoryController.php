@@ -45,6 +45,8 @@ class CategoryController extends Controller
         if ($category->user_id != $request->user()->id)
             return response()->noContent(404);
 
+        $category->load('transactions');
+
         return new CategoryResource($category->load('children'));
     }
 
