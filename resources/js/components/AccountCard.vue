@@ -1,7 +1,10 @@
 <template>
   <router-link
-    class="flex items-center shadow-lg cursor-pointer unstyled"
-    :class="[small ? 'rounded-md px-2' : 'rounded-lg p-2', textColor]"
+    class="flex items-center unstyled"
+    :class="[
+      small ? 'rounded-md px-2' : 'rounded-lg p-2',
+      textColor,
+      isExpired ? 'opacity-30 cursor-not-allowed shadow-sm' : 'cursor-pointer shadow-lg']"
     :style="{backgroundColor: `#${account.color}`}"
     :to="'/accounts/'+account.id"
   >
@@ -32,7 +35,10 @@ const textColor = computed(() => {
     (parseInt(props.account.color.slice(2,4), 16) * 587) +
     (parseInt(props.account.color.slice(4,6), 16) * 114)) / 1000);
 
-  return brightness > 180 ? 'text-slate-950' : 'text-slate-50';
+  return brightness > 148 ? 'text-slate-950' : 'text-slate-50';
+})
+const isExpired = computed(() => {
+  return new Date(props.account.closing) >= new Date();
 })
 </script>
 
