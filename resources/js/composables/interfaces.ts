@@ -22,6 +22,8 @@ interface Account {
     balance: string;
     last_update: string;
     color: string;
+    opening: string;
+    closing: string;
     transactions: Array<Transaction>;
     in_transfers: Array<Transfer>;
     out_transfers: Array<Transfer>;
@@ -36,6 +38,7 @@ interface Category {
 }
 
 interface Beneficiary {
+    id: string;
     name: string;
     img: string;
     created_at: string;

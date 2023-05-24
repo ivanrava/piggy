@@ -22,16 +22,17 @@ export default defineComponent({
 </script>
 
 <template>
-  <div
+  <router-link
     v-if="isBeneficiary"
     class="flex items-center"
+    :to="`/beneficiaries/${beneficiary.id}`"
   >
     <beneficiary-image
       :beneficiary="beneficiary"
       class="!w-12 !h-12"
     />
     <span class="text-xs font-semibold">{{ beneficiary.name }}</span>
-  </div>
+  </router-link>
   <div
     v-else
     class="flex items-center"

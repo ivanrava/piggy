@@ -69,6 +69,15 @@ const routes = [
                 }
             },
             {
+                name: 'categories.id',
+                path: '/categories/:id',
+                component: () => import('@/pages/dashboard/CategoryShow.vue'),
+                meta: {
+                    title: 'Category transactions',
+                    requiresAuth: true
+                }
+            },
+            {
                 name: 'category-graph',
                 path: '/categories/graph',
                 component: () => import('../pages/dashboard/CategoryGraph.vue'),
@@ -85,7 +94,16 @@ const routes = [
                     title: 'Beneficiaries',
                     requiresAuth: true
                 }
-            }
+            },
+            {
+                name: 'beneficiaries.id',
+                path: '/beneficiaries/:id',
+                component: () => import('@/pages/dashboard/BeneficiaryShow.vue'),
+                meta: {
+                    title: 'Beneficiary transactions',
+                    requiresAuth: true
+                }
+            },
         ]
     },
     {

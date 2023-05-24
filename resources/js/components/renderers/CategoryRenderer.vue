@@ -18,10 +18,10 @@ export default defineComponent({
 </script>
 
 <template>
-  <span>
+  <router-link :to="`/categories/${category.id}`">
     <Icon :icon="category.icon" class="inline mr-1" />
     <span class="font-medium h-1/2">{{ category.name }}</span>
-  </span>
+  </router-link>
 </template>
 
 <style scoped>
