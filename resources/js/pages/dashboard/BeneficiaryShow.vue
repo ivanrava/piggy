@@ -2,6 +2,7 @@
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
+import TransactionDataTable from "../../components/TransactionDataTable.vue";
 
 const beneficiary = ref({});
 
@@ -17,7 +18,7 @@ onMounted(() => {
 
 <template>
   <h1>Transactions with {{ beneficiary.name }}</h1>
-  <pre>{{ beneficiary }}</pre>
+  <transaction-data-table :transactions="beneficiary.transactions" />
 </template>
 
 <style scoped>

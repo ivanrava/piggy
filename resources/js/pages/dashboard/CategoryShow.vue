@@ -2,6 +2,7 @@
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
+import TransactionDataTable from "../../components/TransactionDataTable.vue";
 
 const category = ref({});
 
@@ -17,7 +18,7 @@ onMounted(() => {
 
 <template>
   <h1>Transactions under {{ category.name }}</h1>
-  <pre>{{ category }}</pre>
+  <transaction-data-table :transactions="category.transactions" />
 </template>
 
 <style scoped>
