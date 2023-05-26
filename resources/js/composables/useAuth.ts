@@ -83,10 +83,13 @@ export const useAuth = () => {
     async function register(payload: RegisterPayload)  {
         loading.value = true;
         axios.post("/register", payload).then(() => {
+            errors.value = [];
             login({
                 email: payload.email,
                 password: payload.password
             });
+        }).catch(({response}) => {
+            errors.value = response.data.errors;
         }).finally(() => {
             loading.value = false;
         });

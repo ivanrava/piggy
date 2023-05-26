@@ -9,23 +9,27 @@
     >
       <form-input
         v-model="form.name"
+        class="!w-full"
         label="Name"
         :errors="errors.name"
       />
       <form-input
         v-model="form.email"
+        class="!w-full"
         label="E-mail"
         type="email"
         :errors="errors.email"
       />
       <form-input
         v-model="form.password"
+        class="!w-full"
         label="Password"
         type="password"
         :errors="errors.password"
       />
       <form-input
         v-model="form.password_confirmation"
+        class="!w-full"
         label="Confirm your password"
         type="password"
         :errors="errors.password_confirmation"

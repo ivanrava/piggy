@@ -5,7 +5,7 @@
         <brand-logo class="w-1/3 mt-16" />
         <router-view
           v-slot="{ Component }"
-          class="flex text-center h-2/3"
+          class="flex text-center h-2/3 w-2/3"
         >
           <transition
             name="slide-fade"

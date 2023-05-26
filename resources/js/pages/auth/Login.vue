@@ -9,12 +9,14 @@
     >
       <form-input
         v-model="form.email"
+        class="!w-full"
         label="E-mail"
         type="email"
         :errors="errors.email"
       />
       <form-input
         v-model="form.password"
+        class="!w-full"
         label="Password"
         type="password"
         :errors="errors.password"
