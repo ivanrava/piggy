@@ -7,16 +7,22 @@
           <li v-for="link in links" :key="link.name" class="p-2 relative">
             <router-link
               :to="link.href"
-              class="flex flex-col justify-center items-center text-slate-700 opacity-50 hover:opacity-100 transition-all duration-300"
+              class="flex flex-col justify-center items-center text-slate-700 opacity-50 hover:opacity-100 transition-all font-medium hover:font-semibold"
             >
               <Icon class="text-2xl" :icon="link.icon" />
-              <span class="text-xs font-medium">{{ link.name }}</span>
+              <span class="text-xs">{{ link.name }}</span>
             </router-link>
           </li>
         </ul>
       </nav>
     </div>
-    <router-link class="p-6 !text-lg !text-slate-800 hover:!text-stone-600 tracking-widest font-light uppercase" to="/logout">Logout</router-link>
+    <input class="" />
+    <router-link
+      class="p-6 !text-lg !text-slate-800 hover:!text-stone-600 tracking-widest font-light uppercase"
+      to="/logout"
+    >
+      Logout
+    </router-link>
   </nav>
 </template>
 
@@ -63,7 +69,7 @@ const links = [
 
 <style scoped>
 .router-link-active {
-  @apply opacity-100;
+  @apply opacity-100 font-semibold;
 }
 
 .router-link-active::before {
