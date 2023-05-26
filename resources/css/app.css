@@ -16,3 +16,14 @@
         @apply underline text-gray-400 text-xs hover:text-stone-600 transition-all focus:decoration-dotted outline-none focus:outline-none focus:text-pink-950;
     }
 }
+
+/* Global fade animations, used in Vue transitions */
+.fade-loading-enter-active,
+.fade-loading-leave-active {
+    transition: opacity 0.4s ease;
+}
+
+.fade-loading-enter-from,
+.fade-loading-leave-to {
+    opacity: 0;
+}

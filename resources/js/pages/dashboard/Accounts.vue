@@ -2,7 +2,7 @@
   <div class="flex flex-col justify-between h-full">
     <section>
       <h1>Accounts</h1>
-      <Transition name="fade" mode="out-in">
+      <Transition name="fade-loading" mode="out-in">
         <div role="status" v-if="isLoading">
           <div class="flex flex-wrap items-center w-full gap-4">
             <div class="animate-pulse h-14 bg-gray-400 rounded-lg w-32"></div>
@@ -32,6 +32,9 @@
           </div>
           <span class="sr-only">Loading...</span>
         </div>
+        <div v-else-if="accounts.length === 0">
+          <no-data />
+        </div>
         <div class="flex flex-wrap gap-4" v-else>
           <account-card
             v-for="account in accounts"
@@ -51,6 +54,7 @@ import {onMounted, ref} from "vue";
 import axios from "axios";
 import AccountCard from "../../components/AccountCard.vue";
 import FormAccount from "../../components/form/crud/AccountForm.vue";
+import NoData from "../../components/NoData.vue";
 
 const accounts = ref([]);
 const isLoading = ref(true);
@@ -76,16 +80,4 @@ const randomColorWidth = () => {
 </script>
 
 <style scoped>
-th {
-  @apply p-2;
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.4s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
 </style>
