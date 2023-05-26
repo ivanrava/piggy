@@ -16,7 +16,20 @@
         </ul>
       </nav>
     </div>
-    <input class="" />
+    <label class="grow mx-32 relative cursor-pointer">
+      <input
+        class="w-full bg-pink-100/40 hover:bg-stone-500/10 outline-none focus:outline-none focus:ring-4 focus:ring-offset-0 focus:bg-gray-50/10 transition-all p-2 rounded-lg ring-1 ring-gray-50/30 ring-offset-1 ring-offset-pink-50 cursor-pointer text-xs"
+        @focus="focused = true"
+        @blur="focused = false"
+      />
+      <span
+        class="absolute left-56 top-1 text-slate-900 transition-all duration-300"
+        :class="focused ? 'opacity-0' : 'opacity-60'"
+      >
+        <Icon icon="ic:round-search" class="inline" />
+        Search
+      </span>
+    </label>
     <router-link
       class="p-6 !text-lg !text-slate-800 hover:!text-stone-600 tracking-widest font-light uppercase"
       to="/logout"
@@ -27,7 +40,7 @@
 </template>
 
 <script setup>
-import {defineComponent} from "vue";
+import {defineComponent, ref} from "vue";
 import BrandLogo from "./BrandLogo.vue";
 import {useRouter} from "vue-router";
 import {Icon} from "@iconify/vue";
@@ -36,6 +49,7 @@ defineComponent({
   components: {BrandLogo}
 })
 
+const focused = ref(false);
 const router = useRouter()
 
 const links = [
