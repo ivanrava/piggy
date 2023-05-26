@@ -43,6 +43,7 @@ watchEffect(() => {
     gridApi.value.sizeColumnsToFit({
       defaultMinWidth: 100,
     })
+    gridApi.value.showLoadingOverlay();
   }
 });
 
@@ -89,6 +90,8 @@ const columnDefs = computed(() => {
     .map((field) => fieldDefs[field])
     .concat(defaultColDefs)
 })
+
+const overlayLoadingTemplate = '<span class="ag-overlay-loading-center">Loading transactions</span>';
 </script>
 
 <template>
@@ -100,6 +103,7 @@ const columnDefs = computed(() => {
     :animate-rows="true"
     :column-defs="columnDefs"
     :row-data="transactions"
+    :overlay-loading-template="overlayLoadingTemplate"
     @grid-ready="onGridReady"
   />
 </template>
