@@ -1,5 +1,5 @@
 <template>
-  <nav class="h-14 flex justify-between items-center">
+  <nav class="flex justify-between items-center">
     <div class="h-full flex">
       <brand-logo class="h-full p-2.5 cursor-pointer" @click="router.push('home')" />
       <nav class="flex flex-col justify-center">
@@ -23,7 +23,7 @@
         @blur="focused = false"
       />
       <span
-        class="absolute left-56 top-1 text-slate-900 transition-all duration-300"
+        class="absolute left-48 top-1 text-slate-900 transition-all duration-300"
         :class="focused ? 'opacity-0' : 'opacity-60'"
       >
         <Icon icon="ic:round-search" class="inline" />
@@ -67,6 +67,11 @@ const links = [
     icon: 'fluent:people-money-20-filled',
     name: 'Beneficiaries',
     href: '/beneficiaries'
+  },
+  {
+    icon: 'map:atm',
+    name: 'Transfers',
+    href: '/transfers'
   },
   {
     icon: 'clarity:date-outline-alerted',

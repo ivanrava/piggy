@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col w-full bg-pink-50">
-    <nav-bar />
-    <section class="px-3 pb-3 pt-1.5 h-full">
+    <nav-bar class="h-14" />
+    <section class="px-3 pb-3 pt-1.5 grow min-h-0">
       <div class="flex w-full h-full bg-pink-200/50 rounded-3xl shadow-inner">
         <side-bar class="rounded-l-3xl w-1/5" />
         <main class="w-full bg-stone-200 rounded-r-3xl overflow-scroll">
