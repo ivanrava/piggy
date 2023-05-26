@@ -29,9 +29,14 @@ const transactions = computed(() => {
 </script>
 
 <template>
-  <h1 v-if="account">
-    {{ account.name }} transactions
-  </h1>
+  <Transition name="fade-loading" mode="out-in">
+    <div v-if="account == null">
+      <div class="h-10 bg-gray-400 rounded-md w-96 mb-4 my-4 animate-pulse"/>
+    </div>
+    <h1 v-else>
+      {{ account.name }} transactions
+    </h1>
+  </Transition>
   <transaction-data-table :transactions="transactions" :fields="['beneficiary', 'category']" />
   <transaction-form
     v-if="account"

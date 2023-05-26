@@ -17,7 +17,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1>Transactions under {{ category.name }}</h1>
+  <Transition name="fade-loading" mode="out-in">
+    <div v-if="category.name == undefined">
+      <div class="h-10 bg-gray-400 rounded-md w-96 mb-4 my-4 animate-pulse"/>
+    </div>
+    <h1 v-else>
+      Transactions under {{ category.name }}
+    </h1>
+  </Transition>
   <transaction-data-table :transactions="category.transactions" :fields="['account', 'beneficiary']" />
 </template>
 
