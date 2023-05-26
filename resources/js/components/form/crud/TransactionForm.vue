@@ -8,6 +8,7 @@ import SelectInput from "../inputs/SelectInput.vue";
 import FormTextarea from "../inputs/FormTextarea.vue";
 import BeneficiaryImage from "../../BeneficiaryImage.vue";
 import DecimalInput from "../inputs/DecimalInput.vue";
+import AccountCard from "../../AccountCard.vue";
 
 const showForm = ref(false);
 
@@ -178,7 +179,7 @@ watchEffect(() => form.value.account_id = props.accountId);
             <select-input
               v-slot="{option}"
               v-model="selectedAccountId"
-              :options="accounts"
+              :options="accounts.filter((acc) => acc.id != accountId)"
               name="Other account"
             >
               <Icon
