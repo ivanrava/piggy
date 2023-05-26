@@ -18,7 +18,7 @@ onMounted(() => {
 
 <template>
   <h1>Transactions under {{ category.name }}</h1>
-  <transaction-data-table :transactions="category.transactions" />
+  <transaction-data-table :transactions="category.transactions" :fields="['account', 'beneficiary']" />
 </template>
 
 <style scoped>

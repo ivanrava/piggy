@@ -32,7 +32,7 @@ const transactions = computed(() => {
   <h1 v-if="account">
     {{ account.name }} transactions
   </h1>
-  <transaction-data-table :transactions="transactions" />
+  <transaction-data-table :transactions="transactions" :fields="['beneficiary', 'category']" />
   <transaction-form
     v-if="account"
     :account-id="account.id"

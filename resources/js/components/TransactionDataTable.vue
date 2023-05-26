@@ -5,11 +5,13 @@ import BeneficiaryRenderer from "./renderers/BeneficiaryRenderer.vue";
 import CategoryRenderer from "./renderers/CategoryRenderer.vue";
 import AmountRenderer from "./renderers/AmountRenderer.vue";
 import {AgGridVue} from "ag-grid-vue3";
-import {ref, watchEffect} from "vue";
+import {computed, ref, watchEffect} from "vue";
 import {Transaction} from "../composables/interfaces";
+import AccountRenderer from "./renderers/AccountRenderer.vue";
 
 const props = defineProps<{
-  transactions: Array<Transaction>
+  transactions: Array<Transaction>,
+  fields: Array<String>
 }>();
 
 const stringComparator = (valA, valB) => {
@@ -43,6 +45,50 @@ watchEffect(() => {
     })
   }
 });
+
+const fieldDefs = {
+  account: {
+    headerName: 'Account', field: 'data',
+    cellRenderer: AccountRenderer,
+    comparator: stringComparator
+  },
+  beneficiary: {
+    headerName: 'Beneficiary', field: 'data',
+    cellRenderer: BeneficiaryRenderer, autoHeight: true,
+    comparator: stringComparator
+  },
+  category: {
+    headerName: 'Category', field: 'data',
+    cellRenderer: CategoryRenderer,
+    comparator: stringComparator
+  },
+}
+const defaultColDefs = [
+  {
+    headerName: 'Date', field: 'date',
+    type: 'rightAligned',
+    valueFormatter: dateFormatter,
+    cellClass: 'date-cell',
+    sortable: true
+  },
+  {
+    headerName: 'Amount', field: 'amount',
+    valueFormatter: currencyFormatter,
+    cellRenderer: AmountRenderer,
+    comparator: (valA, valB) => {
+      return valA - valB
+    },
+    cellClass: 'amount-cell',
+    sortable: true
+  },
+];
+
+const columnDefs = computed(() => {
+  return Object.keys(fieldDefs)
+    .filter((key) => props.fields.includes(key))
+    .map((field) => fieldDefs[field])
+    .concat(defaultColDefs)
+})
 </script>
 
 <template>
@@ -52,35 +98,7 @@ watchEffect(() => {
     :pagination="true"
     :pagination-auto-page-size="true"
     :animate-rows="true"
-    :column-defs="[
-      {
-        headerName: 'Beneficiary', field: 'data',
-        cellRenderer: BeneficiaryRenderer, autoHeight: true,
-        comparator: stringComparator
-      },
-      {
-        headerName: 'Category', field: 'data',
-        cellRenderer: CategoryRenderer,
-        comparator: stringComparator
-      },
-      {
-        headerName: 'Date', field: 'date',
-        type: 'rightAligned',
-        valueFormatter: dateFormatter,
-        cellClass: 'date-cell',
-        sortable: true
-      },
-      {
-        headerName: 'Amount', field: 'amount',
-        valueFormatter: currencyFormatter,
-        cellRenderer: AmountRenderer,
-        comparator: (valA, valB) => {
-          return valA - valB
-        },
-        cellClass: 'amount-cell',
-        sortable: true
-      },
-    ]"
+    :column-defs="columnDefs"
     :row-data="transactions"
     @grid-ready="onGridReady"
   />
