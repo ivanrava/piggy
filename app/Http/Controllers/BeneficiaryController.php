@@ -22,14 +22,11 @@ class BeneficiaryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBeneficiaryRequest $request): Response
+    public function store(StoreBeneficiaryRequest $request): BeneficiaryResource
     {
-        $beneficiary = new Beneficiary();
-        $beneficiary->user_id = $request->user()->id;
-        $beneficiary->name = $request->name;
-        $beneficiary->img = $request->img;
+        $beneficiary = Beneficiary::fromRequest($request);
         $beneficiary->save();
-        return response()->noContent(201);
+        return new BeneficiaryResource($beneficiary);
     }
 
     /**
@@ -50,9 +47,7 @@ class BeneficiaryController extends Controller
      */
     public function update(StoreBeneficiaryRequest $request, Beneficiary $beneficiary): Response
     {
-        $beneficiary->user_id = $request->user()->id;
-        $beneficiary->name = $request->name;
-        $beneficiary->img = $request->img;
+        $beneficiary->hydrateFromRequest($request);
         $beneficiary->save();
         return response()->noContent();
     }

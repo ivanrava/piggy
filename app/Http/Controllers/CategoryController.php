@@ -25,16 +25,11 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCategoryRequest $request): Response
+    public function store(StoreCategoryRequest $request): CategoryResource
     {
-        $category = new Category();
-        $category->user_id = $request->user()->id;
-        $category->name = $request->name;
-        $category->icon = $request->icon;
-        $category->parent_category_id = $request->parent_category_id;
-        $category->type = $request->type;
+        $category = Category::fromRequest($request);
         $category->save();
-        return response()->noContent(201);
+        return new CategoryResource($category);
     }
 
     /**
@@ -55,11 +50,7 @@ class CategoryController extends Controller
      */
     public function update(StoreCategoryRequest $request, Category $category): Response
     {
-        $category->user_id = $request->user()->id;
-        $category->name = $request->name;
-        $category->icon = $request->icon;
-        $category->parent_category_id = $request->parent_category_id;
-        $category->type = $request->type;
+        $category->hydrateFromRequest($request);
         $category->save();
         return response()->noContent();
     }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Request;
 
 /**
  * App\Models\Beneficiary
@@ -43,5 +44,19 @@ class Beneficiary extends Model
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public static function fromRequest(Request $request): Beneficiary
+    {
+        $beneficiary = new Beneficiary();
+        $beneficiary->hydrateFromRequest($request);
+        return $beneficiary;
+    }
+
+    public function hydrateFromRequest(Request $request): void
+    {
+        $this->user_id = $request->user()->id;
+        $this->name = $request->name;
+        $this->img = $request->img;
     }
 }

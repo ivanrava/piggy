@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Request;
 
 /**
  * App\Models\Category
@@ -59,5 +60,21 @@ class Category extends Model
     public function children(): HasMany
     {
         return $this->hasMany(Category::class, 'parent_category_id', 'id');
+    }
+
+    public static function fromRequest(Request $request): Category
+    {
+        $category = new Category();
+        $category->hydrateFromRequest($request);
+        return $category;
+    }
+
+    public function hydrateFromRequest(Request $request): void
+    {
+        $this->user_id = $request->user()->id;
+        $this->name = $request->name;
+        $this->icon = $request->icon;
+        $this->parent_category_id = $request->parent_category_id;
+        $this->type = $request->type;
     }
 }
