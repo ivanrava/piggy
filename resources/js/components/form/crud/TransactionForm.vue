@@ -8,7 +8,8 @@ import SelectInput from "../inputs/SelectInput.vue";
 import FormTextarea from "../inputs/FormTextarea.vue";
 import BeneficiaryImage from "../../BeneficiaryImage.vue";
 import DecimalInput from "../inputs/DecimalInput.vue";
-import AccountCard from "../../AccountCard.vue";
+import BeneficiaryForm from "./BeneficiaryForm.vue";
+import CategoryForm from "./CategoryForm.vue";
 
 const showForm = ref(false);
 
@@ -16,22 +17,13 @@ const props = defineProps<{
   accountId: number;
 }>();
 
-interface StoreTransactionPayload {
-  account_id: number;
-  category_id: number;
-  beneficiary_id: number;
-  date: string;
-  amount: number;
-  notes: string;
-}
-
 const form = ref({
   account_id: null,
-  category_id: null,
-  beneficiary_id: null,
   date: '',
   amount: 0,
-  notes: ''
+  notes: '',
+  beneficiary: {},
+  category: {}
 })
 
 const emit = defineEmits(['added']);
@@ -53,6 +45,7 @@ const storeTransaction = () => {
 
 const selectedAccountId = ref(null);
 const actualPayload = computed(() => {
+  // Computes between transaction & transfer
   return transactionStoreUrl.value === '/transactions' ? form.value : {
     from_account_id: isOut.value ? props.accountId : selectedAccountId.value,
     to_account_id: isOut.value ? selectedAccountId.value : props.accountId,
@@ -100,10 +93,49 @@ onMounted(() =>  {
   })
 });
 
+const fakeId = -1;
+const beneficiary_id = ref(null);
+const category_id = ref(null);
+
+const showBeneficiaryForm = ref(false);
+const showCategoryForm = ref(false);
+const addedBeneficiary = ref({});
+const addedCategory = ref({});
+const computedBeneficiaries = computed(() => beneficiaries.value.concat('id' in addedBeneficiary.value ? [addedBeneficiary.value] : []))
+const computedCategories = computed(() => categories.value.concat('id' in addedCategory.value ? [addedCategory.value] : []))
+const addBeneficiary = (b) => {
+  addedBeneficiary.value = b;
+  addedBeneficiary.value.id = fakeId;
+  beneficiary_id.value = fakeId;
+  // Show / hide shenanigans
+  showBeneficiaryForm.value = false;
+  showForm.value = true;
+}
+const addCategory = (c) => {
+  addedCategory.value = c;
+  addedCategory.value.id = fakeId;
+  category_id.value = fakeId;
+  // Show / hide shenanigans
+  showCategoryForm.value = false;
+  showForm.value = true;
+}
+
 watchEffect(() => form.value.account_id = props.accountId);
+watchEffect(() => form.value.beneficiary = computedBeneficiaries.value.find(b => b.id === beneficiary_id.value))
+watchEffect(() => form.value.category = computedCategories.value.find(c => c.id === category_id.value))
 </script>
 
 <template>
+  <beneficiary-form
+    :show-form="showBeneficiaryForm"
+    @store="addBeneficiary"
+    @close="showBeneficiaryForm = false; showForm = true"
+  />
+  <category-form
+    :show-form="showCategoryForm"
+    @store="addCategory"
+    @close="showCategoryForm = false; showForm = true"
+  />
   <Transition name="slide-fade">
     <aside
       v-if="showForm"
@@ -133,13 +165,22 @@ watchEffect(() => form.value.account_id = props.accountId);
         class="flex flex-col justify-center items-center gap-4 w-96"
         @submit.prevent="storeTransaction"
       >
-        <Transition name="fade-quick" mode="out-in">
-          <div v-if="transactionStoreUrl === '/transactions'" class="w-full flex flex-col justify-center items-center gap-4">
+        <Transition
+          name="fade-quick"
+          mode="out-in"
+        >
+          <div
+            v-if="transactionStoreUrl === '/transactions'"
+            class="w-full flex flex-col justify-center items-center gap-4"
+          >
             <select-input
               v-slot="{option}"
-              v-model="form.beneficiary_id"
-              :options="beneficiaries"
+              v-model="beneficiary_id"
+              :options="computedBeneficiaries"
               name="Beneficiary"
+              :taggable="true"
+              tag-placeholder="Add as a new beneficiary"
+              @tag="showBeneficiaryForm = true; showForm = false"
             >
               <article class="flex items-center">
                 <beneficiary-image
@@ -151,9 +192,12 @@ watchEffect(() => form.value.account_id = props.accountId);
             </select-input>
             <select-input
               v-slot="{option}"
-              v-model="form.category_id"
-              :options="categories"
+              v-model="category_id"
+              :options="computedCategories"
               name="Category"
+              :taggable="true"
+              tag-placeholder="Add as a new category"
+              @tag="showCategoryForm = true; showForm = false"
             >
               <Icon
                 :icon="option.icon"
@@ -162,8 +206,14 @@ watchEffect(() => form.value.account_id = props.accountId);
               <span class="option__title text-sm">{{ option.name }}</span>
             </select-input>
           </div>
-          <div v-else-if="transactionStoreUrl === '/transfers'" class="w-full flex flex-row gap-4 justify-center items-center">
-            <label class="inline-flex items-center cursor-pointer mt-6" @click="isOut = !isOut">
+          <div
+            v-else-if="transactionStoreUrl === '/transfers'"
+            class="w-full flex flex-row gap-4 justify-center items-center"
+          >
+            <label
+              class="inline-flex items-center cursor-pointer mt-6"
+              @click="isOut = !isOut"
+            >
               <span class="mx-2 text-sm font-serif text-gray-500">To</span>
               <div
                 class="w-12 h-6 rounded-full relative transition-all duration-300"

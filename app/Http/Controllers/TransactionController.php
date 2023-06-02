@@ -26,8 +26,15 @@ class TransactionController extends Controller
 
         $transaction = new Transaction();
         $transaction->account_id = $request->account_id;
-        $transaction->beneficiary_id = $request->beneficiary_id;
-        $transaction->category_id = $request->category_id;
+
+        $beneficiary = $request->beneficiary();
+        $beneficiary->save();
+        $transaction->beneficiary_id = $beneficiary->id;
+
+        $category = $request->category();
+        $category->save();
+        $transaction->category_id = $category->id;
+
         $transaction->notes = $request->notes;
         $transaction->amount = $request->amount;
         $transaction->date = $request->date;
