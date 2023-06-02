@@ -7,6 +7,8 @@ use App\Http\Resources\TransferResource;
 use App\Models\Transfer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class TransferController extends Controller
 {
@@ -53,8 +55,12 @@ class TransferController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Transfer $transfer)
+    public function destroy(Request $request, Transfer $transfer): Response
     {
-        //
+        if ($transfer->to_account->user_id != $request->user()->id)
+            return response()->noContent(404);
+
+        $transfer->delete();
+        return response()->noContent();
     }
 }

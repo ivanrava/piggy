@@ -7,6 +7,7 @@ use App\Http\Resources\TransactionResource;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class TransactionController extends Controller
 {
@@ -61,8 +62,12 @@ class TransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Transaction $transaction)
+    public function destroy(Request $request, Transaction $transaction): Response
     {
-        //
+        if ($transaction->beneficiary->user_id != $request->user()->id)
+            return response()->noContent(404);
+
+        $transaction->delete();
+        return response()->noContent();
     }
 }

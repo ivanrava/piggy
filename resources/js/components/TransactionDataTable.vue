@@ -8,6 +8,7 @@ import {AgGridVue} from "ag-grid-vue3";
 import {computed, ref, watchEffect} from "vue";
 import {Transaction} from "../composables/interfaces";
 import AccountRenderer from "./renderers/AccountRenderer.vue";
+import RowButtonsRenderer from "./renderers/RowButtonsRenderer.vue";
 
 const props = defineProps<{
   transactions: Array<Transaction>,
@@ -82,6 +83,13 @@ const defaultColDefs = [
     cellClass: 'amount-cell',
     sortable: true
   },
+  // {
+  //   headerName: '', field: 'data',
+  //   suppressSizeToFit: true,
+  //   rowDrag: false,
+  //   cellRenderer: RowButtonsRenderer,
+  //   sortable: false
+  // }
 ];
 
 const columnDefs = computed(() => {
