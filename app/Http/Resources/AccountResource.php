@@ -23,6 +23,7 @@ class AccountResource extends JsonResource
             'icon' => $this->icon,
             'created_at' => $this->created_at,
             'last_update' => $this->updated_at,
+            'description' => $this->description,
             'transactions' => TransactionResource::collection($this->whenLoaded('transactions')),
             'in_transfers' => TransferResource::collection($this->whenLoaded('in_transfers')),
             'out_transfers' => TransferResource::collection($this->whenLoaded('out_transfers')),

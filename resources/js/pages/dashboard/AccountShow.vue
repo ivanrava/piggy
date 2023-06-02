@@ -29,15 +29,26 @@ const transactions = computed(() => {
 </script>
 
 <template>
-  <Transition name="fade-loading" mode="out-in">
+  <Transition
+    name="fade-loading"
+    mode="out-in"
+  >
     <div v-if="account == null">
-      <div class="h-10 bg-gray-400 rounded-md w-96 mb-4 my-4 animate-pulse"/>
+      <div class="h-10 bg-gray-400 rounded-md w-96 mb-4 my-4 animate-pulse" />
     </div>
-    <h1 v-else>
-      {{ account.name }} transactions
-    </h1>
+    <div v-else>
+      <h1>
+        {{ account.name }} transactions
+      </h1>
+      <p class="my-4 text-stone-800">
+        {{ account.description }}
+      </p>
+    </div>
   </Transition>
-  <transaction-data-table :transactions="transactions" :fields="['beneficiary', 'category']" />
+  <transaction-data-table
+    :transactions="transactions"
+    :fields="['beneficiary', 'category']"
+  />
   <transaction-form
     v-if="account"
     :account-id="account.id"
