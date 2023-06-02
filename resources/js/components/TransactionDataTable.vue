@@ -92,6 +92,7 @@ const columnDefs = computed(() => {
 })
 
 const overlayLoadingTemplate = '<span class="ag-overlay-loading-center">Loading transactions</span>';
+const overlayNoRowsTemplate = '<span class="text-xl opacity-60">No transactions to show</span>';
 </script>
 
 <template>
@@ -103,6 +104,7 @@ const overlayLoadingTemplate = '<span class="ag-overlay-loading-center">Loading 
     :animate-rows="true"
     :column-defs="columnDefs"
     :row-data="transactions"
+    :overlay-no-rows-template="overlayNoRowsTemplate"
     :overlay-loading-template="overlayLoadingTemplate"
     @grid-ready="onGridReady"
   />
