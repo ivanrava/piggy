@@ -24,6 +24,7 @@ interface Account {
     color: string;
     opening: string;
     closing: string;
+    description: string;
     transactions: Array<Transaction>;
     in_transfers: Array<Transfer>;
     out_transfers: Array<Transfer>;
