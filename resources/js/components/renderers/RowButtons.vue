@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed} from "vue";
+import {computed, ref} from "vue";
 import axios from "axios";
 
 const props = defineProps<{
@@ -13,6 +13,9 @@ const endpoint = computed(() => {
 })
 
 const deleteOperation = () => {
+  if (!confirmDelete.value)
+    confirmDelete.value = true;
+
   axios.delete(`${endpoint.value}/${props.operation.id}`)
     .then(() => {
       emit('deleted')
@@ -21,6 +24,7 @@ const deleteOperation = () => {
       console.log(res)
     })
 }
+const confirmDelete = ref(false);
 </script>
 
 <template>
@@ -30,7 +34,7 @@ const deleteOperation = () => {
     @click="deleteOperation"
   >
     <span class="text-red-900 decoration-red-900">
-      Delete
+      {{ confirmDelete ? 'Really sure?' : 'Delete' }}
     </span>
   </a>
 </template>
