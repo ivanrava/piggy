@@ -23,9 +23,17 @@ const props = defineProps({
   options: {
     type: Array<Object>,
     default: []
+  },
+  taggable: {
+    type: Boolean,
+    default: false
+  },
+  tagPlaceholder: {
+    type: String,
+    default: ''
   }
 })
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'tag'])
 const focused = ref(false);
 </script>
 
@@ -45,9 +53,13 @@ const focused = ref(false);
       :model-value="options.find(t=>t.id === modelValue)"
       track-by="id"
       label="name"
+      :taggable="taggable"
+      :tag-placeholder="tagPlaceholder"
+      deselect-label=""
       @update:model-value="emit('update:modelValue', $event.id)"
       @open="focused = true"
       @close="focused = false"
+      @tag="$emit('tag', $event)"
     >
       <template #singleLabel="props">
         <slot :option="props.option">
@@ -55,13 +67,23 @@ const focused = ref(false);
         </slot>
       </template>
       <template #option="props">
-        <slot :option="props.option">
+        <slot
+          v-if="props.option.name !== undefined"
+          :option="props.option"
+        >
           <span class="option__title">{{ props.option.name }}</span>
         </slot>
+        <span
+          v-else
+          class="option__title"
+        >{{ props.option.label }}</span>
       </template>
       <template #noResult="props">
         <span class="option__title">
-          <Icon icon="ri:emotion-sad-line" class="inline"/>
+          <Icon
+            icon="ri:emotion-sad-line"
+            class="inline"
+          />
           No elements found.
         </span>
       </template>
