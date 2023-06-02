@@ -93,6 +93,10 @@ const columnDefs = computed(() => {
 
 const overlayLoadingTemplate = '<span class="ag-overlay-loading-center">Loading transactions</span>';
 const overlayNoRowsTemplate = '<span class="text-xl opacity-60">No transactions to show</span>';
+
+const rowClassRules = {
+  'even-row': (params) => params.node.rowIndex % 2 === 0
+}
 </script>
 
 <template>
@@ -106,10 +110,13 @@ const overlayNoRowsTemplate = '<span class="text-xl opacity-60">No transactions 
     :row-data="transactions"
     :overlay-no-rows-template="overlayNoRowsTemplate"
     :overlay-loading-template="overlayLoadingTemplate"
+    :row-class-rules="rowClassRules"
     @grid-ready="onGridReady"
   />
 </template>
 
-<style scoped>
-
+<style>
+.even-row {
+  @apply bg-slate-100;
+}
 </style>
