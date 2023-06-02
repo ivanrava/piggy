@@ -1,41 +1,18 @@
 <script setup lang="ts">
-import FormInput from "../inputs/FormInput.vue";
-import {onMounted, ref} from "vue";
-import SubmitButton from "../inputs/SubmitButton.vue";
 import {Icon} from "@iconify/vue";
-import axios from "axios";
 import IconInput from "../inputs/IconInput.vue";
+import FormInput from "../inputs/FormInput.vue";
 import SelectInput from "../inputs/SelectInput.vue";
+import SubmitButton from "../inputs/SubmitButton.vue";
+import {onMounted, ref} from "vue";
+import axios from "axios";
 
-const showForm = ref(false);
-
-interface StoreCategoryPayload {
-  name: string;
-  type: string;
-  icon: string;
-  parent_category_id: number;
-}
-
-const form = ref({
-  name: '',
-  type: 'out',
-  icon: '',
-  parent_category_id: null
+defineProps({
+  showForm: {
+    type: Boolean,
+  }
 })
-
-const loading = ref(false);
-const errors = ref({});
-const storeCategory = function (payload: StoreCategoryPayload) {
-  loading.value = true;
-  axios.post("/categories", payload).then(() => {
-    showForm.value = false;
-    errors.value = [];
-  }).catch(({response}) => {
-    errors.value = response.data.errors;
-  }).finally(() => {
-    loading.value = false;
-  })
-}
+defineEmits(['store', 'close'])
 
 const categoryTypes = [
   {
@@ -47,8 +24,8 @@ const categoryTypes = [
     display: 'Income'
   }
 ]
-
 const fathers = ref([]);
+const errors = ref({});
 onMounted(() =>  {
   axios.get("/categories").then(({data}) => {
     fathers.value = data.data;
@@ -56,6 +33,13 @@ onMounted(() =>  {
     errors.value = response.data.errors;
   })
 });
+
+const form = ref({
+  name: '',
+  type: 'out',
+  icon: '',
+  parent_category_id: null
+})
 </script>
 
 <template>
@@ -68,7 +52,7 @@ onMounted(() =>  {
         <h2>Add a new category</h2>
         <a
           class="flex flex-row items-center cursor-pointer"
-          @click="showForm = false"
+          @click="$emit('close')"
         >
           <span class="mr-1">Close</span>
         </a>
@@ -86,7 +70,7 @@ onMounted(() =>  {
       </div>
       <form
         class="flex flex-col justify-center items-center gap-4 w-96"
-        @submit.prevent="storeCategory(form)"
+        @submit.prevent="$emit('store', form)"
       >
         <form-input
           v-model="form.name"
@@ -94,12 +78,15 @@ onMounted(() =>  {
           label="Category name"
         />
         <select-input
+          v-slot="{ option }"
+          v-model="form.parent_category_id"
           :options="fathers"
           name="Parent category"
-          v-model="form.parent_category_id"
-          v-slot="{ option }"
         >
-          <Icon :icon="option.icon" class="inline mr-1" />
+          <Icon
+            :icon="option.icon"
+            class="inline mr-1"
+          />
           <span class="option__title">{{ option.name }}</span>
         </select-input>
         <icon-input v-model="form.icon" />
@@ -109,16 +96,6 @@ onMounted(() =>  {
       </form>
     </aside>
   </Transition>
-  <submit-button
-    class="fixed right-12 bottom-12 flex items-center shadow-lg"
-    @click="showForm = true"
-  >
-    <Icon
-      icon="material-symbols:format-list-bulleted-add-rounded"
-      class="inline"
-    />
-    <span class="ml-1">Add new</span>
-  </submit-button>
 </template>
 
 <style scoped>

@@ -20,7 +20,7 @@
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import CategoryList from "../../components/CategoryList.vue";
-import CategoryForm from "../../components/form/crud/CategoryForm.vue";
+import CategoryForm from "../../components/form/crud/CategoryFormWrapper.vue";
 import NoData from "../../components/NoData.vue";
 
 const categories = ref([]);
