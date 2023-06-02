@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
     Route::get('/account_types', [AccountTypeController::class, 'index']);
+    Route::get('/categories/root', [CategoryController::class, 'root']);
     Route::apiResource('accounts', AccountController::class);
     Route::apiResource('beneficiaries', BeneficiaryController::class);
     Route::apiResource('categories', CategoryController::class);

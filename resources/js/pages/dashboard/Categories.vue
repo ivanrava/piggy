@@ -3,7 +3,7 @@
   <div class="flex flex-col h-full w-full justify-between">
     <Transition name="fade-loading" mode="out-in">
       <section v-if="isLoading">
-
+        <!-- TODO: add a graphically meaningful skeleton -->
       </section>
       <section v-else-if="categories.length === 0">
         <no-data />

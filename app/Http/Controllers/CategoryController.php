@@ -16,8 +16,13 @@ class CategoryController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
+        return CategoryResource::collection($request->user()->categories()->get());
+    }
+
+    public function root(Request $request): AnonymousResourceCollection
+    {
         return CategoryResource::collection(
-            // Root categories
+        // Root categories
             $request->user()->categories()->whereParentCategoryId(null)->get()
         );
     }
