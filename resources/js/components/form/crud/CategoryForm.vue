@@ -57,7 +57,10 @@ const form = ref({
           <span class="mr-1">Close</span>
         </a>
       </header>
-      <div class="button-group">
+      <div
+        v-if="form.parent_category_id === null"
+        class="button-group"
+      >
         <button
           v-for="t in categoryTypes"
           :key="t.id"
@@ -82,6 +85,7 @@ const form = ref({
           v-model="form.parent_category_id"
           :options="fathers"
           name="Parent category"
+          :allow-empty="true"
         >
           <Icon
             :icon="option.icon"

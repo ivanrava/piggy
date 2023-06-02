@@ -8,7 +8,7 @@
       <section v-else-if="categories.length === 0">
         <no-data />
       </section>
-      <section class="flex flex-row w-full justify-between" v-else>
+      <section class="flex flex-col w-full justify-between" v-else>
         <category-list :categories="categories" />
       </section>
     </Transition>

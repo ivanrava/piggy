@@ -75,6 +75,9 @@ class Category extends Model
         $this->name = $request->name;
         $this->icon = $request->icon;
         $this->parent_category_id = $request->parent_category_id;
-        $this->type = $request->type;
+        if ($request->parent_category_id !== null)
+            $this->type = $this->parent->type;
+        else
+            $this->type = $request->type;
     }
 }

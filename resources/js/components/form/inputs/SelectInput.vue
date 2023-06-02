@@ -5,7 +5,7 @@ import 'vue-multiselect/dist/vue-multiselect.css';
 import {ref} from "vue";
 import {Icon} from "@iconify/vue";
 
-const props = defineProps({
+defineProps({
   modelValue: {
     type: String,
   },
@@ -31,6 +31,10 @@ const props = defineProps({
   tagPlaceholder: {
     type: String,
     default: ''
+  },
+  allowEmpty: {
+    type: Boolean,
+    default: false
   }
 })
 const emit = defineEmits(['update:modelValue', 'tag'])
@@ -51,12 +55,13 @@ const focused = ref(false);
       class="w-full rounded-md border-2 outline-none transition-all ring-0 ring-pink-300/20"
       :class="{'border-pink-200/40 ring-4': focused}"
       :model-value="options.find(t=>t.id === modelValue)"
+      :allow-empty="allowEmpty"
       track-by="id"
       label="name"
       :taggable="taggable"
       :tag-placeholder="tagPlaceholder"
       deselect-label=""
-      @update:model-value="emit('update:modelValue', $event.id)"
+      @update:model-value="emit('update:modelValue', $event !== null ? $event.id : null)"
       @open="focused = true"
       @close="focused = false"
       @tag="$emit('tag', $event)"
