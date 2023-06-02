@@ -7,6 +7,9 @@ import {computed, ref} from "vue";
 defineProps({
   showForm: {
     type: Boolean,
+  },
+  errors: {
+    type: Object,
   }
 })
 const name = ref('');
@@ -96,6 +99,7 @@ defineEmits(['store', 'close'])
                 v-model="name"
                 class="mr-4 !w-40"
                 label="Company name"
+                :errors="errors.name"
               />
               <form-input
                 v-if="beneficiaryType === 'company'"
@@ -112,6 +116,7 @@ defineEmits(['store', 'close'])
                 v-model="name"
                 class="mr-4 !w-72"
                 label="Beneficiary name"
+                :errors="errors.name"
               />
             </div>
             <div
@@ -122,6 +127,7 @@ defineEmits(['store', 'close'])
                 v-model="name"
                 class="mr-4 !w-72"
                 label="Generic beneficiary name"
+                :errors="errors.name"
               />
             </div>
           </Transition>

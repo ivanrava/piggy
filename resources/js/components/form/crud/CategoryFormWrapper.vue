@@ -33,6 +33,7 @@ const storeCategory = function (payload: StoreCategoryPayload) {
 <template>
   <category-form
     :show-form="showForm"
+    :errors="errors"
     @store="(form) => storeCategory(form)"
     @close="showForm = false"
   />

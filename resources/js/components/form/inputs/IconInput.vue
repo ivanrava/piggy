@@ -4,6 +4,7 @@
       v-model="prompt"
       class="!w-full"
       label="Icon"
+      :errors="errors"
     />
     <span
       v-if="!isLoading && total >= pageLimit"
@@ -62,7 +63,6 @@ import {Icon} from "@iconify/vue";
 import FormInput from "./FormInput.vue";
 import {ref, watch, computed} from "vue";
 import {useDebouncedRef} from "../../../composables/performance";
-import LabelInput from "./LabelInput.vue";
 
 const prompt = useDebouncedRef('');
 const icons = ref([]);
@@ -78,6 +78,10 @@ const props = defineProps({
   modelValue: {
     type: String,
   },
+  errors: {
+    type: Array<String>,
+    default: []
+  }
 })
 
 const emit = defineEmits(['update:modelValue'])

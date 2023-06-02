@@ -10,6 +10,9 @@ import axios from "axios";
 defineProps({
   showForm: {
     type: Boolean,
+  },
+  errors : {
+    type: Object,
   }
 })
 defineEmits(['store', 'close'])
@@ -25,12 +28,11 @@ const categoryTypes = [
   }
 ]
 const fathers = ref([]);
-const errors = ref({});
 onMounted(() =>  {
   axios.get("/categories").then(({data}) => {
     fathers.value = data.data;
   }).catch(({response}) => {
-    errors.value = response.data.errors;
+    console.log(response.data.errors)
   })
 });
 
@@ -79,6 +81,7 @@ const form = ref({
           v-model="form.name"
           class="!w-full"
           label="Category name"
+          :errors="errors.name"
         />
         <select-input
           v-slot="{ option }"
@@ -86,6 +89,7 @@ const form = ref({
           :options="fathers"
           name="Parent category"
           :allow-empty="true"
+          :errors="errors.parent_category_id"
         >
           <Icon
             :icon="option.icon"
@@ -93,7 +97,10 @@ const form = ref({
           />
           <span class="option__title">{{ option.name }}</span>
         </select-input>
-        <icon-input v-model="form.icon" />
+        <icon-input
+          v-model="form.icon"
+          :errors="errors.icon"
+        />
         <submit-button>
           Confirm
         </submit-button>

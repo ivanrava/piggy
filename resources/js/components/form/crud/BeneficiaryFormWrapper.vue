@@ -30,6 +30,7 @@ const storeBeneficiary = function (payload: StoreBeneficiaryPayload) {
 <template>
   <beneficiary-form
     :show-form="showForm"
+    :errors="errors"
     @store="(form) => storeBeneficiary(form)"
     @close="showForm = false"
   />
