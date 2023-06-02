@@ -12,6 +12,19 @@ use Illuminate\Http\Response;
 
 class AccountController extends Controller
 {
+    private function hydrate_from_request(Account $account, Request $request): Account
+    {
+        $account->user_id = $request->user()->id;
+        $account->account_type_id = $request->account_type_id;
+        $account->name = $request->name;
+        $account->icon = $request->icon;
+        $account->color = $request->color();
+        $account->opening = $request->opening;
+        $account->closing = $request->closing;
+        $account->description = $request->description;
+        return $account;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -27,14 +40,7 @@ class AccountController extends Controller
     {
         $account = new Account();
         $account->initial_balance = $request->initial_balance;
-        $account->user_id = $request->user()->id;
-        $account->account_type_id = $request->account_type_id;
-        $account->name = $request->name;
-        $account->icon = $request->icon;
-        $account->color = $request->color();
-        $account->opening = $request->opening;
-        $account->closing = $request->closing;
-        $account->description = $request->description;
+        $account = $this->hydrate_from_request($account, $request);
         $account->save();
         return response()->noContent(201);
     }
@@ -66,14 +72,7 @@ class AccountController extends Controller
      */
     public function update(UpdateAccountRequest $request, Account $account): Response
     {
-        $account->user_id = $request->user()->id;
-        $account->account_type_id = $request->account_type_id;
-        $account->name = $request->name;
-        $account->icon = $request->icon;
-        $account->color = $request->color();
-        $account->opening = $request->opening;
-        $account->closing = $request->closing;
-        $account->description = $request->description;
+        $account = $this->hydrate_from_request($account, $request);
         $account->save();
         return response()->noContent();
     }
