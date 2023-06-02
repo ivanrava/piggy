@@ -6,6 +6,13 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCategoryRequest extends FormRequest
 {
+    const VALIDATION_RULES = [
+        'name' => 'required|max:100',
+        'type' => 'required|in:out,in',
+        'icon' => 'required|max:255',
+        'parent_category_id' => 'nullable|exists:categories,id'
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -21,11 +28,6 @@ class StoreCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|max:100',
-            'type' => 'required|in:out,in',
-            'icon' => 'required|max:255',
-            'parent_category_id' => 'nullable|exists:categories,id'
-        ];
+        return self::VALIDATION_RULES;
     }
 }

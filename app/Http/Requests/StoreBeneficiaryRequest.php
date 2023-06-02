@@ -6,6 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreBeneficiaryRequest extends FormRequest
 {
+    const VALIDATION_RULES = [
+        'name' => 'required|max:100',
+        'img' => 'nullable|max:255',
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -21,9 +26,6 @@ class StoreBeneficiaryRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|max:100',
-            'img' => 'nullable|max:255',
-        ];
+        return self::VALIDATION_RULES;
     }
 }
