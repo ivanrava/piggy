@@ -110,6 +110,13 @@ class User extends Authenticatable
         return $this->hasMany(Beneficiary::class);
     }
 
+    public function transactions(): Builder
+    {
+        return Transaction::with('beneficiary')->whereHas('beneficiary', function ($query) {
+            $query->where('user_id', $this->id);
+        });
+    }
+
     public function transfers(): HasMany
     {
         return $this->hasMany(Transfer::class);

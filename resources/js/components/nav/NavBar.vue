@@ -75,12 +75,12 @@ const links = [
     href: '/transfers'
   },
   {
-    icon: 'clarity:date-outline-alerted',
+    icon: 'teenyicons:table-solid',
     name: 'Reporting',
     href: '/report'
   },
   {
-    icon: 'carbon:quadrant-plot',
+    icon: 'fluent:data-pie-20-filled',
     name: 'Statistics',
     href: '/stats'
   }

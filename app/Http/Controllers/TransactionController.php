@@ -16,7 +16,7 @@ class TransactionController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        return TransactionResource::collection($request->user()->transactions()->all());
+        return TransactionResource::collection($request->user()->transactions()->get());
     }
 
     /**

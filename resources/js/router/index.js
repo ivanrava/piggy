@@ -104,6 +104,15 @@ const routes = [
                     requiresAuth: true
                 }
             },
+            {
+                name: 'stats',
+                path: '/stats',
+                component: () => import('@/pages/dashboard/stats/StatsCreate.vue'),
+                meta: {
+                    title: 'New statistic',
+                    requiresAuth: true
+                }
+            }
         ]
     },
     {
