@@ -40,6 +40,13 @@ class StoreTransactionRequest extends FormRequest
         );
     }
 
+    public function messages(): array
+    {
+        return [
+            'amount.between' => 'Only positive amounts (less than 1 billion)'
+        ];
+    }
+
     protected function make_nested_rules_for(array $rules, string $with_prefix): array
     {
         return array_combine(

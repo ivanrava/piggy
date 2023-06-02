@@ -29,19 +29,7 @@
       @focus="focused = true"
       @blur="focused = false"
     >
-    <ul
-      v-if="fullErrors.length > 0"
-      class="p-2 bg-red-50 bg-opacity-30 rounded-b-md"
-    >
-      <li
-        v-for="error in fullErrors"
-        :key="error"
-        class="text-left text-xs text-red-400"
-      >
-        <i-fa6-regular-circle-xmark class="inline" />
-        {{ error }}
-      </li>
-    </ul>
+    <error-list :errors="fullErrors" />
   </div>
 </template>
 
@@ -49,6 +37,7 @@
 import {computed, ref} from "vue";
 import LabelInput from "./LabelInput.vue";
 import {Icon} from "@iconify/vue";
+import ErrorList from "./ErrorList.vue";
 
 const props = defineProps({
     modelValue: {

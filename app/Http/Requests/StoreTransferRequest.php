@@ -25,8 +25,17 @@ class StoreTransferRequest extends FormRequest
             'from_account_id' => 'required|exists:accounts,id',
             'to_account_id' => 'required|exists:accounts,id',
             'date' => 'required|date',
-            'amount' => 'required|decimal:0,2|between:0,99999999.99',
+            'amount' => 'required|decimal:0,2|between:0.01,99999999.99',
             'notes' => 'nullable|max:500'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'amount.between' => 'Only positive amounts (less than 1 billion)',
+            'from_account_id.required' => 'Select an account',
+            'to_account_id.required' => 'Select an account',
         ];
     }
 }

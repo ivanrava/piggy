@@ -4,6 +4,7 @@ import VueMultiselect from "vue-multiselect";
 import 'vue-multiselect/dist/vue-multiselect.css';
 import {ref} from "vue";
 import {Icon} from "@iconify/vue";
+import ErrorList from "./ErrorList.vue";
 
 defineProps({
   modelValue: {
@@ -35,6 +36,10 @@ defineProps({
   allowEmpty: {
     type: Boolean,
     default: false
+  },
+  errors: {
+    type: Array<String>,
+    default: []
   }
 })
 const emit = defineEmits(['update:modelValue', 'tag'])
@@ -93,6 +98,7 @@ const focused = ref(false);
         </span>
       </template>
     </VueMultiselect>
+    <error-list :errors="errors" />
   </div>
 </template>
 

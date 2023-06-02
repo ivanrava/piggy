@@ -37,7 +37,7 @@ const storeTransaction = () => {
     emit('added', data.data);
     errors.value = [];
   }).catch(({response}) => {
-    errors.value = response.data;
+    errors.value = response.data.errors;
   }).finally(() => {
     loading.value = false;
   })
@@ -180,6 +180,7 @@ watchEffect(() => form.value.category = computedCategories.value.find(c => c.id 
               name="Beneficiary"
               :taggable="true"
               tag-placeholder="Add as a new beneficiary"
+              :errors="errors.beneficiary"
               @tag="showBeneficiaryForm = true; showForm = false"
             >
               <article class="flex items-center">
@@ -197,6 +198,7 @@ watchEffect(() => form.value.category = computedCategories.value.find(c => c.id 
               name="Category"
               :taggable="true"
               tag-placeholder="Add as a new category"
+              :errors="errors.category"
               @tag="showCategoryForm = true; showForm = false"
             >
               <Icon
@@ -231,6 +233,7 @@ watchEffect(() => form.value.category = computedCategories.value.find(c => c.id 
               v-model="selectedAccountId"
               :options="accounts.filter((acc) => acc.id != accountId)"
               name="Other account"
+              :errors="'to_account_id' in errors ? errors.to_account_id : errors.from_account_id"
             >
               <Icon
                 :icon="option.icon"
@@ -250,17 +253,20 @@ watchEffect(() => form.value.category = computedCategories.value.find(c => c.id 
             type="date"
             label="Date"
             class="!w-full"
+            :errors="errors.date"
           />
           <decimal-input
             v-model="form.amount"
             label="Amount"
             class="!w-full"
+            :errors="errors.amount"
           />
         </div>
         <form-textarea
           v-model="form.notes"
           label="Notes"
           class="!w-full"
+          :errors="errors.notes"
         />
         <submit-button>
           Confirm
