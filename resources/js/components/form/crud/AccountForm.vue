@@ -33,30 +33,41 @@
             v-model="form.name"
             class="!w-full"
             label="Account name"
+            :errors="errors.name"
           />
-          <color-picker v-model="form.color" class="!ml-3" />
+          <color-picker
+            v-model="form.color"
+            class="!ml-3"
+          />
         </div>
         <div class="w-full flex flex-row gap-2 justify-between">
           <form-input
             v-model="form.opening"
+            :errors="errors.opening"
             type="date"
             label="Opening date"
             class="!w-full"
           />
           <form-input
             v-model="form.closing"
+            :errors="errors.closing"
             type="date"
             label="Closing date"
             class="!w-full"
           />
           <decimal-input
             v-model="form.initial_balance"
+            :errors="errors.initial_balance"
             label="Balance"
           />
         </div>
-        <icon-input v-model="form.icon" />
+        <icon-input
+          v-model="form.icon"
+          :errors="errors.icon"
+        />
         <form-textarea
           v-model="form.description"
+          :errors="errors.description"
           label="Description"
           class="!w-full"
           placeholder="Details, notes or whatever you like"
