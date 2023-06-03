@@ -6,12 +6,10 @@ import CategoryRenderer from "./renderers/CategoryRenderer.vue";
 import AmountRenderer from "./renderers/AmountRenderer.vue";
 import {AgGridVue} from "ag-grid-vue3";
 import {computed, ref, watchEffect} from "vue";
-import {Transaction} from "../composables/interfaces";
 import AccountRenderer from "./renderers/AccountRenderer.vue";
-import RowButtonsRenderer from "./renderers/RowButtonsRenderer.vue";
+import {useOperationsStore} from "../composables/store";
 
 const props = defineProps<{
-  transactions: Array<Transaction>,
   fields: Array<String>
 }>();
 
@@ -36,7 +34,7 @@ const onGridReady = (params) => {
 
 watchEffect(() => {
   if ('setRowData' in gridApi.value) {
-    gridApi.value?.setRowData(props.transactions);
+    gridApi.value?.setRowData(store.getOperations);
     columnApi.value.applyColumnState({
       state: [{ colId: 'date', sort: 'desc' }],
       defaultState: { sort: null },
@@ -83,13 +81,6 @@ const defaultColDefs = [
     cellClass: 'amount-cell',
     sortable: true
   },
-  // {
-  //   headerName: '', field: 'data',
-  //   suppressSizeToFit: true,
-  //   rowDrag: false,
-  //   cellRenderer: RowButtonsRenderer,
-  //   sortable: false
-  // }
 ];
 
 const columnDefs = computed(() => {
@@ -105,6 +96,8 @@ const overlayNoRowsTemplate = '<span class="text-xl opacity-60">No transactions 
 const rowClassRules = {
   'even-row': (params) => params.node.rowIndex % 2 === 0
 }
+
+const store = useOperationsStore()
 </script>
 
 <template>
@@ -115,7 +108,7 @@ const rowClassRules = {
     :pagination-auto-page-size="true"
     :animate-rows="true"
     :column-defs="columnDefs"
-    :row-data="transactions"
+    :row-data="store.getOperations"
     :overlay-no-rows-template="overlayNoRowsTemplate"
     :overlay-loading-template="overlayLoadingTemplate"
     :row-class-rules="rowClassRules"

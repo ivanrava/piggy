@@ -1,24 +1,31 @@
 <script setup lang="ts">
 import {computed, ref} from "vue";
 import axios from "axios";
+import {useOperationsStore} from "../../composables/store";
+
+const store = useOperationsStore()
 
 const props = defineProps<{
   operation: Object
 }>()
-const emit = defineEmits(['deleted'])
 
+const isTransfer = computed(() => {
+  return 'from' in props.operation || 'to' in props.operation;
+})
 const endpoint = computed(() => {
-  console.log(props.operation)
-  return 'from' in props.operation || 'to' in props.operation ? `/transfers` : `/transactions`;
+  return isTransfer.value ? `/transfers` : `/transactions`;
 })
 
-const deleteOperation = () => {
-  if (!confirmDelete.value)
+const softDelete = () => {
+  if (!confirmDelete.value) {
     confirmDelete.value = true;
+    return
+  }
 
   axios.delete(`${endpoint.value}/${props.operation.id}`)
     .then(() => {
-      emit('deleted')
+      store.deleteOperation(props.operation.id, isTransfer.value)
+      confirmDelete.value = false;
     })
     .catch((res) => {
       console.log(res)
@@ -31,7 +38,7 @@ const confirmDelete = ref(false);
   <a
     class="cursor-pointer flex flex-col justify-center"
     role="button"
-    @click="deleteOperation"
+    @click="softDelete"
   >
     <span class="text-red-900 decoration-red-900">
       {{ confirmDelete ? 'Really sure?' : 'Delete' }}
