@@ -1,16 +1,17 @@
 <script lang="ts">
 import FormInput from "./FormInput.vue";
 import { useCurrencyInput } from "vue-currency-input";
+import {watch} from "vue";
 
 export default {
-  name: "ElCurrencyInput",
+  name: "DecimalInput",
   components: {FormInput},
   props: {
     modelValue: Number,
     name: String,
   },
-  setup() {
-    const { inputRef, formattedValue } = useCurrencyInput({
+  setup(props) {
+    const { inputRef, formattedValue, setValue } = useCurrencyInput({
       currency: "EUR",
       valueRange: {
         min: 0,
@@ -24,6 +25,13 @@ export default {
       useGrouping: true,
       accountingSign: false
     });
+
+    watch(
+      () => props.modelValue, // Vue 2: props.value
+      (value) => {
+        setValue(value)
+      }
+    )
 
     return { inputRef, formattedValue };
   },
