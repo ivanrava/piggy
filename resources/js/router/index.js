@@ -112,6 +112,15 @@ const routes = [
                     title: 'New statistic',
                     requiresAuth: true
                 }
+            },
+            {
+                name: 'report',
+                path: '/report',
+                component: () => import('@/pages/dashboard/ReportCreate.vue'),
+                meta: {
+                    title: 'New report',
+                    requiresAuth: true
+                }
             }
         ]
     },
