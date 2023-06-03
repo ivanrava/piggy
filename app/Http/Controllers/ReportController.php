@@ -13,7 +13,7 @@ class ReportController extends Controller
     public function report(MakeReportRequest $request): AnonymousResourceCollection
     {
         return TransactionResource::collection(
-            Transaction::orderBy('date')
+            Transaction::orderBy($request->sort, $request->direction)
                 ->when($request->has('from'), fn (Builder $query) => $query->where('date', '>=', $request->from))
                 ->when($request->has('to'), fn (Builder $query) => $query->where('date', '<=', $request->to))
                 ->get()

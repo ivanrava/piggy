@@ -24,6 +24,16 @@ class MakeReportRequest extends FormRequest
         return [
             'from' => 'nullable|date',
             'to' => 'nullable|date|after:from',
+            'sort' => 'nullable|in:date,amount',
+            'direction' => 'nullable|in:desc,asc'
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->mergeIfMissing([
+            'sort' => 'date',
+            'direction' => 'asc'
+        ]);
     }
 }
