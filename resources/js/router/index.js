@@ -9,6 +9,10 @@ const routes = [
         component: AuthLayout,
         children: [
             {
+                path: '/',
+                redirect: 'login'
+            },
+            {
                 name: 'register',
                 path: '/register',
                 component: () => import('@/pages/auth/Register.vue'),
@@ -140,6 +144,15 @@ const routes = [
         meta: {
             title: "Logout",
             requiresAuth: true
+        }
+    },
+    {
+        name: '404',
+        path: '/:pathMatch(.*)*',
+        component: () => import('@/pages/NotFound.vue'),
+        meta: {
+            title: "Not found",
+            requiresAuth: false
         }
     }
 ]
