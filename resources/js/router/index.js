@@ -10,7 +10,10 @@ const routes = [
         children: [
             {
                 path: '/',
-                redirect: 'login'
+                redirect: 'home',
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 name: 'register',
