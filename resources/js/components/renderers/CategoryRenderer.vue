@@ -18,12 +18,21 @@ export default defineComponent({
 </script>
 
 <template>
-  <router-link :to="`/categories/${category.id}`" v-if="category.id !== undefined">
-    <Icon :icon="category.icon" class="inline mr-1" />
+  <router-link
+    v-if="category.id !== undefined"
+    :to="`/categories/${category.id}`"
+  >
+    <Icon
+      :icon="category.icon"
+      class="inline mr-1 text-slate-900"
+    />
     <span class="font-medium h-1/2 text-slate-900 text-xs">{{ category.name }}</span>
   </router-link>
   <div v-else>
-    <Icon :icon="category.icon" class="inline mr-1" />
+    <Icon
+      :icon="category.icon"
+      class="inline mr-1"
+    />
     <span class="font-medium h-1/2 text-slate-900 text-xs">{{ category.name }}</span>
   </div>
 </template>
