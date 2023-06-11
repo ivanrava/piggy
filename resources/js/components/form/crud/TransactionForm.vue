@@ -268,7 +268,7 @@ watchEffect(() => form.value.category = computedCategories.value.find(c => c.id 
           class="!w-full"
           :errors="errors.notes"
         />
-        <submit-button>
+        <submit-button class="block w-full">
           Confirm
         </submit-button>
       </form>

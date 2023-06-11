@@ -101,7 +101,7 @@ const form = ref({
           v-model="form.icon"
           :errors="errors.icon"
         />
-        <submit-button>
+        <submit-button class="block w-full">
           Confirm
         </submit-button>
       </form>
