@@ -13,17 +13,10 @@
           <span class="mr-1">Close</span>
         </a>
       </header>
-      <div class="button-group">
-        <button
-          v-for="t in accountTypes"
-          :key="t.id"
-          class="m-2 pb-1 border-pink-100/20 text-pink-700/70 font-light border-b-2 transition-all rounded-none hover:border-red-700/60 hover:text-red-700"
-          :class="{'!border-pink-700 !text-pink-950 !font-normal': t.id === form.account_type_id}"
-          @click="form.account_type_id = t.id"
-        >
-          {{ t.type }}
-        </button>
-      </div>
+      <tab-selector
+        v-model="form.account_type_id"
+        :tabs="accountTypes"
+      />
       <form
         class="flex flex-col justify-center items-center gap-4 w-96 relative"
         @submit.prevent="storeCategory(form)"
@@ -100,6 +93,7 @@ import IconInput from "../inputs/IconInput.vue";
 import FormTextarea from "../inputs/FormTextarea.vue";
 import ColorPicker from "../inputs/ColorPicker.vue";
 import DecimalInput from "../inputs/DecimalInput.vue";
+import TabSelector from "../inputs/TabSelector.vue";
 
 const showForm = ref(false);
 
