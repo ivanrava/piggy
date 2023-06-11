@@ -10,8 +10,12 @@ export default defineComponent({
     isOut() {
       if ('category' in this.params.data)
         return this.params.data.category.type === 'out'
-      else
-        return 'to' in this.params.data
+      else {
+        // Is transfer
+        if ('to' in this.params.data && 'from' in this.params.data) {
+          return this.params.data.from.id == this.$route.params.id;
+        } else return 'to' in this.params.data;
+      }
     }
   }
 })
