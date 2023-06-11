@@ -6,7 +6,14 @@ import AccountCard from "../AccountCard.vue";
 export default defineComponent({
   name: 'BeneficiaryRenderer',
   components: {AccountCard, BeneficiaryImage},
-  props: ['params'],
+  props: {
+    params: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
+  },
   computed: {
     isBeneficiary() {
       return 'beneficiary' in this.params.data;
