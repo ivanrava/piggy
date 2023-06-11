@@ -25,9 +25,7 @@
 <script setup lang="ts">
 import {Icon} from "@iconify/vue";
 import {Account} from '../composables/interfaces';
-import {useRouter} from "vue-router";
 import {computed} from "vue";
-const router = useRouter()
 
 const props = withDefaults(defineProps<{
   account: Account,
