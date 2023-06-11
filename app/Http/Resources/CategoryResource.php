@@ -20,7 +20,7 @@ class CategoryResource extends JsonResource
             'type' => $this->type,
             'icon' => $this->icon,
             'children' => $this->relationLoaded('children') ? CategoryResource::collection($this->children) : [],
-            'transactions' => TransactionResource::collection($this->whenLoaded('transactions'))
+            'transactions' => $this->relationLoaded('transactions') ? TransactionResource::collection($this->transactions) : []
         ];
     }
 }

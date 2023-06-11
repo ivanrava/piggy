@@ -1,4 +1,5 @@
 interface Transaction {
+    id: number;
     category: Category;
     beneficiary: Beneficiary;
     date: string;
@@ -7,6 +8,7 @@ interface Transaction {
 }
 
 interface Transfer {
+    id: number;
     from_account_id: number;
     to_account_id: number;
     date: string;
@@ -35,14 +37,16 @@ interface Category {
     icon: string;
     type: string;
     name: string;
-    children: Array<Category>
+    children: Array<Category>;
+    transactions: Array<Transaction>;
 }
 
 interface Beneficiary {
-    id: string;
+    id: number;
     name: string;
     img: string;
     created_at: string;
+    transactions: Array<Transaction>;
 }
 
 export {
