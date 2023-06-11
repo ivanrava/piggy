@@ -1,17 +1,23 @@
 <template>
   <router-link
-    class="flex items-center unstyled"
+    class="flex items-center unstyled transition-all"
     :class="[
       small ? 'rounded-md px-2' : 'rounded-lg p-2',
       textColor,
-      isExpired ? 'opacity-30 cursor-not-allowed shadow-sm' : 'cursor-pointer shadow-lg']"
+      isExpired ? 'opacity-30 cursor-not-allowed shadow-sm' : 'cursor-pointer shadow-sm hover:shadow-md']"
     :style="{backgroundColor: `#${account.color}`}"
     :to="'/accounts/'+account.id"
   >
-    <Icon :icon="account.icon" :class="small ? 'text-2xl' : 'text-4xl'" />
+    <Icon
+      :icon="account.icon"
+      :class="small ? 'text-2xl' : 'text-4xl'"
+    />
     <div class="flex flex-col ml-2">
       <b :class="{'leading-4 text-xs': small}">{{ account.name }}</b>
-      <small class="font-light" :class="{'text-[8px] leading-[0.8]': small}">{{ account.type }}</small>
+      <small
+        class="font-light"
+        :class="{'text-[8px] leading-[0.8]': small}"
+      >{{ account.type }}</small>
     </div>
   </router-link>
 </template>
