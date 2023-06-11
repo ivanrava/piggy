@@ -1,7 +1,7 @@
 <template>
   <nav class="flex justify-between items-center">
     <div class="h-full flex">
-      <brand-logo class="h-full p-2.5 cursor-pointer" @click="router.push('home')" />
+      <brand-logo class="h-full p-2.5 cursor-pointer" @click="router.push('/home')" />
       <nav class="flex flex-col justify-center">
         <ul class="flex">
           <li v-for="link in links" :key="link.name" class="p-2 relative">
