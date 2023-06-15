@@ -22,7 +22,7 @@
     <input
       :id="label"
       v-model="value"
-      class="focus:outline-none focus:border-pink-200/40 bg-stone-50 focus:ring-4 outline-none transition-all ring-0 ring-pink-300/20 text-slate-900 p-2 border-2 w-full rounded-md text-sm font-mono"
+      class="focus:outline-none focus:border-pink-200/40 bg-stone-50 focus:ring-4 outline-none transition-all ring-0 ring-pink-300/20 text-slate-900 py-2 pl-2 pr-8 border-2 w-full rounded-md text-sm font-mono"
       :name="label"
       :type="type"
       v-bind="$attrs"
