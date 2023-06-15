@@ -1,15 +1,25 @@
 <template>
   <nav class="flex justify-between items-center">
     <div class="h-full flex">
-      <brand-logo class="h-full p-2.5 cursor-pointer" @click="router.push('/home')" />
+      <brand-logo
+        class="h-full p-2.5 cursor-pointer"
+        @click="router.push('/home')"
+      />
       <nav class="flex flex-col justify-center">
         <ul class="flex">
-          <li v-for="link in links" :key="link.name" class="p-2 relative">
+          <li
+            v-for="link in links"
+            :key="link.name"
+            class="p-2 relative w-20"
+          >
             <router-link
               :to="link.href"
               class="flex flex-col justify-center items-center text-slate-700 opacity-50 hover:opacity-100 transition-all font-medium hover:font-semibold"
             >
-              <Icon class="text-2xl" :icon="link.icon" />
+              <Icon
+                class="text-2xl"
+                :icon="link.icon"
+              />
               <span class="text-xs">{{ link.name }}</span>
             </router-link>
           </li>
@@ -22,12 +32,15 @@
         @focus="focused = true"
         @blur="focused = false"
         @keydown.esc="$event.target.blur()"
-      />
+      >
       <span
         class="absolute left-48 top-1 text-slate-900 transition-all duration-300"
         :class="focused ? 'opacity-0' : 'opacity-60'"
       >
-        <Icon icon="ic:round-search" class="inline" />
+        <Icon
+          icon="ic:round-search"
+          class="inline"
+        />
         Search
       </span>
     </label>
