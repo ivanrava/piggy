@@ -19,9 +19,9 @@ class TransactionResource extends JsonResource
             'date' => $this->date,
             'amount' => $this->amount,
             'notes' => $this->notes,
-            'category' => $this->category,
-            'beneficiary' => $this->beneficiary,
-            'account' => $this->account
+            'category' => new CategoryResource($this->category),
+            'beneficiary' => new BeneficiaryResource($this->beneficiary),
+            'account' => new AccountResource($this->account)
         ];
     }
 }
