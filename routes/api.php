@@ -5,6 +5,7 @@ use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\StatsController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransferController;
 use Illuminate\Http\Request;
@@ -28,6 +29,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/account_types', [AccountTypeController::class, 'index']);
     Route::get('/categories/root', [CategoryController::class, 'root']);
     Route::get('/report', [ReportController::class, 'report']);
+    Route::get('/stats/year', [StatsController::class, 'year']);
+    Route::get('/stats/month', [StatsController::class, 'month']);
+    Route::get('/stats/beneficiary', [StatsController::class, 'beneficiaries']);
+    Route::get('/stats/category', [StatsController::class, 'categories']);
     Route::apiResource('accounts', AccountController::class);
     Route::apiResource('beneficiaries', BeneficiaryController::class);
     Route::apiResource('categories', CategoryController::class);
