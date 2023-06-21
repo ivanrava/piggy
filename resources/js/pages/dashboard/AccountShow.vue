@@ -13,7 +13,7 @@ const store = useOperationsStore();
 const account = ref<Account>(null);
 const errors = ref([]);
 onMounted(() => {
-  axios.get("/accounts/"+route.params.id).then(({data}) => {
+  axios.get(`/accounts/${route.params.id}`).then(({data}) => {
     account.value = data.data;
     store.setOperations(
       account.value.transactions,
