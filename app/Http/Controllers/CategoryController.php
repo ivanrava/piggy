@@ -22,7 +22,7 @@ class CategoryController extends Controller
     public function root(Request $request): AnonymousResourceCollection
     {
         return CategoryResource::collection(
-        // Root categories
+            // Root categories
             $request->user()->categories()->whereParentCategoryId(null)->get()
         );
     }
