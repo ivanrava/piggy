@@ -22,8 +22,14 @@ class CategoryController extends Controller
     public function root(Request $request): AnonymousResourceCollection
     {
         return CategoryResource::collection(
-            // Root categories
-            $request->user()->categories()->whereParentCategoryId(null)->get()
+            $request->user()->categories()->whereParentCategoryId(null)->orderBy('type')->orderBy('name')->get()
+        );
+    }
+
+    public function leaves(Request $request): AnonymousResourceCollection
+    {
+        return CategoryResource::collection(
+            $request->user()->categories()->whereNotNull('parent_category_id')->get()
         );
     }
 

@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::get('/account_types', [AccountTypeController::class, 'index']);
     Route::get('/categories/root', [CategoryController::class, 'root']);
+    Route::get('/categories/leaves', [CategoryController::class, 'leaves']);
     Route::get('/report', [ReportController::class, 'report']);
     Route::get('/stats/year', [StatsController::class, 'year']);
     Route::get('/stats/month', [StatsController::class, 'month']);

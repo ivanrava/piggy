@@ -8,14 +8,14 @@ import {onMounted, ref} from "vue";
 import axios from "axios";
 import TabSelector from "../inputs/TabSelector.vue";
 
-defineProps({
-  showForm: {
-    type: Boolean,
-  },
+defineProps<{
+  showForm: Boolean,
   errors : {
-    type: Object,
+    name: String,
+    parent_category_id: String,
+    icon: String
   }
-})
+}>();
 defineEmits(['store', 'close'])
 
 const categoryTypes = [
@@ -30,7 +30,7 @@ const categoryTypes = [
 ]
 const fathers = ref([]);
 onMounted(() =>  {
-  axios.get("/categories").then(({data}) => {
+  axios.get("/categories/root").then(({data}) => {
     fathers.value = data.data;
   }).catch(({response}) => {
     console.log(response.data.errors)

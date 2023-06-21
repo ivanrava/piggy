@@ -37,6 +37,7 @@ interface Category {
     icon: string;
     type: string;
     name: string;
+    parent_category_id: number;
     children: Array<Category>;
     transactions: Array<Transaction>;
 }

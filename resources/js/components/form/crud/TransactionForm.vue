@@ -90,7 +90,7 @@ const beneficiaries = ref([]);
 const accounts = ref([]);
 onMounted(() =>  {
   // Fetch categories
-  axios.get("/categories").then(({data}) => {
+  axios.get("/categories/leaves").then(({data}) => {
     categories.value = data.data;
   }).catch(({response}) => {
     errors.value = response.data.errors;

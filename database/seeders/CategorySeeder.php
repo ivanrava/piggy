@@ -24,11 +24,6 @@ class CategorySeeder extends Seeder
         $user->categories()->each(
             fn (Category $parent) => self::maybeAddRandomChildren($parent)
         );
-        $user->categories()->each(function (Category $parent) {
-            $parent->children()->each(
-                fn (Category $child) => self::maybeAddRandomChildren($child)
-            );
-        });
     }
 
     private static function maybeAddRandomChildren(Category $parent): void

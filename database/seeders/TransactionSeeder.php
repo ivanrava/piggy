@@ -21,7 +21,7 @@ class TransactionSeeder extends Seeder
     public static function seed(Account $account, User $user): void
     {
         $account->transactions()->saveMany(Transaction::factory()->count(50)->make()->each(function (Transaction $trans) use ($user) {
-            $trans->category_id = $user->categories()->inRandomOrder()->first()->id;
+            $trans->category_id = $user->categories()->whereNotNull('parent_category_id')->inRandomOrder()->first()->id;
             $trans->beneficiary_id = $user->beneficiaries()->inRandomOrder()->first()->id;
         }));
     }
