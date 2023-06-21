@@ -7,26 +7,19 @@ import AmountRenderer from "./renderers/AmountRenderer.vue";
 import {AgGridVue} from "ag-grid-vue3";
 import {computed, ref, watchEffect} from "vue";
 import AccountRenderer from "./renderers/AccountRenderer.vue";
-import {useOperationsStore} from "../composables/store";
+import {useOperationsStore} from "../composables/useOperationsStore";
+import {useAgGridUtilites} from "../composables/useAgGridUtilities";
+import {ColumnApi, GridApi} from "ag-grid-community";
 
 const props = defineProps<{
   fields: Array<String>
 }>();
 
-const stringComparator = (valA, valB) => {
-  if (valA.name == valB.name)
-    return 0;
-  return (valA.name > valB.name) ? 1 : -1;
-}
-const dateFormatter = (date) => {
-  return (new Date(date.value)).toLocaleDateString(undefined, {weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'})
-}
-const currencyFormatter = (curr) => {
-  return curr.value.toString() + ' €'
-}
+const store = useOperationsStore()
+const {stringComparator, currencyFormatter, dateFormatter} = useAgGridUtilites();
 
-const gridApi = ref({});
-const columnApi = ref({});
+const gridApi = ref<GridApi|{}>({});
+const columnApi = ref<ColumnApi|{}>({});
 const onGridReady = (params) => {
   gridApi.value = params.api;
   columnApi.value = params.columnApi;
@@ -39,9 +32,7 @@ watchEffect(() => {
       state: [{ colId: 'date', sort: 'desc' }],
       defaultState: { sort: null },
     });
-    gridApi.value.sizeColumnsToFit({
-      defaultMinWidth: 100,
-    })
+    gridApi.value.sizeColumnsToFit({defaultMinWidth: 100})
     gridApi.value.showLoadingOverlay();
   }
 });
@@ -96,8 +87,6 @@ const overlayNoRowsTemplate = '<span class="text-xl opacity-60">No transactions 
 const rowClassRules = {
   'even-row': (params) => params.node.rowIndex % 2 === 0
 }
-
-const store = useOperationsStore()
 </script>
 
 <template>

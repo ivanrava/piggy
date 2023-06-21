@@ -5,7 +5,7 @@ import {useRoute} from "vue-router";
 import TransactionForm from "../../components/form/crud/TransactionForm.vue";
 import {Account} from "../../composables/interfaces";
 import TransactionDataTable from "../../components/TransactionDataTable.vue";
-import {useOperationsStore} from "../../composables/store";
+import {useOperationsStore} from "../../composables/useOperationsStore";
 
 const route = useRoute();
 const store = useOperationsStore();
@@ -54,14 +54,10 @@ onMounted(() => {
       </p>
     </div>
   </Transition>
-  <transaction-data-table
-    :transactions="store.getOperations"
-    :fields="['beneficiary', 'category']"
-  />
+  <transaction-data-table :fields="['beneficiary', 'category']" />
   <transaction-form
     v-if="account"
     :account-id="account.id"
-    @added="(op) => store.addOperation(op)"
   />
 </template>
 

@@ -11,8 +11,11 @@ import DecimalInput from "../inputs/DecimalInput.vue";
 import BeneficiaryForm from "./BeneficiaryForm.vue";
 import InOutInput from "../inputs/InOutInput.vue";
 import CategoryForm from "./CategoryForm.vue";
+import {Beneficiary, Category} from "../../../composables/interfaces";
+import {useOperationsStore} from "../../../composables/useOperationsStore";
+import TabSelector from "../inputs/TabSelector.vue";
 
-const showForm = ref(false);
+const store = useOperationsStore();
 
 const props = defineProps<{
   accountId: number;
@@ -27,15 +30,39 @@ const form = ref({
   category: {}
 })
 
-const emit = defineEmits(['added']);
+const maybeEditingId = store.isEditing ? '/'+store.getStagingOperation.id : '';
+const transactionStoreUrl = ref(`/${store.isEditing && store.isEditingTransfer ? 'transfers' : 'transactions'}${maybeEditingId}`);
+watchEffect(() => {
+  transactionStoreUrl.value = `/${store.isEditing && store.isEditingTransfer ? 'transfers' : 'transactions'}${maybeEditingId}`;
+})
+const transactionTypes = computed(() => {
+  const types = [
+    {
+      type: 'Transaction',
+      id: `/transactions${maybeEditingId}`
+    },
+    {
+      type: 'Transfer',
+      id: `/transfers${maybeEditingId}`
+    }
+  ];
+  if (store.isEditing) {
+    return store.isEditingTransfer ? [types[1]] : [types[0]];
+  } else {
+    return types;
+  }
+})
+
+const beneficiary_id = ref(null);
+const category_id = ref(null);
 
 const loading = ref(false);
 const errors = ref({});
 const storeTransaction = () => {
   loading.value = true;
   axios.post(transactionStoreUrl.value, actualPayload.value).then(({data}) => {
-    showForm.value = false;
-    emit('added', data.data);
+    store.closeForm();
+    store.addOperation(data.data);
     errors.value = [];
   }).catch(({response}) => {
     errors.value = response.data.errors;
@@ -55,18 +82,6 @@ const actualPayload = computed(() => {
     date: form.value.date
   }
 })
-
-const transactionStoreUrl = ref('/transactions');
-const transactionTypes = [
-  {
-    name: 'Transaction',
-    url: '/transactions'
-  },
-  {
-    name: 'Transfer',
-    url: '/transfers'
-  }
-]
 
 const isOut = ref(true);
 
@@ -95,13 +110,11 @@ onMounted(() =>  {
 });
 
 const fakeId = -1;
-const beneficiary_id = ref(null);
-const category_id = ref(null);
 
 const showBeneficiaryForm = ref(false);
 const showCategoryForm = ref(false);
-const addedBeneficiary = ref({});
-const addedCategory = ref({});
+const addedBeneficiary = ref<Beneficiary|{}>({});
+const addedCategory = ref<Category|{}>({});
 const computedBeneficiaries = computed(() => beneficiaries.value.concat('id' in addedBeneficiary.value ? [addedBeneficiary.value] : []))
 const computedCategories = computed(() => categories.value.concat('id' in addedCategory.value ? [addedCategory.value] : []))
 const addBeneficiary = (b) => {
@@ -110,7 +123,7 @@ const addBeneficiary = (b) => {
   beneficiary_id.value = fakeId;
   // Show / hide shenanigans
   showBeneficiaryForm.value = false;
-  showForm.value = true;
+  store.showForm();
 }
 const addCategory = (c) => {
   addedCategory.value = c;
@@ -118,7 +131,7 @@ const addCategory = (c) => {
   category_id.value = fakeId;
   // Show / hide shenanigans
   showCategoryForm.value = false;
-  showForm.value = true;
+  store.showForm();
 }
 
 watchEffect(() => form.value.account_id = props.accountId);
@@ -127,51 +140,50 @@ watchEffect(() => form.value.category = computedCategories.value.find(c => c.id 
 </script>
 
 <template>
+  <!-- Beneficiary modal form -->
   <beneficiary-form
     :show-form="showBeneficiaryForm"
     @store="addBeneficiary"
-    @close="showBeneficiaryForm = false; showForm = true"
+    @close="showBeneficiaryForm = false; store.showForm()"
   />
+  <!-- Category modal form -->
   <category-form
     :show-form="showCategoryForm"
     @store="addCategory"
-    @close="showCategoryForm = false; showForm = true"
+    @close="showCategoryForm = false; store.showForm()"
   />
+  <!-- Main form transaction container -->
   <Transition name="slide-fade">
     <aside
-      v-if="showForm"
+      v-if="store.isFormShowed"
       class="fixed bottom-8 right-8 bg-slate-50 p-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10"
     >
       <header class="flex flex-row justify-between items-center">
-        <h2>New operation</h2>
+        <h2>{{ store.isEditing ? 'Edit' : 'New' }} operation</h2>
         <a
           class="flex flex-row items-center cursor-pointer"
-          @click="showForm = false"
+          @click="store.closeForm()"
         >
           <span class="mr-1">Close</span>
         </a>
       </header>
-      <div class="button-group">
-        <button
-          v-for="t in transactionTypes"
-          :key="t.url"
-          class="m-2 pb-1 border-pink-100/20 text-pink-700/70 font-light border-b-2 transition-all rounded-none hover:border-red-700/60 hover:text-red-700"
-          :class="{'!border-pink-700 !text-pink-950 !font-normal': transactionStoreUrl === t.url}"
-          @click="transactionStoreUrl = t.url"
-        >
-          {{ t.name }}
-        </button>
-      </div>
+      <!-- Transaction type selector -->
+      <tab-selector
+        v-model="transactionStoreUrl"
+        :tabs="transactionTypes"
+      />
+      <!-- Main form fields -->
       <form
         class="flex flex-col justify-center items-center gap-4 w-96"
         @submit.prevent="storeTransaction"
       >
+        <!-- Variable fields -->
         <Transition
           name="fade-quick"
           mode="out-in"
         >
           <div
-            v-if="transactionStoreUrl === '/transactions'"
+            v-if="transactionStoreUrl.startsWith('/transactions')"
             class="w-full flex flex-col justify-center items-center gap-4"
           >
             <select-input
@@ -182,7 +194,7 @@ watchEffect(() => form.value.category = computedCategories.value.find(c => c.id 
               :taggable="true"
               tag-placeholder="Add as a new beneficiary"
               :errors="errors.beneficiary"
-              @tag="showBeneficiaryForm = true; showForm = false"
+              @tag="showBeneficiaryForm = true; store.closeForm()"
             >
               <article class="flex items-center">
                 <beneficiary-image
@@ -200,7 +212,7 @@ watchEffect(() => form.value.category = computedCategories.value.find(c => c.id 
               :taggable="true"
               tag-placeholder="Add as a new category"
               :errors="errors.category"
-              @tag="showCategoryForm = true; showForm = false"
+              @tag="showCategoryForm = true; store.closeForm()"
             >
               <Icon
                 :icon="option.icon"
@@ -210,7 +222,7 @@ watchEffect(() => form.value.category = computedCategories.value.find(c => c.id 
             </select-input>
           </div>
           <div
-            v-else-if="transactionStoreUrl === '/transfers'"
+            v-else-if="transactionStoreUrl.startsWith('/transfers')"
             class="w-full flex flex-row gap-4 justify-center items-center"
           >
             <in-out-input v-model="isOut" />
@@ -233,6 +245,7 @@ watchEffect(() => form.value.category = computedCategories.value.find(c => c.id 
             </select-input>
           </div>
         </Transition>
+        <!-- Fixed fields -->
         <div class="w-full flex justify-between gap-4">
           <form-input
             v-model="form.date"
@@ -260,9 +273,10 @@ watchEffect(() => form.value.category = computedCategories.value.find(c => c.id 
       </form>
     </aside>
   </Transition>
+  <!-- Show form button -->
   <submit-button
     class="fixed right-12 bottom-12 flex items-center shadow-lg"
-    @click="showForm = true"
+    @click="store.showForm()"
   >
     <Icon
       icon="material-symbols:currency-exchange"
