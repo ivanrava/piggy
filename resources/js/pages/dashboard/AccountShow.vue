@@ -32,7 +32,18 @@ onMounted(() => {
     mode="out-in"
   >
     <div v-if="account == null">
-      <div class="h-10 bg-gray-400 rounded-md w-96 mb-4 my-4 animate-pulse" />
+      <div class="h-10 bg-gray-400 rounded-md w-96 my-4 animate-pulse" />
+      <div class="flex flex-row gap-x-2 mb-2">
+        <div class="h-5 bg-gray-400 rounded-md w-80 animate-pulse" />
+        <div class="h-5 bg-gray-500/70 rounded-md w-44 animate-pulse" />
+        <div class="h-5 bg-gray-400/90 rounded-md w-52 animate-pulse" />
+        <div class="h-5 bg-gray-500/70 rounded-md w-40 animate-pulse" />
+        <div class="h-5 bg-gray-400 rounded-md w-72 animate-pulse" />
+      </div>
+      <div class="flex flex-row gap-x-2 mb-4">
+        <div class="h-5 bg-gray-500/70 rounded-md w-32 animate-pulse" />
+        <div class="h-5 bg-gray-400 rounded-md w-96 animate-pulse" />
+      </div>
     </div>
     <div v-else>
       <h1>
