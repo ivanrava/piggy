@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col w-full bg-pink-50">
-    <nav-bar class="h-14" />
+    <nav-bar class="h-14 print:hidden" />
     <section class="px-3 pb-3 pt-1.5 grow min-h-0">
       <div class="flex w-full h-full bg-pink-200/50 rounded-3xl shadow-inner">
-        <side-bar class="rounded-l-3xl w-1/5" />
-        <main class="w-full bg-stone-200 rounded-r-3xl overflow-scroll">
+        <side-bar class="rounded-l-3xl w-1/5 print:hidden" />
+        <main class="w-full bg-stone-200 rounded-r-3xl overflow-scroll print:overflow-visible">
           <router-view
             v-slot="{ Component, route }"
             class="flex w-full"
