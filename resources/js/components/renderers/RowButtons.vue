@@ -6,6 +6,7 @@ import {Transaction, Transfer} from "../../composables/interfaces";
 import {useRoute} from "vue-router";
 
 const store = useOperationsStore()
+const route = useRoute()
 
 const props = defineProps<{
   operation: Transaction|Transfer
@@ -36,7 +37,7 @@ const softDelete = () => {
 const confirmDelete = ref(false);
 
 const edit = () => {
-  store.showEdit(props.operation, isTransfer.value)
+  store.showEdit(props.operation, isTransfer.value, route.params.id)
 }
 </script>
 

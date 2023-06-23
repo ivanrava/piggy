@@ -1,39 +1,55 @@
 import {defineStore} from 'pinia'
+import {Transaction, Transfer} from "./interfaces";
+import useOperationHelpers from "./useOperationHelpers";
+
+const defaultStagingTransaction = {
+    id: 0,
+    account_id: null,
+    date: '',
+    amount: 0,
+    notes: '',
+    beneficiary: {
+        id: null,
+        name: null,
+        img: 'bottts'
+    },
+    category: {
+        id: null,
+        name: '',
+        parent_category_id: null,
+        icon: null
+    }
+}
+
+const defaultStagingTransfer = {
+    id: 0,
+    account_id: null,
+    amount: 0,
+    isOut: true,
+    notes: '',
+    date: ''
+}
 
 export const useOperationsStore = defineStore('operations', {
     state: () => ({
         transactions: [],
         transfers: [],
         added: [],
-        stagingOperation: {
-            id: 0,
-            date: '',
-            amount: 0,
-            notes: '',
-            beneficiary: {
-                id: null
-            },
-            category: {
-                id: null
-            }
-        },
+        stagingTransaction: defaultStagingTransaction,
+        stagingTransfer: defaultStagingTransfer,
         isEditing: false,
         isEditingTransfer: false,
-        isShowForm: false
+        isShowForm: false,
     }),
     getters: {
         getOperations(state) {
-            return state.transactions.concat(state.transfers).concat(this.added)
+            return state.transactions
+                .concat(state.transfers)
+                .concat(state.added)
         },
         getStagingOperation(state) {
-            return state.stagingOperation
+            return state.isEditingTransfer ? state.stagingTransfer : state.stagingTransaction
         },
-        isEdit(state) {
-            return state.stagingOperation.date !== ''
-        },
-        isFormShowed(state) {
-            return state.isShowForm;
-        }
     },
     actions: {
         deleteOperation(id, isTransfer) {
@@ -44,35 +60,45 @@ export const useOperationsStore = defineStore('operations', {
         addOperation(operation) {
             this.added.push(operation)
         },
-        updateOperation() {
+        updateOperation(operation) {
+            const arrayName = this.isEditingTransfer ? 'transfers' : 'transactions';
+            this[arrayName] = this[arrayName].map((op) => op.id === operation.id ? operation : op)
+            this.added = this.added.map((op) => op.id === operation.id ? operation : op)
+
             this.isEditing = false;
         },
         setOperations(transactions, transfers_in, transfers_out) {
+            this.closeForm(false);
+            this.stagingTransaction = defaultStagingTransaction
+            this.stagingTransfer = defaultStagingTransfer
             this.transactions = transactions
             this.transfers = transfers_in.concat(transfers_out)
-            this.stagingOperation = {
-                date: '',
-                    amount: 0,
-                    notes: '',
-                    beneficiary: {
-                    id: null
-                },
-                category: {
-                    id: null
-                }
-            }
-            this.closeForm();
             this.added = [];
         },
-        showEdit(operation, isTransfer) {
-            this.stagingOperation = operation;
+        showEdit(operation: Transfer|Transaction, isTransfer, currentAccountId) {
+            if (isTransfer) {
+                this.stagingTransaction = defaultStagingTransaction;
+                const account = useOperationHelpers.getOtherAccount(<Transfer>operation, currentAccountId)
+                const accountId = account.id
+                this.stagingTransfer = JSON.parse(JSON.stringify({
+                    ...operation,
+                    account_id: accountId,
+                    isOut: useOperationHelpers.isOutTransfer(<Transfer>operation, currentAccountId)
+                }))
+            } else {
+                this.stagingTransaction = JSON.parse(JSON.stringify(operation))
+                this.stagingTransfer = defaultStagingTransfer;
+            }
             this.isEditing = true;
             this.isEditingTransfer = isTransfer;
             this.showForm();
         },
-        closeForm() {
+        changeOperationType(isTransfer) {
+            this.isEditingTransfer = isTransfer
+        },
+        closeForm(moveToEditing) {
             this.isShowForm = false;
-            this.isEditing = false;
+            this.isEditing = moveToEditing;
         },
         showForm() {
             this.isShowForm = true;
