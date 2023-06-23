@@ -8,7 +8,7 @@ import ErrorList from "./ErrorList.vue";
 
 defineProps({
   modelValue: {
-    type: String,
+    type: Number,
   },
   placeholder: {
     type: String,
