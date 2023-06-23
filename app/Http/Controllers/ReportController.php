@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MakeReportRequest;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class ReportController extends Controller
@@ -13,12 +14,32 @@ class ReportController extends Controller
         $in = $request->user()
             ->categories()
             ->where('type', 'in')
-            ->withSum('transactions', 'amount')
+            ->withSum([
+                'transactions' => fn ($query) => $query
+                    ->when(
+                        $request->has('from'),
+                        fn (Builder $query) => $query->where('date', '>=', $request->from)
+                    )
+                    ->when(
+                        $request->has('to'),
+                        fn (Builder $query) => $query->where('date', '<=', $request->to)
+                    )
+            ], 'amount')
             ->get();
         $out = $request->user()
             ->categories()
             ->where('type', 'out')
-            ->withSum('transactions', 'amount')
+            ->withSum([
+                'transactions' => fn ($query) => $query
+                    ->when(
+                        $request->has('from'),
+                        fn (Builder $query) => $query->where('date', '>=', $request->from)
+                    )
+                    ->when(
+                        $request->has('to'),
+                        fn (Builder $query) => $query->where('date', '<=', $request->to)
+                    )
+            ], 'amount')
             ->get();
 
         return ['out' => $this->curateCategories($out), 'in' => $this->curateCategories($in)];

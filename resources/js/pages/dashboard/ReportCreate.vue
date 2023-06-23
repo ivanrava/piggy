@@ -1,26 +1,33 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {ref} from "vue";
 import axios from "axios";
 import {Category} from "../../composables/interfaces";
 import TrReportCategory from "../../components/TrReportCategory.vue";
 import {useAgGridUtilites} from "../../composables/useAgGridUtilities";
+import FormInput from "../../components/form/inputs/FormInput.vue";
+import SubmitButton from "../../components/form/inputs/SubmitButton.vue";
 
-
+const form = ref({
+  from: '',
+  to: ''
+})
 const inCategories = ref<Array<Category>>([]);
 const outCategories = ref<Array<Category>>([]);
-onMounted(() => {
+const fetched = ref(false);
+const fetchReport = (form) => {
   axios.get('/report', {
     params: {
-      from: '2000-01-01',
-      to: '2023-01-01',
+      from: form.from,
+      to: form.to,
       sort: 'amount',
       direction: 'desc'
     }
   }).then(({data}) => {
     inCategories.value = data.in
     outCategories.value = data.out
+    fetched.value = true;
   })
-})
+}
 
 const sumCategories = (categories) => {
   return categories.reduce((previousValue, currentValue) => previousValue + currentValue.transactions_sum_amount, 0)
@@ -31,8 +38,34 @@ const formatCurrency = (num) => {
 </script>
 
 <template>
-  <form />
-  <table class="w-full">
+  <h1 class="print:hidden">
+    Report by categories
+  </h1>
+  <form
+    class="bg-stone-100 p-4 rounded-lg my-4 shadow-sm print:hidden"
+    @submit.prevent="fetchReport(form)"
+  >
+    <h2>Customize your report</h2>
+    <div class="flex justify-start gap-8">
+      <form-input
+        v-model="form.from"
+        label="From"
+        type="date"
+      />
+      <form-input
+        v-model="form.to"
+        label="To"
+        type="date"
+      />
+      <submit-button>
+        Submit
+      </submit-button>
+    </div>
+  </form>
+  <table
+    v-if="fetched"
+    class="w-full"
+  >
     <thead class="text-blue-900">
       <tr class="border-b-2 border-black text-2xl">
         <th class="w-3/6 text-left">
