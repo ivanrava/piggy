@@ -2,6 +2,7 @@
 import BeneficiaryImage from "../BeneficiaryImage.vue";
 import {defineComponent} from "vue";
 import AccountCard from "../AccountCard.vue";
+import useOperationHelpers from "../../composables/useOperationHelpers";
 
 export default defineComponent({
   name: 'BeneficiaryRenderer',
@@ -22,7 +23,7 @@ export default defineComponent({
       return this.params.data.beneficiary;
     },
     account() {
-      return 'to' in this.params.data ? this.params.data.to : this.params.data.from;
+      return useOperationHelpers.getOtherAccount(this.params.data, this.$route.params.id)
     }
   }
 })
