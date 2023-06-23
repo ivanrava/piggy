@@ -1,3 +1,7 @@
+const currencyFormatterBare = (curr) => {
+    return curr.toLocaleString(undefined, { minimumFractionDigits: 2 }) + ' €'
+}
+
 const stringComparator = (valA, valB) => {
     if (valA.name == valB.name)
         return 0;
@@ -7,9 +11,9 @@ const dateFormatter = (date) => {
     return (new Date(date.value)).toLocaleDateString(undefined, {weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'})
 }
 const currencyFormatter = (curr) => {
-    return curr.value.toString() + ' €'
+    return currencyFormatterBare(curr.value)
 }
 
 export const useAgGridUtilites = () => {
-    return { stringComparator, dateFormatter, currencyFormatter }
+    return { stringComparator, dateFormatter, currencyFormatter, currencyFormatterBare }
 }
