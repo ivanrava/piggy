@@ -11,13 +11,15 @@ interface Transfer {
     id: number;
     from_account_id: number;
     to_account_id: number;
+    to: Account;
+    from: Account;
     date: string;
     amount: string;
     notes: string;
 }
 
 interface Account {
-    id: bigint;
+    id: number;
     icon: string;
     name: string;
     type: string;
