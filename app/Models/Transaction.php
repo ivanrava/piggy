@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Http\Request;
 
 /**
  * App\Models\Transaction
@@ -53,5 +54,29 @@ class Transaction extends Model
     public function beneficiary(): BelongsTo
     {
         return $this->belongsTo(Beneficiary::class);
+    }
+
+    public static function fromRequest(Request $request): Transaction
+    {
+        $transaction = new Transaction();
+        $transaction->hydrateFromRequest($request);
+        return $transaction;
+    }
+
+    public function hydrateFromRequest(Request $request): void
+    {
+        $this->account_id = $request->account_id;
+
+        $beneficiary = $request->beneficiary();
+        $beneficiary->save();
+        $this->beneficiary_id = $beneficiary->id;
+
+        $category = $request->category();
+        $category->save();
+        $this->category_id = $category->id;
+
+        $this->notes = $request->notes;
+        $this->amount = $request->amount;
+        $this->date = $request->date;
     }
 }

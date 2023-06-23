@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Http\Request;
 
 /**
  * App\Models\Transfer
@@ -45,5 +46,21 @@ class Transfer extends Model
     public function to_account(): BelongsTo
     {
         return $this->belongsTo(Account::class, 'to_account_id', 'id');
+    }
+
+    public static function fromRequest(Request $request): Transfer
+    {
+        $transfer = new Transfer();
+        $transfer->hydrateFromRequest($request);
+        return $transfer;
+    }
+
+    public function hydrateFromRequest(Request $request): void
+    {
+        $this->from_account_id = $request->from_account_id;
+        $this->to_account_id = $request->to_account_id;
+        $this->notes = $request->notes;
+        $this->amount = $request->amount;
+        $this->date = $request->date;
     }
 }

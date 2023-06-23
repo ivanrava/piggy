@@ -25,12 +25,7 @@ class TransferController extends Controller
      */
     public function store(StoreTransferRequest $request): TransferResource
     {
-        $transfer = new Transfer();
-        $transfer->from_account_id = $request->from_account_id;
-        $transfer->to_account_id = $request->to_account_id;
-        $transfer->notes = $request->notes;
-        $transfer->amount = $request->amount;
-        $transfer->date = $request->date;
+        $transfer = Transfer::fromRequest($request);
         $transfer->save();
         $transfer->load(['from_account', 'to_account']);
         return new TransferResource($transfer);
@@ -47,13 +42,9 @@ class TransferController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreTransferRequest $request, Transfer $transfer)
+    public function update(StoreTransferRequest $request, Transfer $transfer): TransferResource
     {
-        $transfer->from_account_id = $request->from_account_id;
-        $transfer->to_account_id = $request->to_account_id;
-        $transfer->notes = $request->notes;
-        $transfer->amount = $request->amount;
-        $transfer->date = $request->date;
+        $transfer->hydrateFromRequest($request);
         $transfer->save();
         $transfer->load(['from_account', 'to_account']);
         return new TransferResource($transfer);
