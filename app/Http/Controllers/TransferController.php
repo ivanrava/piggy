@@ -49,7 +49,14 @@ class TransferController extends Controller
      */
     public function update(StoreTransferRequest $request, Transfer $transfer)
     {
-        //
+        $transfer->from_account_id = $request->from_account_id;
+        $transfer->to_account_id = $request->to_account_id;
+        $transfer->notes = $request->notes;
+        $transfer->amount = $request->amount;
+        $transfer->date = $request->date;
+        $transfer->save();
+        $transfer->load(['from_account', 'to_account']);
+        return new TransferResource($transfer);
     }
 
     /**

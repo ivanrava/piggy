@@ -29,14 +29,17 @@ class StoreTransactionRequest extends FormRequest
                 'account_id' => 'required|exists:accounts,id',
                 'beneficiary' => 'required',
                 'beneficiary.id' => 'required',
+                'beneficiary.name' => 'exclude_unless:beneficiary.id,<,0|max:100',
+                'beneficiary.img' => 'exclude_unless:beneficiary.id,<,0|max:255',
                 'category' => 'required',
                 'category.id' => 'required',
+                'category.name' => 'exclude_unless:category.id,<,0|max:100',
+                'category.icon' => 'exclude_unless:category.id,<,0|max:255',
+                'category.parent_category_id' => 'exclude_unless:category.id,<,0|exists:categories,id',
                 'date' => 'required|date',
                 'amount' => 'required|decimal:0,2|between:0.01,99999999.99',
                 'notes' => 'nullable|max:500'
             ],
-            $this->make_nested_rules_for(StoreBeneficiaryRequest::VALIDATION_RULES, 'beneficiary'),
-            $this->make_nested_rules_for(StoreCategoryRequest::VALIDATION_RULES, 'category')
         );
     }
 
@@ -74,7 +77,7 @@ class StoreTransactionRequest extends FormRequest
             $c->name = $this->category['name'];
             $c->icon = $this->category['icon'];
             $c->parent_category_id = $this->category['parent_category_id'];
-            $c->type = $this->category['type'];
+            $c->type = Category::find($this->category['parent_category_id'])->type;
             return $c;
         });
     }

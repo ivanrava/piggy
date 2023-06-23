@@ -24,7 +24,6 @@ class TransactionController extends Controller
      */
     public function store(StoreTransactionRequest $request): TransactionResource
     {
-
         $transaction = new Transaction();
         $transaction->account_id = $request->account_id;
 
@@ -54,9 +53,23 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreTransactionRequest $request, Transaction $transaction)
+    public function update(StoreTransactionRequest $request, Transaction $transaction): TransactionResource
     {
-        //
+        $transaction->account_id = $request->account_id;
+
+        $beneficiary = $request->beneficiary();
+        $beneficiary->save();
+        $transaction->beneficiary_id = $beneficiary->id;
+
+        $category = $request->category();
+        $category->save();
+        $transaction->category_id = $category->id;
+
+        $transaction->notes = $request->notes;
+        $transaction->amount = $request->amount;
+        $transaction->date = $request->date;
+        $transaction->save();
+        return new TransactionResource($transaction);
     }
 
     /**
