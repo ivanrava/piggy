@@ -6,6 +6,7 @@ import BeneficiaryCard from "../../components/BeneficiaryCard.vue";
 import NoData from "../../components/NoData.vue";
 
 const beneficiaries = ref([]);
+const added = ref([]);
 const isLoading = ref(true);
 
 onMounted(async () => {
@@ -61,13 +62,13 @@ onMounted(async () => {
         class="flex flex-wrap gap-4 justify-start pb-4"
       >
         <beneficiary-card
-          v-for="beneficiary in beneficiaries"
+          v-for="beneficiary in beneficiaries.concat(added)"
           :key="beneficiary.name"
           :beneficiary="beneficiary"
         />
       </section>
     </Transition>
-    <beneficiary-form />
+    <beneficiary-form @store="added.push($event)" />
   </div>
 </template>
 

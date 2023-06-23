@@ -12,12 +12,15 @@ interface StoreBeneficiaryPayload {
   img: string;
 }
 
+const emit = defineEmits(['store'])
+
 const loading = ref(false);
 const errors = ref({});
 const storeBeneficiary = function (payload: StoreBeneficiaryPayload) {
   loading.value = true;
-  axios.post("/beneficiaries", payload).then(() => {
+  axios.post("/beneficiaries", payload).then(({data}) => {
     showForm.value = false;
+    emit('store', data.data)
     errors.value = [];
   }).catch(({response}) => {
     errors.value = response.data.errors;
