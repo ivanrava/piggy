@@ -37,7 +37,8 @@ module.exports = {
             slate: colors.slate,
             stone: colors.stone,
             black: colors.black,
-            white: colors.white
+            white: colors.white,
+            blue: colors.sky,
         }
     },
     plugins: [],

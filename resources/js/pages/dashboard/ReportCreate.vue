@@ -25,7 +25,7 @@ onMounted(() => {
 <template>
   <form />
   <table class="w-full">
-    <thead>
+    <thead class="text-blue-900">
       <tr class="border-b-2 border-black">
         <th class="w-3/6 text-left">
           Category
@@ -41,7 +41,7 @@ onMounted(() => {
       <tr class="border-b-2 border-black">
         <th
           colspan="2"
-          class="text-left pt-4"
+          class="text-left pt-4 text-blue-900"
         >
           Income categories
         </th>
@@ -54,7 +54,7 @@ onMounted(() => {
       <tr class="border-b-2 border-black">
         <th
           colspan="2"
-          class="text-left pt-4"
+          class="text-left pt-4 text-blue-900"
         >
           Expense categories
         </th>
