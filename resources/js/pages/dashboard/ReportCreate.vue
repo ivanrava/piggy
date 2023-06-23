@@ -19,8 +19,6 @@ const fetchReport = (form) => {
     params: {
       from: form.from,
       to: form.to,
-      sort: 'amount',
-      direction: 'desc'
     }
   }).then(({data}) => {
     inCategories.value = data.in
