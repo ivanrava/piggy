@@ -36,13 +36,13 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAccountRequest $request): Response
+    public function store(StoreAccountRequest $request): AccountResource
     {
         $account = new Account();
         $account->initial_balance = $request->initial_balance;
         $account = $this->hydrate_from_request($account, $request);
         $account->save();
-        return response()->noContent(201);
+        return new AccountResource($account);
     }
 
     /**

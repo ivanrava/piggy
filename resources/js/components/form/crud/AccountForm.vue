@@ -119,12 +119,15 @@ const form = ref({
   description: ''
 })
 
+const emit = defineEmits(['store'])
+
 const loading = ref(false);
 const errors = ref({});
 const storeCategory = function (payload: StoreAccountPayload) {
   loading.value = true;
-  axios.post("/accounts", payload).then(() => {
+  axios.post("/accounts", payload).then(({data}) => {
     showForm.value = false;
+    emit('store', data.data)
     errors.value = [];
   }).catch(({response}) => {
     errors.value = response.data.errors;
