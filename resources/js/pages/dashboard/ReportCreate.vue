@@ -150,6 +150,19 @@ const formatCurrency = (num) => {
       </tr>
     </tbody>
   </table>
+  <div
+    v-else
+    class="flex flex-col items-center gap-8 justify-center w-full p-8 my-16"
+  >
+    <img
+      class="w-1/3"
+      src="/investment.svg"
+      alt="No data"
+    >
+    <span class="block text-stone-600">
+      Your report will be loaded right here. Fill the form and it will <i class="tracking-widest">automagically</i> appear.
+    </span>
+  </div>
 </template>
 
 <style scoped>
