@@ -4,14 +4,12 @@ import FormInput from "../inputs/FormInput.vue";
 import SubmitButton from "../inputs/SubmitButton.vue";
 import {computed, ref} from "vue";
 
-defineProps({
-  showForm: {
-    type: Boolean,
-  },
+defineProps<{
+  showForm: Boolean,
   errors: {
-    type: Object,
+    name: String
   }
-})
+}>()
 const name = ref('');
 const domain = ref('');
 
