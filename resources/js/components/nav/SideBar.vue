@@ -13,6 +13,12 @@
       </h2>
       <side-bar-categories :categories="inCategories" />
     </section>
+    <side-bar-accounts v-else-if="useRoute().path.startsWith('/accounts')" />
+    <section
+      v-else-if="useRoute().path.startsWith('/beneficiaries')"
+    >
+      <side-bar-beneficiaries />
+    </section>
   </nav>
 </template>
 
@@ -21,6 +27,8 @@ import SideBarCategories from "./SideBarCategories.vue";
 import {computed, onMounted, ref} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
+import SideBarAccounts from "./SideBarAccounts.vue";
+import SideBarBeneficiaries from "./SideBarBeneficiaries.vue";
 const categories = ref([]);
 const isLoading = ref(true);
 

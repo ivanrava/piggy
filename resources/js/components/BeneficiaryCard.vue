@@ -4,15 +4,21 @@ import {Beneficiary} from "../composables/interfaces";
 
 defineProps<{
   beneficiary: Beneficiary
+  hideBg: Boolean
+  small: Boolean
 }>()
 </script>
 
 <template>
   <router-link
-    class="w-56 shadow-sm rounded-lg flex flex-row items-center bg-slate-100 pr-2 unstyled cursor-pointer hover:shadow-md transition-all"
+    class="w-56 rounded-lg flex flex-row items-center pr-2 unstyled cursor-pointer transition-all"
+    :class="{'bg-slate-100 shadow-sm hover:shadow-md':!hideBg}"
     :to="`/beneficiaries/${beneficiary.id}`"
   >
-    <beneficiary-image :beneficiary="beneficiary" />
+    <beneficiary-image
+      :beneficiary="beneficiary"
+      :class="{'!h-12 !w-12':small}"
+    />
     <div class="flex flex-col min-w-0">
       <span class="block text-left text-xs font-medium truncate overflow-hidden">
         {{ beneficiary.name }}
