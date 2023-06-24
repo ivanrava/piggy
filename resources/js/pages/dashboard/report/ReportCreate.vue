@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import axios from "axios";
-import {Category} from "../../composables/interfaces";
-import TrReportCategory from "../../components/TrReportCategory.vue";
-import {useAgGridUtilites} from "../../composables/useAgGridUtilities";
-import FormInput from "../../components/form/inputs/FormInput.vue";
-import SubmitButton from "../../components/form/inputs/SubmitButton.vue";
+import {Category} from "../../../composables/interfaces";
+import TrReportCategory from "../../../components/TrReportCategory.vue";
+import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
+import FormInput from "../../../components/form/inputs/FormInput.vue";
+import SubmitButton from "../../../components/form/inputs/SubmitButton.vue";
 
 const form = ref({
   from: '',

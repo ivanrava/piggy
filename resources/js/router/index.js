@@ -123,7 +123,7 @@ const routes = [
             {
                 name: 'report',
                 path: '/report',
-                component: () => import('@/pages/dashboard/ReportCreate.vue'),
+                component: () => import('@/pages/dashboard/report/ReportCreate.vue'),
                 meta: {
                     title: 'New report',
                     requiresAuth: true
