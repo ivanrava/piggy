@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {Category} from "../composables/interfaces";
+import {Category} from "../../../composables/interfaces";
 import {Icon} from "@iconify/vue";
-import {useAgGridUtilites} from "../composables/useAgGridUtilities";
+import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
 import {computed} from "vue";
 
 const props = defineProps<{
