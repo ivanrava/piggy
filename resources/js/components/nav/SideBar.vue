@@ -7,17 +7,17 @@
       <h2 class="text-red-900 tracking-wide">
         Expense
       </h2>
-      <category-list :categories="outCategories" />
+      <side-bar-categories :categories="outCategories" />
       <h2 class="text-green-900 tracking-wide">
         Income
       </h2>
-      <category-list :categories="inCategories" />
+      <side-bar-categories :categories="inCategories" />
     </section>
   </nav>
 </template>
 
 <script setup lang="ts">
-import CategoryList from "../CategoryList.vue";
+import SideBarCategories from "./SideBarCategories.vue";
 import {computed, onMounted, ref} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";

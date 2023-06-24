@@ -13,7 +13,7 @@
         class="inline"
       />
       {{ category.name }}
-      <category-list
+      <side-bar-categories
         :categories="category.children"
       />
     </li>
@@ -21,9 +21,9 @@
 </template>
 
 <script setup lang="ts">
-import {Category} from '../composables/interfaces';
+import {Category} from '../../composables/interfaces';
 import {Icon} from "@iconify/vue";
-import {useCategoriesStore} from "../composables/useCategoriesStore";
+import {useCategoriesStore} from "../../composables/useCategoriesStore";
 
 defineProps<{
   categories: Array<Category>
@@ -32,7 +32,7 @@ defineProps<{
 const store = useCategoriesStore();
 
 const classes = function(c: Category) {
-  if (store.selectedCategory.id === c.id) {
+  if (store.selectedCategory != null && store.selectedCategory.id === c.id) {
     return c.type === 'out' ? 'bg-red-500/70 text-stone-50 font-semibold' : 'bg-green-500/70 text-stone-50 font-semibold'
   } else {
     return c.type === 'out' ? 'hover:bg-red-100/50 hover:!text-red-950' : 'hover:bg-green-100/50 hover:!text-green-950'
