@@ -1,24 +1,30 @@
 <template>
   <nav class="bg-stone-300/80 h-full overflow-scroll px-4 py-2">
-    <section
-      v-if="useRoute().path.startsWith('/categories')"
-      class="flex flex-col w-full justify-between pr-2"
+    <Transition
+      mode="out-in"
+      name="fade"
     >
-      <h2 class="text-red-900 tracking-wide">
-        Expense
-      </h2>
-      <side-bar-categories :categories="outCategories" />
-      <h2 class="text-green-900 tracking-wide">
-        Income
-      </h2>
-      <side-bar-categories :categories="inCategories" />
-    </section>
-    <side-bar-accounts v-else-if="useRoute().path.startsWith('/accounts')" />
-    <section
-      v-else-if="useRoute().path.startsWith('/beneficiaries')"
-    >
-      <side-bar-beneficiaries />
-    </section>
+      <section
+        v-if="useRoute().path.startsWith('/categories')"
+        class="flex flex-col w-full justify-between pr-2"
+      >
+        <h2 class="text-red-900 tracking-wide">
+          Expense
+        </h2>
+        <side-bar-categories :categories="outCategories" />
+        <h2 class="text-green-900 tracking-wide">
+          Income
+        </h2>
+        <side-bar-categories :categories="inCategories" />
+      </section>
+      <side-bar-accounts v-else-if="useRoute().path.startsWith('/accounts')" />
+      <section
+        v-else-if="useRoute().path.startsWith('/beneficiaries')"
+      >
+        <side-bar-beneficiaries />
+      </section>
+      <side-bar-reports v-else-if="useRoute().path.startsWith('/report')" />
+    </Transition>
   </nav>
 </template>
 
@@ -29,6 +35,7 @@ import axios from "axios";
 import {useRoute} from "vue-router";
 import SideBarAccounts from "./SideBarAccounts.vue";
 import SideBarBeneficiaries from "./SideBarBeneficiaries.vue";
+import SideBarReports from "./SideBarReports.vue";
 const categories = ref([]);
 const isLoading = ref(true);
 
@@ -53,4 +60,13 @@ const inCategories = computed(() => {
 </script>
 
 <style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>
