@@ -1,59 +1,48 @@
 <template>
-  <nav class="bg-stone-300/80 h-full">
-    <ul class="flex flex-col justify-center">
-      <li>
-        <router-link to="/accounts">
-          <i-tabler-credit-card/>
-          Accounts
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/categories">
-          <i-carbon-category-new-each/>
-          Categories
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/beneficiaries">
-          <i-fluent-people-money-20-filled/>
-          Beneficiaries
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/report">
-          <i-clarity-date-outline-alerted/>
-          Custom report
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/stats">
-          <i-carbon-quadrant-plot/>
-          Statistics
-        </router-link>
-      </li>
-    </ul>
+  <nav class="bg-stone-300/80 h-full overflow-scroll px-4 py-2">
+    <section
+      v-if="useRoute().path.startsWith('/categories')"
+      class="flex flex-col w-full justify-between pr-2"
+    >
+      <h2 class="text-red-900 tracking-wide">
+        Expense
+      </h2>
+      <category-list :categories="outCategories" />
+      <h2 class="text-green-900 tracking-wide">
+        Income
+      </h2>
+      <category-list :categories="inCategories" />
+    </section>
   </nav>
 </template>
 
+<script setup lang="ts">
+import CategoryList from "../CategoryList.vue";
+import {computed, onMounted, ref} from "vue";
+import axios from "axios";
+import {useRoute} from "vue-router";
+const categories = ref([]);
+const isLoading = ref(true);
+
+onMounted(async () => {
+  isLoading.value = true;
+  try {
+    const res = axios.get('/categories/root');
+    categories.value = (await res).data.data;
+  } catch (error) {
+    console.log('Error! Could not reach the API. ' + error)
+  }
+  isLoading.value = false;
+});
+
+const outCategories = computed(() => {
+  return categories.value.filter(value => value.type === 'out')
+});
+
+const inCategories = computed(() => {
+  return categories.value.filter(value => value.type === 'in')
+})
+</script>
+
 <style scoped>
-ul > li {
-  @apply mx-6 my-4 font-medium tracking-widest text-sm;
-}
-
-svg {
-  @apply inline text-xl mr-3;
-}
-
-.router-link-active {
-  @apply text-red-800/70;
-}
-
-.router-link-active::before {
-  content: '';
-  @apply bg-red-800/70 block w-1 h-4 rounded-r-2xl absolute left-0;
-}
-
-a {
-  @apply transition-all text-black;
-}
 </style>
