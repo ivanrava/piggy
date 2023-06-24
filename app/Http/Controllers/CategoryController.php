@@ -46,14 +46,28 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Category $category): CategoryResource|Response
+    public function show(Request $request, Category $category): Response|array
     {
         if ($category->user_id != $request->user()->id)
             return response()->noContent(404);
 
-        $category->load('transactions');
+        $accounts = ($category->parent_category_id != null
+            ? $category->transactions()
+            : $request->user()->transactions()->whereIn('category_id', $category->children()->pluck('id')))
+            ->join('accounts', 'accounts.id', '=', 'transactions.account_id')
+            ->groupBy(['accounts.name', 'accounts.color', 'accounts.icon', 'accounts.id'])
+            ->selectRaw('accounts.id, accounts.name, accounts.color, accounts.icon, SUM(amount) as sum, COUNT(*) as count')
+            ->get();
 
-        return new CategoryResource($category->load('children'));
+        $beneficiaries = ($category->parent_category_id != null
+            ? $category->transactions()
+            : $request->user()->transactions()->whereIn('category_id', $category->children()->pluck('id')))
+            ->join('beneficiaries', 'beneficiaries.id', '=', 'transactions.beneficiary_id')
+            ->groupBy(['beneficiaries.name', 'beneficiaries.img', 'beneficiaries.id'])
+            ->selectRaw('beneficiaries.id, beneficiaries.name, SUM(amount) as sum, COUNT(*) as count')
+            ->get();
+
+        return ['accounts' => $accounts, 'beneficiaries' => $beneficiaries];
     }
 
     /**
