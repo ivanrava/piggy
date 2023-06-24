@@ -31,9 +31,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/categories/leaves', [CategoryController::class, 'leaves']);
     Route::get('/report', [ReportController::class, 'report']);
     Route::get('/stats/year', [StatsController::class, 'year']);
+    Route::get('/stats/year/top', [StatsController::class, 'year']);
     Route::get('/stats/month', [StatsController::class, 'month']);
+    Route::get('/stats/month/top', [StatsController::class, 'month']);
     Route::get('/stats/beneficiary', [StatsController::class, 'beneficiaries']);
+    Route::get('/stats/beneficiary/top', [StatsController::class, 'beneficiaries']);
     Route::get('/stats/category', [StatsController::class, 'categories']);
+    Route::get('/stats/category/top', [StatsController::class, 'categories']);
+    Route::get('/stats/accounts', [StatsController::class, 'accounts']);
+    Route::get('/stats/accounts/top', [StatsController::class, 'accounts']);
     Route::apiResource('accounts', AccountController::class);
     Route::apiResource('beneficiaries', BeneficiaryController::class);
     Route::apiResource('categories', CategoryController::class);
