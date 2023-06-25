@@ -18,11 +18,7 @@
         <side-bar-categories :categories="inCategories" />
       </section>
       <side-bar-accounts v-else-if="useRoute().path.startsWith('/accounts')" />
-      <section
-        v-else-if="useRoute().path.startsWith('/beneficiaries')"
-      >
-        <side-bar-beneficiaries />
-      </section>
+      <side-bar-beneficiaries v-else-if="useRoute().path.startsWith('/beneficiaries')" />
       <side-bar-reports v-else-if="useRoute().path.startsWith('/report')" />
     </Transition>
   </nav>
