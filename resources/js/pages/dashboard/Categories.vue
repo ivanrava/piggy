@@ -40,12 +40,51 @@
             </span>
           </li>
         </ul>
-        <category-pies
-          v-if="totalTransactions > 0"
-          :accounts="accounts"
-          :beneficiaries="beneficiaries"
-          :category="store.selectedCategory"
-        />
+        <Transition
+          mode="out-in"
+          name="fade"
+        >
+          <category-pies
+            v-if="!isLoading && totalTransactions > 0"
+            :accounts="accounts"
+            :beneficiaries="beneficiaries"
+            :category="store.selectedCategory"
+          />
+          <div
+            v-else-if="isLoading"
+            class="w-full flex justify-around my-16"
+            role="status"
+          >
+            <div class="w-1/2 max-w-sm p-4 border border-gray-500 rounded shadow animate-pulse md:p-6">
+              <div class="h-2.5 bg-gray-500 rounded-full w-32 mb-2.5" />
+              <div class="w-48 h-2 mb-10 bg-gray-400 rounded-full" />
+              <div class="flex items-baseline mt-4 space-x-6">
+                <div class="w-full bg-gray-500 rounded-t-lg h-72" />
+                <div class="w-full h-56 bg-gray-500 rounded-t-lg" />
+                <div class="w-full bg-gray-400 rounded-t-lg h-72" />
+                <div class="w-full h-64 bg-gray-400 rounded-t-lg" />
+                <div class="w-full bg-gray-500 rounded-t-lg h-80" />
+                <div class="w-full bg-gray-400 rounded-t-lg h-72" />
+                <div class="w-full bg-gray-500 rounded-t-lg h-80" />
+              </div>
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="w-1/2 max-w-sm p-4 border border-gray-500 rounded shadow animate-pulse md:p-6">
+              <div class="h-2.5 bg-gray-500 rounded-full w-32 mb-2.5" />
+              <div class="w-48 h-2 mb-10 bg-gray-400 rounded-full" />
+              <div class="flex items-baseline mt-4 space-x-6">
+                <div class="w-full bg-gray-500 rounded-t-lg h-72" />
+                <div class="w-full h-56 bg-gray-500 rounded-t-lg" />
+                <div class="w-full bg-gray-400 rounded-t-lg h-72" />
+                <div class="w-full h-64 bg-gray-400 rounded-t-lg" />
+                <div class="w-full bg-gray-500 rounded-t-lg h-80" />
+                <div class="w-full bg-gray-400 rounded-t-lg h-72" />
+                <div class="w-full bg-gray-500 rounded-t-lg h-80" />
+              </div>
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </Transition>
       </section>
       <div
         v-else
@@ -79,13 +118,17 @@ const store = useCategoriesStore()
 
 const accounts = ref([]);
 const beneficiaries = ref([]);
+const isLoading = ref(false);
 watchEffect(() => {
   if (store.selectedCategory == null)
     return
 
+  isLoading.value = true;
   axios.get(`/categories/${store.selectedCategory.id}`).then(({data}) => {
     accounts.value = data.accounts;
     beneficiaries.value = data.beneficiaries;
+  }).finally(() => {
+    isLoading.value = false;
   })
 })
 
@@ -95,5 +138,13 @@ const totalTransactions = computed(() => {
 </script>
 
 <style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
 
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>

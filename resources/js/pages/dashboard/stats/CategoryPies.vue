@@ -24,7 +24,7 @@ const options = (title) => {
 
 <template>
   <section class="w-full flex">
-    <div class="w-1/2 px-16">
+    <div class="w-1/2 px-16 print:p-0">
       <Pie
         :options="options('Accounts distribution')"
         :data="{
@@ -38,7 +38,7 @@ const options = (title) => {
         }"
       />
     </div>
-    <div class="w-1/2 px-16">
+    <div class="w-1/2 px-16 print:p-0">
       <Pie
         :options="options('Beneficiaries distribution')"
         :data="{
