@@ -84,6 +84,10 @@
               <span class="sr-only">Loading...</span>
             </div>
           </div>
+          <no-data
+            v-else
+            class="mt-8"
+          />
         </Transition>
       </section>
       <div
@@ -113,6 +117,7 @@ import {computed, watchEffect} from "vue";
 import axios from "axios";
 import {ref} from "vue";
 import {useAgGridUtilites} from "../../composables/useAgGridUtilities";
+import NoData from "../../components/NoData.vue";
 
 const store = useCategoriesStore()
 
