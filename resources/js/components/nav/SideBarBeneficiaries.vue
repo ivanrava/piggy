@@ -1,24 +1,29 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
-import axios from "axios";
 import BeneficiaryCard from "../BeneficiaryCard.vue";
+import {useBeneficiariesStore} from "../../composables/useBeneficiariesStore";
+import {useRoute} from "vue-router";
+import {Beneficiary} from "../../composables/interfaces";
 
-const beneficiaries = ref([]);
-onMounted(() => {
-  axios.get('/beneficiaries').then(({data}) => {
-    beneficiaries.value = data.data;
-  })
-})
+const store = useBeneficiariesStore();
+
+const opacityClass = (beneficiary: Beneficiary) => {
+  if (useRoute().path.endsWith('beneficiaries')) {
+    return 'opacity-60'
+  } else {
+    return beneficiary.id == Number(useRoute().params.id) ? 'opacity-100' : 'opacity-40'
+  }
+}
 </script>
 
 <template>
   <beneficiary-card
-    v-for="beneficiary in beneficiaries"
+    v-for="beneficiary in store.beneficiaries"
     :key="beneficiary.id"
     :beneficiary="beneficiary"
     :hide-bg="true"
     :small="true"
-    class="opacity-50 hover:opacity-100"
+    class="hover:opacity-100"
+    :class="opacityClass(beneficiary)"
   />
 </template>
 

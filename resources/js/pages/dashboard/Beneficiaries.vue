@@ -4,16 +4,16 @@ import axios from "axios";
 import BeneficiaryForm from "../../components/form/crud/BeneficiaryFormWrapper.vue";
 import BeneficiaryCard from "../../components/BeneficiaryCard.vue";
 import NoData from "../../components/NoData.vue";
+import {useBeneficiariesStore} from "../../composables/useBeneficiariesStore";
 
-const beneficiaries = ref([]);
-const added = ref([]);
+const store = useBeneficiariesStore();
 const isLoading = ref(true);
 
 onMounted(async () => {
   isLoading.value = true;
   try {
     const res = axios.get('/beneficiaries');
-    beneficiaries.value = (await res).data.data;
+    store.setBeneficiaries((await res).data.data);
   } catch (error) {
     console.log('Error! Could not reach the API. ' + error)
   }
@@ -54,7 +54,7 @@ onMounted(async () => {
         <div class="animate-pulse h-16 bg-gray-400/70 rounded-lg w-48" />
         <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-56" />
       </section>
-      <section v-else-if="beneficiaries.length === 0">
+      <section v-else-if="store.beneficiaries.length === 0">
         <no-data />
       </section>
       <section
@@ -62,13 +62,13 @@ onMounted(async () => {
         class="flex flex-wrap gap-4 justify-start pb-4"
       >
         <beneficiary-card
-          v-for="beneficiary in beneficiaries.concat(added)"
+          v-for="beneficiary in store.beneficiaries"
           :key="beneficiary.name"
           :beneficiary="beneficiary"
         />
       </section>
     </Transition>
-    <beneficiary-form @store="added.push($event)" />
+    <beneficiary-form @store="store.addBeneficiary($event)" />
   </div>
 </template>
 
