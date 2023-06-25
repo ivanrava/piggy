@@ -37,7 +37,6 @@
 <script setup lang="ts">
 import {computed, ref} from "vue";
 import LabelInput from "./LabelInput.vue";
-import {Icon} from "@iconify/vue";
 import ErrorList from "./ErrorList.vue";
 
 const props = defineProps({
