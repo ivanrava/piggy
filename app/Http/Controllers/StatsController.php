@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class StatsController extends Controller
@@ -11,14 +11,16 @@ class StatsController extends Controller
     {
         return $request->user()
             ->transactions()
-            ->selectRaw("date_part('year', date) as year")
+            ->join('categories', 'categories.id', '=', 'transactions.category_id')
+            ->selectRaw("date_part('year', date) as time")
             ->selectRaw("avg(amount)")
             ->selectRaw("count(amount)")
             ->selectRaw("sum(amount)")
             ->selectRaw("min(amount)")
             ->selectRaw("max(amount)")
-            ->groupBy("year")
-            ->orderBy('year', 'DESC')
+            ->selectRaw("type")
+            ->groupBy(["time", "type"])
+            ->orderBy('time', 'ASC')
             ->when(Str($request->path())->endsWith('top'), fn ($query) => $query->take(5))
             ->get()
             ->makeHidden(['beneficiary'])
@@ -29,14 +31,17 @@ class StatsController extends Controller
     {
         return $request->user()
             ->transactions()
-            ->selectRaw("date_trunc('month', date) as month")
+            ->join('categories', 'categories.id', '=', 'transactions.category_id')
+            ->selectRaw("date_trunc('month', date) as time")
             ->selectRaw("avg(amount)")
             ->selectRaw("count(amount)")
             ->selectRaw("sum(amount)")
             ->selectRaw("min(amount)")
             ->selectRaw("max(amount)")
-            ->groupBy("month")
-            ->orderBy('month', 'DESC')
+            ->selectRaw("type")
+            ->where('date', '>=', Carbon::now()->subYear())
+            ->groupBy(["time", "type"])
+            ->orderBy('time', 'ASC')
             ->when(Str($request->path())->endsWith('top'), fn ($query) => $query->take(5))
             ->get()
             ->makeHidden(['beneficiary'])
@@ -75,8 +80,9 @@ class StatsController extends Controller
             ->selectRaw('sum(transactions.amount)')
             ->selectRaw('categories.name')
             ->selectRaw('categories.type')
-            ->groupBy(['categories.name', 'categories.type'])
-            ->orderBy('count', 'DESC')
+            ->selectRaw('categories.icon')
+            ->groupBy(['categories.name', 'categories.type', 'categories.icon'])
+            ->orderBy('sum', 'DESC')
             ->when(Str($request->path())->endsWith('top'), fn ($query) => $query->take(5))
             ->get()
             ->makeHidden(['beneficiary'])
@@ -100,7 +106,7 @@ class StatsController extends Controller
             ->selectRaw('accounts.id')
             ->selectRaw('account_types.type')
             ->groupBy(['accounts.id', 'accounts.icon', 'accounts.color', 'accounts.name', 'account_types.type'])
-            ->orderBy('count', 'DESC')
+            ->orderBy('sum', 'DESC')
             ->when(Str($request->path())->endsWith('top'), fn ($query) => $query->take(5))
             ->get()
             ->makeHidden(['beneficiary'])
