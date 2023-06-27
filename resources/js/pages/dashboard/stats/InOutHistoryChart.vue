@@ -15,6 +15,13 @@ watchEffect(() => {
   axios.get(`/stats/${props.form.interval}`)
     .then(({data}) => {
       transactions.value = data
+      // Take the last time points
+      const times = transactions.value
+        .filter((dataPoint, i, array) => dataPoint.time != (array[i-1] ? array[i-1].time : 0))
+        .slice(-5)
+        .map(dataPoint => dataPoint.time)
+      transactions.value = transactions.value
+        .filter(dataPoint => times.includes(dataPoint.time))
     })
 })
 

@@ -10,7 +10,7 @@ import {
   PointElement,
   LineElement
 } from 'chart.js'
-import {computed, ref} from "vue";
+import {computed} from "vue";
 ChartJS.register(Title, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement)
 
 const props = defineProps<{
