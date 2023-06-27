@@ -83,11 +83,6 @@ const links = [
     href: '/beneficiaries'
   },
   {
-    icon: 'map:atm',
-    name: 'Transfers',
-    href: '/transfers'
-  },
-  {
     icon: 'teenyicons:table-solid',
     name: 'Reporting',
     href: '/report'
