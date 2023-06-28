@@ -34,10 +34,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/stats/year/top', [StatsController::class, 'year']);
     Route::get('/stats/month', [StatsController::class, 'month']);
     Route::get('/stats/month/top', [StatsController::class, 'month']);
-    Route::get('/stats/beneficiary', [StatsController::class, 'beneficiaries']);
-    Route::get('/stats/beneficiary/top', [StatsController::class, 'beneficiaries']);
-    Route::get('/stats/category', [StatsController::class, 'categories']);
-    Route::get('/stats/category/top', [StatsController::class, 'categories']);
+    Route::get('/stats/beneficiaries', [StatsController::class, 'beneficiaries']);
+    Route::get('/stats/beneficiaries/top', [StatsController::class, 'beneficiaries']);
+    Route::get('/stats/categories', [StatsController::class, 'categories']);
+    Route::get('/stats/categories/top', [StatsController::class, 'categories']);
     Route::get('/stats/accounts', [StatsController::class, 'accounts']);
     Route::get('/stats/accounts/top', [StatsController::class, 'accounts']);
     Route::apiResource('accounts', AccountController::class);
