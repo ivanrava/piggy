@@ -11,7 +11,8 @@ const forms = ref({
     domain: 'beneficiaries'
   },
   inOutHistory: {
-    interval: 'year'
+    interval: 'year',
+    isLine: false
   }
 });
 const currentForm = ref('topList');

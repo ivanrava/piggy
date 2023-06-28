@@ -28,11 +28,18 @@ const options = ref([
   <p>
     Through this component you can easily gauge your expenses and incomes trends.
   </p>
-  <radio-input
-    v-model="form.interval"
-    label="Interval"
-    :options="options"
-  />
+  <div class="flex gap-12">
+    <radio-input
+      v-model="form.interval"
+      label="Interval"
+      :options="options"
+    />
+    <radio-input
+      v-model="form.isLine"
+      label="Kind"
+      :options="[{id:true,display:'Line'},{id:false,display:'Bar'}]"
+    />
+  </div>
   <submit-button>Add statistic</submit-button>
 </template>
 

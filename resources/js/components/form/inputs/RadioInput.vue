@@ -32,25 +32,30 @@ const value = computed({
 </script>
 
 <template>
-  <div class="font-bold mt-2 text-lg mb-1">
-    {{ label }}
-  </div>
-  <div class="flex gap-4 mb-2">
-    <span
-      v-for="option in options"
-      :key="option.id"
-    >
-      <input
-        :id="option.id"
-        v-model="value"
-        type="radio"
-        :value="option.id"
-        class="mr-1"
+  <div class="flex flex-col">
+    <div class="font-bold mt-2 text-lg mb-1">
+      {{ label }}
+    </div>
+    <div class="flex gap-4 mb-2">
+      <span
+        v-for="option in options"
+        :key="option.id"
       >
-      <label :for="option.id">
-        {{ option.display }}
-      </label>
-    </span>
+        <input
+          :id="option.id"
+          v-model="value"
+          type="radio"
+          :value="option.id"
+          class="mr-1"
+        >
+        <label
+          :for="option.id"
+          class="cursor-pointer"
+        >
+          {{ option.display }}
+        </label>
+      </span>
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ChartLine from "./ChartLine.vue";
+import ChartLineBar from "./ChartLineBar.vue";
 import StatCard from "./StatCard.vue";
 import {ref, watchEffect} from "vue";
 import axios from "axios";
@@ -7,6 +7,7 @@ import axios from "axios";
 const props = defineProps<{
   form: {
     interval: String
+    isLine: Boolean
   }
 }>()
 
@@ -33,9 +34,10 @@ const dateFormats = {
 
 <template>
   <stat-card title="In/Out History">
-    <chart-line
+    <chart-line-bar
       :data="transactions"
       :date-format="dateFormats[form.interval]"
+      :is-line="form.isLine"
     />
   </stat-card>
 </template>

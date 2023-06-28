@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Line} from "vue-chartjs";
+import {Line,Bar} from "vue-chartjs";
 import {
   Chart as ChartJS,
   Title,
@@ -8,10 +8,11 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement
+  LineElement,
+  BarElement
 } from 'chart.js'
 import {computed} from "vue";
-ChartJS.register(Title, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement)
+ChartJS.register(Title, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, BarElement)
 
 const props = defineProps<{
   data: Array<{
@@ -19,6 +20,7 @@ const props = defineProps<{
     type: String
   }>
   dateFormat: Intl.DateTimeFormatOptions
+  isLine: Boolean
 }>()
 
 const toChartDataset = (categoryType) => {
@@ -65,6 +67,12 @@ const data = computed(() => {
 
 <template>
   <Line
+    v-if="isLine"
+    :options="{responsive:true}"
+    :data="data"
+  />
+  <Bar
+    v-else
     :options="{responsive:true}"
     :data="data"
   />
