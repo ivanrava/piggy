@@ -8,12 +8,15 @@ const props = defineProps<{
   form: {
     interval: String
     isLine: Boolean
+    filter: String,
+    filterId: Number
   }
 }>()
 
 const transactions = ref([]);
 watchEffect(() => {
-  axios.get(`/stats/${props.form.interval}`)
+  const suffix = props.form.filter === 'all' ? '' : `/${props.form.filter}/${props.form.filterId}`
+  axios.get(`/stats/${props.form.interval}${suffix}`)
     .then(({data}) => {
       transactions.value = data
       // Take the last time points

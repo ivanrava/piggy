@@ -31,8 +31,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/categories/leaves', [CategoryController::class, 'leaves']);
     Route::get('/report', [ReportController::class, 'report']);
     Route::get('/stats/year', [StatsController::class, 'year']);
+    Route::get('/stats/year/categories/{id}', [StatsController::class, 'year'])->name('year.categories');
+    Route::get('/stats/year/beneficiaries/{id}', [StatsController::class, 'year'])->name('year.beneficiaries');
+    Route::get('/stats/year/accounts/{id}', [StatsController::class, 'year'])->name('year.accounts');
     Route::get('/stats/year/top', [StatsController::class, 'year']);
     Route::get('/stats/month', [StatsController::class, 'month']);
+    Route::get('/stats/month/categories/{id}', [StatsController::class, 'month'])->name('month.categories');
+    Route::get('/stats/month/beneficiaries/{id}', [StatsController::class, 'month'])->name('month.beneficiaries');
+    Route::get('/stats/month/accounts/{id}', [StatsController::class, 'month'])->name('month.accounts');
     Route::get('/stats/month/top', [StatsController::class, 'month']);
     Route::get('/stats/beneficiaries', [StatsController::class, 'beneficiaries']);
     Route::get('/stats/beneficiaries/top', [StatsController::class, 'beneficiaries']);

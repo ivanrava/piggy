@@ -12,6 +12,18 @@ class StatsController extends Controller
         return $request->user()
             ->transactions()
             ->join('categories', 'categories.id', '=', 'transactions.category_id')
+            ->when($request->route('id'), function ($query) use ($request) {
+                $path = Str($request->path());
+                if ($path->contains('categories')) {
+                    return $query->where('category_id', $request->id);
+                } else if ($path->contains('beneficiaries')) {
+                    return $query->where('beneficiary_id', $request->id);
+                } else if ($path->contains('accounts')) {
+                    return $query->where('account_id', $request->id);
+                } else {
+                    return $query;
+                }
+            })
             ->selectRaw("date_part('year', date) as time")
             ->selectRaw("avg(amount)")
             ->selectRaw("count(amount)")
@@ -32,6 +44,18 @@ class StatsController extends Controller
         return $request->user()
             ->transactions()
             ->join('categories', 'categories.id', '=', 'transactions.category_id')
+            ->when($request->route('id'), function ($query) use ($request) {
+                $path = Str($request->path());
+                if ($path->contains('categories')) {
+                    return $query->where('category_id', $request->id);
+                } else if ($path->contains('beneficiaries')) {
+                    return $query->where('beneficiaries_id', $request->id);
+                } else if ($path->contains('accounts')) {
+                    return $query->where('accounts_id', $request->id);
+                } else {
+                    return $query;
+                }
+            })
             ->selectRaw("date_trunc('month', date) as time")
             ->selectRaw("avg(amount)")
             ->selectRaw("count(amount)")

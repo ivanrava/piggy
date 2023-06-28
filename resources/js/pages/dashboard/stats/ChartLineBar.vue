@@ -43,39 +43,61 @@ const labels = computed(() => {
     .filter((dataPoint, i, array) => dataPoint.time != (array[i-1] ? array[i-1].time : 0))
     .map(dataPoint => dateFormatter(dataPoint.time))
 })
+const datasets = computed(() => {
+  const datasetIn = {
+    label: 'Total incomes',
+    data: toChartDataset('in'),
+    borderColor: 'rgb(75,192,157)',
+    backgroundColor: '#9ce7c4',
+    tension: tension
+  };
+  const datasetOut = {
+    label: 'Total expenses',
+    data: toChartDataset('out'),
+    borderColor: '#ff6384',
+    backgroundColor: '#fcb6c5',
+    tension: tension
+  };
+  const datasets = [];
+  if (datasetIn.data.length > 0)
+    datasets.push(datasetIn)
+  if (datasetOut.data.length > 0)
+    datasets.push(datasetOut)
+  return datasets;
+})
 
 const tension = 0.1;
 const data = computed(() => {
   return {
     labels: labels.value,
-    datasets: [{
-      label: 'Total incomes',
-      data: toChartDataset('in'),
-      borderColor: 'rgb(75,192,157)',
-      backgroundColor: '#9ce7c4',
-      tension: tension
-    },{
-      label: 'Total expenses',
-      data: toChartDataset('out'),
-      borderColor: '#ff6384',
-      backgroundColor: '#fcb6c5',
-      tension: tension
-    }]
+    datasets: datasets.value
   }
 });
 </script>
 
 <template>
-  <Line
-    v-if="isLine"
-    :options="{responsive:true}"
-    :data="data"
-  />
-  <Bar
-    v-else
-    :options="{responsive:true}"
-    :data="data"
-  />
+  <div class="relative">
+    <div
+      v-if="datasets.length == 0"
+      class="absolute w-full h-full"
+    >
+      <div class="flex h-full justify-center items-center">
+        <span class="opacity-60 text-xl tracking-wide">
+          No data found
+        </span>
+      </div>
+    </div>
+    <Line
+      v-if="isLine"
+      :options="{responsive:true}"
+      :data="data"
+    />
+    <Bar
+      v-else
+      :options="{responsive:true}"
+      :data="data"
+    />
+  </div>
 </template>
 
 <style scoped>

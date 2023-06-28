@@ -12,7 +12,9 @@ const forms = ref({
   },
   inOutHistory: {
     interval: 'year',
-    isLine: false
+    isLine: false,
+    filter: 'all',
+    filterId: null
   }
 });
 const currentForm = ref('topList');
@@ -43,7 +45,7 @@ const titles = {
         v-else-if="currentForm === 'inOutHistory'"
         v-model="forms.inOutHistory"
       />
-      <div class="flex justify-between mt-2">
+      <div class="flex justify-between mt-3.5">
         <a
           class="cursor-pointer"
           @click="currentForm = 'topList'"
