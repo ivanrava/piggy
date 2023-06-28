@@ -9,13 +9,16 @@ const props = defineProps<{
     interval: String
     isLine: Boolean
     filter: String,
-    filterId: Number
+    filterObj: {
+      id: Number,
+      name: String
+    }
   }
 }>()
 
 const transactions = ref([]);
 watchEffect(() => {
-  const suffix = props.form.filter === 'all' ? '' : `/${props.form.filter}/${props.form.filterId}`
+  const suffix = props.form.filter === 'all' ? '' : `/${props.form.filter}/${props.form.filterObj.id}`
   axios.get(`/stats/${props.form.interval}${suffix}`)
     .then(({data}) => {
       transactions.value = data
@@ -36,7 +39,7 @@ const dateFormats = {
 </script>
 
 <template>
-  <stat-card title="In/Out History">
+  <stat-card :title="form.filter === 'all' ? 'In/Out History' : form.filterObj.name">
     <chart-line-bar
       :data="transactions"
       :date-format="dateFormats[form.interval]"

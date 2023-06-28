@@ -60,11 +60,11 @@ onMounted(() => {
 
 const updateId = () => {
   if (form.value.filter === 'accounts')
-    form.value.filterId = account_id.value
+    form.value.filterObj = accounts.value.filter(acc => acc.id === account_id.value)[0]
   else if (form.value.filter === 'beneficiaries')
-    form.value.filterId = beneficiary_id.value
+    form.value.filterObj = beneficiaries.value.filter(ben => ben.id === beneficiary_id.value)[0]
   else if (form.value.filter === 'categories')
-    form.value.filterId = category_id.value
+    form.value.filterObj = categories.value.filter(cat => cat.id === category_id.value)[0]
 }
 watch(form, updateId, {deep: true})
 watch(account_id, updateId)

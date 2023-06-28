@@ -14,7 +14,10 @@ const forms = ref({
     interval: 'year',
     isLine: false,
     filter: 'all',
-    filterId: null
+    filterObj: {
+      id: null,
+      name: ''
+    }
   }
 });
 const currentForm = ref('topList');
