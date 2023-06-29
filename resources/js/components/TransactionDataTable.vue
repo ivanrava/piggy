@@ -109,4 +109,7 @@ const rowClassRules = {
 .even-row {
   @apply bg-slate-100;
 }
+.ag-paging-panel {
+  justify-content: flex-start;
+}
 </style>
