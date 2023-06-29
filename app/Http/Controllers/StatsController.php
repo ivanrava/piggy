@@ -49,9 +49,9 @@ class StatsController extends Controller
                 if ($path->contains('categories')) {
                     return $query->where('category_id', $request->id);
                 } else if ($path->contains('beneficiaries')) {
-                    return $query->where('beneficiaries_id', $request->id);
+                    return $query->where('beneficiary_id', $request->id);
                 } else if ($path->contains('accounts')) {
-                    return $query->where('accounts_id', $request->id);
+                    return $query->where('account_id', $request->id);
                 } else {
                     return $query;
                 }
@@ -63,7 +63,9 @@ class StatsController extends Controller
             ->selectRaw("min(amount)")
             ->selectRaw("max(amount)")
             ->selectRaw("type")
-            ->where('date', '>=', Carbon::now()->subYear())
+            ->when(!$request->route('id'), fn ($query) =>
+                $query->where('date', '>=', Carbon::now()->subYear())
+            )
             ->groupBy(["time", "type"])
             ->orderBy('time', 'ASC')
             ->when(Str($request->path())->endsWith('top'), fn ($query) => $query->take(5))
