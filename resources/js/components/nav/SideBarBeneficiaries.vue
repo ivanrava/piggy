@@ -30,15 +30,17 @@ onMounted(async () => {
 </script>
 
 <template>
-  <beneficiary-card
-    v-for="beneficiary in store.beneficiaries"
-    :key="beneficiary.id"
-    :beneficiary="beneficiary"
-    :hide-bg="true"
-    :small="true"
-    class="hover:opacity-100"
-    :class="opacityClass(beneficiary)"
-  />
+  <section>
+    <beneficiary-card
+      v-for="beneficiary in store.beneficiaries"
+      :key="beneficiary.id"
+      :beneficiary="beneficiary"
+      :hide-bg="true"
+      :small="true"
+      class="hover:opacity-100"
+      :class="opacityClass(beneficiary)"
+    />
+  </section>
 </template>
 
 <style scoped>
