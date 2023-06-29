@@ -1,18 +1,26 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
-import axios from "axios";
 import SideBarAccountList from "./SideBarAccountList.vue";
+import {useAccountsStore} from "../../composables/useAccountsStore";
+import {onMounted} from "vue";
+import axios from "axios";
 
-const accounts = ref([]);
-onMounted(() => {
-  axios.get('/accounts').then(({data}) => {
-    accounts.value = data.data;
-  })
-})
+const store = useAccountsStore();
 
 const filterByType = (type) => {
-  return accounts.value.filter(acc => acc.type == type).sort((a, b) => a.name < b.name ? -1 : 1)
+  return store.accounts.filter(acc => acc.type == type).sort((a, b) => a.name < b.name ? -1 : 1)
 }
+
+onMounted(async () => {
+  if (store.accounts.length > 0)
+    return
+
+  try {
+    const res = axios.get('/accounts');
+    store.setAccounts((await res).data.data);
+  } catch (error) {
+    console.log('Error! Could not reach the API. ' + error)
+  }
+})
 </script>
 
 <template>

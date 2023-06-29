@@ -38,7 +38,7 @@
           </div>
           <span class="sr-only">Loading...</span>
         </div>
-        <div v-else-if="accounts.length === 0">
+        <div v-else-if="store.accounts.length === 0">
           <no-data />
         </div>
         <div
@@ -46,14 +46,14 @@
           class="flex flex-wrap gap-4"
         >
           <account-card
-            v-for="account in accounts.concat(added)"
+            v-for="account in store.accounts"
             :key="account"
             :account="account"
           />
         </div>
       </Transition>
     </section>
-    <form-account @store="added.push($event)" />
+    <form-account @store="store.addAccount($event)" />
   </div>
 </template>
 
@@ -63,16 +63,17 @@ import axios from "axios";
 import AccountCard from "../../components/AccountCard.vue";
 import FormAccount from "../../components/form/crud/AccountForm.vue";
 import NoData from "../../components/NoData.vue";
+import {useAccountsStore} from "../../composables/useAccountsStore";
 
-const accounts = ref([]);
+const store = useAccountsStore();
+
 const isLoading = ref(true);
-const added = ref([]);
 
 onMounted(async () => {
   isLoading.value = true;
   try {
     const res = axios.get('/accounts');
-    accounts.value = (await res).data.data;
+    store.setAccounts((await res).data.data);
   } catch (error) {
     console.log('Error! Could not reach the API. ' + error)
   }

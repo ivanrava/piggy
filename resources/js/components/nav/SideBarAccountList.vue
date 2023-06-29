@@ -51,7 +51,7 @@ const askDelete = (account: Account) => {
       <div
         v-else
         class="flex items-center px-2 py-1 rounded-sm hover:shadow-sm transition-all cursor-pointer"
-        :style="{backgroundColor: `#${account.color}22`}"
+        :style="{backgroundColor: `#${account.color}11`}"
       >
         <Icon
           :icon="account.icon"
