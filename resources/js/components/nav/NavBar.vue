@@ -15,6 +15,7 @@
             <router-link
               :to="link.href"
               class="flex flex-col justify-center items-center text-slate-700 opacity-50 hover:opacity-100 transition-all font-medium hover:font-semibold"
+              :class="{'router-link-active': useRoute().path.startsWith(link.href)}"
             >
               <Icon
                 class="text-2xl"
@@ -56,7 +57,7 @@
 <script setup>
 import {defineComponent, ref} from "vue";
 import BrandLogo from "./BrandLogo.vue";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {Icon} from "@iconify/vue";
 
 defineComponent({
