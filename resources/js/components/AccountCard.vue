@@ -26,6 +26,7 @@
 import {Icon} from "@iconify/vue";
 import {Account} from '../composables/interfaces';
 import {computed} from "vue";
+import {isColorDark} from "../composables/colors";
 
 const props = withDefaults(defineProps<{
   account: Account,
@@ -35,11 +36,7 @@ const props = withDefaults(defineProps<{
 })
 
 const textColor = computed(() => {
-  const brightness = Math.round(((parseInt(props.account.color.slice(0,2), 16) * 299) +
-    (parseInt(props.account.color.slice(2,4), 16) * 587) +
-    (parseInt(props.account.color.slice(4,6), 16) * 114)) / 1000);
-
-  return brightness > 148 ? 'text-slate-950' : 'text-slate-50';
+  return isColorDark(props.account.color) ? 'text-slate-950' : 'text-slate-50';
 })
 const isExpired = computed(() => {
   return new Date(props.account.closing) >= new Date();
