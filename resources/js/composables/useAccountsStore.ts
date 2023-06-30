@@ -11,6 +11,9 @@ export const useAccountsStore = defineStore('accounts', {
         },
         addAccount(account: Account) {
             this.accounts.push(account)
+        },
+        deleteAccount(account: Account) {
+            this.accounts = this.accounts.filter(acc => acc.id != account.id)
         }
     }
 })

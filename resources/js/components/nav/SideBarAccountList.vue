@@ -4,12 +4,15 @@ import {Icon} from "@iconify/vue";
 import {ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {isColorDark} from "../../composables/colors";
+import axios from "axios";
+import {useAccountsStore} from "../../composables/useAccountsStore";
 
 defineProps<{
   accounts: Array<Account>
 }>();
 
 const router = useRouter();
+const store = useAccountsStore();
 
 const askedForDeletion = ref(null);
 const askDelete = (account: Account) => {
@@ -22,6 +25,15 @@ const isSelected = (account: Account) => {
 const textColor = (account: Account) => {
   return isColorDark(account.color) ? 'text-slate-950' : 'text-slate-50';
 }
+const trueDelete = (account: Account) => {
+  axios.delete(`/accounts/${account.id}`)
+    .then(() => {
+      store.deleteAccount(account)
+    })
+    .catch((res) => {
+      console.log(res)
+    })
+}
 </script>
 
 <template>
@@ -29,7 +41,6 @@ const textColor = (account: Account) => {
     v-for="account in accounts"
     :key="account.id"
     class="my-0.5 w-full text-stone-900"
-    @click="router.push(`/accounts/${account.id}`)"
   >
     <Transition
       mode="out-in"
@@ -37,21 +48,23 @@ const textColor = (account: Account) => {
     >
       <div
         v-if="askedForDeletion == account.id"
-        class="flex items-center px-2 py-1 rounded-sm text-red-900"
+        class="flex justify-between items-center py-1 rounded-sm text-red-900"
       >
-        <span class="font-medium text-sm tracking-tighter">Really sure?</span>
-        <span
-          class="px-2 py-1.5 cursor-pointer"
-          @click="askedForDeletion = null"
-        >
-          <Icon icon="carbon:undo" />
-        </span>
-        <span
-          class="absolute right-0 z-10 px-2 py-1.5 cursor-pointer"
-          @click="askDelete(account)"
-        >
-          <Icon icon="fluent:delete-16-regular" />
-        </span>
+        <span class="font-medium text-sm tracking-tighter flex-grow pl-2">Really sure?</span>
+        <aside class="flex justify-end items-center gap-2 px-2">
+          <span
+            class="cursor-pointer"
+            @click="askedForDeletion = null"
+          >
+            <Icon icon="carbon:undo" />
+          </span>
+          <span
+            class="cursor-pointer"
+            @click="trueDelete(account)"
+          >
+            <Icon icon="fluent:delete-16-regular" />
+          </span>
+        </aside>
       </div>
       <div
         v-else
@@ -61,6 +74,7 @@ const textColor = (account: Account) => {
           class="flex items-center px-2 py-1 rounded-md hover:shadow-sm transition-all cursor-pointer flex-grow"
           :class="{'shadow-sm': isSelected(account)}"
           :style="{backgroundColor: `#${account.color}${ isSelected(account) ? 'ff' : '11'}`}"
+          @click="router.push(`/accounts/${account.id}`)"
         >
           <Icon
             :icon="account.icon"
