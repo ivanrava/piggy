@@ -80,4 +80,16 @@ class Account extends Model
         return $this->hasMany(Transaction::class, 'account_id', 'id')
             ->orderBy('date', 'DESC');
     }
+
+    public function balance()
+    {
+        $transfers_balance = $this->in_transfers()->sum('amount') - $this->out_transfers()->sum('amount');
+        $out_balance = $this->transactions()->whereHas('category', function (Builder $query) {
+            $query->where('type', '=', 'out');
+        })->sum('amount');
+        $in_balance = $this->transactions()->whereHas('category', function (Builder $query) {
+            $query->where('type', '=', 'in');
+        })->sum('amount');
+        return round($transfers_balance - $out_balance + $in_balance + $this->initial_balance*1, 2);
+    }
 }

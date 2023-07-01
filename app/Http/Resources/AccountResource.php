@@ -17,7 +17,8 @@ class AccountResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'balance' => $this->initial_balance,
+            'initial_balance' => $this->initial_balance,
+            'balance' => $this->balance(),
             'type' => $this->type->type,
             'color' => $this->color,
             'icon' => $this->icon,
