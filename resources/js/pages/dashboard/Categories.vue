@@ -118,12 +118,25 @@
           mode="out-in"
           name="fade"
         >
-          <category-pies
+          <section
             v-if="!isLoading && totalTransactions > 0"
-            :accounts="accounts"
-            :beneficiaries="beneficiaries"
-            :category="store.selectedCategory"
-          />
+            class="w-full flex"
+          >
+            <div class="w-1/2 px-16 print:p-0">
+              <chart-pie
+                :data="accounts"
+                title="Account distribution"
+                tooltip="Total of transactions"
+              />
+            </div>
+            <div class="w-1/2 px-16 print:p-0">
+              <chart-pie
+                :data="beneficiaries"
+                title="Beneficiary distribution"
+                tooltip="Total of transactions"
+              />
+            </div>
+          </section>
           <no-data
             v-else
             class="mt-8"
@@ -152,7 +165,6 @@
 import CategoryForm from "../../components/form/crud/CategoryFormWrapper.vue";
 import {useCategoriesStore} from "../../composables/useCategoriesStore";
 import {Icon} from "@iconify/vue";
-import CategoryPies from "./stats/CategoryPies.vue";
 import {computed, watchEffect} from "vue";
 import axios from "axios";
 import {ref} from "vue";
@@ -160,7 +172,7 @@ import {useAgGridUtilites} from "../../composables/useAgGridUtilities";
 import NoData from "../../components/NoData.vue";
 import {useRoute} from "vue-router";
 import {Category} from "../../composables/interfaces";
-import DetailTabs from "../../components/nav/DetailTabs.vue";
+import ChartPie from "./stats/ChartPie.vue";
 
 const store = useCategoriesStore()
 const route = useRoute();
