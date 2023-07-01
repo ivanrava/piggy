@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,7 +13,7 @@ use Illuminate\Http\Request;
 /**
  * App\Models\Category
  *
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Transaction> $transactions
+ * @property-read Collection<int, \App\Models\Transaction> $transactions
  * @property-read int|null $transactions_count
  * @property-read \App\Models\User $user
  * @method static \Database\Factories\CategoryFactory factory($count = null, $state = [])
@@ -81,22 +82,22 @@ class Category extends Model
             $this->type = $request->type;
     }
 
-    public function account_stats()
+    public function account_stats(): Collection|array
     {
         return ($this->parent_category_id != null
             ? $this->transactions()
-            : $this->user()->transactions()->whereIn('category_id', $this->children()->pluck('id')))
+            : $this->user->transactions()->whereIn('category_id', $this->children()->pluck('id')))
             ->join('accounts', 'accounts.id', '=', 'transactions.account_id')
             ->groupBy(['accounts.name', 'accounts.color'])
             ->selectRaw('accounts.name, accounts.color, SUM(amount) as sum, COUNT(*) as count')
             ->get();
     }
 
-    public function beneficiary_stats()
+    public function beneficiary_stats(): Collection|array
     {
         return ($this->parent_category_id != null
             ? $this->transactions()
-            : $this->user()->transactions()->whereIn('category_id', $this->children()->pluck('id')))
+            : $this->user->transactions()->whereIn('category_id', $this->children()->pluck('id')))
             ->join('beneficiaries', 'beneficiaries.id', '=', 'transactions.beneficiary_id')
             ->groupBy(['beneficiaries.name'])
             ->selectRaw('beneficiaries.name, SUM(amount) as sum, COUNT(*) as count')
