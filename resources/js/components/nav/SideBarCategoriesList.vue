@@ -6,7 +6,7 @@
     <li
       class="px-6 py-0.5 rounded-md transition-all cursor-pointer"
       :class="classes(category)"
-      @click.stop="selectCategory(category)"
+      @click.stop="router.push(`/categories/${category.id}`)"
     >
       <Icon
         :icon="category.icon"
@@ -24,12 +24,14 @@
 import {Category} from '../../composables/interfaces';
 import {Icon} from "@iconify/vue";
 import {useCategoriesStore} from "../../composables/useCategoriesStore";
+import {useRouter} from "vue-router";
 
 defineProps<{
   categories: Array<Category>
 }>();
 
 const store = useCategoriesStore();
+const router = useRouter();
 
 const classes = function(c: Category) {
   if (store.selectedCategory != null && store.selectedCategory.id === c.id) {
@@ -37,10 +39,6 @@ const classes = function(c: Category) {
   } else {
     return c.type === 'out' ? 'hover:bg-red-100/50 hover:!text-red-950' : 'hover:bg-green-100/50 hover:!text-green-950'
   }
-}
-
-const selectCategory = (clickedCategory: Category) => {
-  store.selectCategory(clickedCategory);
 }
 </script>
 

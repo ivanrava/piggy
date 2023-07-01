@@ -51,6 +51,8 @@ class CategoryController extends Controller
         if ($category->user_id != $request->user()->id)
             return response()->noContent(404);
 
+        $category->load('transactions');
+
         $accounts = ($category->parent_category_id != null
             ? $category->transactions()
             : $request->user()->transactions()->whereIn('category_id', $category->children()->pluck('id')))
@@ -70,9 +72,7 @@ class CategoryController extends Controller
         return [
             'accounts' => $accounts,
             'beneficiaries' => $beneficiaries,
-            'transactions' => $category->parent_category_id != null
-                ? $category->transactions()
-                : $request->user()->transactions()->whereIn('category_id', $category->children()->pluck('id'))
+            'category' => new CategoryResource($category)
         ];
     }
 
