@@ -2,11 +2,16 @@
 import BeneficiaryImage from "./BeneficiaryImage.vue";
 import {Beneficiary} from "../composables/interfaces";
 
-defineProps<{
+export interface Props {
   beneficiary: Beneficiary
-  hideBg: Boolean
-  small: Boolean
-}>()
+  hideBg?: boolean
+  small?: boolean
+}
+
+withDefaults(defineProps<Props>(), {
+  hideBg: false,
+  small: false
+})
 </script>
 
 <template>
