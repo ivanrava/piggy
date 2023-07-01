@@ -22,8 +22,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <h1>Beneficiaries</h1>
   <div class="flex flex-col justify-between">
+    <h1>Beneficiaries</h1>
     <Transition
       name="fade-loading"
       mode="out-in"
