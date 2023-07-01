@@ -112,4 +112,17 @@ const rowClassRules = {
 .ag-paging-panel {
   justify-content: flex-start;
 }
+.ag-theme-piggy {
+  --ag-font-family: 'Inter', sans;
+}
+.amount-cell {
+  font-size: 1.2rem;
+}
+.date-cell {
+  @apply text-right;
+  font-size: 0.8rem;
+}
+.ag-header-cell-label {
+  font-size: 1.2rem;
+}
 </style>
