@@ -80,4 +80,26 @@ class Category extends Model
         else
             $this->type = $request->type;
     }
+
+    public function account_stats()
+    {
+        return ($this->parent_category_id != null
+            ? $this->transactions()
+            : $this->user()->transactions()->whereIn('category_id', $this->children()->pluck('id')))
+            ->join('accounts', 'accounts.id', '=', 'transactions.account_id')
+            ->groupBy(['accounts.name', 'accounts.color'])
+            ->selectRaw('accounts.name, accounts.color, SUM(amount) as sum, COUNT(*) as count')
+            ->get();
+    }
+
+    public function beneficiary_stats()
+    {
+        return ($this->parent_category_id != null
+            ? $this->transactions()
+            : $this->user()->transactions()->whereIn('category_id', $this->children()->pluck('id')))
+            ->join('beneficiaries', 'beneficiaries.id', '=', 'transactions.beneficiary_id')
+            ->groupBy(['beneficiaries.name'])
+            ->selectRaw('beneficiaries.name, SUM(amount) as sum, COUNT(*) as count')
+            ->get();
+    }
 }

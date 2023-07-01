@@ -53,25 +53,9 @@ class CategoryController extends Controller
 
         $category->load('transactions');
 
-        $accounts = ($category->parent_category_id != null
-            ? $category->transactions()
-            : $request->user()->transactions()->whereIn('category_id', $category->children()->pluck('id')))
-            ->join('accounts', 'accounts.id', '=', 'transactions.account_id')
-            ->groupBy(['accounts.name', 'accounts.color', 'accounts.icon', 'accounts.id'])
-            ->selectRaw('accounts.id, accounts.name, accounts.color, accounts.icon, SUM(amount) as sum, COUNT(*) as count')
-            ->get();
-
-        $beneficiaries = ($category->parent_category_id != null
-            ? $category->transactions()
-            : $request->user()->transactions()->whereIn('category_id', $category->children()->pluck('id')))
-            ->join('beneficiaries', 'beneficiaries.id', '=', 'transactions.beneficiary_id')
-            ->groupBy(['beneficiaries.name', 'beneficiaries.img', 'beneficiaries.id'])
-            ->selectRaw('beneficiaries.id, beneficiaries.name, SUM(amount) as sum, COUNT(*) as count')
-            ->get();
-
         return [
-            'accounts' => $accounts,
-            'beneficiaries' => $beneficiaries,
+            'accounts' => $category->account_stats(),
+            'beneficiaries' => $category->beneficiary_stats(),
             'category' => new CategoryResource($category)
         ];
     }
