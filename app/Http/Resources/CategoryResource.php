@@ -19,6 +19,7 @@ class CategoryResource extends JsonResource
             'name' => $this->name,
             'type' => $this->type,
             'icon' => $this->icon,
+            'parent_category_id' => $this->parent_category_id,
             'children' => $this->relationLoaded('children') ? CategoryResource::collection($this->children) : [],
             'transactions' => $this->relationLoaded('transactions') ? TransactionResource::collection($this->transactions) : []
         ];

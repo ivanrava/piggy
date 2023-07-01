@@ -67,17 +67,23 @@ class CategoryController extends Controller
             ->selectRaw('beneficiaries.id, beneficiaries.name, SUM(amount) as sum, COUNT(*) as count')
             ->get();
 
-        return ['accounts' => $accounts, 'beneficiaries' => $beneficiaries];
+        return [
+            'accounts' => $accounts,
+            'beneficiaries' => $beneficiaries,
+            'transactions' => $category->parent_category_id != null
+                ? $category->transactions()
+                : $request->user()->transactions()->whereIn('category_id', $category->children()->pluck('id'))
+        ];
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreCategoryRequest $request, Category $category): Response
+    public function update(StoreCategoryRequest $request, Category $category): CategoryResource
     {
         $category->hydrateFromRequest($request);
         $category->save();
-        return response()->noContent();
+        return new CategoryResource($category);
     }
 
     /**

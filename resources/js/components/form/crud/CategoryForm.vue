@@ -7,6 +7,7 @@ import SubmitButton from "../inputs/SubmitButton.vue";
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import TabSelector from "../inputs/TabSelector.vue";
+import {useCategoriesStore} from "../../../composables/useCategoriesStore";
 
 defineProps<{
   showForm: Boolean,
@@ -16,7 +17,9 @@ defineProps<{
     icon: String
   }
 }>();
-defineEmits(['store', 'close'])
+defineEmits(['store', 'update', 'close'])
+
+const store = useCategoriesStore();
 
 const categoryTypes = [
   {
@@ -36,13 +39,6 @@ onMounted(() =>  {
     console.log(response.data.errors)
   })
 });
-
-const form = ref({
-  name: '',
-  type: 'out',
-  icon: '',
-  parent_category_id: null
-})
 </script>
 
 <template>
@@ -52,7 +48,12 @@ const form = ref({
       class="fixed bottom-8 right-8 bg-slate-50 p-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10"
     >
       <header class="flex flex-row justify-between items-center">
-        <h2>Add a new category</h2>
+        <h2 v-if="!store.isEditing">
+          Add a new category
+        </h2>
+        <h2 v-else>
+          Edit category
+        </h2>
         <a
           class="flex flex-row items-center cursor-pointer"
           @click="$emit('close')"
@@ -61,23 +62,23 @@ const form = ref({
         </a>
       </header>
       <tab-selector
-        v-if="form.parent_category_id === null"
-        v-model="form.type"
+        v-if="store.stagingCategory.parent_category_id === null"
+        v-model="store.stagingCategory.type"
         :tabs="categoryTypes"
       />
       <form
         class="flex flex-col justify-center items-center gap-4 w-96"
-        @submit.prevent="$emit('store', form)"
+        @submit.prevent="$emit(store.isEditing ? 'update' : 'store', store.stagingCategory)"
       >
         <form-input
-          v-model="form.name"
+          v-model="store.stagingCategory.name"
           class="!w-full"
           label="Category name"
           :errors="errors.name"
         />
         <select-input
           v-slot="{ option }"
-          v-model="form.parent_category_id"
+          v-model="store.stagingCategory.parent_category_id"
           :options="fathers"
           name="Parent category"
           :allow-empty="true"
@@ -90,7 +91,7 @@ const form = ref({
           <span class="option__title">{{ option.name }}</span>
         </select-input>
         <icon-input
-          v-model="form.icon"
+          v-model="store.stagingCategory.icon"
           :errors="errors.icon"
         />
         <submit-button class="block w-full">

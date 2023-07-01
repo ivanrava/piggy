@@ -4,19 +4,7 @@
       mode="out-in"
       name="fade"
     >
-      <section
-        v-if="useRoute().path.startsWith('/categories')"
-        class="flex flex-col w-full justify-between pr-2"
-      >
-        <h2 class="text-red-900 tracking-wide">
-          Expense
-        </h2>
-        <side-bar-categories :categories="outCategories" />
-        <h2 class="text-green-900 tracking-wide">
-          Income
-        </h2>
-        <side-bar-categories :categories="inCategories" />
-      </section>
+      <side-bar-categories v-if="useRoute().path.startsWith('/categories')" />
       <side-bar-accounts v-else-if="useRoute().path.startsWith('/accounts')" />
       <side-bar-beneficiaries v-else-if="useRoute().path.startsWith('/beneficiaries')" />
       <side-bar-reports v-else-if="useRoute().path.startsWith('/report')" />
@@ -26,33 +14,11 @@
 
 <script setup lang="ts">
 import SideBarCategories from "./SideBarCategories.vue";
-import {computed, onMounted, ref} from "vue";
-import axios from "axios";
 import {useRoute} from "vue-router";
 import SideBarAccounts from "./SideBarAccounts.vue";
 import SideBarBeneficiaries from "./SideBarBeneficiaries.vue";
 import SideBarReports from "./SideBarReports.vue";
-const categories = ref([]);
-const isLoading = ref(true);
 
-onMounted(async () => {
-  isLoading.value = true;
-  try {
-    const res = axios.get('/categories/root');
-    categories.value = (await res).data.data;
-  } catch (error) {
-    console.log('Error! Could not reach the API. ' + error)
-  }
-  isLoading.value = false;
-});
-
-const outCategories = computed(() => {
-  return categories.value.filter(value => value.type === 'out')
-});
-
-const inCategories = computed(() => {
-  return categories.value.filter(value => value.type === 'in')
-})
 </script>
 
 <style scoped>

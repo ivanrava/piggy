@@ -2,15 +2,26 @@
   <h1 v-if="store.selectedCategory == null">
     No category selected
   </h1>
-  <h1
+  <div
     v-else
-    class="flex gap-2"
+    class="flex items-center gap-3"
   >
-    <Icon :icon="store.selectedCategory.icon" />
-    <span>
-      {{ store.selectedCategory.name }}
-    </span>
-  </h1>
+    <h1 class="flex items-center gap-2">
+      <Icon :icon="store.selectedCategory.icon" />
+      <span>
+        {{ store.selectedCategory.name }}
+      </span>
+    </h1>
+    <a
+      class="cursor-pointer flex flex-col justify-center !text-lg pt-2"
+      role="button"
+      @click="store.editCategory()"
+    >
+      <span>
+        Edit
+      </span>
+    </a>
+  </div>
   <div class="flex flex-col h-full w-full justify-between">
     <Transition
       name="fade-loading"

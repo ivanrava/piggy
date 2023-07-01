@@ -14,8 +14,10 @@ import CategoryForm from "./CategoryForm.vue";
 import {Beneficiary, Category} from "../../../composables/interfaces";
 import {useOperationsStore} from "../../../composables/useOperationsStore";
 import TabSelector from "../inputs/TabSelector.vue";
+import {useCategoriesStore} from "../../../composables/useCategoriesStore";
 
 const store = useOperationsStore();
+const storeCategories = useCategoriesStore();
 
 const props = defineProps<{
   accountId: number;
@@ -216,7 +218,7 @@ watchEffect(() => store.stagingTransaction.account_id = props.accountId);
               :taggable="true"
               tag-placeholder="Add as a new category"
               :errors="errors.category"
-              @tag="showCategoryForm = true; store.closeForm(store.isEditing)"
+              @tag="showCategoryForm = true; store.closeForm(store.isEditing); storeCategories.isEditing = false"
             >
               <Icon
                 :icon="option.icon"
