@@ -5,7 +5,7 @@
       small ? 'rounded-md px-2' : 'rounded-lg p-2',
       textColor,
       isExpired ? 'opacity-30 cursor-not-allowed shadow-sm' : 'cursor-pointer shadow-sm hover:shadow-md']"
-    :style="{backgroundColor: `#${account.color}`}"
+    :style="{backgroundColor: `${account.color}`}"
     :to="'/accounts/'+account.id"
   >
     <Icon
@@ -30,13 +30,13 @@ import {isColorDark} from "../composables/colors";
 
 const props = withDefaults(defineProps<{
   account: Account,
-  small: boolean
+  small?: boolean
 }>(), {
   small: false
 })
 
 const textColor = computed(() => {
-  return isColorDark(props.account.color) ? 'text-slate-950' : 'text-slate-50';
+  return isColorDark(props.account.color.slice(1,7)) ? 'text-slate-950' : 'text-slate-50';
 })
 const isExpired = computed(() => {
   return new Date(props.account.closing) >= new Date();

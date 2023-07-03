@@ -1,65 +1,70 @@
 <template>
   <Transition name="slide-fade">
     <aside
-      v-if="showForm"
+      v-if="store.showForm"
       class="fixed bottom-8 right-8 bg-slate-50 p-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10"
     >
       <header class="flex flex-row justify-between items-center">
-        <h2>Add a new account</h2>
+        <h2 v-if="!store.isEditing">
+          Add a new account
+        </h2>
+        <h2 v-else>
+          Edit account
+        </h2>
         <a
           class="flex flex-row items-center cursor-pointer"
-          @click="showForm = false"
+          @click="store.showForm = false; store.isEditing = false;"
         >
           <span class="mr-1">Close</span>
         </a>
       </header>
       <tab-selector
-        v-model="form.account_type_id"
+        v-model="store.stagingAccount.account_type_id"
         :tabs="accountTypes"
       />
       <form
         class="flex flex-col justify-center items-center gap-4 w-96 relative"
-        @submit.prevent="storeCategory(form)"
+        @submit.prevent="store.isEditing ? updateAccount(store.stagingAccount) : storeAccount(store.stagingAccount)"
       >
         <div class="w-full flex flex-row justify-between">
           <form-input
-            v-model="form.name"
+            v-model="store.stagingAccount.name"
             class="!w-full"
             label="Account name"
             :errors="errors.name"
           />
           <color-picker
-            v-model="form.color"
+            v-model="store.stagingAccount.color"
             class="!ml-3"
           />
         </div>
         <div class="w-full flex flex-row gap-2 justify-between">
           <form-input
-            v-model="form.opening"
+            v-model="store.stagingAccount.opening"
             :errors="errors.opening"
             type="date"
             label="Opening date"
             class="!w-full"
           />
           <form-input
-            v-model="form.closing"
+            v-model="store.stagingAccount.closing"
             :errors="errors.closing"
             type="date"
             label="Closing date"
             class="!w-full"
           />
           <decimal-input
-            v-model="form.initial_balance"
+            v-model="store.stagingAccount.initial_balance"
             :errors="errors.initial_balance"
             label="Balance"
           />
         </div>
         <icon-input
-          v-model="form.icon"
+          v-model="store.stagingAccount.icon"
           :errors="errors.icon"
         />
         <form-textarea
-          v-model="form.description"
+          v-model="store.stagingAccount.description"
           :errors="errors.description"
           label="Description"
           class="!w-full"
@@ -73,7 +78,7 @@
   </Transition>
   <submit-button
     class="fixed right-12 bottom-12 flex items-center shadow-lg"
-    @click="showForm = true"
+    @click="store.showForm = true; store.isEditing = false; store.emptyForm();"
   >
     <Icon
       icon="material-symbols:add-card-rounded"
@@ -94,8 +99,7 @@ import FormTextarea from "../inputs/FormTextarea.vue";
 import ColorPicker from "../inputs/ColorPicker.vue";
 import DecimalInput from "../inputs/DecimalInput.vue";
 import TabSelector from "../inputs/TabSelector.vue";
-
-const showForm = ref(false);
+import {useAccountsStore} from "../../../composables/useAccountsStore";
 
 interface StoreAccountPayload {
   name: string;
@@ -108,28 +112,33 @@ interface StoreAccountPayload {
   description: string;
 }
 
-const form = ref({
-  name: '',
-  account_type_id: 1,
-  initial_balance: 0,
-  icon: '',
-  color: '#ccc',
-  opening: '',
-  closing: '',
-  description: ''
-})
+const emit = defineEmits(['store', 'update'])
 
-const emit = defineEmits(['store'])
+const store = useAccountsStore();
 
 const loading = ref(false);
 const errors = ref({});
-const storeCategory = function (payload: StoreAccountPayload) {
+const storeAccount = function (payload: StoreAccountPayload) {
   loading.value = true;
   axios.post("/accounts", payload).then(({data}) => {
-    showForm.value = false;
+    store.showForm = false;
     emit('store', data.data)
     errors.value = [];
   }).catch(({response}) => {
+    errors.value = response.data.errors;
+  }).finally(() => {
+    loading.value = false;
+  })
+}
+const updateAccount = function (payload: StoreAccountPayload) {
+  loading.value = true;
+  axios.put(`/accounts/${store.stagingAccount.id}`, payload).then(({data}) => {
+    store.showForm = false;
+    emit('update', data.data)
+    errors.value = [];
+    console.log(data.data)
+  }).catch(({response}) => {
+    console.log("Ciao")
     errors.value = response.data.errors;
   }).finally(() => {
     loading.value = false;

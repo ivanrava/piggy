@@ -23,7 +23,7 @@ const isSelected = (account: Account) => {
   return useRoute().params.id == account.id;
 }
 const textColor = (account: Account) => {
-  return isColorDark(account.color) ? 'text-slate-950' : 'text-slate-50';
+  return isColorDark(account.color.slice(1,7)) ? 'text-slate-950' : 'text-slate-50';
 }
 const trueDelete = (account: Account) => {
   axios.delete(`/accounts/${account.id}`)
@@ -73,7 +73,7 @@ const trueDelete = (account: Account) => {
         <div
           class="flex items-center px-2 py-1 rounded-md hover:shadow-sm transition-all cursor-pointer flex-grow"
           :class="{'shadow-sm': isSelected(account)}"
-          :style="{backgroundColor: `#${account.color}${ isSelected(account) ? 'ff' : '11'}`}"
+          :style="{backgroundColor: `${account.color}${ isSelected(account) ? 'ff' : '11'}`}"
           @click="router.push(`/accounts/${account.id}`)"
         >
           <Icon
@@ -93,7 +93,9 @@ const trueDelete = (account: Account) => {
           class="flex justify-end items-center gap-2 px-2"
         >
           <span
+            v-if="useRoute().path == '/accounts'"
             class="cursor-pointer opacity-40 hover:opacity-100 transition-all"
+            @click="store.editAccount(account)"
           >
             <Icon icon="radix-icons:pencil-1" />
           </span>

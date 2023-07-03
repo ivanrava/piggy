@@ -53,7 +53,10 @@
         </div>
       </Transition>
     </section>
-    <form-account @store="store.addAccount($event)" />
+    <form-account
+      @store="store.addAccount($event)"
+      @update="store.updateAccount($event)"
+    />
   </div>
 </template>
 

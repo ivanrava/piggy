@@ -70,11 +70,11 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAccountRequest $request, Account $account): Response
+    public function update(UpdateAccountRequest $request, Account $account): AccountResource
     {
         $account = $this->hydrate_from_request($account, $request);
         $account->save();
-        return response()->noContent();
+        return new AccountResource($account);
     }
 
     /**
