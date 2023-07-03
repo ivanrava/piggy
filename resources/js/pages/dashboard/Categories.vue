@@ -183,7 +183,7 @@ const category = ref<Category>(null);
 const isLoading = ref(false);
 watchEffect(() => {
   if (route.params.id == null)
-    return
+    store.selectCategory(null)
 
   isLoading.value = true;
   axios.get(`/categories/${route.params.id}`).then(({data}) => {

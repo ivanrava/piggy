@@ -19,6 +19,8 @@ export const useCategoriesStore = defineStore('categories', {
     }),
     actions: {
         selectCategory(category: Category) {
+            if (category == null)
+                this.selectedCategory = emptyCategory
             this.selectedCategory = category
             this.stagingCategory = emptyCategory
             this.isEditing = false
