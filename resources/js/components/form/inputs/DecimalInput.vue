@@ -42,7 +42,7 @@ export default {
   <form-input
     ref="inputRef"
     v-model="formattedValue"
-    type="text"
+    type="textDecimal"
     :name="name"
     :force-up="true"
   />
