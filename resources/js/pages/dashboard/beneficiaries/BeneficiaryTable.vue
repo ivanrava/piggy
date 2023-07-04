@@ -42,7 +42,7 @@ onMounted(() => {
       >
         <router-link
           :to="`/beneficiaries/${beneficiary.id}`"
-          class="unstyled uppercase tracking-wider text-pink-800/50 hover:text-pink-800/90 focus:font-medium transition-all flex gap-2 items-center"
+          class="unstyled uppercase tracking-wider text-stone-800/50 hover:text-pink-800/90 focus:font-medium transition-all flex gap-2 items-center"
         >
           <Icon icon="pajamas:go-back" />
           Back to the beneficiary details
