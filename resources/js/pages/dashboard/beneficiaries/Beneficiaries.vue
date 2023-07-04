@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
 import axios from "axios";
-import BeneficiaryForm from "../../components/form/crud/BeneficiaryFormWrapper.vue";
-import BeneficiaryCard from "../../components/BeneficiaryCard.vue";
-import NoData from "../../components/NoData.vue";
-import {useBeneficiariesStore} from "../../composables/useBeneficiariesStore";
+import BeneficiaryForm from "../../../components/form/crud/BeneficiaryFormWrapper.vue";
+import BeneficiaryCard from "../../../components/BeneficiaryCard.vue";
+import NoData from "../../../components/NoData.vue";
+import {useBeneficiariesStore} from "../../../composables/useBeneficiariesStore";
 
 const store = useBeneficiariesStore();
 const isLoading = ref(true);

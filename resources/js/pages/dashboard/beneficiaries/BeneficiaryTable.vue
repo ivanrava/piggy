@@ -2,9 +2,10 @@
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
-import TransactionDataTable from "../../components/TransactionDataTable.vue";
-import {Beneficiary} from "../../composables/interfaces";
-import {useOperationsStore} from "../../composables/useOperationsStore";
+import TransactionDataTable from "../../../components/TransactionDataTable.vue";
+import {Beneficiary} from "../../../composables/interfaces";
+import {useOperationsStore} from "../../../composables/useOperationsStore";
+import {Icon} from "@iconify/vue";
 
 const beneficiary = ref<Beneficiary>(null);
 const store = useOperationsStore();
@@ -27,11 +28,24 @@ onMounted(() => {
     mode="out-in"
   >
     <div v-if="beneficiary == null">
+      <div class="h-6 bg-gray-400 rounded-md w-96 mb-4 my-3 animate-pulse" />
       <div class="h-10 bg-gray-400 rounded-md w-96 mb-4 my-4 animate-pulse" />
     </div>
-    <h1 v-else>
-      Transactions with {{ beneficiary.name }}
-    </h1>
+    <div
+      v-else
+      class="flex flex-col my-4"
+    >
+      <router-link
+        :to="`/beneficiaries/${beneficiary.id}`"
+        class="unstyled uppercase tracking-wider text-pink-800/50 hover:text-pink-800/90 focus:font-medium transition-all flex gap-2 items-center"
+      >
+        <Icon icon="pajamas:go-back" />
+        Back to the category details
+      </router-link>
+      <h1 class="my-1">
+        Transactions under {{ beneficiary.name }}
+      </h1>
+    </div>
   </Transition>
   <transaction-data-table :fields="['account', 'category']" />
 </template>

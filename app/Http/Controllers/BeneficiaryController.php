@@ -6,6 +6,8 @@ use App\Http\Requests\AuthorizeBeneficiaryRequest;
 use App\Http\Requests\StoreBeneficiaryRequest;
 use App\Http\Resources\BeneficiaryResource;
 use App\Models\Beneficiary;
+use App\Models\Stats\CrossStats;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
@@ -57,5 +59,15 @@ class BeneficiaryController extends Controller
     {
         $beneficiary->delete();
         return response()->noContent();
+    }
+
+    public function stats_categories(AuthorizeBeneficiaryRequest $request, Beneficiary $beneficiary): Collection|Response|array
+    {
+        return CrossStats::get_category_stats_for($beneficiary->transactions());
+    }
+
+    public function stats_accounts(AuthorizeBeneficiaryRequest $request, Beneficiary $beneficiary): Collection|Response|array
+    {
+        return CrossStats::get_account_stats_for($beneficiary->transactions());
     }
 }

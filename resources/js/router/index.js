@@ -96,7 +96,7 @@ const routes = [
             {
                 name: 'beneficiaries',
                 path: '/beneficiaries',
-                component: () => import('@/pages/dashboard/Beneficiaries.vue'),
+                component: () => import('@/pages/dashboard/beneficiaries/Beneficiaries.vue'),
                 meta: {
                     title: 'Beneficiaries',
                     requiresAuth: true
@@ -105,7 +105,16 @@ const routes = [
             {
                 name: 'beneficiaries.id',
                 path: '/beneficiaries/:id',
-                component: () => import('@/pages/dashboard/BeneficiaryShow.vue'),
+                component: () => import('@/pages/dashboard/beneficiaries/BeneficiaryShow.vue'),
+                meta: {
+                    title: 'Beneficiary transactions',
+                    requiresAuth: true
+                }
+            },
+            {
+                name: 'beneficiaries.id.transactions',
+                path: '/beneficiaries/:id/transactions',
+                component: () => import('@/pages/dashboard/beneficiaries/BeneficiaryTable.vue'),
                 meta: {
                     title: 'Beneficiary transactions',
                     requiresAuth: true

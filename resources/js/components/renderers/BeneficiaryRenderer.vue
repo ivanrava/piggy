@@ -33,7 +33,7 @@ export default defineComponent({
   <router-link
     v-if="isBeneficiary"
     class="flex items-center"
-    :to="`/beneficiaries/${beneficiary.id}`"
+    :to="`/beneficiaries/${beneficiary.id}/transactions`"
   >
     <beneficiary-image
       :beneficiary="beneficiary"
