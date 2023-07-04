@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthorizeAccountRequest;
 use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
 use App\Http\Resources\AccountResource;
@@ -48,11 +49,8 @@ class AccountController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Account $account): Response|AccountResource
+    public function show(AuthorizeAccountRequest $request, Account $account): Response|AccountResource
     {
-        if ($account->user_id != $request->user()->id)
-            return response()->noContent(404);
-
         return new AccountResource($account->load([
             'transactions' => [
                 'beneficiary',
@@ -80,11 +78,8 @@ class AccountController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Account $account): Response
+    public function destroy(AuthorizeAccountRequest $request, Account $account): Response
     {
-        if ($account->user_id != $request->user()->id)
-            return response()->noContent(404);
-
         $account->delete();
         return response()->noContent();
     }

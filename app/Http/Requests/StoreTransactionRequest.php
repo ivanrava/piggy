@@ -14,7 +14,11 @@ class StoreTransactionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $transaction = $this->route()->parameter('transaction');
+        if ($transaction == null)
+            return true;
+
+        return $transaction->user_id == $this->user()->id;
     }
 
     /**

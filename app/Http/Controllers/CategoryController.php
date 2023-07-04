@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthorizeCategoryRequest;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
@@ -48,11 +49,8 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Category $category): Response|CategoryResource
+    public function show(AuthorizeCategoryRequest $request, Category $category): Response|CategoryResource
     {
-        if ($category->user_id != $request->user()->id)
-            return response()->noContent(404);
-
         $category->load('transactions');
 
         return new CategoryResource($category);
@@ -71,28 +69,19 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Category $category): Response
+    public function destroy(AuthorizeCategoryRequest $request, Category $category): Response
     {
-        if ($category->user_id != $request->user()->id)
-            return response()->noContent(404);
-
         $category->delete();
         return response()->noContent();
     }
 
-    public function stats_beneficiaries(Request $request, Category $category): Collection|Response|array
+    public function stats_beneficiaries(AuthorizeCategoryRequest $request, Category $category): Collection|Response|array
     {
-        if ($category->user_id != $request->user()->id)
-            return response()->noContent(404);
-
         return CrossStats::get_beneficiary_stats_for($category->transactions_full_with_children());
     }
 
-    public function stats_accounts(Request $request, Category $category): Collection|Response|array
+    public function stats_accounts(AuthorizeCategoryRequest $request, Category $category): Collection|Response|array
     {
-        if ($category->user_id != $request->user()->id)
-            return response()->noContent(404);
-
         return CrossStats::get_account_stats_for($category->transactions_full_with_children());
     }
 }

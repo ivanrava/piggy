@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthorizeBeneficiaryRequest;
 use App\Http\Requests\StoreBeneficiaryRequest;
 use App\Http\Resources\BeneficiaryResource;
 use App\Models\Beneficiary;
@@ -32,11 +33,8 @@ class BeneficiaryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Beneficiary $beneficiary): Response|BeneficiaryResource
+    public function show(AuthorizeBeneficiaryRequest $request, Beneficiary $beneficiary): Response|BeneficiaryResource
     {
-        if ($beneficiary->user_id != $request->user()->id)
-            return response()->noContent(404);
-
         $beneficiary->load('transactions');
 
         return new BeneficiaryResource($beneficiary);
@@ -55,11 +53,8 @@ class BeneficiaryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Beneficiary $beneficiary): Response
+    public function destroy(AuthorizeBeneficiaryRequest $request, Beneficiary $beneficiary): Response
     {
-        if ($beneficiary->user_id != $request->user()->id)
-            return response()->noContent(404);
-
         $beneficiary->delete();
         return response()->noContent();
     }

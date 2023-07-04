@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthorizeTransactionRequest;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Resources\TransactionResource;
 use App\Models\Transaction;
@@ -50,11 +51,8 @@ class TransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Transaction $transaction): Response
+    public function destroy(AuthorizeTransactionRequest $request, Transaction $transaction): Response
     {
-        if ($transaction->beneficiary->user_id != $request->user()->id)
-            return response()->noContent(404);
-
         $transaction->delete();
         return response()->noContent();
     }

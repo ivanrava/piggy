@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthorizeTransferRequest;
 use App\Http\Requests\StoreTransferRequest;
 use App\Http\Resources\TransferResource;
 use App\Models\Transfer;
@@ -53,11 +54,8 @@ class TransferController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Transfer $transfer): Response
+    public function destroy(AuthorizeTransferRequest $request, Transfer $transfer): Response
     {
-        if ($transfer->to_account->user_id != $request->user()->id)
-            return response()->noContent(404);
-
         $transfer->delete();
         return response()->noContent();
     }

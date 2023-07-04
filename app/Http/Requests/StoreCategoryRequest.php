@@ -18,7 +18,11 @@ class StoreCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $category = $this->route()->parameter('category');
+        if ($category == null)
+            return true;
+
+        return $category->user_id == $this->user()->id;
     }
 
     /**

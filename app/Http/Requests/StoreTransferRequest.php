@@ -11,7 +11,11 @@ class StoreTransferRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $transfer = $this->route()->parameter('transfer');
+        if ($transfer == null)
+            return true;
+
+        return $transfer->user_id == $this->user()->id;
     }
 
     /**
