@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use App\Models\Stats\CrossStats;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
@@ -46,18 +48,14 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Category $category): Response|array
+    public function show(Request $request, Category $category): Response|CategoryResource
     {
         if ($category->user_id != $request->user()->id)
             return response()->noContent(404);
 
         $category->load('transactions');
 
-        return [
-            'accounts' => $category->account_stats(),
-            'beneficiaries' => $category->beneficiary_stats(),
-            'category' => new CategoryResource($category)
-        ];
+        return new CategoryResource($category);
     }
 
     /**
@@ -80,5 +78,21 @@ class CategoryController extends Controller
 
         $category->delete();
         return response()->noContent();
+    }
+
+    public function stats_beneficiaries(Request $request, Category $category): Collection|Response|array
+    {
+        if ($category->user_id != $request->user()->id)
+            return response()->noContent(404);
+
+        return CrossStats::get_beneficiary_stats_for($category->transactions_full_with_children());
+    }
+
+    public function stats_accounts(Request $request, Category $category): Collection|Response|array
+    {
+        if ($category->user_id != $request->user()->id)
+            return response()->noContent(404);
+
+        return CrossStats::get_account_stats_for($category->transactions_full_with_children());
     }
 }

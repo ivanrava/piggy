@@ -82,25 +82,10 @@ class Category extends Model
             $this->type = $request->type;
     }
 
-    public function account_stats(): Collection|array
+    public function transactions_full_with_children(): Builder|HasMany
     {
-        return ($this->parent_category_id != null
+        return $this->parent_category_id != null
             ? $this->transactions()
-            : $this->user->transactions()->whereIn('category_id', $this->children()->pluck('id')))
-            ->join('accounts', 'accounts.id', '=', 'transactions.account_id')
-            ->groupBy(['accounts.name', 'accounts.color'])
-            ->selectRaw('accounts.name, accounts.color, SUM(amount) as sum, COUNT(*) as count')
-            ->get();
-    }
-
-    public function beneficiary_stats(): Collection|array
-    {
-        return ($this->parent_category_id != null
-            ? $this->transactions()
-            : $this->user->transactions()->whereIn('category_id', $this->children()->pluck('id')))
-            ->join('beneficiaries', 'beneficiaries.id', '=', 'transactions.beneficiary_id')
-            ->groupBy(['beneficiaries.name'])
-            ->selectRaw('beneficiaries.name, SUM(amount) as sum, COUNT(*) as count')
-            ->get();
+            : $this->user->transactions()->whereIn('category_id', $this->children()->pluck('id'));
     }
 }

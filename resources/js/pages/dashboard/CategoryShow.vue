@@ -14,7 +14,7 @@ const errors = ref({});
 onMounted(() => {
   store.setOperations([], [], []);
   axios.get("/categories/"+useRoute().params.id).then(({data}) => {
-    category.value = data.category;
+    category.value = data.data;
     store.setOperations(category.value.transactions, [], [])
   }).catch(({response}) => {
     errors.value = response.data.errors;
@@ -31,7 +31,10 @@ onMounted(() => {
       <div class="h-6 bg-gray-400 rounded-md w-96 mb-4 my-3 animate-pulse" />
       <div class="h-10 bg-gray-400 rounded-md w-96 mb-4 my-4 animate-pulse" />
     </div>
-    <div v-else class="flex flex-col my-4">
+    <div
+      v-else
+      class="flex flex-col my-4"
+    >
       <router-link
         :to="`/categories/${category.id}`"
         class="unstyled uppercase tracking-wider text-pink-800/50 hover:text-pink-800/90 focus:font-medium transition-all flex gap-2 items-center"

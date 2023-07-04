@@ -187,12 +187,16 @@ watchEffect(() => {
 
   isLoading.value = true;
   axios.get(`/categories/${route.params.id}`).then(({data}) => {
-    category.value = data.category;
+    category.value = data.data;
     store.selectCategory(category.value);
-    accounts.value = data.accounts;
-    beneficiaries.value = data.beneficiaries;
   }).finally(() => {
     isLoading.value = false;
+  })
+  axios.get(`/stats/categories/${route.params.id}/accounts`).then(({data}) => {
+    accounts.value = data;
+  });
+  axios.get(`/stats/categories/${route.params.id}/beneficiaries`).then(({data}) => {
+    beneficiaries.value = data;
   })
 })
 
