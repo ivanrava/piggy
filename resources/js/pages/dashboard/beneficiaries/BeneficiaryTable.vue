@@ -58,10 +58,10 @@ onMounted(() => {
             class="!h-20 !w-20"
           />
           <div class="flex flex-col justify-center items-end">
-            <h2 class="font-bold my-0 text-xl">
+            <h2 class="font-semibold my-0 text-xl">
               {{ beneficiary.name }}
             </h2>
-            <span class="text-2xl font-light tracking-tight">
+            <span class="text-2xl font-extralight tracking-tight">
               {{ useAgGridUtilites().currencyFormatterBare(store.getTotal()) }}
             </span>
           </div>
