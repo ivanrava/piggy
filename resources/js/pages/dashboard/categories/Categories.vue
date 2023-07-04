@@ -1,4 +1,11 @@
 <script setup lang="ts">
+import CategoryForm from "../../../components/form/crud/CategoryFormWrapper.vue";
+import {onMounted} from "vue";
+import {useCategoriesStore} from "../../../composables/useCategoriesStore";
+
+onMounted(() => {
+  useCategoriesStore().selectCategory(null)
+})
 </script>
 
 <template>
@@ -17,6 +24,7 @@
       We will load data from your categories in here, please click one of the categories on the sidebar.
     </span>
   </div>
+  <category-form />
 </template>
 
 <style scoped>
