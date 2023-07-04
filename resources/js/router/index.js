@@ -51,7 +51,7 @@ const routes = [
             {
                 name: 'accounts',
                 path: '/accounts',
-                component: () => import('@/pages/dashboard/Accounts.vue'),
+                component: () => import('@/pages/dashboard/accounts/Accounts.vue'),
                 meta: {
                     title: 'Accounts',
                     requiresAuth: true
@@ -60,7 +60,16 @@ const routes = [
             {
                 name: 'accounts.id',
                 path: '/accounts/:id',
-                component: () => import('@/pages/dashboard/AccountShow.vue'),
+                component: () => import('@/pages/dashboard/accounts/AccountShow.vue'),
+                meta: {
+                    title: 'Account details',
+                    requiresAuth: true
+                }
+            },
+            {
+                name: 'accounts.id.transactions',
+                path: '/accounts/:id/transactions',
+                component: () => import('@/pages/dashboard/accounts/AccountTable.vue'),
                 meta: {
                     title: 'Account transactions',
                     requiresAuth: true
@@ -107,7 +116,7 @@ const routes = [
                 path: '/beneficiaries/:id',
                 component: () => import('@/pages/dashboard/beneficiaries/BeneficiaryShow.vue'),
                 meta: {
-                    title: 'Beneficiary transactions',
+                    title: 'Beneficiary details',
                     requiresAuth: true
                 }
             },

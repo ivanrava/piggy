@@ -6,7 +6,7 @@
       textColor,
       isExpired ? 'opacity-30 cursor-not-allowed shadow-sm' : 'cursor-pointer shadow-sm hover:shadow-md']"
     :style="{backgroundColor: `${account.color}`}"
-    :to="'/accounts/'+account.id"
+    :to="'/accounts/'+account.id+'/transactions'"
   >
     <Icon
       :icon="account.icon"

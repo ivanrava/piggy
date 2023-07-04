@@ -40,7 +40,7 @@ onMounted(() => {
         class="unstyled uppercase tracking-wider text-pink-800/50 hover:text-pink-800/90 focus:font-medium transition-all flex gap-2 items-center"
       >
         <Icon icon="pajamas:go-back" />
-        Back to the category details
+        Back to the beneficiary details
       </router-link>
       <h1 class="my-1">
         Transactions under {{ beneficiary.name }}

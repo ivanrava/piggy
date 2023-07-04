@@ -63,10 +63,10 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import axios from "axios";
-import AccountCard from "../../components/AccountCard.vue";
-import FormAccount from "../../components/form/crud/AccountForm.vue";
-import NoData from "../../components/NoData.vue";
-import {useAccountsStore} from "../../composables/useAccountsStore";
+import AccountCard from "../../../components/AccountCard.vue";
+import FormAccount from "../../../components/form/crud/AccountForm.vue";
+import NoData from "../../../components/NoData.vue";
+import {useAccountsStore} from "../../../composables/useAccountsStore";
 
 const store = useAccountsStore();
 

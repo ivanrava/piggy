@@ -13,6 +13,7 @@ class CrossStats
         return $transactions
             ->join('accounts', 'accounts.id', '=', 'transactions.account_id')
             ->groupBy(['accounts.name', 'accounts.color'])
+            ->orderBy('accounts.name')
             ->selectRaw('accounts.name, accounts.color, SUM(amount) as sum, COUNT(*) as count')
             ->get();
     }
@@ -22,6 +23,7 @@ class CrossStats
         return $transactions
             ->join('beneficiaries', 'beneficiaries.id', '=', 'transactions.beneficiary_id')
             ->groupBy(['beneficiaries.name'])
+            ->orderBy('beneficiaries.name')
             ->selectRaw('beneficiaries.name, SUM(amount) as sum, COUNT(*) as count')
             ->get();
     }
@@ -31,6 +33,7 @@ class CrossStats
         return $transactions
             ->join('categories', 'categories.id', '=', 'transactions.category_id')
             ->groupBy(['categories.name'])
+            ->orderBy('categories.name')
             ->selectRaw('categories.name, SUM(amount) as sum, COUNT(*) as count')
             ->get();
     }

@@ -51,6 +51,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/stats/categories/{category}/accounts', [CategoryController::class, 'stats_accounts']);
     Route::get('/stats/beneficiaries/{beneficiary}/categories', [BeneficiaryController::class, 'stats_categories']);
     Route::get('/stats/beneficiaries/{beneficiary}/accounts', [BeneficiaryController::class, 'stats_accounts']);
+    Route::get('/stats/accounts/{account}/categories', [AccountController::class, 'stats_categories']);
+    Route::get('/stats/accounts/{account}/beneficiaries', [AccountController::class, 'stats_beneficiaries']);
 
     Route::apiResource('accounts', AccountController::class);
     Route::apiResource('beneficiaries', BeneficiaryController::class);

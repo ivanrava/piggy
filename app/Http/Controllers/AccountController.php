@@ -7,6 +7,8 @@ use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
 use App\Http\Resources\AccountResource;
 use App\Models\Account;
+use App\Models\Stats\CrossStats;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
@@ -82,5 +84,15 @@ class AccountController extends Controller
     {
         $account->delete();
         return response()->noContent();
+    }
+
+    public function stats_categories(AuthorizeAccountRequest $request, Account $account): Collection|Response|array
+    {
+        return CrossStats::get_category_stats_for($account->transactions());
+    }
+
+    public function stats_beneficiaries(AuthorizeAccountRequest $request, Account $account): Collection|Response|array
+    {
+        return CrossStats::get_beneficiary_stats_for($account->transactions());
     }
 }

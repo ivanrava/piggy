@@ -2,40 +2,39 @@
 import {computed, ref, watchEffect} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
-import {Beneficiary} from "../../../composables/interfaces";
-import {useBeneficiariesStore} from "../../../composables/useBeneficiariesStore";
-import BeneficiaryImage from "../../../components/BeneficiaryImage.vue";
 import NoData from "../../../components/NoData.vue";
 import ChartPie from "../stats/ChartPie.vue";
 import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
-import BeneficiaryFormWrapper from "../../../components/form/crud/BeneficiaryFormWrapper.vue";
+import {useAccountsStore} from "../../../composables/useAccountsStore";
+import {Account} from "../../../composables/interfaces";
+import AccountForm from "../../../components/form/crud/AccountForm.vue";
 
 const route = useRoute();
-const store = useBeneficiariesStore();
+const store = useAccountsStore();
 
 const isLoading = ref<Boolean>(false);
-const beneficiary = ref<Beneficiary>(null);
+const account = ref<Account>(null);
 
-const accounts = ref([]);
+const beneficiaries = ref([]);
 const categories = ref([]);
 
 watchEffect(() => {
   isLoading.value = true;
-  axios.get(`/beneficiaries/${route.params.id}`).then(({data}) => {
-    beneficiary.value = data.data;
+  axios.get(`/accounts/${route.params.id}`).then(({data}) => {
+    account.value = data.data;
   }).finally(() => {
     isLoading.value = false;
   })
-  axios.get(`/stats/beneficiaries/${route.params.id}/accounts`).then(({data}) => {
-    accounts.value = data;
+  axios.get(`/stats/accounts/${route.params.id}/beneficiaries`).then(({data}) => {
+    beneficiaries.value = data;
   })
-  axios.get(`/stats/beneficiaries/${route.params.id}/categories`).then(({data}) => {
+  axios.get(`/stats/accounts/${route.params.id}/categories`).then(({data}) => {
     categories.value = data;
   })
 })
 
 const totalTransactions = computed(() => {
-  return accounts.value.reduce((previousValue, currentValue) => previousValue + currentValue.count, 0);
+  return beneficiaries.value.reduce((previousValue, currentValue) => previousValue + currentValue.count, 0);
 })
 </script>
 
@@ -56,10 +55,7 @@ const totalTransactions = computed(() => {
       >
         <div class="flex items-center gap-3 mb-1">
           <h1 class="flex items-center gap-2 my-0">
-            <beneficiary-image :beneficiary="beneficiary" />
-            <span>
-              {{ beneficiary.name }}
-            </span>
+            {{ account.name }}
           </h1>
           <a
             class="cursor-pointer flex flex-col justify-center !text-lg pt-2"
@@ -72,7 +68,7 @@ const totalTransactions = computed(() => {
           </a>
         </div>
         <router-link
-          :to="`/beneficiaries/${beneficiary.id}/transactions`"
+          :to="`/accounts/${account.id}/transactions`"
           class="unstyled uppercase tracking-wider text-stone-800/50 hover:text-pink-800/90 focus:font-medium transition-all"
         >
           Show transactions
@@ -143,7 +139,7 @@ const totalTransactions = computed(() => {
           <li>
             <b>Total amount of money:</b>
             <span class="pl-1">
-              {{ useAgGridUtilites().currencyFormatterBare(accounts.reduce((previousValue, currentValue) => previousValue + Number(currentValue.sum), 0)) }}
+              {{ useAgGridUtilites().currencyFormatterBare(beneficiaries.reduce((previousValue, currentValue) => previousValue + Number(currentValue.sum), 0)) }}
             </span>
           </li>
         </ul>
@@ -157,8 +153,8 @@ const totalTransactions = computed(() => {
           >
             <div class="w-1/2 px-16 print:p-0">
               <chart-pie
-                :data="accounts"
-                title="Account distribution"
+                :data="beneficiaries"
+                title="Beneficiary distribution"
                 tooltip="Total of transactions"
               />
             </div>
@@ -177,7 +173,7 @@ const totalTransactions = computed(() => {
         </Transition>
       </section>
     </Transition>
-    <beneficiary-form-wrapper />
+    <account-form />
   </div>
 </template>
 

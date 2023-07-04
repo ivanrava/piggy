@@ -65,20 +65,17 @@ class Account extends Model
 
     public function in_transfers(): HasMany
     {
-        return $this->hasMany(Transfer::class, 'to_account_id', 'id')
-            ->orderBy('date', 'DESC');
+        return $this->hasMany(Transfer::class, 'to_account_id', 'id');
     }
 
     public function out_transfers(): HasMany
     {
-        return $this->hasMany(Transfer::class, 'from_account_id', 'id')
-            ->orderBy('date', 'DESC');
+        return $this->hasMany(Transfer::class, 'from_account_id', 'id');
     }
 
     public function transactions(): HasMany
     {
-        return $this->hasMany(Transaction::class, 'account_id', 'id')
-            ->orderBy('date', 'DESC');
+        return $this->hasMany(Transaction::class, 'account_id', 'id');
     }
 
     public function balance()

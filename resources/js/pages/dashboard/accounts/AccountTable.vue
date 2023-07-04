@@ -2,10 +2,11 @@
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
-import TransactionForm from "../../components/form/crud/TransactionForm.vue";
-import {Account} from "../../composables/interfaces";
-import TransactionDataTable from "../../components/TransactionDataTable.vue";
-import {useOperationsStore} from "../../composables/useOperationsStore";
+import TransactionForm from "../../../components/form/crud/TransactionForm.vue";
+import {Account} from "../../../composables/interfaces";
+import TransactionDataTable from "../../../components/TransactionDataTable.vue";
+import {useOperationsStore} from "../../../composables/useOperationsStore";
+import {Icon} from "@iconify/vue";
 
 const route = useRoute();
 const store = useOperationsStore();
@@ -46,9 +47,20 @@ onMounted(() => {
       </div>
     </div>
     <div v-else>
-      <h1>
-        {{ account.name }} transactions
-      </h1>
+      <div
+        class="flex flex-col my-4"
+      >
+        <router-link
+          :to="`/accounts/${account.id}`"
+          class="unstyled uppercase tracking-wider text-pink-800/50 hover:text-pink-800/90 focus:font-medium transition-all flex gap-2 items-center"
+        >
+          <Icon icon="pajamas:go-back" />
+          Back to the account details
+        </router-link>
+        <h1 class="my-1">
+          Transactions under {{ account.name }}
+        </h1>
+      </div>
       <p class="my-4 text-stone-800">
         {{ account.description }}
       </p>
