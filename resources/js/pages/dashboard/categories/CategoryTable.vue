@@ -2,9 +2,9 @@
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
-import TransactionDataTable from "../../components/TransactionDataTable.vue";
-import {useOperationsStore} from "../../composables/useOperationsStore";
-import {Category} from "../../composables/interfaces";
+import TransactionDataTable from "../../../components/TransactionDataTable.vue";
+import {useOperationsStore} from "../../../composables/useOperationsStore";
+import {Category} from "../../../composables/interfaces";
 import {Icon} from "@iconify/vue";
 
 const category = ref<Category>(null);

@@ -146,17 +146,17 @@
 </template>
 
 <script setup lang="ts">
-import CategoryForm from "../../components/form/crud/CategoryFormWrapper.vue";
-import {useCategoriesStore} from "../../composables/useCategoriesStore";
+import CategoryForm from "../../../components/form/crud/CategoryFormWrapper.vue";
+import {useCategoriesStore} from "../../../composables/useCategoriesStore";
 import {Icon} from "@iconify/vue";
 import {computed, watchEffect} from "vue";
 import axios from "axios";
 import {ref} from "vue";
-import {useAgGridUtilites} from "../../composables/useAgGridUtilities";
-import NoData from "../../components/NoData.vue";
+import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
+import NoData from "../../../components/NoData.vue";
 import {useRoute} from "vue-router";
-import {Category} from "../../composables/interfaces";
-import ChartPie from "./stats/ChartPie.vue";
+import {Category} from "../../../composables/interfaces";
+import ChartPie from "../stats/ChartPie.vue";
 
 const store = useCategoriesStore()
 const route = useRoute();
