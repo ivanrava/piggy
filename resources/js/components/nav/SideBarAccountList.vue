@@ -93,13 +93,6 @@ const trueDelete = (account: Account) => {
           class="flex justify-end items-center gap-2 px-2"
         >
           <span
-            v-if="useRoute().path == '/accounts'"
-            class="cursor-pointer opacity-40 hover:opacity-100 transition-all"
-            @click="store.editAccount(account)"
-          >
-            <Icon icon="radix-icons:pencil-1" />
-          </span>
-          <span
             class="cursor-pointer opacity-40 hover:opacity-100 transition-all"
             @click="askDelete(account)"
           >

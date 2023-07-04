@@ -53,7 +53,7 @@
         </div>
       </Transition>
     </section>
-    <form-account
+    <account-form
       @store="store.addAccount($event)"
       @update="store.updateAccount($event)"
     />
@@ -64,7 +64,7 @@
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import AccountCard from "../../../components/AccountCard.vue";
-import FormAccount from "../../../components/form/crud/AccountForm.vue";
+import AccountForm from "../../../components/form/crud/AccountForm.vue";
 import NoData from "../../../components/NoData.vue";
 import {useAccountsStore} from "../../../composables/useAccountsStore";
 
