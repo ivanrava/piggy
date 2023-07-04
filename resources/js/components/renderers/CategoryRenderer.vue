@@ -20,7 +20,7 @@ export default defineComponent({
 <template>
   <router-link
     v-if="category.id !== undefined"
-    :to="`/categories/${category.id}`"
+    :to="`/categories/${category.id}/transactions`"
   >
     <Icon
       :icon="category.icon"

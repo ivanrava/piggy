@@ -51,18 +51,20 @@ onMounted(() => {
           Transactions under {{ beneficiary.name }}
         </h1>
       </div>
-      <div class="h-full flex flex-row-reverse gap-4">
-        <beneficiary-image
-          :beneficiary="beneficiary"
-          class="!h-24 !w-24"
-        />
-        <div class="flex flex-col justify-center items-end">
-          <h2 class="font-medium">
-            {{ beneficiary.name }}
-          </h2>
-          <span class="mb-2 text-2xl">
-            {{ useAgGridUtilites().currencyFormatterBare(store.getTotal()) }}
-          </span>
+      <div class="flex flex-col justify-center">
+        <div class="flex flex-row-reverse gap-2 bg-slate-50 py-1 pl-4 pr-2 rounded-xl items-center shadow-sm justify-start">
+          <beneficiary-image
+            :beneficiary="beneficiary"
+            class="!h-20 !w-20"
+          />
+          <div class="flex flex-col justify-center items-end">
+            <h2 class="font-bold my-0 text-xl">
+              {{ beneficiary.name }}
+            </h2>
+            <span class="text-2xl font-light tracking-tight">
+              {{ useAgGridUtilites().currencyFormatterBare(store.getTotal()) }}
+            </span>
+          </div>
         </div>
       </div>
     </div>

@@ -52,15 +52,23 @@ onMounted(() => {
       </div>
       <div class="flex gap-4">
         <div class="flex flex-col justify-center items-end">
-          <h2 class="font-medium">
-            <Icon
-              :icon="category.icon"
-              class="inline"
-            /> {{ category.name }}
-          </h2>
-          <span class="mb-2 text-2xl">
-            {{ useAgGridUtilites().currencyFormatterBare(store.getTotal()) }}
-          </span>
+          <div
+            class="py-2 px-3 text-stone-50 rounded-xl flex items-center gap-3 shadow-sm"
+            :class="category.type === 'out' ? 'bg-red-500/90' : 'bg-green-500/90'"
+          >
+            <div class="flex flex-col items-end">
+              <h2 class="font-bold my-0 text-xl">
+                <Icon
+                  :icon="category.icon"
+                  class="inline"
+                /> {{ category.name }}
+              </h2>
+              <small class="font-light">{{ category.type === 'out' ? 'Expense' : 'Income' }}</small>
+            </div>
+            <span class="text-4xl tracking-tighter font-light">
+              {{ useAgGridUtilites().currencyFormatterBare(store.getTotal()) }}
+            </span>
+          </div>
         </div>
       </div>
     </div>

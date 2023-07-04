@@ -75,7 +75,7 @@ const textColor = computed(() => {
             <h2 class="font-bold whitespace-nowrap text-lg my-0">
               <Icon
                 :icon="account.icon"
-                class="inline text-xl"
+                class="inline text-2xl"
               />
               {{ account.name }}
             </h2>
