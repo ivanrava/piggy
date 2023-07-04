@@ -78,7 +78,7 @@ const routes = [
             {
                 name: 'categories.id',
                 path: '/categories/:id',
-                component: () => import('@/pages/dashboard/Categories.vue'),
+                component: () => import('@/pages/dashboard/CategoryShow.vue'),
                 meta: {
                     title: 'Category details',
                     requiresAuth: true
@@ -87,7 +87,7 @@ const routes = [
             {
                 name: 'categories.id.transactions',
                 path: '/categories/:id/transactions',
-                component: () => import('@/pages/dashboard/CategoryShow.vue'),
+                component: () => import('@/pages/dashboard/CategoryTable.vue'),
                 meta: {
                     title: 'Category transactions',
                     requiresAuth: true
