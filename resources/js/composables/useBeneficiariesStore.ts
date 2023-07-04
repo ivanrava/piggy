@@ -6,6 +6,9 @@ export const useBeneficiariesStore = defineStore('beneficiaries', {
         beneficiaries: []
     }),
     actions: {
+        getBeneficiaries() {
+            return this.beneficiaries.sort((a,b) => a.name < b.name ? -1 : 1);
+        },
         setBeneficiaries(beneficiaries: Array<Beneficiary>) {
             this.beneficiaries = beneficiaries;
         },

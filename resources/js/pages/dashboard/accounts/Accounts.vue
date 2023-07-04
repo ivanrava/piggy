@@ -46,7 +46,7 @@
           class="flex flex-wrap gap-4"
         >
           <account-card
-            v-for="account in store.accounts"
+            v-for="account in store.getAccounts()"
             :key="account"
             :account="account"
           />

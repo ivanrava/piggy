@@ -62,7 +62,7 @@ onMounted(async () => {
         class="flex flex-wrap gap-4 justify-start pb-4"
       >
         <beneficiary-card
-          v-for="beneficiary in store.beneficiaries"
+          v-for="beneficiary in store.getBeneficiaries()"
           :key="beneficiary.name"
           :beneficiary="beneficiary"
         />

@@ -21,6 +21,9 @@ export const useAccountsStore = defineStore('accounts', {
         showForm: false
     }),
     actions: {
+        getAccounts() {
+            return this.accounts.sort((a,b) => a.name < b.name ? -1 : 1);
+        },
         setAccounts(accounts: Array<Account>) {
             this.accounts = accounts;
             this.stagingAccount = emptyAccount;
