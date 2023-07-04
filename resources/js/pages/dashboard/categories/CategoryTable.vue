@@ -6,6 +6,7 @@ import TransactionDataTable from "../../../components/TransactionDataTable.vue";
 import {useOperationsStore} from "../../../composables/useOperationsStore";
 import {Category} from "../../../composables/interfaces";
 import {Icon} from "@iconify/vue";
+import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
 
 const category = ref<Category>(null);
 const store = useOperationsStore();
@@ -33,18 +34,35 @@ onMounted(() => {
     </div>
     <div
       v-else
-      class="flex flex-col my-4"
+      class="flex justify-between"
     >
-      <router-link
-        :to="`/categories/${category.id}`"
-        class="unstyled uppercase tracking-wider text-pink-800/50 hover:text-pink-800/90 focus:font-medium transition-all flex gap-2 items-center"
+      <div
+        class="flex flex-col my-4"
       >
-        <Icon icon="pajamas:go-back" />
-        Back to the category details
-      </router-link>
-      <h1 class="my-1">
-        Transactions under {{ category.name }}
-      </h1>
+        <router-link
+          :to="`/categories/${category.id}`"
+          class="unstyled uppercase tracking-wider text-pink-800/50 hover:text-pink-800/90 focus:font-medium transition-all flex gap-2 items-center"
+        >
+          <Icon icon="pajamas:go-back" />
+          Back to the category details
+        </router-link>
+        <h1 class="my-1">
+          Transactions under {{ category.name }}
+        </h1>
+      </div>
+      <div class="flex gap-4">
+        <div class="flex flex-col justify-center items-end">
+          <h2 class="font-medium">
+            <Icon
+              :icon="category.icon"
+              class="inline"
+            /> {{ category.name }}
+          </h2>
+          <span class="mb-2 text-2xl">
+            {{ useAgGridUtilites().currencyFormatterBare(store.getTotal()) }}
+          </span>
+        </div>
+      </div>
     </div>
   </Transition>
   <transaction-data-table :fields="['account', 'beneficiary']" />

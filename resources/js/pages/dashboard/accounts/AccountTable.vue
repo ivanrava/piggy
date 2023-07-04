@@ -7,6 +7,9 @@ import {Account} from "../../../composables/interfaces";
 import TransactionDataTable from "../../../components/TransactionDataTable.vue";
 import {useOperationsStore} from "../../../composables/useOperationsStore";
 import {Icon} from "@iconify/vue";
+import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
+import {computed} from "vue";
+import {isColorDark} from "../../../composables/colors";
 
 const route = useRoute();
 const store = useOperationsStore();
@@ -25,6 +28,10 @@ onMounted(() => {
     errors.value = response.data.errors;
   })
 });
+
+const textColor = computed(() => {
+  return isColorDark(account.value.color.slice(1,7)) ? 'text-slate-950' : 'text-slate-50';
+})
 </script>
 
 <template>
@@ -33,37 +40,52 @@ onMounted(() => {
     mode="out-in"
   >
     <div v-if="account == null">
-      <div class="h-10 bg-gray-400 rounded-md w-96 my-4 animate-pulse" />
-      <div class="flex flex-row gap-x-2 mb-2">
-        <div class="h-5 bg-gray-400 rounded-md w-80 animate-pulse" />
-        <div class="h-5 bg-gray-500/70 rounded-md w-44 animate-pulse" />
-        <div class="h-5 bg-gray-400/90 rounded-md w-52 animate-pulse" />
-        <div class="h-5 bg-gray-500/70 rounded-md w-40 animate-pulse" />
-        <div class="h-5 bg-gray-400 rounded-md w-72 animate-pulse" />
-      </div>
-      <div class="flex flex-row gap-x-2 mb-4">
-        <div class="h-5 bg-gray-500/70 rounded-md w-32 animate-pulse" />
-        <div class="h-5 bg-gray-400 rounded-md w-96 animate-pulse" />
-      </div>
+      <div class="h-6 bg-gray-400 rounded-md w-96 mb-4 my-3 animate-pulse" />
+      <div class="h-10 bg-gray-400 rounded-md w-96 mb-4 my-4 animate-pulse" />
     </div>
-    <div v-else>
-      <div
-        class="flex flex-col my-4"
-      >
-        <router-link
-          :to="`/accounts/${account.id}`"
-          class="unstyled uppercase tracking-wider text-pink-800/50 hover:text-pink-800/90 focus:font-medium transition-all flex gap-2 items-center"
+    <div
+      v-else
+      class="flex justify-between"
+    >
+      <div>
+        <div
+          class="flex flex-col my-4"
         >
-          <Icon icon="pajamas:go-back" />
-          Back to the account details
-        </router-link>
-        <h1 class="my-1">
-          Transactions under {{ account.name }}
-        </h1>
+          <router-link
+            :to="`/accounts/${account.id}`"
+            class="unstyled uppercase tracking-wider text-pink-800/50 hover:text-pink-800/90 focus:font-medium transition-all flex gap-2 items-center"
+          >
+            <Icon icon="pajamas:go-back" />
+            Back to the account details
+          </router-link>
+          <h1 class="my-1">
+            Transactions under {{ account.name }}
+          </h1>
+        </div>
       </div>
-      <p class="my-4 text-stone-800">
-        {{ account.description }}
-      </p>
+      <div
+        class="flex flex-col justify-center gap-4 ml-4"
+        :class="textColor"
+      >
+        <div
+          class="flex py-2 px-3 rounded-lg shadow-sm items-center gap-4"
+          :style="{backgroundColor: account.color}"
+        >
+          <div class="flex flex-col justify-center items-end my-1">
+            <h2 class="font-bold whitespace-nowrap text-lg my-0">
+              <Icon
+                :icon="account.icon"
+                class="inline text-xl"
+              />
+              {{ account.name }}
+            </h2>
+            <small class="font-extralight whitespace-nowrap">{{ account.type }}</small>
+          </div>
+          <span class="text-4xl font-light whitespace-nowrap tracking-tighter">
+            {{ useAgGridUtilites().currencyFormatterBare(store.getTotal()) }}
+          </span>
+        </div>
+      </div>
     </div>
   </Transition>
   <transaction-data-table :fields="['beneficiary', 'category']" />

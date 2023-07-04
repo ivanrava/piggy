@@ -102,6 +102,10 @@ export const useOperationsStore = defineStore('operations', {
         },
         showForm() {
             this.isShowForm = true;
+        },
+        getTotal(currentAccountId = null) {
+            return this.transactions.reduce((acc, curr) => curr.category.type == 'in' ? acc + Number(curr.amount) : acc - Number(curr.amount), 0) +
+                this.transfers.reduce((acc, curr) => useOperationHelpers.isOutTransfer(curr, currentAccountId) ? acc - Number(curr.amount) : acc + Number(curr.amount), 0)
         }
     }
 })

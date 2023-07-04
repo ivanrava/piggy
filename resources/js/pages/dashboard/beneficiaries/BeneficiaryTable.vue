@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
 import TransactionDataTable from "../../../components/TransactionDataTable.vue";
 import {Beneficiary} from "../../../composables/interfaces";
 import {useOperationsStore} from "../../../composables/useOperationsStore";
 import {Icon} from "@iconify/vue";
+import BeneficiaryImage from "../../../components/BeneficiaryImage.vue";
+import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
 
 const beneficiary = ref<Beneficiary>(null);
 const store = useOperationsStore();
@@ -33,18 +35,36 @@ onMounted(() => {
     </div>
     <div
       v-else
-      class="flex flex-col my-4"
+      class="flex w-full justify-between"
     >
-      <router-link
-        :to="`/beneficiaries/${beneficiary.id}`"
-        class="unstyled uppercase tracking-wider text-pink-800/50 hover:text-pink-800/90 focus:font-medium transition-all flex gap-2 items-center"
+      <div
+        class="flex flex-col my-4"
       >
-        <Icon icon="pajamas:go-back" />
-        Back to the beneficiary details
-      </router-link>
-      <h1 class="my-1">
-        Transactions under {{ beneficiary.name }}
-      </h1>
+        <router-link
+          :to="`/beneficiaries/${beneficiary.id}`"
+          class="unstyled uppercase tracking-wider text-pink-800/50 hover:text-pink-800/90 focus:font-medium transition-all flex gap-2 items-center"
+        >
+          <Icon icon="pajamas:go-back" />
+          Back to the beneficiary details
+        </router-link>
+        <h1 class="my-1">
+          Transactions under {{ beneficiary.name }}
+        </h1>
+      </div>
+      <div class="h-full flex flex-row-reverse gap-4">
+        <beneficiary-image
+          :beneficiary="beneficiary"
+          class="!h-24 !w-24"
+        />
+        <div class="flex flex-col justify-center items-end">
+          <h2 class="font-medium">
+            {{ beneficiary.name }}
+          </h2>
+          <span class="mb-2 text-2xl">
+            {{ useAgGridUtilites().currencyFormatterBare(store.getTotal()) }}
+          </span>
+        </div>
+      </div>
     </div>
   </Transition>
   <transaction-data-table :fields="['account', 'category']" />
