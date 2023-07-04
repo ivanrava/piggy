@@ -64,7 +64,7 @@ const totalTransactions = computed(() => {
           <a
             class="cursor-pointer flex flex-col justify-center !text-lg pt-2"
             role="button"
-            @click="store.editCategory()"
+            @click="store.editBeneficiary(beneficiary)"
           >
             <span>
               Edit
@@ -177,7 +177,7 @@ const totalTransactions = computed(() => {
         </Transition>
       </section>
     </Transition>
-    <beneficiary-form-wrapper />
+    <beneficiary-form-wrapper @update="beneficiary = $event;" />
   </div>
 </template>
 

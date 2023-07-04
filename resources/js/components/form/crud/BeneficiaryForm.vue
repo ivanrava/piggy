@@ -3,6 +3,9 @@ import BeneficiaryImage from "../../BeneficiaryImage.vue";
 import FormInput from "../inputs/FormInput.vue";
 import SubmitButton from "../inputs/SubmitButton.vue";
 import {computed, ref} from "vue";
+import {useBeneficiariesStore} from "../../../composables/useBeneficiariesStore";
+
+const store = useBeneficiariesStore();
 
 defineProps<{
   showForm: Boolean,
@@ -10,7 +13,6 @@ defineProps<{
     name: String
   }
 }>()
-const name = ref('');
 const domain = ref('');
 
 const beneficiaryType = ref('person');
@@ -29,25 +31,18 @@ const beneficiaryTypes = [
   }
 ]
 
-const imgForType = function(type) {
+const imgForType = computed(() => {
   const defaultStyles = {
     person: 'bottts',
     generic: 'shapes'
   }
-  if (type === 'company')
+  if (beneficiaryType.value === 'company')
     return 'https://logo.clearbit.com/'+domain.value
   else
-    return defaultStyles[type]
-}
-
-const form = computed(() => {
-  return {
-    name: name.value,
-    img: imgForType(beneficiaryType.value)
-  }
+    return defaultStyles[beneficiaryType.value]
 })
 
-defineEmits(['store', 'close'])
+defineEmits(['store', 'close', 'update'])
 </script>
 
 <template>
@@ -71,18 +66,18 @@ defineEmits(['store', 'close'])
           :key="t.id"
           class="m-2 pb-1 border-pink-100/20 text-pink-700/70 font-light border-b-2 transition-all rounded-none hover:border-red-700/60 hover:text-red-700"
           :class="{'!border-pink-700 !text-pink-950 !font-normal': t.id === beneficiaryType}"
-          @click="beneficiaryType = t.id"
+          @click="beneficiaryType = t.id; store.stagingBeneficiary.img = imgForType"
         >
           {{ t.display }}
         </button>
       </div>
       <form
         class="flex flex-wrap justify-start items-center h-24 gap-4"
-        @submit.prevent="$emit('store', form)"
+        @submit.prevent="store.isEditing ? $emit('update', store.stagingBeneficiary) : $emit('store', store.stagingBeneficiary)"
       >
         <beneficiary-image
           class="!w-20 !h-20"
-          :beneficiary="form"
+          :beneficiary="store.stagingBeneficiary"
         />
         <aside class="flex flex-row justify-center">
           <Transition
@@ -94,16 +89,16 @@ defineEmits(['store', 'close'])
               class="flex flex-row justify-around w-80"
             >
               <form-input
-                v-model="name"
+                v-model="store.stagingBeneficiary.name"
                 class="mr-4 !w-40"
                 label="Company name"
                 :errors="errors.name"
               />
               <form-input
-                v-if="beneficiaryType === 'company'"
-                v-model="domain"
+                :model-value="domain"
                 class="mr-4 !w-36"
                 label="Company domain"
+                @update:model-value="domain = $event; store.stagingBeneficiary.img = imgForType"
               />
             </div>
             <div
@@ -111,7 +106,7 @@ defineEmits(['store', 'close'])
               class="w-80"
             >
               <form-input
-                v-model="name"
+                v-model="store.stagingBeneficiary.name"
                 class="mr-4 !w-72"
                 label="Beneficiary name"
                 :errors="errors.name"
@@ -122,7 +117,7 @@ defineEmits(['store', 'close'])
               class="w-80"
             >
               <form-input
-                v-model="name"
+                v-model="store.stagingBeneficiary.name"
                 class="mr-4 !w-72"
                 label="Generic beneficiary name"
                 :errors="errors.name"

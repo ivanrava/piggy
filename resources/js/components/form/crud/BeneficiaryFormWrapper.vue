@@ -4,6 +4,7 @@ import SubmitButton from "../inputs/SubmitButton.vue";
 import {Icon} from "@iconify/vue";
 import axios from "axios";
 import BeneficiaryForm from "./BeneficiaryForm.vue";
+import {useBeneficiariesStore} from "../../../composables/useBeneficiariesStore";
 
 const showForm = ref(false);
 
@@ -12,15 +13,30 @@ interface StoreBeneficiaryPayload {
   img: string;
 }
 
-const emit = defineEmits(['store'])
+const store = useBeneficiariesStore();
+
+const emit = defineEmits(['store', 'update'])
 
 const loading = ref(false);
 const errors = ref({});
 const storeBeneficiary = function (payload: StoreBeneficiaryPayload) {
   loading.value = true;
   axios.post("/beneficiaries", payload).then(({data}) => {
-    showForm.value = false;
     emit('store', data.data)
+    store.closeForm();
+    errors.value = [];
+  }).catch(({response}) => {
+    errors.value = response.data.errors;
+  }).finally(() => {
+    loading.value = false;
+  })
+}
+const updateBeneficiary = function (payload: StoreBeneficiaryPayload) {
+  loading.value = true;
+  axios.put(`/beneficiaries/${store.stagingBeneficiary.id}`, payload).then(({data}) => {
+    emit('update', data.data)
+    store.updateBeneficiary(data.data);
+    store.closeForm();
     errors.value = [];
   }).catch(({response}) => {
     errors.value = response.data.errors;
@@ -32,10 +48,11 @@ const storeBeneficiary = function (payload: StoreBeneficiaryPayload) {
 
 <template>
   <beneficiary-form
-    :show-form="showForm"
+    :show-form="store.showForm"
     :errors="errors"
     @store="(form) => storeBeneficiary(form)"
-    @close="showForm = false"
+    @update="(form) => updateBeneficiary(form)"
+    @close="store.closeForm()"
   />
   <submit-button
     class="fixed right-12 bottom-12 flex items-center shadow-lg"
