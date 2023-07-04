@@ -6,7 +6,7 @@ import {Beneficiary} from "../../../composables/interfaces";
 import {useBeneficiariesStore} from "../../../composables/useBeneficiariesStore";
 import BeneficiaryImage from "../../../components/BeneficiaryImage.vue";
 import NoData from "../../../components/NoData.vue";
-import ChartPie from "../stats/ChartPie.vue";
+import ChartPie from "../../../components/stats/ChartPie.vue";
 import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
 import BeneficiaryFormWrapper from "../../../components/form/crud/BeneficiaryFormWrapper.vue";
 

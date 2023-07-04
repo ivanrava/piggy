@@ -156,7 +156,7 @@ import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
 import NoData from "../../../components/NoData.vue";
 import {useRoute} from "vue-router";
 import {Category} from "../../../composables/interfaces";
-import ChartPie from "../stats/ChartPie.vue";
+import ChartPie from "../../../components/stats/ChartPie.vue";
 
 const store = useCategoriesStore()
 const route = useRoute();

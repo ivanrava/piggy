@@ -3,7 +3,7 @@ import {computed, ref, watchEffect} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
 import NoData from "../../../components/NoData.vue";
-import ChartPie from "../stats/ChartPie.vue";
+import ChartPie from "../../../components/stats/ChartPie.vue";
 import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
 import {useAccountsStore} from "../../../composables/useAccountsStore";
 import {Account} from "../../../composables/interfaces";

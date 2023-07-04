@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ChartLineBar from "./ChartLineBar.vue";
+import ChartLineBar from "../../../components/stats/ChartLineBar.vue";
 import StatCard from "./StatCard.vue";
 import {ref, watchEffect} from "vue";
 import axios from "axios";

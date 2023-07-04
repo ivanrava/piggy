@@ -32,9 +32,9 @@ class CrossStats
     {
         return $transactions
             ->join('categories', 'categories.id', '=', 'transactions.category_id')
-            ->groupBy(['categories.name'])
+            ->groupBy(['categories.name', 'categories.type'])
             ->orderBy('categories.name')
-            ->selectRaw('categories.name, SUM(amount) as sum, COUNT(*) as count')
+            ->selectRaw('categories.name, categories.type, SUM(amount) as sum, COUNT(*) as count')
             ->get();
     }
 }
