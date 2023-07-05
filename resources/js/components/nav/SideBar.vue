@@ -8,6 +8,7 @@
       <side-bar-accounts v-else-if="useRoute().path.startsWith('/accounts')" />
       <side-bar-beneficiaries v-else-if="useRoute().path.startsWith('/beneficiaries')" />
       <side-bar-reports v-else-if="useRoute().path.startsWith('/report')" />
+      <side-bar-stats v-else-if="useRoute().path.startsWith('/charts')" />
     </Transition>
   </nav>
 </template>
@@ -18,6 +19,7 @@ import {useRoute} from "vue-router";
 import SideBarAccounts from "./SideBarAccounts.vue";
 import SideBarBeneficiaries from "./SideBarBeneficiaries.vue";
 import SideBarReports from "./SideBarReports.vue";
+import SideBarStats from "./SideBarStats.vue";
 
 </script>
 
