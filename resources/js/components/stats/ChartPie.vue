@@ -21,7 +21,7 @@ const options = computed(() => {
     plugins: {
       colors:{enabled: true},
       legend:{display:false},
-      title:{text:props.title,display:true,font:{size:22,weight:'',family:'Inter'}}
+      title:{title:props.title,display:props.title.length > 0,font:{size:22,weight:'',family:'Inter'}}
     }
   };
 })

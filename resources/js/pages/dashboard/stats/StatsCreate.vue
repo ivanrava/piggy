@@ -5,8 +5,17 @@ import TopListChart from "./TopListChart.vue";
 import {computed, ref} from "vue";
 import InOutHistoryForm from "./InOutHistoryForm.vue";
 import InOutHistoryChart from "./InOutHistoryChart.vue";
+import PieChartWrapper from "./PieChartWrapper.vue";
+import PieForm from "./PieForm.vue";
 
 const forms = ref({
+  pie: {
+    interval: 'year',
+    stat: 'sum',
+    filter: 'accounts',
+    filter_id: null,
+    filter_group: 'accounts'
+  },
   list: {
     interval: 'all',
     filter: 'beneficiaries',
@@ -14,10 +23,11 @@ const forms = ref({
   },
   inOutHistory: {
     interval: 'year',
+    // TODO: insert stat
     kind: 'line',
     filter: 'all',
     filter_id: null,
-  }
+  },
 });
 const currentFormIndex = ref(0);
 const availableForms = computed(() => {
@@ -28,7 +38,8 @@ const currentForm = computed(() => {
 })
 const titles = {
   list: 'Top List',
-  inOutHistory: 'In/Out History'
+  inOutHistory: 'In/Out History',
+  pie: 'Pie Chart'
 }
 const disabledClassesIf = (disabledCondition: boolean) => {
   return disabledCondition ? 'disabled' : 'cursor-pointer';
@@ -46,6 +57,10 @@ const disabledClassesIf = (disabledCondition: boolean) => {
         v-else-if="currentForm === 'inOutHistory'"
         :form="forms.inOutHistory"
       />
+      <pie-chart-wrapper
+        v-else-if="currentForm === 'pie'"
+        :form="forms.pie"
+      />
     </aside>
     <stat-form :title="titles[currentForm]">
       <top-list-form
@@ -55,6 +70,10 @@ const disabledClassesIf = (disabledCondition: boolean) => {
       <in-out-history-form
         v-else-if="currentForm === 'inOutHistory'"
         v-model="forms.inOutHistory"
+      />
+      <pie-form
+        v-else-if="currentForm === 'pie'"
+        v-model="forms.pie"
       />
       <div class="flex justify-between mt-3.5">
         <a

@@ -76,7 +76,7 @@ const data = computed(() => {
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative w-full h-full">
     <div
       v-if="datasets.length == 0"
       class="absolute w-full h-full"
@@ -89,11 +89,13 @@ const data = computed(() => {
     </div>
     <Line
       v-if="isLine"
+      class="absolute top-1/2 -translate-y-1/2"
       :options="{responsive:true}"
       :data="data"
     />
     <Bar
       v-else
+      class="absolute top-1/2 -translate-y-1/2"
       :options="{responsive:true}"
       :data="data"
     />

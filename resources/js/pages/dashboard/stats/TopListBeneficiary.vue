@@ -43,7 +43,7 @@ const descriptions = {
     >
       <ul
         v-if="!isLoading"
-        class="flex flex-col justify-around flex-grow"
+        class="flex flex-col justify-around flex-grow h-full"
       >
         <li
           v-for="b in top"
@@ -60,7 +60,7 @@ const descriptions = {
       </ul>
       <ul
         v-else
-        class="flex flex-col justify-around flex-grow"
+        class="flex flex-col justify-around flex-grow h-full"
       >
         <card-row-skeleton />
         <card-row-skeleton />

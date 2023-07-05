@@ -42,14 +42,14 @@ const value = computed({
         :key="option.id"
       >
         <input
-          :id="option.id"
+          :id="option.id+label"
           v-model="value"
           type="radio"
           :value="option.id"
           class="mr-1"
         >
         <label
-          :for="option.id"
+          :for="option.id+label"
           class="cursor-pointer"
         >
           {{ option.display }}
