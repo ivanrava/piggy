@@ -15,6 +15,9 @@
     a:not(li > a):not(.unstyled) {
         @apply underline text-gray-400 text-xs hover:text-stone-600 transition-all focus:decoration-dotted outline-none focus:outline-none focus:text-pink-950;
     }
+    a.disabled {
+        @apply opacity-40 hover:!text-gray-400;
+    }
 }
 
 /* Global fade animations, used in Vue transitions */

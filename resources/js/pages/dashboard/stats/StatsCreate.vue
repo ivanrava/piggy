@@ -2,7 +2,7 @@
 import TopListForm from "./TopListForm.vue";
 import StatForm from "./StatForm.vue";
 import TopListChart from "./TopListChart.vue";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import InOutHistoryForm from "./InOutHistoryForm.vue";
 import InOutHistoryChart from "./InOutHistoryChart.vue";
 
@@ -20,10 +20,19 @@ const forms = ref({
     }
   }
 });
-const currentForm = ref('topList');
+const currentFormIndex = ref(0);
+const availableForms = computed(() => {
+  return Object.keys(forms.value);
+})
+const currentForm = computed(() => {
+  return availableForms.value[currentFormIndex.value];
+})
 const titles = {
   topList: 'Top List',
   inOutHistory: 'In/Out History'
+}
+const disabledClassesIf = (disabledCondition: boolean) => {
+  return disabledCondition ? 'disabled' : 'cursor-pointer';
 }
 </script>
 
@@ -50,12 +59,12 @@ const titles = {
       />
       <div class="flex justify-between mt-3.5">
         <a
-          class="cursor-pointer"
-          @click="currentForm = 'topList'"
+          :class="disabledClassesIf(currentFormIndex == 0)"
+          @click="currentFormIndex = currentFormIndex == 0 ? currentFormIndex : currentFormIndex-1"
         >&#10094; Previous statistic</a>
         <a
-          class="cursor-pointer"
-          @click="currentForm = 'inOutHistory'"
+          :class="disabledClassesIf(currentFormIndex == availableForms.length-1)"
+          @click="currentFormIndex = currentFormIndex == availableForms.length-1 ? currentFormIndex : currentFormIndex+1"
         >Next statistic &#10095;</a>
       </div>
     </stat-form>
