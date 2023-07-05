@@ -20,7 +20,9 @@ const props = defineProps<{
     type: String
   }>
   dateFormat: Intl.DateTimeFormatOptions
-  isLine: Boolean
+  isLine: Boolean,
+  inTooltip: string
+  outTooltip: string
 }>()
 
 const toChartDataset = (categoryType) => {
@@ -45,14 +47,14 @@ const labels = computed(() => {
 })
 const datasets = computed(() => {
   const datasetIn = {
-    label: 'Total incomes',
+    label: props.inTooltip,
     data: toChartDataset('in'),
     borderColor: 'rgb(75,192,157)',
     backgroundColor: '#9ce7c4',
     tension: tension
   };
   const datasetOut = {
-    label: 'Total expenses',
+    label: props.outTooltip,
     data: toChartDataset('out'),
     borderColor: '#ff6384',
     backgroundColor: '#fcb6c5',
@@ -73,6 +75,22 @@ const data = computed(() => {
     datasets: datasets.value
   }
 });
+const options = {
+  responsive: true,
+  scales: {
+    y: {
+      ticks: {
+        min: 0,
+        beginAtZero: true,
+        callback: function(value, index, values) {
+          if (Math.floor(value) === value) {
+            return value;
+          }
+        }
+      }
+    }
+  }
+}
 </script>
 
 <template>
@@ -90,13 +108,13 @@ const data = computed(() => {
     <Line
       v-if="isLine"
       class="absolute top-1/2 -translate-y-1/2"
-      :options="{responsive:true}"
+      :options="options"
       :data="data"
     />
     <Bar
       v-else
       class="absolute top-1/2 -translate-y-1/2"
-      :options="{responsive:true}"
+      :options="options"
       :data="data"
     />
   </div>

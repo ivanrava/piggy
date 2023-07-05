@@ -121,4 +121,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Transfer::class);
     }
+
+    public function charts(): HasMany
+    {
+        return $this->hasMany(Chart::class);
+    }
 }

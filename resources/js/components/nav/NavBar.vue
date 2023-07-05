@@ -73,8 +73,8 @@ const links = [
   },
   {
     icon: 'fluent:data-pie-20-filled',
-    name: 'Statistics',
-    href: '/stats'
+    name: 'Charts',
+    href: '/charts'
   }
 ]
 </script>

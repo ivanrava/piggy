@@ -52,6 +52,12 @@ const dateFormats = {
   month: {month:'short', year:'numeric'},
   year: {year:'numeric'}
 }
+const tooltipsForStats = {
+  sum:{out:'Total expenses',in:'Total incomes'},
+  max:{out:'Maximum expense',in:'Maximum income'},
+  avg:{out:'Average expense',in:'Average income'},
+  count:{out:'# expenses',in:'# incomes'}
+}
 </script>
 
 <template>
@@ -65,6 +71,8 @@ const dateFormats = {
       })"
       :date-format="dateFormats[form.interval]"
       :is-line="form.kind === 'line'"
+      :in-tooltip="tooltipsForStats[form.stat].in"
+      :out-tooltip="tooltipsForStats[form.stat].out"
     />
   </stat-card>
 </template>

@@ -48,7 +48,8 @@ const timeDescription = computed(() => {
     >
       <ul
         v-if="!isLoading"
-        class="flex flex-col justify-around flex-grow h-full"
+        class="flex flex-col flex-grow h-full"
+        :class="top.length > 4 ? 'justify-around' : 'justify-start gap-2'"
       >
         <li
           v-for="a in top"

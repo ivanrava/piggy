@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
                 TransactionSeeder::seed($account, $user);
                 TransferSeeder::seed($account, $user);
             });
+            ChartSeeder::seed($user);
         });
     }
 }

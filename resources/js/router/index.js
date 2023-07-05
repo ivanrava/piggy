@@ -130,11 +130,20 @@ const routes = [
                 }
             },
             {
-                name: 'stats',
-                path: '/stats',
+                name: 'charts',
+                path: '/charts',
+                component: () => import('@/pages/dashboard/stats/StatsIndex.vue'),
+                meta: {
+                    title: 'Your charts',
+                    requiresAuth: true
+                }
+            },
+            {
+                name: 'charts.create',
+                path: '/charts/create',
                 component: () => import('@/pages/dashboard/stats/StatsCreate.vue'),
                 meta: {
-                    title: 'New statistic',
+                    title: 'New chart',
                     requiresAuth: true
                 }
             },

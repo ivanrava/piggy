@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import StatCard from "./StatCard.vue";
 import ChartPie from "../../../components/stats/ChartPie.vue";
-import {computed, ref, watchEffect} from "vue";
+import {ref, watchEffect} from "vue";
 import axios from "axios";
 
 const props = defineProps<{
@@ -60,6 +60,7 @@ const descriptions = {
 <template>
   <stat-card :title="title + ' ' + intervalDescs[form.interval]">
     <chart-pie
+      v-if="top.length > 0"
       title=""
       :data="top.map(value => {
         return {
@@ -69,6 +70,16 @@ const descriptions = {
       })"
       :tooltip="descriptions[form.stat]"
     />
+    <div
+      v-else
+      class="w-full h-full"
+    >
+      <div class="flex h-full justify-center items-center">
+        <span class="opacity-60 text-xl tracking-wide">
+          No data found
+        </span>
+      </div>
+    </div>
   </stat-card>
 </template>
 
