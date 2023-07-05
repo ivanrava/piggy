@@ -3,7 +3,7 @@ import StatCard from "./StatCard.vue";
 import AccountCard from "../../../components/AccountCard.vue";
 import CardRowSkeleton from "./CardRowSkeleton.vue";
 import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
-import {ref, watchEffect} from "vue";
+import {computed, ref, watchEffect} from "vue";
 import axios from "axios";
 const props = defineProps<{
   stat: string,
@@ -32,10 +32,16 @@ const descriptions = {
   count: 'Number of transactions',
   sum: 'Total transactions'
 }
+const timeDescription = computed(() => {
+  if (props.interval !== 'all')
+    return ` (last ${props.interval})`
+
+  return ' '
+})
 </script>
 
 <template>
-  <stat-card :title="descriptions[stat]">
+  <stat-card :title="descriptions[stat] + timeDescription">
     <Transition
       mode="out-in"
       name="fade"

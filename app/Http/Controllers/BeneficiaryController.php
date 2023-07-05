@@ -7,6 +7,7 @@ use App\Http\Requests\StoreBeneficiaryRequest;
 use App\Http\Resources\BeneficiaryResource;
 use App\Models\Beneficiary;
 use App\Models\Stats\CrossStats;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -63,11 +64,29 @@ class BeneficiaryController extends Controller
 
     public function stats_categories(AuthorizeBeneficiaryRequest $request, Beneficiary $beneficiary): Collection|Response|array
     {
-        return CrossStats::get_category_stats_for($beneficiary->transactions());
+        return CrossStats::get_category_stats_for(
+            $beneficiary->transactions()
+                ->when($request->interval != 'all', function ($query) use ($request) {
+                    if ($request->interval == 'year')
+                        return $query->where('date', '>=', Carbon::now()->subYear());
+                    if ($request->interval == 'month')
+                        return $query->where('date', '>=', Carbon::now()->subMonth());
+                    return $query;
+                })
+        );
     }
 
     public function stats_accounts(AuthorizeBeneficiaryRequest $request, Beneficiary $beneficiary): Collection|Response|array
     {
-        return CrossStats::get_account_stats_for($beneficiary->transactions());
+        return CrossStats::get_account_stats_for(
+            $beneficiary->transactions()
+                ->when($request->interval != 'all', function ($query) use ($request) {
+                    if ($request->interval == 'year')
+                        return $query->where('date', '>=', Carbon::now()->subYear());
+                    if ($request->interval == 'month')
+                        return $query->where('date', '>=', Carbon::now()->subMonth());
+                    return $query;
+                })
+        );
     }
 }

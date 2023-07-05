@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BeneficiaryImage from "../../../components/BeneficiaryImage.vue";
-import {ref, watchEffect} from "vue";
+import {computed, ref, watchEffect} from "vue";
 import axios from "axios";
 import CardRowSkeleton from "./CardRowSkeleton.vue";
 import StatCard from "./StatCard.vue";
@@ -33,10 +33,16 @@ const descriptions = {
   count: 'Number of transactions',
   sum: 'Total transactions'
 }
+const timeDescription = computed(() => {
+  if (props.interval !== 'all')
+    return ` (last ${props.interval})`
+
+  return ' '
+})
 </script>
 
 <template>
-  <stat-card :title="descriptions[stat]">
+  <stat-card :title="descriptions[stat] + timeDescription">
     <Transition
       mode="out-in"
       name="fade"

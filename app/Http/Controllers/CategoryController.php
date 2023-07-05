@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use App\Models\Stats\CrossStats;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -77,11 +78,29 @@ class CategoryController extends Controller
 
     public function stats_beneficiaries(AuthorizeCategoryRequest $request, Category $category): Collection|Response|array
     {
-        return CrossStats::get_beneficiary_stats_for($category->transactions_full_with_children());
+        return CrossStats::get_beneficiary_stats_for(
+            $category->transactions_full_with_children()
+                ->when($request->interval != 'all', function ($query) use ($request) {
+                    if ($request->interval == 'year')
+                        return $query->where('date', '>=', Carbon::now()->subYear());
+                    if ($request->interval == 'month')
+                        return $query->where('date', '>=', Carbon::now()->subMonth());
+                    return $query;
+                })
+        );
     }
 
     public function stats_accounts(AuthorizeCategoryRequest $request, Category $category): Collection|Response|array
     {
-        return CrossStats::get_account_stats_for($category->transactions_full_with_children());
+        return CrossStats::get_account_stats_for(
+            $category->transactions_full_with_children()
+                ->when($request->interval != 'all', function ($query) use ($request) {
+                    if ($request->interval == 'year')
+                        return $query->where('date', '>=', Carbon::now()->subYear());
+                    if ($request->interval == 'month')
+                        return $query->where('date', '>=', Carbon::now()->subMonth());
+                    return $query;
+                })
+        );
     }
 }
