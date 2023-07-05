@@ -7,6 +7,7 @@ import {ref, watchEffect} from "vue";
 import axios from "axios";
 const props = defineProps<{
   stat: string,
+  interval: string
 }>();
 
 const top = ref([]);
@@ -15,7 +16,8 @@ watchEffect(() => {
   isLoading.value = true;
   axios.get(`/stats/accounts/top`, {
     params:{
-      stat: props.stat
+      stat: props.stat,
+      interval: props.interval
     }})
     .then(({data}) => {
       top.value = data

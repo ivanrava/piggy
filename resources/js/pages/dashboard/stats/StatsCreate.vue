@@ -8,6 +8,7 @@ import InOutHistoryChart from "./InOutHistoryChart.vue";
 
 const forms = ref({
   list: {
+    interval: 'all',
     filter: 'beneficiaries',
     stat: 'sum'
   },

@@ -30,6 +30,11 @@ const optionsStats = ref([
   {id:'avg',display:'Average'},
   {id:'max',display:'Maximum'},
 ])
+const optionsInterval = ref([
+  {id:'all',display:'All time'},
+  {id:'year',display:'Last year'},
+  {id:'month',display:'Last month'},
+])
 </script>
 
 <template>
@@ -38,6 +43,11 @@ const optionsStats = ref([
     according to the global amount of money moved under the specified domain.
   </p>
   <div class="flex gap-16">
+    <radio-input
+      v-model="form.interval"
+      label="Timeframe"
+      :options="optionsInterval"
+    />
     <radio-input
       v-model="form.filter"
       label="Domain"

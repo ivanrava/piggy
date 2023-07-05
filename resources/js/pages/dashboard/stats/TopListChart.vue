@@ -7,6 +7,7 @@ defineProps<{
   form: {
     filter: string,
     stat: string,
+    interval: string
   }
 }>();
 </script>
@@ -19,14 +20,17 @@ defineProps<{
     <top-list-beneficiary
       v-if="form.filter == 'beneficiaries'"
       :stat="form.stat"
+      :interval="form.interval"
     />
     <top-list-category
       v-else-if="form.filter == 'categories'"
       :stat="form.stat"
+      :interval="form.interval"
     />
     <top-list-account
       v-else-if="form.filter == 'accounts'"
       :stat="form.stat"
+      :interval="form.interval"
     />
   </Transition>
 </template>

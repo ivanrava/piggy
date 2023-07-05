@@ -79,6 +79,13 @@ class StatsController extends Controller
         return $request->user()
             ->transactions()
             ->join('beneficiaries', 'beneficiaries.id', '=', 'transactions.beneficiary_id')
+            ->when($request->interval != 'all', function ($query) use ($request) {
+                if ($request->interval == 'year')
+                    return $query->where('date', '>=', Carbon::now()->subYear());
+                if ($request->interval == 'month')
+                    return $query->where('date', '>=', Carbon::now()->subMonth());
+                return $query;
+            })
             ->selectRaw('count(*)')
             ->selectRaw('avg(transactions.amount)')
             ->selectRaw('min(transactions.amount)')
@@ -99,6 +106,13 @@ class StatsController extends Controller
         return $request->user()
             ->transactions()
             ->join('categories', 'categories.id', '=', 'transactions.category_id')
+            ->when($request->interval != 'all', function ($query) use ($request) {
+                if ($request->interval == 'year')
+                    return $query->where('date', '>=', Carbon::now()->subYear());
+                if ($request->interval == 'month')
+                    return $query->where('date', '>=', Carbon::now()->subMonth());
+                return $query;
+            })
             ->selectRaw('count(*)')
             ->selectRaw('avg(transactions.amount)')
             ->selectRaw('min(transactions.amount)')
@@ -121,6 +135,13 @@ class StatsController extends Controller
             ->transactions()
             ->join('accounts', 'accounts.id', '=', 'transactions.account_id')
             ->join('account_types', 'account_types.id', '=', 'accounts.account_type_id')
+            ->when($request->interval != 'all', function ($query) use ($request) {
+                if ($request->interval == 'year')
+                    return $query->where('date', '>=', Carbon::now()->subYear());
+                if ($request->interval == 'month')
+                    return $query->where('date', '>=', Carbon::now()->subMonth());
+                return $query;
+            })
             ->selectRaw('count(*)')
             ->selectRaw('avg(transactions.amount)')
             ->selectRaw('min(transactions.amount)')

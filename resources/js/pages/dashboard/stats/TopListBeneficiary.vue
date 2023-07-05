@@ -8,6 +8,7 @@ import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
 
 const props = defineProps<{
   stat: string,
+  interval: string
 }>();
 
 const top = ref([]);
@@ -16,7 +17,8 @@ watchEffect(() => {
   isLoading.value = true;
   axios.get(`/stats/beneficiaries/top`, {
     params:{
-      stat: props.stat
+      stat: props.stat,
+      interval: props.interval
     }})
     .then(({data}) => {
       top.value = data
