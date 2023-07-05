@@ -22,9 +22,18 @@ class ChartController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreChartRequest $request)
+    public function store(StoreChartRequest $request): ChartResource
     {
-        //
+        $chart = new Chart();
+        $chart->user_id = $request->user()->id;
+        $chart->kind = $request->kind;
+        $chart->interval = $request->interval;
+        $chart->stat = $request->stat;
+        $chart->filter = $request->filter;
+        $chart->filter_id = $request->filter_id;
+        $chart->filter_group = $request->filter_group;
+        $chart->save();
+        return new ChartResource($chart);
     }
 
     /**

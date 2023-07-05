@@ -23,7 +23,7 @@ class StoreChartRequest extends FormRequest
     {
         return [
             'kind' => 'required|in:line,bar,pie,list',
-            'interval' => 'required|in:year,month',
+            'interval' => 'required|in:all,year,month',
             'stat' => 'required|in:sum,avg,count,min,max',
             # FIXME: allow all only for 'bar' and 'line'
             'filter' => 'required|in:all,categories,beneficiaries,accounts',
@@ -31,7 +31,6 @@ class StoreChartRequest extends FormRequest
             'filter_id' => 'nullable',
             # FIXME
             'filter_type' => 'nullable|in:categories,beneficiaries,accounts',
-            'favorite' => 'nullable'
         ];
     }
 }

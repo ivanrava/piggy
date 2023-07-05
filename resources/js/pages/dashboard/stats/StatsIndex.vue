@@ -17,7 +17,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-wrap justify-around gap-2">
+  <div class="flex flex-wrap justify-start gap-2">
     <generic-chart-wrapper
       v-for="chartForm in charts"
       :key="chartForm.id"

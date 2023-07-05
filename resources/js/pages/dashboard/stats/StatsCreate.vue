@@ -11,6 +11,7 @@ import PieForm from "./PieForm.vue";
 const forms = ref({
   pie: {
     interval: 'year',
+    kind: 'pie',
     stat: 'sum',
     filter: 'accounts',
     filter_id: null,
@@ -18,6 +19,7 @@ const forms = ref({
   },
   list: {
     interval: 'all',
+    kind: 'list',
     filter: 'beneficiaries',
     stat: 'sum'
   },
@@ -44,6 +46,16 @@ const titles = {
 const disabledClassesIf = (disabledCondition: boolean) => {
   return disabledCondition ? 'disabled' : 'cursor-pointer';
 }
+const stagingForm = computed(() => {
+  if (currentForm.value === 'list')
+    return forms.value.list
+  if (currentForm.value === 'inOutHistory')
+    return forms.value.inOutHistory
+  if (currentForm.value === 'pie')
+    return forms.value.pie
+
+  return {}
+})
 </script>
 
 <template>
@@ -62,7 +74,10 @@ const disabledClassesIf = (disabledCondition: boolean) => {
         :form="forms.pie"
       />
     </aside>
-    <stat-form :title="titles[currentForm]">
+    <stat-form
+      :title="titles[currentForm]"
+      :form="stagingForm"
+    >
       <top-list-form
         v-if="currentForm === 'list'"
         v-model="forms.list"
