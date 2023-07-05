@@ -6,6 +6,7 @@ import axios from "axios";
 
 const props = defineProps<{
   form: {
+    favorite: boolean
     kind: string
     interval: string
     stat: string
@@ -61,7 +62,10 @@ const tooltipsForStats = {
 </script>
 
 <template>
-  <stat-card :title="title">
+  <stat-card
+    :favorite="form.favorite"
+    :title="title"
+  >
     <chart-line-bar
       :data="transactions.map(value => {
         return {

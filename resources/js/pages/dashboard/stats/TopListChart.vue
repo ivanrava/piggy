@@ -5,6 +5,7 @@ import TopListAccount from "./TopListAccount.vue";
 
 defineProps<{
   form: {
+    favorite: boolean
     filter: string,
     stat: string,
     interval: string
@@ -19,16 +20,19 @@ defineProps<{
   >
     <top-list-beneficiary
       v-if="form.filter == 'beneficiaries'"
+      :favorite="form.favorite"
       :stat="form.stat"
       :interval="form.interval"
     />
     <top-list-category
       v-else-if="form.filter == 'categories'"
+      :favorite="form.favorite"
       :stat="form.stat"
       :interval="form.interval"
     />
     <top-list-account
       v-else-if="form.filter == 'accounts'"
+      :favorite="form.favorite"
       :stat="form.stat"
       :interval="form.interval"
     />

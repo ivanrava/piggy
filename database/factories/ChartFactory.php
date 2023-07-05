@@ -30,7 +30,8 @@ class ChartFactory extends Factory
             'kind' => 'list',
             'interval' => fake()->randomElement(['all', 'year', 'month']),
             'stat' => fake()->randomElement(['sum', 'count', 'avg', 'max']),
-            'filter' => fake()->randomElement(['accounts', 'beneficiaries', 'categories'])
+            'filter' => fake()->randomElement(['accounts', 'beneficiaries', 'categories']),
+            'favorite' => fake()->randomElement([true, false])
         ];
     }
 
@@ -42,6 +43,7 @@ class ChartFactory extends Factory
             'interval' => fake()->randomElement(['month', 'year']),
             'stat' => fake()->randomElement(['sum', 'count', 'avg', 'max']),
             'filter' => $filter,
+            'favorite' => fake()->randomElement([true, false])
         ];
     }
 
@@ -53,6 +55,7 @@ class ChartFactory extends Factory
             'interval' => fake()->randomElement(['all', 'month', 'year']),
             'stat' => fake()->randomElement(['sum', 'count', 'avg', 'max']),
             'filter' => $filter,
+            'favorite' => fake()->randomElement([true, false])
         ];
     }
 }

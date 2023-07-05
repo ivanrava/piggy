@@ -9,6 +9,7 @@ import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
 const props = defineProps<{
   stat: string,
   interval: string
+  favorite: boolean
 }>();
 
 const top = ref([]);
@@ -42,13 +43,16 @@ const timeDescription = computed(() => {
 </script>
 
 <template>
-  <stat-card :title="descriptions[stat] + timeDescription">
+  <stat-card
+    :favorite="favorite"
+    :title="descriptions[stat] + timeDescription"
+  >
     <Transition
       mode="out-in"
       name="fade"
     >
       <ul
-        v-if="!isLoading"
+        v-if="!isLoading && top.length > 0"
         class="flex flex-col flex-grow h-full"
         :class="top.length > 4 ? 'justify-around' : 'justify-start gap-2'"
       >
@@ -63,6 +67,11 @@ const timeDescription = computed(() => {
           />
           <span class="font-semibold text-slate-700 text-xs w-full overflow-hidden text-ellipsis whitespace-nowrap">{{ b.name }}</span>
           <span class="font-light pr-2 pl-6 whitespace-nowrap">{{ stat != 'count' ? useAgGridUtilites().currencyFormatterBare(Number(b[stat])) : b[stat] }}</span>
+        </li>
+      </ul>
+      <ul v-else-if="top.length == 0">
+        <li class="opacity-60 tracking-wide text-xl">
+          No data found
         </li>
       </ul>
       <ul
