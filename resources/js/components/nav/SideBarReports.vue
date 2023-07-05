@@ -1,14 +1,24 @@
 <script setup lang="ts">
+import SideBarGeneric from "./SideBarGeneric.vue";
 
+const links = [
+  {
+    name: 'Categories',
+    to: '/report',
+    description: 'Get a glimpse of the categories. Expenses VS Incomes'
+  },
+  {
+    name: 'Beneficiaries',
+    to: '/report/beneficiaries',
+    description: 'Get a glimpse of the beneficiaries.'
+  }
+]
 </script>
 
 <template>
   <section>
-    <ul class="text-lg">
-      <li>Categories</li>
-      <li>Beneficiaries</li>
-    </ul>
-    <p class="text-sm tracking-tighter text-center text-stone-900/60 my-8">
+    <side-bar-generic :links="links" />
+    <p class="text-sm tracking-tighter text-center text-stone-900/60 my-32">
       Looking for more reports?
       Did you know that most of the pages are <i>printable by default</i>?
       <br>
