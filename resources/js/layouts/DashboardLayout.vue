@@ -3,8 +3,14 @@
     <nav-bar class="h-14 print:hidden" />
     <section class="px-3 pb-3 pt-1.5 grow min-h-0">
       <div class="flex w-full h-full bg-pink-200/50 rounded-3xl shadow-inner">
-        <side-bar class="rounded-l-3xl w-1/5 print:hidden" />
-        <main class="w-full bg-stone-200 rounded-r-3xl overflow-scroll print:overflow-visible">
+        <side-bar
+          v-if="useRoute().path !== '/home'"
+          class="rounded-l-3xl w-1/5 print:hidden"
+        />
+        <main
+          :class="useRoute().path === '/home' ? 'rounded-l-3xl pl-2' : ''"
+          class="w-full bg-stone-200 rounded-r-3xl overflow-scroll print:overflow-visible"
+        >
           <router-view
             v-slot="{ Component, route }"
             class="flex w-full"
@@ -31,9 +37,11 @@
 import {defineComponent} from "vue";
 import NavBar from "../components/nav/NavBar.vue";
 import SideBar from "../components/nav/SideBar.vue";
+import {useRoute} from "vue-router";
 
 export default defineComponent({
-  components: {SideBar, NavBar}
+  components: {SideBar, NavBar},
+  methods: {useRoute}
 })
 </script>
 

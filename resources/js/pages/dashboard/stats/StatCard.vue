@@ -34,9 +34,9 @@ const toggleFavorite = () => {
         {{ title }}
       </h2>
       <Icon
-        :icon="(toggle ? favorite : !favorite) ? 'fe:star' : 'mdi-light:star'"
+        :icon="(toggle ? !favorite : favorite) ? 'fe:star' : 'mdi-light:star'"
         class="text-lg cursor-pointer transition-all"
-        :class="(toggle ? favorite : !favorite) ? 'opacity-80 hover:opacity-50' : 'opacity-50 hover:opacity-90'"
+        :class="(toggle ? !favorite : favorite) ? 'opacity-80 hover:opacity-50' : 'opacity-50 hover:opacity-90'"
         @click="toggleFavorite"
       />
     </div>

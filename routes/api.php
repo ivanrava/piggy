@@ -60,5 +60,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('transactions', TransactionController::class);
     Route::apiResource('transfers', TransferController::class);
+    Route::get('/charts/favorites', [ChartController::class, 'favorites']);
     Route::apiResource('charts', ChartController::class);
 });

@@ -19,6 +19,11 @@ class ChartController extends Controller
         return ChartResource::collection($request->user()->charts()->get());
     }
 
+    public function favorites(Request $request): AnonymousResourceCollection
+    {
+        return ChartResource::collection($request->user()->charts()->where('favorite', true)->get());
+    }
+
     /**
      * Store a newly created resource in storage.
      */
