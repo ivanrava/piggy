@@ -87,7 +87,7 @@ class StatsController extends Controller
             ->selectRaw('beneficiaries.name')
             ->selectRaw('beneficiaries.img')
             ->groupBy(['beneficiaries.name', 'beneficiaries.img'])
-            ->orderBy('count', 'DESC')
+            ->orderBy('sum', 'DESC')
             ->when(Str($request->path())->endsWith('top'), fn ($query) => $query->take(5))
             ->get()
             ->makeHidden(['beneficiary'])
