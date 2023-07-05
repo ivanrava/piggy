@@ -70,6 +70,12 @@ watch(() => form.value.filter, updateId, {deep: true})
 watch(account_id, (newId) => form.value.filter_id = newId)
 watch(category_id, (newId) => form.value.filter_id = newId)
 watch(beneficiary_id, (newId) => form.value.filter_id = newId)
+const optionsStats = ref([
+  {id:'sum',display:'Sum'},
+  {id:'count',display:'Count'},
+  {id:'avg',display:'Average'},
+  {id:'max',display:'Maximum'},
+])
 </script>
 
 <template>
@@ -87,6 +93,13 @@ watch(beneficiary_id, (newId) => form.value.filter_id = newId)
       label="Kind"
       :options="[{id:'line',display:'Line'},{id:'bar',display:'Bar'}]"
     />
+    <radio-input
+      v-model="form.stat"
+      label="Statistic"
+      :options="optionsStats"
+    />
+  </div>
+  <div class="flex gap-20">
     <radio-input
       v-model="form.filter"
       label="Filter by"

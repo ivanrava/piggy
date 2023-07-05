@@ -23,7 +23,7 @@ const forms = ref({
   },
   inOutHistory: {
     interval: 'year',
-    // TODO: insert stat
+    stat: 'sum',
     kind: 'line',
     filter: 'all',
     filter_id: null,

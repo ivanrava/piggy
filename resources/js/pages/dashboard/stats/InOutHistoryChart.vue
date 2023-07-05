@@ -6,9 +6,10 @@ import axios from "axios";
 
 const props = defineProps<{
   form: {
-    kind: String,
-    interval: String
-    filter: String,
+    kind: string
+    interval: string
+    stat: string
+    filter: string
     filter_id: number
   },
 }>()
@@ -20,7 +21,11 @@ watchEffect(() => {
     return
 
   const suffix = props.form.filter === 'all' ? '' : `/${props.form.filter}/${props.form.filter_id}`
-  axios.get(`/stats/${props.form.interval}${suffix}`)
+  axios.get(`/stats/${props.form.interval}${suffix}`,{
+    params: {
+      stat: props.form.stat
+    }
+  })
     .then(({data}) => {
       transactions.value = data
       // Take the last time points
@@ -52,7 +57,12 @@ const dateFormats = {
 <template>
   <stat-card :title="title">
     <chart-line-bar
-      :data="transactions"
+      :data="transactions.map(value => {
+        return {
+          ...value,
+          sum: value[form.stat]
+        }
+      })"
       :date-format="dateFormats[form.interval]"
       :is-line="form.kind === 'line'"
     />
