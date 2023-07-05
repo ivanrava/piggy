@@ -27,7 +27,7 @@
         </ul>
       </nav>
     </div>
-    <search-bar />
+    <search-bar class="hidden" />
     <router-link
       class="p-6 !text-lg !text-slate-800 hover:!text-stone-600 tracking-widest font-light uppercase"
       to="/logout"
