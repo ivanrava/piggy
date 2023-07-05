@@ -11,7 +11,7 @@ class UpdateChartRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->id == $this->chart->user_id;
     }
 
     /**

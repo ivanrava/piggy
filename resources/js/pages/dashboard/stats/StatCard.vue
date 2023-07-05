@@ -1,10 +1,30 @@
 <script setup lang="ts">
 import {Icon} from "@iconify/vue";
+import {ref} from "vue";
+import axios from "axios";
 
-defineProps<{
+const props = defineProps<{
   title: string
   favorite: boolean
+  id: number
 }>();
+
+const toggle = ref(false);
+const isLoading = ref(false);
+const toggleFavorite = () => {
+  if (isLoading.value)
+    return
+
+  isLoading.value = true;
+  toggle.value = !toggle.value;
+  axios.put(`/charts/${props.id}`)
+    .catch((error) => {
+      console.log(error)
+    })
+    .finally(() => {
+      isLoading.value = false;
+  })
+}
 </script>
 
 <template>
@@ -14,9 +34,10 @@ defineProps<{
         {{ title }}
       </h2>
       <Icon
-        :icon="favorite ? 'fe:star' : 'mdi-light:star'"
+        :icon="(toggle ? favorite : !favorite) ? 'fe:star' : 'mdi-light:star'"
         class="text-lg cursor-pointer transition-all"
-        :class="favorite ? 'opacity-80 hover:opacity-90' : 'opacity-50 hover:opacity-90'"
+        :class="(toggle ? favorite : !favorite) ? 'opacity-80 hover:opacity-50' : 'opacity-50 hover:opacity-90'"
+        @click="toggleFavorite"
       />
     </div>
     <div class="overflow-auto flex-grow flex justify-center items-center">

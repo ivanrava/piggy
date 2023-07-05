@@ -6,6 +6,7 @@ import axios from "axios";
 
 const props = defineProps<{
   form: {
+    id: number
     favorite: boolean
     interval: string
     filter: string
@@ -62,6 +63,7 @@ const descriptions = {
   <stat-card
     :title="title + ' ' + intervalDescs[form.interval]"
     :favorite="form.favorite"
+    :id="form.id"
   >
     <chart-pie
       v-if="top.length > 0"

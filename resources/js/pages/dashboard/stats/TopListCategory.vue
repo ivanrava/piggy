@@ -11,6 +11,7 @@ const props = defineProps<{
   stat: string,
   interval: string,
   favorite: boolean
+  id: number
 }>();
 
 const top = ref([]);
@@ -50,6 +51,7 @@ const timeDescription = computed(() => {
 
 <template>
   <stat-card
+    :id="id"
     :favorite="favorite"
     :title="descriptions[stat] + timeDescription"
   >

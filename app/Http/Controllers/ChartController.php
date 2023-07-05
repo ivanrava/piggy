@@ -47,9 +47,11 @@ class ChartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateChartRequest $request, Chart $chart)
+    public function update(UpdateChartRequest $request, Chart $chart): ChartResource
     {
-        //
+        $chart->favorite = !$chart->favorite;
+        $chart->save();
+        return new ChartResource($chart);
     }
 
     /**
