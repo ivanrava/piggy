@@ -14,12 +14,9 @@ const forms = ref({
   },
   inOutHistory: {
     interval: 'year',
-    isLine: false,
+    kind: 'line',
     filter: 'all',
-    filterObj: {
-      id: null,
-      name: ''
-    }
+    filter_id: null,
   }
 });
 const currentFormIndex = ref(0);

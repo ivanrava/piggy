@@ -36,7 +36,7 @@ const category_id = ref(null);
 const errors = ref({});
 onMounted(() => {
   // Fetch categories
-  axios.get("/categories").then(({data}) => {
+  axios.get("/categories/leaves").then(({data}) => {
     categories.value = data.data;
     category_id.value = categories.value[0].id;
   }).catch(({response}) => {
@@ -58,18 +58,18 @@ onMounted(() => {
   })
 })
 
-const updateId = () => {
-  if (form.value.filter === 'accounts')
-    form.value.filterObj = accounts.value.filter(acc => acc.id === account_id.value)[0]
-  else if (form.value.filter === 'beneficiaries')
-    form.value.filterObj = beneficiaries.value.filter(ben => ben.id === beneficiary_id.value)[0]
-  else if (form.value.filter === 'categories')
-    form.value.filterObj = categories.value.filter(cat => cat.id === category_id.value)[0]
+const updateId = (newFilter) => {
+  if (newFilter === 'accounts')
+    form.value.filter_id = account_id.value
+  else if (newFilter === 'beneficiaries')
+    form.value.filter_id = beneficiary_id.value
+  else if (newFilter === 'categories')
+    form.value.filter_id = category_id.value
 }
-watch(form, updateId, {deep: true})
-watch(account_id, updateId)
-watch(category_id, updateId)
-watch(beneficiary_id, updateId)
+watch(() => form.value.filter, updateId, {deep: true})
+watch(account_id, (newId) => form.value.filter_id = newId)
+watch(category_id, (newId) => form.value.filter_id = newId)
+watch(beneficiary_id, (newId) => form.value.filter_id = newId)
 </script>
 
 <template>
@@ -83,9 +83,9 @@ watch(beneficiary_id, updateId)
       :options="options"
     />
     <radio-input
-      v-model="form.isLine"
+      v-model="form.kind"
       label="Kind"
-      :options="[{id:true,display:'Line'},{id:false,display:'Bar'}]"
+      :options="[{id:'line',display:'Line'},{id:'bar',display:'Bar'}]"
     />
     <radio-input
       v-model="form.filter"

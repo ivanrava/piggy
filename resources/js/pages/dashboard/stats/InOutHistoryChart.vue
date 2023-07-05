@@ -6,19 +6,20 @@ import axios from "axios";
 
 const props = defineProps<{
   form: {
+    kind: String,
     interval: String
-    isLine: Boolean
     filter: String,
-    filterObj: {
-      id: Number,
-      name: String
-    }
-  }
+    filter_id: number
+  },
 }>()
 
 const transactions = ref([]);
+const title = ref('In/Out History');
 watchEffect(() => {
-  const suffix = props.form.filter === 'all' ? '' : `/${props.form.filter}/${props.form.filterObj.id}`
+  if (props.form.filter != 'all' && props.form.filter_id == null)
+    return
+
+  const suffix = props.form.filter === 'all' ? '' : `/${props.form.filter}/${props.form.filter_id}`
   axios.get(`/stats/${props.form.interval}${suffix}`)
     .then(({data}) => {
       transactions.value = data
@@ -30,6 +31,16 @@ watchEffect(() => {
       transactions.value = transactions.value
         .filter(dataPoint => times.includes(dataPoint.time))
     })
+
+  if (props.form.filter != 'all') {
+    title.value = 'Loading...'
+    axios.get(`/${props.form.filter}/${props.form.filter_id}`)
+      .then(({data}) => {
+        title.value = data.data.name
+      })
+  } else {
+    title.value = 'In/Out History'
+  }
 })
 
 const dateFormats = {
@@ -39,11 +50,11 @@ const dateFormats = {
 </script>
 
 <template>
-  <stat-card :title="form.filter === 'all' ? 'In/Out History' : form.filterObj.name">
+  <stat-card :title="title">
     <chart-line-bar
       :data="transactions"
       :date-format="dateFormats[form.interval]"
-      :is-line="form.isLine"
+      :is-line="form.kind === 'line'"
     />
   </stat-card>
 </template>
