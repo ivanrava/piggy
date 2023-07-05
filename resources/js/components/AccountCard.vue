@@ -13,9 +13,12 @@
       :class="small ? 'text-2xl' : 'text-4xl'"
     />
     <div class="flex flex-col ml-2">
-      <b :class="{'leading-4 text-xs': small}">{{ account.name }}</b>
+      <b
+        :class="{'leading-4 text-xs': small}"
+        class="whitespace-nowrap"
+      >{{ account.name }}</b>
       <small
-        class="font-light"
+        class="font-light whitespace-nowrap"
         :class="{'text-[8px] leading-[0.8]': small}"
       >{{ account.type }}</small>
     </div>

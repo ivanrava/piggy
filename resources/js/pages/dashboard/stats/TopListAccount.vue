@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import BeneficiaryImage from "../../../components/BeneficiaryImage.vue";
+import StatCard from "./StatCard.vue";
+import AccountCard from "../../../components/AccountCard.vue";
+import CardRowSkeleton from "./CardRowSkeleton.vue";
+import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
 import {ref, watchEffect} from "vue";
 import axios from "axios";
-import CardRowSkeleton from "./CardRowSkeleton.vue";
-import StatCard from "./StatCard.vue";
-import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
-
 const props = defineProps<{
   stat: string,
 }>();
@@ -14,7 +13,7 @@ const top = ref([]);
 const isLoading = ref(false);
 watchEffect(() => {
   isLoading.value = true;
-  axios.get(`/stats/beneficiaries/top`, {
+  axios.get(`/stats/accounts/top`, {
     params:{
       stat: props.stat
     }})
@@ -44,16 +43,22 @@ const descriptions = {
         class="flex flex-col justify-around flex-grow"
       >
         <li
-          v-for="b in top"
-          :key="b.name"
+          v-for="a in top"
+          :key="a.name"
           class="flex items-center justify-between"
         >
-          <beneficiary-image
-            :beneficiary="b"
-            class="!w-8 !h-8 !p-1"
+          <account-card
+            :account="{
+              id: a.id,
+              name: a.name,
+              icon: a.icon,
+              color: '#'+a.color,
+              type: a.type,
+            }"
+            :small="true"
+            class="!p-1"
           />
-          <span class="font-semibold text-slate-700 text-xs w-full overflow-hidden text-ellipsis whitespace-nowrap">{{ b.name }}</span>
-          <span class="font-light pr-2 pl-6 whitespace-nowrap">{{ stat != 'count' ? useAgGridUtilites().currencyFormatterBare(Number(b[stat])) : b[stat] }}</span>
+          <span class="font-light pr-2 pl-6 whitespace-nowrap">{{ stat != 'count' ? useAgGridUtilites().currencyFormatterBare(Number(a[stat])) : a[stat] }}</span>
         </li>
       </ul>
       <ul

@@ -7,8 +7,9 @@ import InOutHistoryForm from "./InOutHistoryForm.vue";
 import InOutHistoryChart from "./InOutHistoryChart.vue";
 
 const forms = ref({
-  topList: {
-    domain: 'beneficiaries'
+  list: {
+    filter: 'beneficiaries',
+    stat: 'sum'
   },
   inOutHistory: {
     interval: 'year',
@@ -28,7 +29,7 @@ const currentForm = computed(() => {
   return availableForms.value[currentFormIndex.value];
 })
 const titles = {
-  topList: 'Top List',
+  list: 'Top List',
   inOutHistory: 'In/Out History'
 }
 const disabledClassesIf = (disabledCondition: boolean) => {
@@ -40,8 +41,8 @@ const disabledClassesIf = (disabledCondition: boolean) => {
   <div class="h-full flex flex-col">
     <aside class="flex justify-center flex-grow items-center">
       <top-list-chart
-        v-if="currentForm === 'topList'"
-        :form="forms.topList"
+        v-if="currentForm === 'list'"
+        :form="forms.list"
       />
       <in-out-history-chart
         v-else-if="currentForm === 'inOutHistory'"
@@ -50,8 +51,8 @@ const disabledClassesIf = (disabledCondition: boolean) => {
     </aside>
     <stat-form :title="titles[currentForm]">
       <top-list-form
-        v-if="currentForm === 'topList'"
-        v-model="forms.topList"
+        v-if="currentForm === 'list'"
+        v-model="forms.list"
       />
       <in-out-history-form
         v-else-if="currentForm === 'inOutHistory'"

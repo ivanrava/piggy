@@ -19,9 +19,16 @@ const form = computed({
   }
 })
 
-const options = ref([
+const optionsDomain = ref([
   {id:'beneficiaries',display:'Beneficiaries'},
   {id:'categories',display:'Categories'},
+  {id:'accounts',display:'Accounts'},
+])
+const optionsStats = ref([
+  {id:'sum',display:'Sum'},
+  {id:'count',display:'Count'},
+  {id:'avg',display:'Average'},
+  {id:'max',display:'Maximum'},
 ])
 </script>
 
@@ -30,11 +37,18 @@ const options = ref([
     This statistic shows a list of the top 5 elements for the provided domains,
     according to the global amount of money moved under the specified domain.
   </p>
-  <radio-input
-    v-model="form.domain"
-    label="Domain"
-    :options="options"
-  />
+  <div class="flex gap-16">
+    <radio-input
+      v-model="form.filter"
+      label="Domain"
+      :options="optionsDomain"
+    />
+    <radio-input
+      v-model="form.stat"
+      label="Statistic"
+      :options="optionsStats"
+    />
+  </div>
   <submit-button>Add statistic</submit-button>
 </template>
 

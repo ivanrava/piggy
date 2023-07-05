@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import TopListCategory from "./TopListCategory.vue";
 import TopListBeneficiary from "./TopListBeneficiary.vue";
+import TopListAccount from "./TopListAccount.vue";
 
 defineProps<{
   form: {
-    domain: String
+    filter: string,
+    stat: string,
   }
 }>();
 </script>
@@ -14,8 +16,18 @@ defineProps<{
     mode="out-in"
     name="fade"
   >
-    <top-list-beneficiary v-if="form.domain == 'beneficiaries'" />
-    <top-list-category v-else-if="form.domain == 'categories'" />
+    <top-list-beneficiary
+      v-if="form.filter == 'beneficiaries'"
+      :stat="form.stat"
+    />
+    <top-list-category
+      v-else-if="form.filter == 'categories'"
+      :stat="form.stat"
+    />
+    <top-list-account
+      v-else-if="form.filter == 'accounts'"
+      :stat="form.stat"
+    />
   </Transition>
 </template>
 
