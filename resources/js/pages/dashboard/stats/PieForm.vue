@@ -23,9 +23,10 @@ const form = computed({
     emit('update:modelValue', value)
   }
 })
-const options = ref([
-  {id:'month',display:'Monthly'},
-  {id:'year',display:'Yearly'},
+const optionsInterval = ref([
+  {id:'all',display:'All time'},
+  {id:'year',display:'Last year'},
+  {id:'month',display:'Last month'},
 ])
 const optionsStats = ref([
   {id:'sum',display:'Sum'},
@@ -98,8 +99,8 @@ watch(() => form.value.filter_id, () => {
   <div class="flex gap-20">
     <radio-input
       v-model="form.interval"
-      label="Interval"
-      :options="options"
+      label="Timeframe"
+      :options="optionsInterval"
     />
     <radio-input
       v-model="form.stat"
