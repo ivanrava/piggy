@@ -160,7 +160,7 @@ watchEffect(() => store.stagingTransaction.account_id = props.accountId);
   <Transition name="slide-fade">
     <aside
       v-if="store.isShowForm"
-      class="fixed bottom-8 right-8 bg-slate-50 p-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10"
+      class="fixed bottom-8 right-8 left-8 md:left-auto bg-slate-50 p-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10"
     >
       <header class="flex flex-row justify-between items-center">
         <h2>{{ store.isEditing ? 'Edit' : 'New' }} operation</h2>
@@ -174,13 +174,14 @@ watchEffect(() => store.stagingTransaction.account_id = props.accountId);
       <!-- Transaction type selector -->
       <tab-selector
         v-if="!store.isEditing"
+        class="mb-2"
         :model-value="store.isEditingTransfer ? operationTypes[1].id : operationTypes[0].id"
         :tabs="operationTypes"
         @update:model-value="store.changeOperationType($event.startsWith('/transfers'))"
       />
       <!-- Main form fields -->
       <form
-        class="flex flex-col justify-center items-center gap-4 w-96"
+        class="flex flex-col justify-center items-center gap-4 w-full md:w-96"
         @submit.prevent="store.isEditing ? updateOperation() : storeOperation()"
       >
         <!-- Variable fields -->

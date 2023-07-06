@@ -49,10 +49,15 @@ defineEmits(['store', 'close', 'update'])
   <Transition name="slide-fade">
     <aside
       v-if="showForm"
-      class="fixed bottom-8 right-8 bg-slate-50 p-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10"
+      class="fixed bottom-8 right-8 left-8 md:left-auto bg-slate-50 p-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10 md:w-96"
     >
       <header class="flex flex-row justify-between items-center">
-        <h2>Add a new beneficiary</h2>
+        <h2 v-if="store.isEditing">
+          Edit beneficiary
+        </h2>
+        <h2 v-else>
+          Add a new beneficiary
+        </h2>
         <a
           class="flex flex-row items-center cursor-pointer"
           @click="$emit('close')"
@@ -72,59 +77,59 @@ defineEmits(['store', 'close', 'update'])
         </button>
       </div>
       <form
-        class="flex flex-wrap justify-start items-center h-24 gap-4"
+        class="flex flex-col justify-start items-center gap-2 md:gap-4"
         @submit.prevent="store.isEditing ? $emit('update', store.stagingBeneficiary) : $emit('store', store.stagingBeneficiary)"
       >
         <beneficiary-image
           class="!w-20 !h-20"
           :beneficiary="store.stagingBeneficiary"
         />
-        <aside class="flex flex-row justify-center">
+        <aside class="flex flex-col justify-center w-full">
           <Transition
             name="fade"
             mode="out-in"
           >
             <div
               v-if="beneficiaryType === 'company'"
-              class="flex flex-row justify-around w-80"
+              class="flex flex-row justify-between w-full gap-4"
             >
               <form-input
                 v-model="store.stagingBeneficiary.name"
-                class="mr-4 !w-40"
+                class="!w-full"
                 label="Company name"
                 :errors="errors.name"
               />
               <form-input
                 :model-value="domain"
-                class="mr-4 !w-36"
+                class="!w-full"
                 label="Company domain"
                 @update:model-value="domain = $event; store.stagingBeneficiary.img = imgForType"
               />
             </div>
             <div
               v-else-if="beneficiaryType === 'person'"
-              class="w-80"
+              class="w-full"
             >
               <form-input
                 v-model="store.stagingBeneficiary.name"
-                class="mr-4 !w-72"
+                class="mr-4 !w-full"
                 label="Beneficiary name"
                 :errors="errors.name"
               />
             </div>
             <div
               v-else
-              class="w-80"
+              class="w-full"
             >
               <form-input
                 v-model="store.stagingBeneficiary.name"
-                class="mr-4 !w-72"
+                class="mr-4 !w-full"
                 label="Generic beneficiary name"
                 :errors="errors.name"
               />
             </div>
           </Transition>
-          <submit-button>
+          <submit-button class="">
             Confirm
           </submit-button>
         </aside>

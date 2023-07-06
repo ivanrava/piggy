@@ -45,7 +45,7 @@ onMounted(() =>  {
   <Transition name="slide-fade">
     <aside
       v-if="showForm"
-      class="fixed bottom-8 right-8 bg-slate-50 p-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10"
+      class="fixed bottom-8 right-8 left-8 md:left-auto bg-slate-50 p-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10"
     >
       <header class="flex flex-row justify-between items-center">
         <h2 v-if="!store.isEditing">
@@ -62,12 +62,13 @@ onMounted(() =>  {
         </a>
       </header>
       <tab-selector
+        class="mb-4"
         v-if="store.stagingCategory.parent_category_id === null"
         v-model="store.stagingCategory.type"
         :tabs="categoryTypes"
       />
       <form
-        class="flex flex-col justify-center items-center gap-4 w-96"
+        class="flex flex-col justify-center items-center gap-4 w-full md:w-96"
         @submit.prevent="$emit(store.isEditing ? 'update' : 'store', store.stagingCategory)"
       >
         <form-input

@@ -56,7 +56,7 @@ const updateBeneficiary = function (payload: StoreBeneficiaryPayload) {
   />
   <submit-button
     class="md:fixed right-12 bottom-12 md:flex items-center shadow-lg !mt-4"
-    @click="showForm = true"
+    @click="store.showForm = true"
   >
     <Icon
       icon="mingcute:user-add-fill"
