@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-col">
     <h1>Welcome back, {{ user.name }}</h1>
-    <h2 class="mb-4">Favorite charts</h2>
+    <h2 class="mb-4">
+      Favorite charts
+    </h2>
     <div
       v-if="charts.length === 0"
       class="flex flex-col items-center gap-8 justify-center w-full bg-stone-100 rounded-xl p-8"
@@ -73,7 +75,7 @@
             class="flex flex-wrap gap-4"
           >
             <account-card
-              v-for="account in store.getAccounts()"
+              v-for="account in store.accounts"
               :key="account"
               :account="account"
             />

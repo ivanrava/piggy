@@ -2,7 +2,7 @@
   <Transition name="slide-fade">
     <aside
       v-if="store.showForm"
-      class="fixed bottom-8 right-8 bg-slate-50 p-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10"
+      class="fixed bottom-0 md:bottom-8 right-0 md:right-8 bg-slate-50 p-4 m-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10"
     >
       <header class="flex flex-row justify-between items-center">
         <h2 v-if="!store.isEditing">
@@ -23,7 +23,7 @@
         :tabs="accountTypes"
       />
       <form
-        class="flex flex-col justify-center items-center gap-4 w-96 relative"
+        class="flex flex-col justify-center items-center gap-4 md:w-96 relative"
         @submit.prevent="store.isEditing ? updateAccount(store.stagingAccount) : storeAccount(store.stagingAccount)"
       >
         <div class="w-full flex flex-row justify-between">
@@ -38,7 +38,7 @@
             class="!ml-3"
           />
         </div>
-        <div class="w-full flex flex-row gap-2 justify-between">
+        <div class="w-full flex flex-col md:flex-row gap-2 justify-between">
           <form-input
             v-model="store.stagingAccount.opening"
             :errors="errors.opening"
@@ -77,7 +77,7 @@
     </aside>
   </Transition>
   <submit-button
-    class="fixed right-12 bottom-12 flex items-center shadow-lg"
+    class="md:fixed right-12 bottom-12 md:flex items-center shadow-lg !mt-4"
     @click="store.showForm = true; store.isEditing = false; store.emptyForm();"
   >
     <Icon

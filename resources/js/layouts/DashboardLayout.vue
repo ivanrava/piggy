@@ -5,11 +5,11 @@
       <div class="flex w-full h-full bg-pink-200/50 rounded-3xl shadow-inner">
         <side-bar
           v-if="useRoute().path !== '/home'"
-          class="rounded-l-3xl sm:w-2/6 xl:w-1/5 2xl:w-1/6 print:hidden"
+          class="rounded-l-3xl sm:w-2/6 xl:w-1/5 2xl:w-1/6 print:hidden hidden md:block"
         />
         <main
           :class="useRoute().path === '/home' ? 'rounded-l-3xl pl-2' : ''"
-          class="w-full bg-stone-200 rounded-r-3xl overflow-scroll print:overflow-visible"
+          class="w-full bg-stone-200 rounded-r-3xl overflow-scroll print:overflow-visible rounded-l-3xl md:rounded-l-none"
         >
           <router-view
             v-slot="{ Component, route }"

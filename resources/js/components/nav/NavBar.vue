@@ -1,16 +1,13 @@
 <template>
   <nav class="flex justify-between items-center">
     <div class="h-full flex">
-      <brand-logo
-        class="h-full p-2.5 cursor-pointer"
-        @click="router.push('/home')"
-      />
+      <brand-logo />
       <nav class="flex flex-col justify-center">
-        <ul class="flex">
+        <ul class="flex md:gap-0">
           <li
             v-for="link in links"
             :key="link.name"
-            class="p-2 relative w-20"
+            class="p-2 relative md:w-20"
           >
             <router-link
               :to="link.href"
@@ -21,7 +18,7 @@
                 class="text-2xl"
                 :icon="link.icon"
               />
-              <span class="text-xs">{{ link.name }}</span>
+              <span class="hidden md:block text-xs">{{ link.name }}</span>
             </router-link>
           </li>
         </ul>
@@ -29,7 +26,7 @@
     </div>
     <search-bar class="hidden" />
     <router-link
-      class="p-6 !text-lg !text-slate-800 hover:!text-stone-600 tracking-widest font-light uppercase"
+      class="p-6 !text-lg !text-slate-800 hover:!text-stone-600 md:tracking-widest md:font-light font-normal uppercase"
       to="/logout"
     >
       Logout
@@ -38,17 +35,15 @@
 </template>
 
 <script setup>
-import {defineComponent, ref} from "vue";
+import {defineComponent} from "vue";
 import BrandLogo from "./BrandLogo.vue";
-import {useRoute, useRouter} from "vue-router";
+import {useRoute} from "vue-router";
 import {Icon} from "@iconify/vue";
 import SearchBar from "./SearchBar.vue";
 
 defineComponent({
   components: {BrandLogo}
 })
-
-const router = useRouter()
 
 const links = [
   {
@@ -86,6 +81,6 @@ const links = [
 
 .router-link-active::before {
   content: '';
-  @apply bg-slate-900 block w-6 h-1 rounded-lg absolute bottom-0.5;
+  @apply bg-slate-900 block w-4 md:w-6 h-1 rounded-lg absolute bottom-0.5;
 }
 </style>

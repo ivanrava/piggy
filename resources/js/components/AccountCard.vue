@@ -10,15 +10,15 @@
   >
     <Icon
       :icon="account.icon"
-      :class="small ? 'text-2xl' : 'text-4xl'"
+      :class="small ? 'text-sm md:text-2xl' : 'text-2xl md:text-4xl'"
     />
     <div class="flex flex-col ml-2">
       <b
         :class="{'leading-4 text-xs': small}"
-        class="whitespace-nowrap"
+        class="whitespace-nowrap text-sm md:text-base"
       >{{ account.name }}</b>
       <small
-        class="font-light whitespace-nowrap"
+        class="font-light whitespace-nowrap text-xs"
         :class="{'text-[8px] leading-[0.8]': small}"
       >{{ account.type }}</small>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="my-2 w-48 relative">
+  <div class="my-2 w-full md:w-48 relative">
     <label-input
       :for="label"
       class="z-10 absolute left-2.5 top-3 text-gray-500 cursor-text transition-all px-1 bg-stone-50 rounded-t-md"
