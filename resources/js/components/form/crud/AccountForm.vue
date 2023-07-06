@@ -26,7 +26,7 @@
         class="flex flex-col justify-center items-center gap-4 md:w-96 relative"
         @submit.prevent="store.isEditing ? updateAccount(store.stagingAccount) : storeAccount(store.stagingAccount)"
       >
-        <div class="w-full flex flex-row justify-between">
+        <div class="w-full flex flex-row justify-between items-start">
           <form-input
             v-model="store.stagingAccount.name"
             class="!w-full"
@@ -35,7 +35,7 @@
           />
           <color-picker
             v-model="store.stagingAccount.color"
-            class="!ml-3"
+            class="!ml-3 mt-2.5"
           />
         </div>
         <div class="w-full flex flex-col md:flex-row gap-2 justify-between">
