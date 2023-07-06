@@ -22,8 +22,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="flex flex-row justify-between items-center">
-    <span :class="isOut ? 'text-red-700' : 'text-green-700'">
+  <div class="flex flex-row md:justify-end justify-start items-center h-full">
+    <span
+      :class="isOut ? 'text-red-700' : 'text-green-700'"
+      class="pl-4 w-32"
+    >
       <span
         v-if="isOut"
         class="mr-0.5"

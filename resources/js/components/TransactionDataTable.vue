@@ -32,38 +32,47 @@ watchEffect(() => {
       state: [{ colId: 'date', sort: 'desc' }],
       defaultState: { sort: null },
     });
-    gridApi.value.sizeColumnsToFit({defaultMinWidth: 100})
+    gridApi.value.sizeColumnsToFit({defaultMinWidth: 100, defaultMaxWidth: window.innerWidth})
     gridApi.value.showLoadingOverlay();
   }
 });
 
-const fieldDefs = {
-  account: {
-    headerName: 'Account', field: 'data',
-    cellRenderer: AccountRenderer,
-    comparator: stringComparator
-  },
-  beneficiary: {
-    headerName: 'Beneficiary', field: 'data',
-    cellRenderer: BeneficiaryRenderer, autoHeight: true,
-    comparator: stringComparator
-  },
-  category: {
-    headerName: 'Category', field: 'data',
-    cellRenderer: CategoryRenderer,
-    comparator: stringComparator
-  },
-}
+const fieldDefs = computed(() => {
+  if (window.innerWidth <= 480) {
+    return {}
+  }
+  return {
+    account: {
+      headerName: 'Account', field: 'data',
+      cellRenderer: AccountRenderer,
+      comparator: stringComparator
+    },
+    beneficiary: {
+      headerName: 'Beneficiary', field: 'data',
+      cellRenderer: BeneficiaryRenderer, autoHeight: true,
+      cellClass: 'beneficiary-cell',
+      comparator: stringComparator
+    },
+    category: {
+      headerName: 'Category', field: 'data',
+      cellRenderer: CategoryRenderer,
+      comparator: stringComparator
+    },
+  }
+})
 const defaultColDefs = [
   {
     headerName: 'Date', field: 'date',
-    type: 'rightAligned',
+    type: window.innerWidth <= 480 ? '' : 'rightAligned',
     valueFormatter: dateFormatter,
     cellClass: 'date-cell',
-    sortable: true
+    sortable: true,
+    suppressSizeToFit: true,
+    maxWidth: window.innerWidth <= 480 ? 120 : 200
   },
   {
     headerName: 'Amount', field: 'amount',
+    type: 'rightAligned',
     valueFormatter: currencyFormatter,
     cellRenderer: AmountRenderer,
     comparator: (valA, valB) => {
@@ -75,9 +84,9 @@ const defaultColDefs = [
 ];
 
 const columnDefs = computed(() => {
-  return Object.keys(fieldDefs)
+  return Object.keys(fieldDefs.value)
     .filter((key) => props.fields.includes(key))
-    .map((field) => fieldDefs[field])
+    .map((field) => fieldDefs.value[field])
     .concat(defaultColDefs)
 })
 
@@ -110,19 +119,43 @@ const rowClassRules = {
   @apply bg-slate-100;
 }
 .ag-paging-panel {
-  justify-content: flex-start;
+  @apply justify-around md:justify-start;
+}
+.ag-paging-row-summary-panel span, .ag-paging-description span {
+  @apply text-[10px] md:text-xs;
+}
+.ag-paging-row-summary-panel, .ag-paging-page-summary-panel {
+  @apply ml-4 mr-0 md:my-4
+}
+.ag-paging-button {
+  @appply m-0;
 }
 .ag-theme-piggy {
   --ag-font-family: 'Inter', sans;
 }
 .amount-cell {
-  font-size: 1.2rem;
+  @apply md:text-[1.2rem] text-base text-center md:text-left;
 }
 .date-cell {
-  @apply text-right;
+  @apply text-left md:text-right ml-4 md:m-0;
   font-size: 0.8rem;
 }
 .ag-header-cell-label {
-  font-size: 1.2rem;
+  @apply md:text-[1.2rem] text-sm leading-5 md:leading-5 text-center ml-4 md:m-0;
+}
+.ag-header-cell:nth-child(2) .ag-header-cell-label {
+  @apply justify-center md:justify-start;
+}
+.beneficiary-cell {
+  @apply md:px-0;
+}
+.ag-header-cell:first-child {
+  @apply md:px-6;
+}
+.ag-header-cell {
+  @apply px-2 md:px-4;
+}
+.ag-cell-value {
+  @apply px-2 md:px-4;
 }
 </style>

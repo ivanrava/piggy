@@ -8,6 +8,10 @@ const stringComparator = (valA, valB) => {
     return (valA.name > valB.name) ? 1 : -1;
 }
 const dateFormatter = (date) => {
+    if (window.innerWidth <= 480) {
+        return (new Date(date.value)).toLocaleDateString(undefined, {year: 'numeric', month: 'numeric', day: 'numeric'})
+    }
+
     return (new Date(date.value)).toLocaleDateString(undefined, {weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'})
 }
 const currencyFormatter = (curr) => {

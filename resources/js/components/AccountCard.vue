@@ -14,12 +14,12 @@
     />
     <div class="flex flex-col ml-2">
       <b
-        :class="{'leading-4 text-xs': small}"
+        :class="{'leading-4 md:text-xs': small}"
         class="whitespace-nowrap text-sm md:text-base"
       >{{ account.name }}</b>
       <small
         class="font-light whitespace-nowrap text-xs"
-        :class="{'text-[8px] leading-[0.8]': small}"
+        :class="{'md:text-[8px] leading-[0.8]': small}"
       >{{ account.type }}</small>
     </div>
   </router-link>

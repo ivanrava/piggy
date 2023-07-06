@@ -281,7 +281,7 @@ watchEffect(() => store.stagingTransaction.account_id = props.accountId);
   </Transition>
   <!-- Show form button -->
   <submit-button
-    class="fixed right-12 bottom-12 flex items-center shadow-lg"
+    class="md:fixed right-12 bottom-12 md:flex items-center shadow-lg !mt-4"
     @click="store.showForm()"
   >
     <Icon
