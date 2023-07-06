@@ -36,7 +36,7 @@ const value = computed({
     <div class="font-bold mt-2 text-lg mb-1">
       {{ label }}
     </div>
-    <div class="flex gap-4 mb-2">
+    <div class="flex md:gap-4 mb-2 flex-col md:flex-row">
       <span
         v-for="option in options"
         :key="option.id"

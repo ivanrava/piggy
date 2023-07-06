@@ -28,7 +28,7 @@ const toggleFavorite = () => {
 </script>
 
 <template>
-  <article class="p-4 bg-stone-50/90 shadow-md m-16 rounded-sm h-72 flex flex-col w-[23.5rem]">
+  <article class="p-4 bg-stone-50/90 shadow-md md:m-16 mb-4 rounded-sm h-72 flex flex-col w-[23.5rem]">
     <div class="flex justify-between items-baseline">
       <h2>
         {{ title }}

@@ -96,7 +96,7 @@ watch(() => form.value.filter_id, () => {
   <p>
     Through this component you can easily gauge your expenses and incomes trends.
   </p>
-  <div class="flex gap-20">
+  <div class="flex gap-0 md:gap-20 flex-col md:flex-row">
     <radio-input
       v-model="form.interval"
       label="Timeframe"
@@ -108,7 +108,7 @@ watch(() => form.value.filter_id, () => {
       :options="optionsStats"
     />
   </div>
-  <div class="flex gap-20">
+  <div class="flex gap-0 md:gap-20 flex-col md:flex-row">
     <radio-input
       v-model="form.filter"
       label="Filter by"
@@ -125,7 +125,7 @@ watch(() => form.value.filter_id, () => {
         :allow-empty="true"
         :options="accounts"
         name="Account"
-        class="!w-96"
+        class="md:!w-96"
       >
         <Icon
           :icon="option.icon"
@@ -145,7 +145,7 @@ watch(() => form.value.filter_id, () => {
         :options="beneficiaries"
         name="Beneficiary"
         :errors="errors.beneficiary"
-        class="!w-96"
+        class="md:!w-96"
       >
         <article class="flex items-center">
           <beneficiary-image
@@ -163,7 +163,7 @@ watch(() => form.value.filter_id, () => {
         :options="categories"
         name="Category"
         :errors="errors.category"
-        class="!w-96"
+        class="md:!w-96"
       >
         <Icon
           :icon="option.icon"
@@ -183,7 +183,9 @@ watch(() => form.value.filter_id, () => {
       :options="groupOptions"
     />
   </div>
-  <submit-button>Add statistic</submit-button>
+  <submit-button class="!mt-4 md:m-auto w-full md:w-auto">
+    Add statistic
+  </submit-button>
 </template>
 
 <style scoped>

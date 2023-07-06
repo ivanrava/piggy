@@ -42,7 +42,7 @@ const optionsInterval = ref([
     This statistic shows a list of the top 5 elements for the provided domains,
     according to the global amount of money moved under the specified domain.
   </p>
-  <div class="flex gap-16">
+  <div class="flex md:gap-16 gap-0 flex-col md:flex-row">
     <radio-input
       v-model="form.interval"
       label="Timeframe"
@@ -59,7 +59,9 @@ const optionsInterval = ref([
       :options="optionsStats"
     />
   </div>
-  <submit-button>Add statistic</submit-button>
+  <submit-button class="w-full md:w-auto">
+    Add statistic
+  </submit-button>
 </template>
 
 <style scoped>

@@ -82,7 +82,7 @@ const optionsStats = ref([
   <p>
     Through this component you can easily gauge your expenses and incomes trends.
   </p>
-  <div class="flex gap-20">
+  <div class="flex flex-col md:flex-row gap-0 md:gap-20">
     <radio-input
       v-model="form.interval"
       label="Interval"
@@ -99,7 +99,7 @@ const optionsStats = ref([
       :options="optionsStats"
     />
   </div>
-  <div class="flex gap-20">
+  <div class="flex flex-col md:flex-row gap-0 md:gap-20">
     <radio-input
       v-model="form.filter"
       label="Filter by"
@@ -115,7 +115,7 @@ const optionsStats = ref([
         v-model="account_id"
         :options="accounts"
         name="Account"
-        class="!w-96"
+        class="w-full md:!w-96"
       >
         <Icon
           :icon="option.icon"
@@ -134,7 +134,7 @@ const optionsStats = ref([
         :options="beneficiaries"
         name="Beneficiary"
         :errors="errors.beneficiary"
-        class="!w-96"
+        class="w-full md:!w-96"
       >
         <article class="flex items-center">
           <beneficiary-image
@@ -151,7 +151,7 @@ const optionsStats = ref([
         :options="categories"
         name="Category"
         :errors="errors.category"
-        class="!w-96"
+        class="w-full md:!w-96"
       >
         <Icon
           :icon="option.icon"
@@ -161,11 +161,11 @@ const optionsStats = ref([
       </select-input>
       <div
         v-else
-        class="!w-96"
+        class="w-full md:!w-96"
       />
     </Transition>
   </div>
-  <submit-button>Add statistic</submit-button>
+  <submit-button class="!mt-4 md:m-auto w-full md:w-auto">Add statistic</submit-button>
 </template>
 
 <style scoped>

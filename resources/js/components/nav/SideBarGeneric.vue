@@ -10,17 +10,17 @@ defineProps<{
 
 <template>
   <ul
-    class="text-sm lg:text-xl font-light lg:mx-2 mx-1"
+    class="text-sm lg:text-xl font-light lg:mx-2 mx-1 flex justify-between md:block rounded-xl md:rounded-none"
   >
     <li
       v-for="link in links"
       :key="link.to"
-      class="mt-4 mb-8 pl-2 relative"
+      class="md:mt-4 md:mb-8 md:pl-2 md:relative"
     >
       <router-link :to="link.to">
         {{ link.name }}
       </router-link>
-      <p class="text-sm font-extralight">
+      <p class="text-sm font-extralight hidden md:block">
         {{ link.description }}
       </p>
     </li>
