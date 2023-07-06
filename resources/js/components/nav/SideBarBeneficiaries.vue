@@ -32,7 +32,7 @@ onMounted(async () => {
 <template>
   <section>
     <beneficiary-card
-      v-for="beneficiary in store.getBeneficiaries()"
+      v-for="beneficiary in store.beneficiaries"
       :key="beneficiary.id"
       :beneficiary="beneficiary"
       :hide-bg="true"

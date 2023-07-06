@@ -56,7 +56,7 @@ const updateCategory = function (payload: StoreCategoryPayload) {
     @close="store.showForm = false; store.isEditing = false"
   />
   <submit-button
-    class="fixed right-12 bottom-12 flex items-center shadow-lg print:hidden"
+    class="md:fixed right-12 bottom-12 md:flex items-center shadow-lg !mt-4"
     @click="store.showForm = true"
   >
     <Icon

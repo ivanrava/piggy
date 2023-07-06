@@ -22,52 +22,54 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="flex flex-col justify-between">
-    <h1>Beneficiaries</h1>
-    <Transition
-      name="fade-loading"
-      mode="out-in"
-    >
-      <section
-        v-if="isLoading"
-        class="flex flex-wrap items-center w-full gap-4"
+  <div class="h-full flex flex-col justify-between">
+    <section class="overflow-scroll">
+      <h1>Beneficiaries</h1>
+      <Transition
+        name="fade-loading"
+        mode="out-in"
       >
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-52" />
-        <div class="animate-pulse h-16 bg-gray-400/70 rounded-lg w-56" />
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-52" />
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-52" />
-        <div class="animate-pulse h-16 bg-gray-400/70 rounded-lg w-48" />
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-56" />
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-52" />
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-60" />
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-52" />
-        <div class="animate-pulse h-16 bg-gray-400/70 rounded-lg w-48" />
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-56" />
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-56" />
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-52" />
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-60" />
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-52" />
-        <div class="animate-pulse h-16 bg-gray-400/70 rounded-lg w-56" />
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-60" />
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-60" />
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-52" />
-        <div class="animate-pulse h-16 bg-gray-400/70 rounded-lg w-48" />
-        <div class="animate-pulse h-16 bg-gray-400 rounded-lg w-56" />
-      </section>
-      <section v-else-if="store.beneficiaries.length === 0">
-        <no-data />
-      </section>
-      <section
-        v-else
-        class="flex flex-wrap gap-4 justify-start pb-4"
-      >
-        <beneficiary-card
-          v-for="beneficiary in store.getBeneficiaries()"
-          :key="beneficiary.name"
-          :beneficiary="beneficiary"
-        />
-      </section>
-    </Transition>
+        <section
+          v-if="isLoading"
+          class="flex flex-wrap items-center w-full gap-4"
+        >
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-52" />
+          <div class="w-full animate-pulse h-16 bg-gray-400/70 rounded-lg md:w-56" />
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-52" />
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-52" />
+          <div class="w-full animate-pulse h-16 bg-gray-400/70 rounded-lg md:w-48" />
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-56" />
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-52" />
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-60" />
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-52" />
+          <div class="w-full animate-pulse h-16 bg-gray-400/70 rounded-lg md:w-48" />
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-56" />
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-56" />
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-52" />
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-60" />
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-52" />
+          <div class="w-full animate-pulse h-16 bg-gray-400/70 rounded-lg md:w-56" />
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-60" />
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-60" />
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-52" />
+          <div class="w-full animate-pulse h-16 bg-gray-400/70 rounded-lg md:w-48" />
+          <div class="w-full animate-pulse h-16 bg-gray-400 rounded-lg md:w-56" />
+        </section>
+        <section v-else-if="store.beneficiaries.length === 0">
+          <no-data />
+        </section>
+        <section
+          v-else
+          class="flex flex-wrap gap-4 justify-start pb-4"
+        >
+          <beneficiary-card
+            v-for="beneficiary in store.beneficiaries"
+            :key="beneficiary.name"
+            :beneficiary="beneficiary"
+          />
+        </section>
+      </Transition>
+    </section>
     <beneficiary-form @store="store.addBeneficiary($event)" />
   </div>
 </template>

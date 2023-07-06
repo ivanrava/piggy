@@ -15,11 +15,8 @@ export const useBeneficiariesStore = defineStore('beneficiaries', {
         isEditing: false
     }),
     actions: {
-        getBeneficiaries() {
-            return this.beneficiaries.sort((a,b) => a.name < b.name ? -1 : 1);
-        },
         setBeneficiaries(beneficiaries: Array<Beneficiary>) {
-            this.beneficiaries = beneficiaries;
+            this.beneficiaries = beneficiaries.sort((a,b) => a.name < b.name ? -1 : 1);
         },
         addBeneficiary(beneficiary: Beneficiary) {
             this.beneficiaries.push(beneficiary)

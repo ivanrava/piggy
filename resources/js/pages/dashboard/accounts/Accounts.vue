@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col justify-between h-full">
     <section class="pb-4 overflow-scroll h-full">
-      <h1 class="mt-0 md:mt-4 text-3xl">
+      <h1>
         Accounts
       </h1>
       <Transition

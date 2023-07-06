@@ -55,7 +55,7 @@ const updateBeneficiary = function (payload: StoreBeneficiaryPayload) {
     @close="store.closeForm()"
   />
   <submit-button
-    class="fixed right-12 bottom-12 flex items-center shadow-lg"
+    class="md:fixed right-12 bottom-12 md:flex items-center shadow-lg !mt-4"
     @click="showForm = true"
   >
     <Icon
