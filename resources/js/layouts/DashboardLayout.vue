@@ -8,7 +8,7 @@
           class="rounded-l-3xl sm:w-2/6 xl:w-1/5 2xl:w-1/6 print:hidden hidden md:block"
         />
         <main
-          :class="useRoute().path === '/home' ? 'rounded-l-3xl pl-2' : ''"
+          :class="useRoute().path === '/home' ? 'md:rounded-l-3xl pl-2' : ''"
           class="w-full bg-stone-200 rounded-r-3xl overflow-scroll print:overflow-visible rounded-l-3xl md:rounded-l-none"
         >
           <router-view
