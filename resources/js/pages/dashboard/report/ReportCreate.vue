@@ -37,6 +37,9 @@ const fetchReport = (form) => {
     @submit.prevent="fetchReport(form)"
   >
     <h2>Customize your report</h2>
+    <p class="my-2 text-slate-900">
+      Choose the timeframe of the operations which you would like to capture using the controls below. Leave the fields empty if you want to avoid specifying an explicit timeframe.
+    </p>
     <div class="flex flex-col md:flex-row justify-start gap-2 md:gap-8">
       <form-input
         v-model="form.from"

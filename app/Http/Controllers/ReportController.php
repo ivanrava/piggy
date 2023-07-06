@@ -17,11 +17,11 @@ class ReportController extends Controller
             ->withSum([
                 'transactions' => fn ($query) => $query
                     ->when(
-                        $request->has('from'),
+                        $request->filled('from'),
                         fn (Builder $query) => $query->where('date', '>=', $request->from)
                     )
                     ->when(
-                        $request->has('to'),
+                        $request->filled('to'),
                         fn (Builder $query) => $query->where('date', '<=', $request->to)
                     )
             ], 'amount')
@@ -32,11 +32,11 @@ class ReportController extends Controller
             ->withSum([
                 'transactions' => fn ($query) => $query
                     ->when(
-                        $request->has('from'),
+                        $request->filled('from'),
                         fn (Builder $query) => $query->where('date', '>=', $request->from)
                     )
                     ->when(
-                        $request->has('to'),
+                        $request->filled('to'),
                         fn (Builder $query) => $query->where('date', '<=', $request->to)
                     )
             ], 'amount')
