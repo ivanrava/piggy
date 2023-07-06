@@ -25,11 +25,11 @@ const formatCurrency = (num) => {
         <th class="w-3/6 text-left">
           Category
         </th>
-        <th class="w-1/6 text-right">
+        <th class="w-3/6 text-right">
           Total
         </th>
-        <th class="w-1/6 text-right" />
-        <th class="w-1/6 text-right" />
+<!--        <th class="w-1/6 text-right" />-->
+<!--        <th class="w-1/6 text-right" />-->
       </tr>
     </thead>
     <tbody>

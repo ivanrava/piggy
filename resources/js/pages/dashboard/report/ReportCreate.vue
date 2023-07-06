@@ -37,7 +37,7 @@ const fetchReport = (form) => {
     @submit.prevent="fetchReport(form)"
   >
     <h2>Customize your report</h2>
-    <div class="flex justify-start gap-8">
+    <div class="flex flex-col md:flex-row justify-start gap-2 md:gap-8">
       <form-input
         v-model="form.from"
         label="From"
@@ -63,12 +63,12 @@ const fetchReport = (form) => {
     class="flex flex-col items-center gap-8 justify-center w-full p-8 my-16"
   >
     <img
-      class="w-1/3"
+      class="w-2/3 md:w-1/3"
       src="/investment.svg"
       alt="No data"
     >
-    <span class="block text-stone-600">
-      Your report will be loaded right here. Fill the form and it will <i class="tracking-widest">automagically</i> appear.
+    <span class="block text-stone-600 text-center">
+      Your report will be loaded right here. Fill the form and it will <i class="tracking-wide md:tracking-widest">automagically</i> appear.
     </span>
   </div>
 </template>
