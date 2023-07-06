@@ -157,7 +157,9 @@ const optionsStats = ref([
           :icon="option.icon"
           class="inline mr-1"
         />
-        <span class="option__title text-sm">{{ option.name }}</span>
+        <span class="option__title text-sm">
+          {{ option.parent.name }} / <b>{{ option.name }}</b>
+        </span>
       </select-input>
       <div
         v-else
@@ -165,7 +167,9 @@ const optionsStats = ref([
       />
     </Transition>
   </div>
-  <submit-button class="!mt-4 md:m-auto w-full md:w-auto">Add statistic</submit-button>
+  <submit-button class="!mt-4 md:m-auto w-full md:w-auto">
+    Add statistic
+  </submit-button>
 </template>
 
 <style scoped>

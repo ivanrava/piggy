@@ -225,7 +225,9 @@ watchEffect(() => store.stagingTransaction.account_id = props.accountId);
                 :icon="option.icon"
                 class="inline mr-1"
               />
-              <span class="option__title text-sm">{{ option.name }}</span>
+              <span class="option__title text-sm">
+                {{ option.parent.name }} / <b>{{ option.name }}</b>
+              </span>
             </select-input>
           </div>
           <div
