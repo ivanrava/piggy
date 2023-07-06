@@ -1,11 +1,11 @@
 <template>
   <main class="flex justify-center items-center bg-pink-50 w-full">
     <div class="w-5/6 h-5/6 bg-stone-50 flex justify-stretch content-stretch rounded-lg shadow-2xl">
-      <div class="basis-1 grow pl-32 flex flex-col justify-center items-center">
-        <brand-logo class="w-1/3 mt-16" />
+      <div class="basis-1 grow pl-0 xl:pl-8 2xl:pl-16 flex flex-col justify-center items-center">
+        <brand-logo class="w-2/5 md:w-1/3 xl:w-1/3 mt-16" />
         <router-view
           v-slot="{ Component }"
-          class="flex text-center h-2/3 w-2/5"
+          class="flex text-center h-2/3 w-2/3 md:w-1/2 2xl:w-2/5"
         >
           <transition
             name="slide-fade"
@@ -15,7 +15,7 @@
           </transition>
         </router-view>
       </div>
-      <div class="basis-1 grow flex flex-col justify-center items-center pr-32">
+      <div class="basis-1 grow lg:flex flex-col justify-center items-center pr-16 lg:pr-32 hidden">
         <Transition
           name="slide-fade"
           mode="out-in"
