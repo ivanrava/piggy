@@ -4,12 +4,12 @@ import IconInput from "../inputs/IconInput.vue";
 import FormInput from "../inputs/FormInput.vue";
 import SelectInput from "../inputs/SelectInput.vue";
 import SubmitButton from "../inputs/SubmitButton.vue";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import axios from "axios";
 import TabSelector from "../inputs/TabSelector.vue";
 import {useCategoriesStore} from "../../../composables/useCategoriesStore";
 
-defineProps<{
+const props = defineProps<{
   showForm: Boolean,
   errors : {
     name: String,
@@ -32,13 +32,18 @@ const categoryTypes = [
   }
 ]
 const fathers = ref([]);
-onMounted(() =>  {
+const loadRootCategories = () => {
   axios.get("/categories/root").then(({data}) => {
     fathers.value = data.data;
   }).catch(({response}) => {
     console.log(response.data.errors)
   })
-});
+}
+onMounted(loadRootCategories);
+watch(props.showForm, (newValue) => {
+  if (newValue)
+    loadRootCategories();
+})
 </script>
 
 <template>
@@ -62,9 +67,9 @@ onMounted(() =>  {
         </a>
       </header>
       <tab-selector
-        class="mb-4"
         v-if="store.stagingCategory.parent_category_id === null"
         v-model="store.stagingCategory.type"
+        class="mb-4"
         :tabs="categoryTypes"
       />
       <form
