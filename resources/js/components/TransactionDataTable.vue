@@ -128,7 +128,7 @@ const rowClassRules = {
   @apply ml-4 mr-0 md:my-4
 }
 .ag-paging-button {
-  @appply m-0;
+  @apply m-0;
 }
 .ag-theme-piggy {
   --ag-font-family: 'Inter', sans;
