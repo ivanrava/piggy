@@ -3,7 +3,7 @@ version: '3'
 services:
     # The Laravel application, contains the PHP code
     app:
-        container_name: piggy/laravel
+        container_name: piggy-laravel
         build:
             context: ./
             dockerfile: app.dockerfile
@@ -29,7 +29,7 @@ services:
             - db
     # A NGINX reverse proxy which connects to the PHP-FPM app and provides access to it
     web:
-        container_name: piggy/nginx
+        container_name: piggy-nginx
         build:
             context: ./
             dockerfile: web.dockerfile
@@ -45,7 +45,7 @@ services:
             piggy-network:
     # PostgreSQL DB
     db:
-        container_name: piggy/db
+        container_name: piggy-db
         image: postgres:latest
         restart: always
         # Persistent volume for DB data
