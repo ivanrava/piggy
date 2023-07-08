@@ -64,6 +64,7 @@ class CategoryController extends Controller
     {
         $category->hydrateFromRequest($request);
         $category->save();
+        Category::where('parent_category_id', $category->id)->update(['type' => $category->type]);
         return new CategoryResource($category);
     }
 
