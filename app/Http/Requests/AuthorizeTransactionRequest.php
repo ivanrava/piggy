@@ -11,7 +11,7 @@ class AuthorizeTransactionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->route()->parameter('transaction')->user_id == $this->user()->id;
+        return $this->route()->parameter('transaction')->beneficiary->user_id == $this->user()->id;
     }
 
     /**

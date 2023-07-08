@@ -11,7 +11,7 @@ class AuthorizeTransferRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->route()->parameter('transfer')->user_id == $this->user()->id;
+        return $this->route()->parameter('transfer')->to_account->user_id == $this->user()->id;
     }
 
     /**
