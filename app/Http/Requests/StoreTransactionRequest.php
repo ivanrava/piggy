@@ -18,7 +18,7 @@ class StoreTransactionRequest extends FormRequest
         if ($transaction == null)
             return true;
 
-        return $transaction->user_id == $this->user()->id;
+        return $transaction->beneficiary->user_id == $this->user()->id;
     }
 
     /**
