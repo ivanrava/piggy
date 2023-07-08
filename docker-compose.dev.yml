@@ -11,7 +11,7 @@ services:
     ports:
       - "8025:8025"
     networks:
-      app-network:
+      piggy-network:
   # Web interface for DB management
   adminer:
     container_name: adminer
@@ -22,9 +22,12 @@ services:
     depends_on:
       - db
     networks:
-      app-network:
+      piggy-network:
   # PostgreSQL DB
   db:
     # We open the ports for PHPStorm DB connections
     ports:
       - "5432:5432"
+  web:
+    ports:
+      - "80:80"

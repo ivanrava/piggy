@@ -23,7 +23,7 @@ services:
             MAIL_HOST: ${MAIL_HOST:-mailpit}
             MAIL_PORT: ${MAIL_PORT:-1025}
         networks:
-            app-network:
+            piggy-network:
         # Wait for the DB
         depends_on:
             - db
@@ -38,11 +38,11 @@ services:
         volumes:
             - ./:/var/www
         ports:
-            - "80:80"
+            - "8000:80"
         depends_on:
             - app
         networks:
-            app-network:
+            piggy-network:
     # PostgreSQL DB
     db:
         container_name: db
@@ -56,7 +56,7 @@ services:
             POSTGRES_PASSWORD: ${DB_PASSWORD}
             POSTGRES_DB: ${DB_DATABASE}
         networks:
-            app-network:
+            piggy-network:
         healthcheck:
             test: [ "CMD-SHELL", "pg_isready -U postgres" ]
             interval: 1m30s
@@ -71,10 +71,10 @@ services:
         volumes:
             - ./:/var/www
         networks:
-            - app-network
+            piggy-network:
 
 networks:
-    app-network:
+    piggy-network:
 
 volumes:
     dbdata:
