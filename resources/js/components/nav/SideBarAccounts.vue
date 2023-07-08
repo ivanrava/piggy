@@ -31,7 +31,7 @@ onMounted(async () => {
     <side-bar-account-list :accounts="filterByType('Bank account')" />
     <h2>Cash</h2>
     <side-bar-account-list :accounts="filterByType('Cash')" />
-    <h2>Credits</h2>
+    <h2>Voucher</h2>
     <side-bar-account-list :accounts="filterByType('Voucher')" />
     <h2>Investments</h2>
     <side-bar-account-list :accounts="filterByType('Investments')" />
