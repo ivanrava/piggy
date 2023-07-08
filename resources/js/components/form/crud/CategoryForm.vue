@@ -40,10 +40,10 @@ const loadRootCategories = () => {
   })
 }
 onMounted(loadRootCategories);
-watch(props.showForm, (newValue) => {
-  if (newValue)
+watch(props, (newValue) => {
+  if (newValue.showForm)
     loadRootCategories();
-})
+}, {deep:true})
 </script>
 
 <template>
@@ -87,7 +87,7 @@ watch(props.showForm, (newValue) => {
           :model-value="store.stagingCategory.parent_category_id"
           :options="fathers"
           name="Parent category"
-          :allow-empty="false"
+          :allow-empty="true"
           :errors="errors.parent_category_id"
           @update:model-value="store.stagingCategory.parent_category_id = $event; store.stagingCategory.parent = fathers.find(cat => cat.id === $event)"
         >
