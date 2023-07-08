@@ -9,7 +9,7 @@
       class="flex flex-col items-center gap-8 justify-center w-full bg-stone-100 rounded-xl p-8"
     >
       <img
-        class="w-1/5"
+        class="w-2/5 md:w-1/5"
         src="/setup_analytics.svg"
         alt="No data"
       >
