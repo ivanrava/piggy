@@ -74,7 +74,7 @@ const storeOperation = () => {
   axios.post(operationURL.value, actualPayload.value).then(({data}) => {
     store.closeForm(false);
     store.addOperation(data.data);
-    errors.value = [];
+    errors.value = {};
     fetchOptions();
   }).catch(({response}) => {
     errors.value = response.data.errors;
@@ -87,7 +87,7 @@ const updateOperation = () => {
   axios.put(operationURL.value, actualPayload.value).then(({data}) => {
     store.closeForm(false);
     store.updateOperation(data.data);
-    errors.value = [];
+    errors.value = {};
     fetchOptions();
   }).catch(({response}) => {
     errors.value = response.data.errors;
