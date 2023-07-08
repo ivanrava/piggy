@@ -14,7 +14,7 @@ class AccountTypeSeeder extends Seeder
     {
         DB::table('account_types')->insert(['type' => 'Cash']);
         DB::table('account_types')->insert(['type' => 'Investments']);
-        DB::table('account_types')->insert(['type' => 'Credits']);
+        DB::table('account_types')->insert(['type' => 'Voucher']);
         DB::table('account_types')->insert(['type' => 'Bank account']);
     }
 }
