@@ -65,9 +65,9 @@ const totalTransactions = computed(() => {
                 role="button"
                 @click="store.editAccount(account)"
               >
-            <span>
-              Edit
-            </span>
+                <span>
+                  Edit
+                </span>
               </a>
             </div>
             <router-link
@@ -110,14 +110,14 @@ const totalTransactions = computed(() => {
               <li>
                 <b>Total transactions:</b>
                 <span class="pl-1">
-              {{ totalTransactions }}
-            </span>
+                  {{ totalTransactions }}
+                </span>
               </li>
               <li>
                 <b>Total amount of money:</b>
                 <span class="pl-1">
-              {{ useAgGridUtilites().currencyFormatterBare(beneficiaries.reduce((previousValue, currentValue) => previousValue + Number(currentValue.sum), 0)) }}
-            </span>
+                  {{ useAgGridUtilites().currencyFormatterBare(beneficiaries.reduce((previousValue, currentValue) => previousValue + Number(currentValue.sum), 0) + Number(account.initial_balance)) }}
+                </span>
               </li>
             </ul>
             <Transition

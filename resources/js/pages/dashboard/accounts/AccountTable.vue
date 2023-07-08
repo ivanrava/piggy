@@ -84,7 +84,7 @@ const textColor = computed(() => {
                 <small class="font-extralight whitespace-nowrap">{{ account.type }}</small>
               </div>
               <span class="text-4xl font-light whitespace-nowrap tracking-tighter">
-                {{ useAgGridUtilites().currencyFormatterBare(store.getTotal()) }}
+                {{ useAgGridUtilites().currencyFormatterBare(store.getTotal() + account.initial_balance) }}
               </span>
             </div>
           </div>
@@ -93,9 +93,9 @@ const textColor = computed(() => {
       <transaction-data-table :fields="['beneficiary', 'category']" />
     </section>
     <div
+      v-if="account"
       class="flex md:hidden flex-col justify-center gap-4"
       :class="textColor"
-      v-if="account"
     >
       <div
         class="flex py-1 px-3 rounded-lg shadow-sm items-center gap-4 justify-between mt-4"
@@ -111,7 +111,7 @@ const textColor = computed(() => {
           </h2>
         </div>
         <span class="text-xl font-light whitespace-nowrap tracking-tighter">
-          {{ useAgGridUtilites().currencyFormatterBare(store.getTotal()) }}
+          {{ useAgGridUtilites().currencyFormatterBare(store.getTotal() + account.initial_balance) }}
         </span>
       </div>
     </div>

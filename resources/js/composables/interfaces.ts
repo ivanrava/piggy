@@ -23,6 +23,7 @@ interface Account {
     icon: string;
     name: string;
     type: string;
+    initial_balance: string;
     balance: string;
     last_update: string;
     color: string;
