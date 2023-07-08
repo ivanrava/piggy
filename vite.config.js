@@ -44,5 +44,8 @@ export default defineConfig({
         alias: {
             '@/': '/resources/js'
         }
+    },
+    build: {
+        target: 'esnext'
     }
 });
