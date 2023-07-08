@@ -2,7 +2,11 @@
   <main class="flex justify-center items-center bg-pink-50 w-full">
     <div class="w-5/6 h-5/6 bg-stone-50 flex justify-stretch content-stretch rounded-lg shadow-2xl">
       <div class="basis-1 grow pl-0 xl:pl-8 2xl:pl-16 flex flex-col justify-center items-center">
-        <brand-logo class="w-2/5 md:w-1/3 xl:w-1/3 mt-16" />
+        <img
+          alt="Application logo"
+          src="/logo-align-left.svg"
+          class="w-2/5 md:w-1/3 xl:w-1/3 mt-32"
+        >
         <router-view
           v-slot="{ Component }"
           class="flex text-center h-2/3 w-2/3 md:w-1/2 2xl:w-2/5"
@@ -47,6 +51,7 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import BrandLogo from "../components/nav/BrandLogo.vue";
+import {useRoute} from "vue-router";
 
 const imgIdx = ref(0);
 const imgIdxMax = 2;
