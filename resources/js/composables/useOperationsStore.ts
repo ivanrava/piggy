@@ -104,8 +104,13 @@ export const useOperationsStore = defineStore('operations', {
             this.isShowForm = true;
         },
         getTotal(currentAccountId = null) {
-            return this.transactions.reduce((acc, curr) => curr.category.type == 'in' ? acc + Number(curr.amount) : acc - Number(curr.amount), 0) +
-                this.transfers.reduce((acc, curr) => useOperationHelpers.isOutTransfer(curr, currentAccountId) ? acc - Number(curr.amount) : acc + Number(curr.amount), 0)
+            return this.getOperations.reduce((acc, curr) => {
+                if ('beneficiary' in curr) {
+                    return curr.category.type == 'in' ? acc + Number(curr.amount) : acc - Number(curr.amount);
+                } else {
+                    return useOperationHelpers.isOutTransfer(curr, currentAccountId) ? acc - Number(curr.amount) : acc + Number(curr.amount);
+                }
+            }, 0)
         }
     }
 })
