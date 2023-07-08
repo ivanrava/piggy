@@ -15,7 +15,7 @@ class StoreTransferRequest extends FormRequest
         if ($transfer == null)
             return true;
 
-        return $transfer->user_id == $this->user()->id;
+        return $transfer->to_account->user_id == $this->user()->id;
     }
 
     /**
