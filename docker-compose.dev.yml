@@ -3,7 +3,7 @@ version: '3'
 services:
   # Mailpit for testing e-mail functionalities
   mailpit:
-    container_name: mailpit
+    container_name: piggy/mailpit
     image: axllent/mailpit:latest
     # Disable logging
     logging:
@@ -14,7 +14,7 @@ services:
       piggy-network:
   # Web interface for DB management
   adminer:
-    container_name: adminer
+    container_name: piggy/adminer
     image: adminer:latest
     restart: always
     ports:
