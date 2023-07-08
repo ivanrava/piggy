@@ -84,11 +84,12 @@ watch(props.showForm, (newValue) => {
         />
         <select-input
           v-slot="{ option }"
-          v-model="store.stagingCategory.parent_category_id"
+          :model-value="store.stagingCategory.parent_category_id"
           :options="fathers"
           name="Parent category"
-          :allow-empty="true"
+          :allow-empty="false"
           :errors="errors.parent_category_id"
+          @update:model-value="store.stagingCategory.parent_category_id = $event; store.stagingCategory.parent = fathers.find(cat => cat.id === $event)"
         >
           <Icon
             :icon="option.icon"

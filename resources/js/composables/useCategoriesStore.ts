@@ -6,7 +6,8 @@ const emptyCategory = {
     name: '',
     type: 'out',
     icon: '',
-    parent_category_id: null
+    parent_category_id: null,
+    parent: {}
 }
 
 export const useCategoriesStore = defineStore('categories', {

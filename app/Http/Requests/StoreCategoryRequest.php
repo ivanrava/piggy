@@ -10,7 +10,7 @@ class StoreCategoryRequest extends FormRequest
         'name' => 'required|max:100',
         'type' => 'required_without:parent_category_id|in:out,in',
         'icon' => 'required|max:255',
-        'parent_category_id' => 'nullable|exists:categories,id'
+        'parent_category_id' => 'required|exists:categories,id'
     ];
 
     /**
