@@ -116,7 +116,7 @@ const totalTransactions = computed(() => {
               <li>
                 <b>Total amount of money:</b>
                 <span class="pl-1">
-                  {{ useAgGridUtilites().currencyFormatterBare(beneficiaries.reduce((previousValue, currentValue) => previousValue + Number(currentValue.sum), 0) + Number(account.initial_balance)) }}
+                  {{ useAgGridUtilites().currencyFormatterBare(categories.reduce((previousValue, currentValue) => currentValue.type === 'out' ? previousValue - Number(currentValue.sum) : previousValue + Number(currentValue.sum), Number(account.initial_balance))) }}
                 </span>
               </li>
             </ul>
