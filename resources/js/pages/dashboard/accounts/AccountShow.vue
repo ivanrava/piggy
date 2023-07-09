@@ -9,6 +9,7 @@ import {useAccountsStore} from "../../../composables/useAccountsStore";
 import {Account} from "../../../composables/interfaces";
 import AccountForm from "../../../components/form/crud/AccountForm.vue";
 import GraphSkeleton from "../../../components/GraphSkeleton.vue";
+import {useOperationsStore} from "../../../composables/useOperationsStore";
 
 const route = useRoute();
 const store = useAccountsStore();
@@ -23,6 +24,11 @@ watchEffect(() => {
   isLoading.value = true;
   axios.get(`/accounts/${route.params.id}`).then(({data}) => {
     account.value = data.data;
+    useOperationsStore().setOperations(
+      account.value.transactions,
+      account.value.in_transfers,
+      account.value.out_transfers
+    );
   }).finally(() => {
     isLoading.value = false;
   })
@@ -116,7 +122,7 @@ const totalTransactions = computed(() => {
               <li>
                 <b>Total amount of money:</b>
                 <span class="pl-1">
-                  {{ useAgGridUtilites().currencyFormatterBare(categories.reduce((previousValue, currentValue) => currentValue.type === 'out' ? previousValue - Number(currentValue.sum) : previousValue + Number(currentValue.sum), Number(account.initial_balance))) }}
+                  {{ useAgGridUtilites().currencyFormatterBare(useOperationsStore().getTotal() + Number(account.initial_balance)) }}
                 </span>
               </li>
             </ul>
