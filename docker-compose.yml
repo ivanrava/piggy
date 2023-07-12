@@ -24,6 +24,7 @@ services:
             MAIL_PORT: ${MAIL_PORT:-1025}
         networks:
             piggy-network:
+        restart: always
         # Wait for the DB
         depends_on:
             - db
@@ -43,6 +44,7 @@ services:
             - app
         networks:
             piggy-network:
+        restart: always
     # PostgreSQL DB
     db:
         container_name: piggy-db
