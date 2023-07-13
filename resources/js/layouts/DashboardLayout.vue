@@ -5,7 +5,7 @@
       <div class="flex w-full h-full bg-pink-200/50 rounded-3xl shadow-inner">
         <side-bar
           v-if="useRoute().path !== '/home'"
-          class="rounded-l-3xl sm:w-2/6 xl:w-1/5 2xl:w-1/6 print:hidden hidden md:block"
+          class="rounded-l-3xl sm:w-2/5 lg:w-2/5 xl:w-2/6 2xl:w-1/5 print:hidden hidden md:block"
         />
         <main
           :class="useRoute().path === '/home' ? 'md:rounded-l-3xl pl-2' : 'md:rounded-l-none'"

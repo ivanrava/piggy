@@ -4,7 +4,7 @@
     :key="category.name"
   >
     <li
-      class="px-6 py-0.5 rounded-md transition-all cursor-pointer whitespace-nowrap overflow-clip text-ellipsis"
+      class="pl-6 pr-2 py-0.5 rounded-md transition-all cursor-pointer whitespace-nowrap overflow-clip text-ellipsis"
       :class="classes(category)"
       @click.stop="router.push(`/categories/${category.id}`)"
     >
