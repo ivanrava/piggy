@@ -39,7 +39,7 @@ export default defineComponent({
       :beneficiary="beneficiary"
       class="!w-12 !h-12"
     />
-    <span class="text-xs font-semibold text-slate-900">{{ beneficiary.name }}</span>
+    <span class="text-ssm font-semibold text-slate-900">{{ beneficiary.name }}</span>
   </router-link>
   <div
     v-else

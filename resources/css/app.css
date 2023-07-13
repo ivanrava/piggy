@@ -30,3 +30,9 @@
 .fade-loading-leave-to {
     opacity: 0;
 }
+
+@layer utilities {
+    .text-ssm {
+        font-size: 0.8rem;
+    }
+}
