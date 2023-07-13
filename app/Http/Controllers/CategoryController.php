@@ -33,7 +33,10 @@ class CategoryController extends Controller
     public function leaves(Request $request): AnonymousResourceCollection
     {
         return CategoryResource::collection(
-            $request->user()->categories()->whereNotNull('parent_category_id')->with('parent')->get()
+            $request->user()->categories()->whereNotNull('parent_category_id')->with('parent')->get()->sortBy([
+                fn (Category $a, Category $b) => $a['parent']['name'] <=> $b['parent']['name'],
+                fn (Category $a, Category $b) => $a['name'] <=> $b['name'],
+            ])
         );
     }
 
