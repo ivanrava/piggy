@@ -41,7 +41,6 @@ use Illuminate\Http\Request;
 class Category extends Model
 {
     use HasFactory;
-    protected $with = ['children'];
 
     public function user(): BelongsTo
     {

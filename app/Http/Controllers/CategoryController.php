@@ -20,20 +20,20 @@ class CategoryController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        return CategoryResource::collection($request->user()->categories()->get());
+        return CategoryResource::collection($request->user()->categories()->with('children')->get());
     }
 
     public function root(Request $request): AnonymousResourceCollection
     {
         return CategoryResource::collection(
-            $request->user()->categories()->whereParentCategoryId(null)->orderBy('type')->orderBy('name')->get()
+            $request->user()->categories()->whereParentCategoryId(null)->with('children')->orderBy('type')->orderBy('name')->get()
         );
     }
 
     public function leaves(Request $request): AnonymousResourceCollection
     {
         return CategoryResource::collection(
-            $request->user()->categories()->whereNotNull('parent_category_id')->with('parent')->get()->sortBy([
+            $request->user()->categories()->whereNotNull('parent_category_id')->with(['parent','children'])->get()->sortBy([
                 fn (Category $a, Category $b) => $a['parent']['name'] <=> $b['parent']['name'],
                 fn (Category $a, Category $b) => $a['name'] <=> $b['name'],
             ])
