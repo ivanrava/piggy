@@ -50,6 +50,50 @@ export const useOperationsStore = defineStore('operations', {
         getStagingOperation(state) {
             return state.isEditingTransfer ? state.stagingTransfer : state.stagingTransaction
         },
+        getMostFrequentTransaction(state) {
+            const opMap = {};
+            let maxRepr = '';
+            let maxNumberOps = 0;
+            state.transactions.forEach(op => {
+                const str_repr = op.beneficiary.id+"-"+op.category.id;
+                if (opMap[str_repr] == null)
+                    opMap[str_repr] = 1
+                else
+                    opMap[str_repr]++
+                if (opMap[str_repr] > maxNumberOps) {
+                    maxNumberOps = opMap[str_repr];
+                    maxRepr = str_repr;
+                }
+            })
+            const beneficiary_id = maxRepr === '' ? null : Number(maxRepr.split('-')[0])
+            const category_id = maxRepr === '' ? null : Number(maxRepr.split('-')[1])
+            return {
+                beneficiary_id: beneficiary_id,
+                category_id: category_id
+            }
+        },
+        getMostFrequentTransfer(state) {
+            const opMap = {};
+            let maxRepr = '';
+            let maxNumberOps = 0;
+            state.transfers.forEach(op => {
+                const str_repr = op.type+"-" + ('to' in op ? op.to.id : op.from.id);
+                if (opMap[str_repr] == null)
+                    opMap[str_repr] = 1
+                else
+                    opMap[str_repr]++
+                if (opMap[str_repr] > maxNumberOps) {
+                    maxNumberOps = opMap[str_repr];
+                    maxRepr = str_repr;
+                }
+            })
+            const type = maxRepr === '' ? null : maxRepr.split('-')[0]
+            const account_id = maxRepr === '' ? null : Number(maxRepr.split('-')[1])
+            return {
+                type: type,
+                account_id: account_id
+            }
+        }
     },
     actions: {
         deleteOperation(id, isTransfer) {
@@ -74,6 +118,13 @@ export const useOperationsStore = defineStore('operations', {
             this.transactions = transactions
             this.transfers = transfers_in.concat(transfers_out)
             this.added = [];
+
+            const transactionData = this.getMostFrequentTransaction;
+            this.stagingTransaction.beneficiary.id = transactionData.beneficiary_id
+            this.stagingTransaction.category.id = transactionData.category_id
+            const transferData = this.getMostFrequentTransfer;
+            this.stagingTransfer.isOut = transferData.type === 'out'
+            this.stagingTransfer.account_id = transferData.account_id
         },
         showEdit(operation: Transfer|Transaction, isTransfer, currentAccountId) {
             if (isTransfer) {
@@ -111,6 +162,6 @@ export const useOperationsStore = defineStore('operations', {
                     return useOperationHelpers.isOutTransfer(curr, currentAccountId) ? acc - Number(curr.amount) : acc + Number(curr.amount);
                 }
             }, 0)
-        }
+        },
     }
 })
