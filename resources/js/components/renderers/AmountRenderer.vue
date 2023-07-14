@@ -22,10 +22,10 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="flex flex-row md:justify-end justify-start items-center h-full">
+  <div class="flex flex-row md:justify-end justify-center items-center h-full">
     <span
       :class="isOut ? 'text-red-700' : 'text-green-700'"
-      class="pl-4 w-32"
+      class="w-32 flex justify-end px-4"
     >
       <span
         v-if="isOut"

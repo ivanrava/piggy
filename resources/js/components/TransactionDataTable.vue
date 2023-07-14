@@ -38,7 +38,7 @@ watchEffect(() => {
 });
 
 const fieldDefs = computed(() => {
-  if (window.innerWidth <= 480) {
+  if (window.innerWidth <= 720) {
     return {}
   }
   return {
@@ -63,12 +63,12 @@ const fieldDefs = computed(() => {
 const defaultColDefs = [
   {
     headerName: 'Date', field: 'date',
-    type: window.innerWidth <= 480 ? '' : 'rightAligned',
+    type: window.innerWidth <= 720 ? '' : 'rightAligned',
     valueFormatter: dateFormatter,
     cellClass: 'date-cell',
     sortable: true,
     suppressSizeToFit: true,
-    maxWidth: window.innerWidth <= 480 ? 120 : 200
+    maxWidth: window.innerWidth <= 720 ? 120 : 200
   },
   {
     headerName: 'Amount', field: 'amount',
@@ -137,8 +137,7 @@ const rowClassRules = {
   @apply md:text-[1.2rem] text-base text-center md:text-left;
 }
 .date-cell {
-  @apply text-left md:text-right ml-4 md:m-0;
-  font-size: 0.8rem;
+  @apply text-left md:text-right ml-4 md:m-0 text-ssm;
 }
 .ag-header-cell-label {
   @apply md:text-[1.2rem] text-sm leading-5 md:leading-5 text-center ml-4 md:m-0;
