@@ -24,8 +24,8 @@ onMounted(() => {
       account.value.in_transfers,
       account.value.out_transfers
     );
-  }).catch(({response}) => {
-    errors.value = response.data.errors;
+  }).catch((response) => {
+    errors.value = response;
   })
 });
 
