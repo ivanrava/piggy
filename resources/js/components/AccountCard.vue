@@ -14,8 +14,8 @@
     />
     <div class="flex flex-col ml-2 mb-0.5">
       <b
-        :class="{'leading-4 md:text-xs': small}"
-        class="whitespace-nowrap text-sm md:text-ssm mb-0.5"
+        :class="{'leading-4 md:text-xs xl:text-xs': small}"
+        class="whitespace-nowrap text-sm md:text-ssm xl:text-base mb-0.5"
       >{{ account.name }}</b>
       <small
         class="font-light whitespace-nowrap text-xs"
