@@ -137,7 +137,7 @@ const rowClassRules = {
   @apply md:text-[1.2rem] text-base text-center md:text-left;
 }
 .date-cell {
-  @apply text-left md:text-right ml-4 md:m-0 text-ssm;
+  @apply text-left md:text-right ml-4 md:m-0 text-[0.85rem];
 }
 .ag-header-cell-label {
   @apply md:text-[1.2rem] text-sm leading-5 md:leading-5 text-center ml-4 md:m-0;
