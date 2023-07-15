@@ -54,7 +54,9 @@ export const useOperationsStore = defineStore('operations', {
             const opMap = {};
             let maxRepr = '';
             let maxNumberOps = 0;
-            state.transactions.forEach(op => {
+            let consideredTransactions = state.transactions.filter(op => op.date >= new Date(new Date().setFullYear(new Date().getFullYear() - 1)))
+            consideredTransactions = consideredTransactions.length > 0 ? consideredTransactions : state.transactions
+            consideredTransactions.forEach(op => {
                 const str_repr = op.beneficiary.id+"-"+op.category.id;
                 if (opMap[str_repr] == null)
                     opMap[str_repr] = 1
