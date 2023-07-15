@@ -23,6 +23,9 @@ const fetchReport = (form) => {
     inCategories.value = data.in
     outCategories.value = data.out
     fetched.value = true;
+    setTimeout(() => {
+      window.print();
+    }, 1000)
   })
 }
 
