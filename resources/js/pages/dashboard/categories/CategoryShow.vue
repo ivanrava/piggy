@@ -144,7 +144,7 @@ import CategoryForm from "../../../components/form/crud/CategoryFormWrapper.vue"
 import {useCategoriesStore} from "../../../composables/useCategoriesStore";
 import {Icon} from "@iconify/vue";
 import {computed, watchEffect} from "vue";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import {ref} from "vue";
 import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
 import NoData from "../../../components/NoData.vue";
@@ -166,6 +166,10 @@ watchEffect(() => {
   axios.get(`/categories/${route.params.id}`).then(({data}) => {
     category.value = data.data;
     store.selectCategory(category.value);
+  }).catch((reason: AxiosError) => {
+    if (reason.response.status === 404) {
+      router.replace('/404')
+    }
   }).finally(() => {
     isLoading.value = false;
   })

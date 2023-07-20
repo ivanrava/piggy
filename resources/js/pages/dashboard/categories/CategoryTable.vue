@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
-import axios from "axios";
-import {useRoute} from "vue-router";
+import axios, {AxiosError} from "axios";
+import {useRoute, useRouter} from "vue-router";
 import TransactionDataTable from "../../../components/TransactionDataTable.vue";
 import {useOperationsStore} from "../../../composables/useOperationsStore";
 import {Category} from "../../../composables/interfaces";
@@ -10,15 +10,17 @@ import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
 
 const category = ref<Category>(null);
 const store = useOperationsStore();
+const router = useRouter();
 
-const errors = ref({});
 onMounted(() => {
   store.setOperations([], [], []);
   axios.get("/categories/"+useRoute().params.id).then(({data}) => {
     category.value = data.data;
     store.setOperations(category.value.transactions, [], [])
-  }).catch(({response}) => {
-    errors.value = response.data.errors;
+  }).catch((reason: AxiosError) => {
+    if (reason.response.status === 404) {
+      router.replace('/404')
+    }
   })
 });
 </script>

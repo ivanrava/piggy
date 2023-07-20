@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
-import axios from "axios";
-import {useRoute} from "vue-router";
+import axios, {AxiosError} from "axios";
+import {useRoute, useRouter} from "vue-router";
 import TransactionDataTable from "../../../components/TransactionDataTable.vue";
 import {Beneficiary} from "../../../composables/interfaces";
 import {useOperationsStore} from "../../../composables/useOperationsStore";
@@ -9,17 +9,19 @@ import {Icon} from "@iconify/vue";
 import BeneficiaryImage from "../../../components/BeneficiaryImage.vue";
 import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
 
+const router = useRouter();
 const beneficiary = ref<Beneficiary>(null);
 const store = useOperationsStore();
 
-const errors = ref({});
 onMounted(() => {
   store.setOperations([], [], []);
   axios.get("/beneficiaries/"+useRoute().params.id).then(({data}) => {
     beneficiary.value = data.data;
     store.setOperations(beneficiary.value.transactions, [], [])
-  }).catch(({response}) => {
-    errors.value = response.data.errors;
+  }).catch((reason: AxiosError) => {
+    if (reason.response.status === 404) {
+      router.replace('/404')
+    }
   })
 });
 </script>

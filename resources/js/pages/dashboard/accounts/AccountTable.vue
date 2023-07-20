@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
-import axios from "axios";
-import {useRoute} from "vue-router";
+import axios, {AxiosError} from "axios";
+import {useRoute, useRouter} from "vue-router";
 import TransactionForm from "../../../components/form/crud/TransactionForm.vue";
 import {Account} from "../../../composables/interfaces";
 import TransactionDataTable from "../../../components/TransactionDataTable.vue";
@@ -12,10 +12,10 @@ import {computed} from "vue";
 import {isColorDark} from "../../../composables/colors";
 
 const route = useRoute();
+const router = useRouter();
 const store = useOperationsStore();
 
 const account = ref<Account>(null);
-const errors = ref([]);
 onMounted(() => {
   axios.get(`/accounts/${route.params.id}`).then(({data}) => {
     account.value = data.data;
@@ -24,8 +24,10 @@ onMounted(() => {
       account.value.in_transfers,
       account.value.out_transfers
     );
-  }).catch((response) => {
-    errors.value = response;
+  }).catch((reason: AxiosError) => {
+    if (reason.response.status === 404) {
+      router.replace('/404')
+    }
   })
 });
 

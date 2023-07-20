@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed, ref, watchEffect} from "vue";
-import axios from "axios";
-import {useRoute} from "vue-router";
+import axios, {AxiosError} from "axios";
+import {useRoute, useRouter} from "vue-router";
 import {Beneficiary} from "../../../composables/interfaces";
 import {useBeneficiariesStore} from "../../../composables/useBeneficiariesStore";
 import BeneficiaryImage from "../../../components/BeneficiaryImage.vue";
@@ -12,6 +12,7 @@ import BeneficiaryFormWrapper from "../../../components/form/crud/BeneficiaryFor
 import GraphSkeleton from "../../../components/GraphSkeleton.vue";
 
 const route = useRoute();
+const router = useRouter();
 const store = useBeneficiariesStore();
 
 const isLoading = ref<Boolean>(false);
@@ -24,6 +25,10 @@ watchEffect(() => {
   isLoading.value = true;
   axios.get(`/beneficiaries/${route.params.id}`).then(({data}) => {
     beneficiary.value = data.data;
+  }).catch((reason: AxiosError) => {
+    if (reason.response.status === 404) {
+      router.replace('/404')
+    }
   }).finally(() => {
     isLoading.value = false;
   })

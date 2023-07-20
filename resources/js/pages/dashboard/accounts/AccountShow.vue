@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed, ref, watchEffect} from "vue";
-import axios from "axios";
-import {useRoute} from "vue-router";
+import axios, {AxiosError} from "axios";
+import {useRoute, useRouter} from "vue-router";
 import NoData from "../../../components/NoData.vue";
 import ChartPie from "../../../components/stats/ChartPie.vue";
 import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
@@ -12,6 +12,7 @@ import GraphSkeleton from "../../../components/GraphSkeleton.vue";
 import {useOperationsStore} from "../../../composables/useOperationsStore";
 
 const route = useRoute();
+const router = useRouter();
 const store = useAccountsStore();
 
 const isLoading = ref<Boolean>(false);
@@ -29,6 +30,10 @@ watchEffect(() => {
       account.value.in_transfers,
       account.value.out_transfers
     );
+  }).catch((reason: AxiosError) => {
+    if (reason.response.status === 404) {
+      router.replace('/404')
+    }
   }).finally(() => {
     isLoading.value = false;
   })
