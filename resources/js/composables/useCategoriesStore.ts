@@ -38,6 +38,9 @@ export const useCategoriesStore = defineStore('categories', {
                 console.log('Error! Could not reach the API. ' + error)
             })
             this.stagingCategory = emptyCategory
+        },
+        deleteCategory(category: Category) {
+            this.categories = this.categories.filter(cat => cat.id != category.id)
         }
     }
 })

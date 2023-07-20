@@ -28,6 +28,22 @@
                 Edit
               </span>
             </a>
+            <a
+              class="cursor-pointer flex flex-col justify-center !text-lg pt-2"
+              :class="{'!decoration-red-900':askedForDeletion}"
+              role="button"
+              @click="askDelete(store.selectedCategory)"
+            >
+              <span
+                v-if="askedForDeletion"
+                class="text-red-900"
+              >
+                Really sure?
+              </span>
+              <span v-else>
+                Delete
+              </span>
+            </a>
           </div>
           <router-link
             :to="`/categories/${store.selectedCategory.id}/transactions`"
@@ -132,13 +148,14 @@ import axios from "axios";
 import {ref} from "vue";
 import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
 import NoData from "../../../components/NoData.vue";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {Category} from "../../../composables/interfaces";
 import ChartPie from "../../../components/stats/ChartPie.vue";
 import GraphSkeleton from "../../../components/GraphSkeleton.vue";
 
 const store = useCategoriesStore()
 const route = useRoute();
+const router = useRouter();
 
 const accounts = ref([]);
 const beneficiaries = ref([]);
@@ -163,6 +180,23 @@ watchEffect(() => {
 const totalTransactions = computed(() => {
   return accounts.value.reduce((previousValue, currentValue) => previousValue + currentValue.count, 0);
 })
+
+const askedForDeletion = ref(false);
+const askDelete = (category: Category) => {
+  if (!askedForDeletion.value) {
+    askedForDeletion.value = true;
+    return
+  }
+
+  axios.delete(`/categories/${category.id}`)
+    .then(() => {
+      store.deleteCategory(category)
+      router.push('/categories')
+    })
+    .catch((res) => {
+      console.log(res)
+    })
+}
 </script>
 
 <style scoped>

@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {Beneficiary} from "./interfaces";
+import {Account, Beneficiary} from "./interfaces";
 
 const emptyBeneficiary = {
     id: null,
@@ -33,6 +33,9 @@ export const useBeneficiariesStore = defineStore('beneficiaries', {
             this.stagingBeneficiary = emptyBeneficiary
             this.showForm = false
             this.isEditing = false
-        }
+        },
+        deleteBeneficiary(beneficiary: Beneficiary) {
+            this.beneficiaries = this.beneficiaries.filter(ben => ben.id != beneficiary.id)
+        },
     }
 })
