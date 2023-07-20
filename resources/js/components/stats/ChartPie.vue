@@ -2,6 +2,7 @@
 import {Pie} from 'vue-chartjs';
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, Colors, ArcElement } from 'chart.js'
 import {computed} from "vue";
+import {useAgGridUtilites} from "../../composables/useAgGridUtilities";
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, Colors, ArcElement)
 
 const props = defineProps<{
@@ -21,7 +22,15 @@ const options = computed(() => {
     plugins: {
       colors:{enabled: true},
       legend:{display:false},
-      title:{title:props.title,display:props.title.length > 0,font:{size:22,weight:'',family:'Inter'}}
+      title:{text:props.title,display:props.title.length > 0,font:{size:22,weight:'',family:'Inter'}},
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            const num = !props.tooltip.includes('Number') ? useAgGridUtilites().currencyFormatterBare(Number(context.parsed)) : context.parsed
+            return context.dataset.label + ": " + num;
+          }
+        }
+      }
     }
   };
 })

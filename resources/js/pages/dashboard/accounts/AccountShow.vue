@@ -138,14 +138,14 @@ const totalTransactions = computed(() => {
                   <chart-pie
                     :data="beneficiaries"
                     title="Beneficiary distribution"
-                    tooltip="Total of transactions"
+                    tooltip="Total import of transactions"
                   />
                 </div>
                 <div class="md:w-1/2 md:px-16 print:p-0">
                   <chart-pie
                     :data="categories"
                     title="Category distribution"
-                    tooltip="Total of transactions"
+                    tooltip="Total import of transactions"
                   />
                 </div>
               </section>
