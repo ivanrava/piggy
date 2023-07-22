@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue"
+import {onMounted, ref} from "vue"
 import {useAuth} from "../../composables/useAuth";
 import SubmitButton from "../../components/form/inputs/SubmitButton.vue";
 import FormInput from "../../components/form/inputs/FormInput.vue";
@@ -58,7 +58,11 @@ const form = ref({
     password_confirmation: ''
 })
 
-const {register, errors, loading} = useAuth();
+const {register, clearErrors, errors, loading} = useAuth();
+
+onMounted(() => {
+  clearErrors();
+})
 </script>
 
 <style scoped>

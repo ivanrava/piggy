@@ -94,5 +94,8 @@ export const useAuth = () => {
             loading.value = false;
         });
     }
-    return {login, logout, register, initUser, user, errors, loading}
+    function clearErrors() {
+        errors.value = {};
+    }
+    return {login, logout, register, initUser, clearErrors, user, errors, loading}
 }

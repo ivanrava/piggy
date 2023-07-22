@@ -35,17 +35,20 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {useAuth} from "../../composables/useAuth";
 import SubmitButton from "../../components/form/inputs/SubmitButton.vue";
 import FormInput from "../../components/form/inputs/FormInput.vue";
 
+const {login, clearErrors, errors, loading} = useAuth()
+
+onMounted(() => {
+  clearErrors();
+})
 const form = ref({
     email: '',
     password: ''
 })
-
-const {login, errors, loading} = useAuth()
 </script>
 
 <style scoped>
