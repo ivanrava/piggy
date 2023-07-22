@@ -4,8 +4,8 @@
     :key="category.name"
   >
     <li
-      class="pl-6 pr-2 py-0.5 rounded-md transition-all cursor-pointer whitespace-nowrap overflow-clip text-ellipsis"
-      :class="classes(category)"
+      class="pr-2 py-0.5 rounded-md transition-all cursor-pointer whitespace-nowrap overflow-clip text-ellipsis"
+      :class="`${classes(category)} ${category.parent_category_id == null ? 'pl-2' : 'pl-6'}`"
       @click.stop="router.push(`/categories/${category.id}`)"
     >
       <Icon
@@ -25,7 +25,6 @@ import {Category} from '../../composables/interfaces';
 import {Icon} from "@iconify/vue";
 import {useCategoriesStore} from "../../composables/useCategoriesStore";
 import {useRouter} from "vue-router";
-import EmptyListMessage from "../EmptyListMessage.vue";
 
 defineProps<{
   categories: Array<Category>
