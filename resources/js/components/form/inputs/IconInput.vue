@@ -103,6 +103,7 @@ watch(prompt, async (newPrompt) => {
       icons.value = js['icons']
       total.value = js['total']
       actualPages.value = Math.ceil(total.value / pageLimit)
+      page.value = 1;
     } catch (error) {
       console.log('Error! Could not reach the API. ' + error)
     }
