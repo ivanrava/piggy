@@ -157,4 +157,7 @@ const rowClassRules = {
 .ag-cell-value {
   @apply px-2 md:px-4;
 }
+.beneficiary-cell .ag-cell-value {
+  @apply grow-0;
+}
 </style>
