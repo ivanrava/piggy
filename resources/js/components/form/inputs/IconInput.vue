@@ -1,11 +1,20 @@
 <template>
   <div class="w-full">
-    <form-input
-      v-model="prompt"
-      class="!w-full"
-      label="Icon"
-      :errors="errors"
-    />
+    <div class="w-full flex items-center gap-2">
+      <Icon
+        v-if="isEdit"
+        :class="{'bg-red-400/20': selected === oldIcon}"
+        class="text-xl hover:ring-1 ring-red-200/50 hover:shadow-md p-2 w-10 h-10 rounded-xl transition-all cursor-pointer"
+        :icon="oldIcon"
+        @click="selected = oldIcon; value = oldIcon"
+      />
+      <form-input
+        v-model="prompt"
+        class="!w-full"
+        label="Icon"
+        :errors="errors"
+      />
+    </div>
     <span
       v-if="!isLoading && total >= pageLimit"
       class="p-3 text-xs opacity-50"
@@ -61,7 +70,7 @@
 <script setup lang="ts">
 import {Icon} from "@iconify/vue";
 import FormInput from "./FormInput.vue";
-import {ref, watch, computed} from "vue";
+import {ref, watch, computed, onMounted} from "vue";
 import {useDebouncedRef} from "../../../composables/performance";
 
 const prompt = useDebouncedRef('');
@@ -73,6 +82,7 @@ const maxPages = 12;
 const actualPages = ref(0);
 const page = ref(1);
 const isLoading = ref(false);
+const oldIcon = ref('');
 
 const props = defineProps({
   modelValue: {
@@ -81,7 +91,15 @@ const props = defineProps({
   errors: {
     type: Array<String>,
     default: []
+  },
+  isEdit: {
+    type: Boolean,
   }
+})
+
+onMounted(() => {
+  oldIcon.value = value.value
+  selected.value = value.value
 })
 
 const emit = defineEmits(['update:modelValue'])

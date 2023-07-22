@@ -99,6 +99,7 @@ watch(props, (newValue) => {
         </select-input>
         <icon-input
           v-model="store.stagingCategory.icon"
+          :is-edit="store.isEditing"
           :errors="errors.icon"
         />
         <submit-button class="block w-full">

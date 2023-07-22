@@ -61,6 +61,7 @@
         </div>
         <icon-input
           v-model="store.stagingAccount.icon"
+          :is-edit="store.isEditing"
           :errors="errors.icon"
         />
         <form-textarea
