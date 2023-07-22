@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col pb-4">
     <h1>Welcome back, {{ user.name }}</h1>
     <h2 class="mb-4">
       Favorite charts
@@ -17,12 +17,11 @@
     </div>
     <div
       v-else
-      class="flex flex-row gap-4"
+      class="flex flex-col md:flex-row flex-wrap"
     >
       <generic-chart-wrapper
         v-for="chartForm in charts.slice(0,4)"
         :key="chartForm.id"
-        class="!m-0"
         :form="chartForm"
       />
     </div>
