@@ -40,18 +40,18 @@ onMounted(() => {
         </div>
         <div v-else-if="charts.length == 0">
           <h1>
-            No category selected
+            No charts defined
           </h1>
           <div
             class="flex flex-col items-center gap-8 justify-center w-full p-8 my-16"
           >
             <img
               class="w-1/3"
-              src="/investing.svg"
+              src="/setup_analytics.svg"
               alt="No data"
             >
             <span class="block text-stone-600">
-              We will load data from your categories in here, please click one of the categories on the sidebar.
+              We will show on this page the charts you have previously defined. Now start building something great!
             </span>
           </div>
         </div>

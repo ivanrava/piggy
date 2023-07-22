@@ -7,6 +7,7 @@ import {onMounted, ref} from "vue";
 import axios from "axios";
 import {Icon} from "@iconify/vue";
 import BeneficiaryImage from "../BeneficiaryImage.vue";
+import EmptyListMessage from "../EmptyListMessage.vue";
 
 const store = useBeneficiariesStore();
 
@@ -94,6 +95,12 @@ const askDelete = (beneficiary: Beneficiary) => {
         <Icon icon="fluent:delete-16-regular" />
       </div>
     </div>
+    <EmptyListMessage
+      v-if="store.beneficiaries.length == 0"
+      class="text-xl m-2 block"
+    >
+      Still no one here...
+    </EmptyListMessage>
   </section>
 </template>
 

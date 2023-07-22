@@ -25,6 +25,7 @@ import {Category} from '../../composables/interfaces';
 import {Icon} from "@iconify/vue";
 import {useCategoriesStore} from "../../composables/useCategoriesStore";
 import {useRouter} from "vue-router";
+import EmptyListMessage from "../EmptyListMessage.vue";
 
 defineProps<{
   categories: Array<Category>

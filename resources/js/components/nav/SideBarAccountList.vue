@@ -6,6 +6,7 @@ import {useRoute, useRouter} from "vue-router";
 import {isColorDark} from "../../composables/colors";
 import axios from "axios";
 import {useAccountsStore} from "../../composables/useAccountsStore";
+import EmptyListMessage from "../EmptyListMessage.vue";
 
 defineProps<{
   accounts: Array<Account>
@@ -102,6 +103,9 @@ const trueDelete = (account: Account) => {
       </div>
     </Transition>
   </div>
+  <EmptyListMessage v-if="accounts.length == 0">
+    Still no accounts here...
+  </EmptyListMessage>
 </template>
 
 <style scoped>

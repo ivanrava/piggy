@@ -2,6 +2,7 @@
 import {computed, onMounted, ref} from "vue";
 import SideBarCategoriesList from "./SideBarCategoriesList.vue";
 import {useCategoriesStore} from "../../composables/useCategoriesStore";
+import EmptyListMessage from "../EmptyListMessage.vue";
 
 const store = useCategoriesStore();
 
@@ -27,10 +28,16 @@ const inCategories = computed(() => {
       Expense
     </h2>
     <side-bar-categories-list :categories="outCategories" />
+    <EmptyListMessage v-if="outCategories.length == 0">
+      Still no categories here...
+    </EmptyListMessage>
     <h2 class="text-green-900 tracking-wide">
       Income
     </h2>
     <side-bar-categories-list :categories="inCategories" />
+    <EmptyListMessage v-if="inCategories.length == 0">
+      Still no categories here...
+    </EmptyListMessage>
   </section>
 </template>
 
