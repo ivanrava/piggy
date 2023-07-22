@@ -7,7 +7,7 @@ const emptyAccount = {
     account_type_id: 1,
     initial_balance: 0,
     icon: '',
-    color: '#ccc',
+    color: '#cccccc',
     opening: '',
     closing: '',
     description: ''
