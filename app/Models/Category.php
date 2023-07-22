@@ -87,4 +87,10 @@ class Category extends Model
             ? $this->transactions()
             : $this->user->transactions()->whereIn('category_id', $this->children()->pluck('id'));
     }
+
+    public function delete(): ?bool
+    {
+        $this->children()->delete();
+        return parent::delete();
+    }
 }
