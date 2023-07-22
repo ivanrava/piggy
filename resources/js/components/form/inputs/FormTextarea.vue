@@ -21,12 +21,19 @@
     >
       <li
         v-for="error in fullErrors"
+        :key="error"
         class="text-left text-xs text-red-400"
       >
         <i-fa6-regular-circle-xmark class="inline" />
         {{ error }}
       </li>
     </ul>
+    <span
+      class="text-xs m-2"
+      :class="value.length > maxLength ? 'text-red-400' : 'text-stone-600'"
+    >
+      {{ value.length }} / {{ maxLength }} characters
+    </span>
   </div>
 </template>
 
@@ -34,6 +41,7 @@
 import {computed, ref} from "vue";
 import LabelInput from "./LabelInput.vue";
 
+const maxLength = 500;
 const props = defineProps({
     modelValue: {
         type: String,
