@@ -70,7 +70,7 @@ onMounted(() => {
               src="/setup_analytics.svg"
               alt="No data"
             >
-            <span class="block text-stone-600">
+            <span class="block text-stone-600 dark:text-stone-200/50">
               We will show on this page the charts you have previously defined. Now start building something great!
             </span>
           </div>

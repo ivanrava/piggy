@@ -24,7 +24,7 @@ onMounted(() => {
             src="/investing.svg"
             alt="No data"
           >
-          <span class="block text-stone-600">
+          <span class="block text-stone-600 dark:text-stone-200/50">
             We will load data from your categories in here, please click one of the categories on the sidebar.
           </span>
         </div>

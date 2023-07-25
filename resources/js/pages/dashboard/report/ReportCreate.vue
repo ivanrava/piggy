@@ -73,7 +73,7 @@ const fetchReport = (form) => {
       src="/investment.svg"
       alt="No data"
     >
-    <span class="block text-stone-600 text-center">
+    <span class="block text-stone-600 text-center dark:text-stone-200/50">
       Your report will be loaded right here. Fill the form and it will <i class="tracking-wide md:tracking-widest">automagically</i> appear.
     </span>
   </div>
