@@ -13,7 +13,7 @@
         src="/setup_analytics.svg"
         alt="No data"
       >
-      <small class="block text-stone-600">You do not have any graph view setup. Please consider adding one here.</small>
+      <small class="block text-stone-600 dark:text-stone-200/50">You do not have any graph view setup. Please consider adding one <router-link to="/charts/create">here</router-link>.</small>
     </div>
     <div
       v-else
