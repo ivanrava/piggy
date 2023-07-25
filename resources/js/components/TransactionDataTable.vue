@@ -11,6 +11,7 @@ import AccountRenderer from "./renderers/AccountRenderer.vue";
 import {useOperationsStore} from "../composables/useOperationsStore";
 import {useAgGridUtilites} from "../composables/useAgGridUtilities";
 import {ColumnApi, GridApi} from "ag-grid-community";
+import {Icon} from "@iconify/vue";
 
 const props = defineProps<{
   fields: Array<String>
@@ -91,7 +92,7 @@ const columnDefs = computed(() => {
     .concat(defaultColDefs)
 })
 
-const overlayLoadingTemplate = '<span class="ag-overlay-loading-center">Loading transactions</span>';
+const overlayLoadingTemplate = '<span class="ag-overlay-loading-center dark:text-stone-200"><Icon icon="line-md:loading-loop" />Loading transactions</span>';
 const overlayNoRowsTemplate = '<span class="text-xl opacity-60">No transactions to show</span>';
 </script>
 
@@ -138,6 +139,8 @@ const overlayNoRowsTemplate = '<span class="text-xl opacity-60">No transactions 
     --ag-header-cell-hover-background-color: #333333;
     --ag-row-hover-color: #33333344;
     --ag-disabled-foreground-color: #444;
+    --ag-modal-overlay-background-color: #222222ee;
+    --ag-background-color: #333;
   }
 }
 .amount-cell {
