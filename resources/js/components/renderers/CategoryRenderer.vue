@@ -24,16 +24,16 @@ export default defineComponent({
   >
     <Icon
       :icon="category.icon"
-      class="inline mr-1 text-slate-900 dark:text-gray-200"
+      class="inline mr-1"
     />
-    <span class="font-medium h-1/2 text-slate-900 dark:text-gray-200 text-ssm">{{ category.name }}</span>
+    <span class="font-medium h-1/2 text-ssm">{{ category.name }}</span>
   </router-link>
   <div v-else>
     <Icon
       :icon="category.icon"
-      class="inline mr-1 dark:text-gray-200"
+      class="inline mr-1 dark:text-stone-200"
     />
-    <span class="font-medium h-1/2 text-slate-900 dark:text-gray-200 text-ssm">{{ category.name }}</span>
+    <span class="font-medium h-1/2 text-stone-900 dark:text-stone-200 text-ssm">{{ category.name }}</span>
   </div>
 </template>
 

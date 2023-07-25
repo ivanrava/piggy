@@ -112,13 +112,13 @@ const overlayNoRowsTemplate = '<span class="text-xl opacity-60">No transactions 
 
 <style>
 .ag-row-even {
-  @apply bg-slate-100 dark:bg-stone-800/80 border-0;
+  @apply bg-stone-100 dark:bg-stone-800/80 border-0;
 }
 .ag-row-odd {
-  @apply bg-slate-50 dark:bg-stone-900 border-0;
+  @apply bg-stone-50 dark:bg-stone-900 border-0;
 }
 .ag-paging-panel {
-  @apply justify-around md:justify-start;
+  @apply justify-around md:justify-start border-0;
 }
 .ag-paging-row-summary-panel span, .ag-paging-description span {
   @apply text-[10px] md:text-xs;
@@ -131,9 +131,14 @@ const overlayNoRowsTemplate = '<span class="text-xl opacity-60">No transactions 
 }
 .ag-theme-piggy {
   --ag-font-family: 'Inter', sans;
-  --ag-header-cell-hover-background-color: #333333;
-  --ag-row-hover-color: #33333344;
-  --ag-disabled-foreground-color: #444;
+  --ag-row-hover-color: #f1f1f1;
+}
+@media (prefers-color-scheme: dark) {
+  .ag-theme-piggy {
+    --ag-header-cell-hover-background-color: #333333;
+    --ag-row-hover-color: #33333344;
+    --ag-disabled-foreground-color: #444;
+  }
 }
 .amount-cell {
   @apply md:text-[1.2rem] text-base text-center md:text-left;

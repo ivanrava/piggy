@@ -58,7 +58,7 @@ onMounted(() => {
           <div class="md:flex flex-col justify-center my-2 hidden">
             <div
               v-if="beneficiary"
-              class="flex flex-row-reverse gap-2 bg-slate-50 py-1 pl-4 pr-2 rounded-xl items-center shadow-sm justify-start"
+              class="flex flex-row-reverse gap-2 bg-stone-50 dark:bg-stone-900 py-1 pl-4 pr-2 rounded-xl items-center shadow-sm dark:shadow-md justify-start"
             >
               <beneficiary-image
                 :beneficiary="beneficiary"

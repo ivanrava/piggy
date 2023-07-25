@@ -17,7 +17,7 @@ withDefaults(defineProps<Props>(), {
 <template>
   <router-link
     class="w-full md:w-56 rounded-lg flex flex-row items-center pr-2 unstyled cursor-pointer transition-all"
-    :class="{'bg-slate-100 dark:bg-slate-900/50 shadow-sm hover:shadow-md':!hideBg}"
+    :class="{'bg-stone-100 dark:bg-stone-950/50 shadow-sm hover:shadow-md':!hideBg}"
     :to="`/beneficiaries/${beneficiary.id}`"
   >
     <beneficiary-image
