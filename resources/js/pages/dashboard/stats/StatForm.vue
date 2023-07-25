@@ -19,7 +19,7 @@ const storeChart = () => {
 
 <template>
   <form
-    class="p-8 bg-stone-100 rounded-md shadow-sm"
+    class="p-8 bg-stone-100 dark:bg-pink-950/40 rounded-md shadow-sm"
     @submit.prevent="storeChart"
   >
     <h1 class="font-bold">

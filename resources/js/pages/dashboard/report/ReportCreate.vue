@@ -36,11 +36,11 @@ const fetchReport = (form) => {
     Report by categories
   </h1>
   <form
-    class="bg-stone-100 p-4 rounded-lg my-4 shadow-sm print:hidden"
+    class="bg-stone-100 dark:bg-stone-900 p-4 rounded-lg my-4 shadow-sm print:hidden"
     @submit.prevent="fetchReport(form)"
   >
     <h2>Customize your report</h2>
-    <p class="my-2 text-slate-900">
+    <p class="my-2 text-slate-900 dark:text-stone-400">
       Choose the timeframe of the operations which you would like to capture using the controls below. Leave the fields empty if you want to avoid specifying an explicit timeframe.
     </p>
     <div class="flex flex-col md:flex-row justify-start gap-2 md:gap-8">

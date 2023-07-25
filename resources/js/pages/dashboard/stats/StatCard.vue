@@ -29,7 +29,7 @@ const toggleFavorite = () => {
 
 <template>
   <article class="p-2 md:w-1/2 xl:w-1/3 2xl:w-1/4 h-72">
-    <div class="p-4 bg-stone-50/90 shadow-md rounded-md flex h-full flex-col w-full">
+    <div class="p-4 bg-stone-50/90 dark:bg-pink-900/50 shadow-md rounded-md flex h-full flex-col w-full">
       <div class="flex justify-between items-baseline">
         <h2>
           {{ title }}

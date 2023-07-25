@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <span class="text-stone-600 opacity-80">
+  <span class="text-stone-600/80 dark:text-stone-400/50 text-sm">
     <slot></slot>
   </span>
 </template>

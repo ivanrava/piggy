@@ -24,14 +24,14 @@ const inCategories = computed(() => {
 
 <template>
   <section class="flex flex-col w-full justify-between pr-2">
-    <h2 class="text-red-900 tracking-wide">
+    <h2 class="text-red-900 dark:text-red-300 tracking-wide">
       Expense
     </h2>
     <side-bar-categories-list :categories="outCategories" />
     <EmptyListMessage v-if="outCategories.length == 0">
       Still no categories here...
     </EmptyListMessage>
-    <h2 class="text-green-900 tracking-wide">
+    <h2 class="text-green-900 dark:text-green-300 tracking-wide">
       Income
     </h2>
     <side-bar-categories-list :categories="inCategories" />

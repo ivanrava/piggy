@@ -2,15 +2,15 @@
   <div class="my-1 w-48 relative">
     <label-input
       :for="label"
-      class="absolute left-2.5 top-3 transition-all px-1 bg-stone-50 rounded-t-md"
-      :class="{'!-top-2.5': focused || value.length > 0, '!text-pink-200': focused}"
+      class="absolute left-2.5 top-3 transition-all px-1 bg-stone-50 rounded-t-md dark:bg-stone-900 dark:text-stone-200/50"
+      :class="{'!-top-2.5': focused || value.length > 0, '!text-pink-200 dark:!text-pink-100': focused}"
     >
       {{ label }}
     </label-input>
     <textarea
       :id="label"
       v-model="value"
-      class="focus:outline-none transition-all ring-pink-300/20 bg-stone-50 focus:border-pink-200/40 focus:ring-4 outline-none rounded-md border-2 ring-0 p-2 w-full text-sm font-mono"
+      class="focus:outline-none transition-all ring-pink-300/20 dark:ring-pink-100 bg-stone-50 focus:border-pink-200/40 focus:ring-4 outline-none rounded-md border-2 ring-0 p-2 w-full text-sm font-mono dark:text-stone-300 dark:border-[0.5px] dark:border-stone-200/50 dark:bg-transparent"
       :name="label"
       @focus="focused = true"
       @blur="focused = false"

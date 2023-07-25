@@ -47,8 +47,8 @@
       <span
         v-for="i in actualPages"
         :key="i"
-        :class="{'font-bold opacity-100 cursor-default': page === i}"
-        class="text-xl w-8 h-8 px-2 py-1 transition-all hover:opacity-100 opacity-60 cursor-pointer"
+        :class="{'font-bold !opacity-90 cursor-default': page === i}"
+        class="text-xl w-8 h-8 px-2 py-1 transition-all hover:opacity-100 opacity-60 dark:opacity-40 cursor-pointer"
         @click="page = i"
       >
         {{ i }}

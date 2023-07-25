@@ -11,7 +11,7 @@
           >
             <router-link
               :to="link.href"
-              class="flex flex-col justify-center items-center text-slate-800/90 opacity-50 hover:opacity-100 transition-all font-medium hover:font-semibold"
+              class="flex flex-col justify-center items-center text-slate-800/90 dark:text-stone-300 opacity-50 hover:opacity-100 transition-all font-medium hover:font-semibold"
               :class="{'router-link-active': useRoute().path.startsWith(link.href)}"
             >
               <Icon
@@ -26,7 +26,7 @@
     </div>
     <search-bar class="hidden" />
     <router-link
-      class="p-6 !text-lg !text-slate-800 hover:!text-stone-600 md:tracking-widest md:font-light font-normal uppercase"
+      class="p-6 !text-lg !text-slate-800 dark:!text-stone-100 hover:!text-stone-600 dark:hover:!text-stone-300 md:tracking-widest md:font-light font-normal uppercase"
       to="/logout"
     >
       Logout
@@ -81,6 +81,6 @@ const links = [
 
 .router-link-active::before {
   content: '';
-  @apply bg-slate-900 block w-4 md:w-6 h-1 rounded-lg absolute bottom-0.5;
+  @apply bg-slate-900 dark:bg-stone-200 block w-4 md:w-6 h-1 rounded-lg absolute bottom-0.5;
 }
 </style>

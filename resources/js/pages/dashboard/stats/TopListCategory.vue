@@ -33,7 +33,7 @@ watchEffect(() => {
 })
 
 const textColor = (type) => {
-  return type === 'out' ? 'text-red-700' : 'text-green-700';
+  return type === 'out' ? 'text-red-700 dark:text-red-400' : 'text-green-700 dark:text-green-400';
 }
 const descriptions = {
   max: 'Highest transaction',

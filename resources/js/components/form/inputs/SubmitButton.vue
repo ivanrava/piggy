@@ -1,6 +1,6 @@
 <template>
   <button
-    class="focus:outline-none transition-all ring-pink-300/20 focus:ring-4"
+    class="outline-none transition-all ring-pink-300/20 focus:ring-4"
     :disabled="isDisabled"
     :class="hasDisabledStyle ? 'disabled' : 'active'"
   >
@@ -38,7 +38,7 @@ button {
     @apply py-3 px-6 rounded-md my-1 transition-all text-slate-50 font-normal;
 }
 button.active {
-    @apply bg-pink-300 hover:bg-pink-100;
+    @apply bg-pink-300 dark:bg-pink-400 hover:bg-pink-100 hover:dark:bg-pink-600;
 }
 button.disabled {
     @apply bg-pink-100 opacity-40 cursor-default;

@@ -49,7 +49,7 @@ defineEmits(['store', 'close', 'update'])
   <Transition name="slide-fade">
     <aside
       v-if="showForm"
-      class="fixed bottom-8 right-8 left-8 md:left-auto bg-slate-50 p-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10 md:w-96"
+      class="fixed bottom-8 right-8 left-8 md:left-auto bg-slate-50 dark:bg-stone-900 p-4 rounded-2xl drop-shadow-2xl ring-stone-200 dark:ring-stone-700 ring-1 dark:ring-2 z-10 md:w-96"
     >
       <header class="flex flex-row justify-between items-center">
         <h2 v-if="store.isEditing">
@@ -69,8 +69,8 @@ defineEmits(['store', 'close', 'update'])
         <button
           v-for="t in beneficiaryTypes"
           :key="t.id"
-          class="m-2 pb-1 border-pink-100/20 text-pink-700/70 font-light border-b-2 transition-all rounded-none hover:border-red-700/60 hover:text-red-700"
-          :class="{'!border-pink-700 !text-pink-950 !font-normal': t.id === beneficiaryType}"
+          class="m-2 pb-1 border-pink-100/20 text-pink-700/70 dark:text-pink-100/40 font-light border-b-2 transition-all rounded-none hover:border-red-700/60 hover:text-red-700 dark:hover:border-pink-700/60 dark:hover:text-pink-700"
+          :class="{'!border-pink-700 dark:!border-pink-400 !text-pink-950 dark:!text-pink-400 !font-normal': t.id === beneficiaryType}"
           @click="beneficiaryType = t.id; store.stagingBeneficiary.img = imgForType"
         >
           {{ t.display }}

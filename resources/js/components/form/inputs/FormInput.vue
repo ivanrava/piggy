@@ -2,27 +2,27 @@
   <div class="my-2 w-full md:w-48 relative">
     <label-input
       :for="label"
-      class="z-10 absolute left-2.5 top-3 text-gray-500 cursor-text transition-all px-1 bg-stone-50 rounded-t-md"
-      :class="{'!-top-2.5': focused || isFieldNonEmpty, '!text-pink-200': focused}"
+      class="z-10 absolute left-2.5 top-3 text-gray-500 dark:text-stone-200/50 cursor-text transition-all px-1 bg-stone-50 dark:bg-stone-900 rounded-t-md"
+      :class="{'!-top-2.5': focused || isFieldNonEmpty, '!text-pink-200 dark:!text-pink-100': focused}"
     >
       {{ label }}
     </label-input>
     <Icon
       v-if="(type === 'password' || type === 'pw-show') && label.toLowerCase().indexOf('confirm') === -1"
       :icon="showPassword ? 'mingcute:eye-fill' : 'mingcute:eye-close-fill'"
-      class="absolute right-2.5 top-3 cursor-pointer transition-all hover:text-gray-700"
-      :class="showPassword ? 'text-gray-500' : 'text-gray-400'"
+      class="absolute right-2.5 top-3 cursor-pointer transition-all hover:text-stone-600"
+      :class="showPassword ? 'text-stone-500' : 'text-stone-400'"
       @click="showPassword = !showPassword; type = type == 'pw-show' ? 'password' : 'pw-show'"
     />
     <Icon
       v-else-if="type !== 'date' && type !== 'textDecimal'"
-      class="absolute right-2.5 top-3 text-gray-400"
+      class="absolute right-2.5 top-3 text-stone-400"
       :icon="icon"
     />
     <input
       :id="label"
       v-model="value"
-      class="focus:outline-none focus:border-pink-200/40 bg-stone-50 focus:ring-4 outline-none transition-all ring-0 ring-pink-300/20 text-slate-900 py-2 pl-2 border-2 w-full rounded-md text-sm font-mono"
+      class="focus:outline-none focus:border-pink-200/40 bg-stone-50 dark:bg-transparent focus:ring-4 outline-none transition-all ring-0 ring-pink-300/20 dark:ring-pink-100 text-slate-900 dark:text-stone-300 py-2 pl-2 border-2 dark:border-[0.5px] dark:border-stone-200/50 w-full rounded-md text-sm font-mono"
       :class="type !== 'date' && type !== 'textDecimal' ? 'pr-8' : 'pr-2'"
       :name="label"
       :type="type"

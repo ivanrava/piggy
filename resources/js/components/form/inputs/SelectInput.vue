@@ -108,48 +108,66 @@ const focused = ref(false);
 }
 
 .multiselect__option--highlight {
-  @apply bg-pink-300;
+  @apply bg-pink-300 dark:bg-pink-600;
 }
 
 .multiselect__option--highlight:after {
-  @apply bg-pink-300;
+  @apply bg-pink-300 dark:bg-pink-600;
 }
 
 .multiselect__option--selected.multiselect__option--highlight {
-  background: #798b91;
+  @apply bg-slate-400 dark:bg-slate-700;
 }
 
 .multiselect__option--selected.multiselect__option--highlight:after {
-  background: #798b91;
+  @apply bg-slate-400 dark:bg-slate-700;
+}
+
+.multiselect__option--selected {
+  @apply dark:bg-stone-700 dark:text-stone-100;
+}
+
+.multiselect__option--selected:after {
+  @apply dark:bg-stone-700 dark:text-stone-100;
 }
 
 .multiselect__tag-icon:hover {
-  @apply bg-pink-300;
+  @apply bg-pink-300 dark:bg-pink-600;
 }
 
 .multiselect__placeholder {
   padding-top: 0;
   color: #555;
-  @apply font-serif;
+  @apply font-serif dark:text-stone-200/50;
 }
 
 .multiselect__tags {
-  border: none;
-  @apply bg-stone-50 text-slate-900;
+  @apply bg-stone-50 text-slate-900 border-0 bg-transparent;
 }
 
 .multiselect__single, .multiselect__input {
-  @apply bg-stone-50;
+  @apply bg-stone-50 dark:bg-transparent dark:text-stone-100;
   font-size: 14px;
-  padding-left: 0;
 }
 
 .multiselect__input {
-  @apply font-serif;
+  @apply font-serif dark:bg-transparent dark:text-stone-200/50;
   margin-top: 2px;
+}
+
+.multiselect__element {
+  @apply bg-transparent;
+}
+
+.multiselect__content-wrapper {
+  @apply bg-stone-900 border-[1px] border-stone-700;
 }
 
 .option__title {
   @apply font-mono;
+}
+
+.multiselect {
+  @apply border-[1px] border-stone-200/50 dark:text-stone-100;
 }
 </style>

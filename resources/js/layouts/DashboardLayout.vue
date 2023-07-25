@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full bg-pink-200/90">
+  <div class="flex flex-col w-full bg-pink-200/90 dark:bg-pink-950">
     <nav-bar class="h-14 print:hidden" />
     <section class="px-3 pb-3 pt-1.5 grow min-h-0">
       <div class="flex w-full h-full bg-pink-200/50 rounded-3xl shadow-inner">
@@ -9,7 +9,7 @@
         />
         <main
           :class="useRoute().path === '/home' ? 'md:rounded-l-3xl pl-2' : 'md:rounded-l-none'"
-          class="w-full bg-stone-200 rounded-r-3xl overflow-scroll print:overflow-visible rounded-l-3xl"
+          class="w-full bg-stone-200 dark:bg-stone-900/80 dark:text-stone-200 rounded-r-3xl overflow-scroll print:overflow-visible rounded-l-3xl"
         >
           <router-view
             v-slot="{ Component, route }"

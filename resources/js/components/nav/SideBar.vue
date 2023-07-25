@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-stone-300/80 h-full overflow-scroll px-4 py-2">
+  <nav class="bg-stone-300/80 dark:bg-stone-700 h-full overflow-scroll px-4 py-2 dark:text-gray-200">
     <Transition
       mode="out-in"
       name="fade"

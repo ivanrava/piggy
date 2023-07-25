@@ -29,7 +29,6 @@
 import {Sketch} from "@ckpack/vue-color";
 import {computed, ref} from "vue";
 import {Icon} from "@iconify/vue";
-import LabelInput from "./LabelInput.vue";
 
 const preset = [
   '#111',
@@ -93,7 +92,7 @@ const value = computed({
 })
 </script>
 
-<style scoped>
+<style>
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;
@@ -102,5 +101,15 @@ const value = computed({
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.vc-sketch {
+  @apply dark:bg-stone-700/95;
+}
+.vc-input__label.vc-sketch-field {
+  @apply dark:!text-stone-100;
+}
+.vc-input__input {
+  @apply dark:bg-stone-600;
 }
 </style>

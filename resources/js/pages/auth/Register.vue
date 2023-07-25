@@ -34,12 +34,14 @@
         type="password"
         :errors="errors.password_confirmation"
       />
-      <submit-button :is-loading="loading">Sign up</submit-button>
+      <submit-button :is-loading="loading">
+        Sign up
+      </submit-button>
     </form>
     <span class="text-xs mt-4">
-      Had a <i>deja-vu</i>?
+      Have a <i>deja-vu</i>?
       <router-link to="/login">
-        Go the login page
+        Go to the login page
       </router-link>
     </span>
   </main>

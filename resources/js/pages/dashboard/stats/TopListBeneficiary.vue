@@ -67,7 +67,7 @@ const timeDescription = computed(() => {
             :beneficiary="b"
             class="!w-8 !h-8 !p-1"
           />
-          <span class="font-semibold text-slate-700 text-xs w-full overflow-hidden text-ellipsis whitespace-nowrap">{{ b.name }}</span>
+          <span class="font-semibold text-slate-700 dark:text-stone-300 text-xs w-full overflow-hidden text-ellipsis whitespace-nowrap">{{ b.name }}</span>
           <span class="font-light pr-2 pl-6 whitespace-nowrap">{{ stat != 'count' ? useAgGridUtilites().currencyFormatterBare(Number(b[stat])) : b[stat] }}</span>
         </li>
       </ul>

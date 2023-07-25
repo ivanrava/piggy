@@ -1,11 +1,11 @@
 <template>
-  <main class="flex justify-center items-center bg-pink-50 w-full">
-    <div class="w-5/6 h-5/6 bg-stone-50 flex justify-stretch content-stretch rounded-lg shadow-2xl">
+  <main class="flex justify-center items-center bg-pink-200 w-full dark:bg-pink-950">
+    <div class="w-5/6 h-5/6 bg-stone-50 dark:bg-stone-900 flex justify-stretch content-stretch rounded-lg shadow-2xl dark:text-stone-300">
       <div class="basis-1 grow pl-0 xl:pl-8 2xl:pl-16 flex flex-col justify-center items-center">
         <img
           alt="Application logo"
           src="/logo-align-left.svg"
-          class="w-2/5 md:w-1/3 xl:w-1/3 mt-32"
+          class="w-2/5 md:w-1/3 xl:w-1/3 mt-32 dark:invert"
         >
         <router-view
           v-slot="{ Component }"

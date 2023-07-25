@@ -6,7 +6,7 @@
     </h2>
     <div
       v-if="charts.length === 0"
-      class="flex flex-col items-center gap-8 justify-center w-full bg-stone-100 rounded-xl p-8"
+      class="flex flex-col items-center gap-8 justify-center w-full bg-stone-100 dark:bg-stone-950/20 rounded-xl p-8"
     >
       <img
         class="w-2/5 md:w-1/5"

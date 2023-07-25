@@ -41,7 +41,7 @@ const trueDelete = (account: Account) => {
   <div
     v-for="account in accounts"
     :key="account.id"
-    class="my-0.5 w-full text-stone-900"
+    class="my-0.5 w-full text-stone-900 dark:text-stone-400/90"
   >
     <Transition
       mode="out-in"
@@ -49,7 +49,7 @@ const trueDelete = (account: Account) => {
     >
       <div
         v-if="askedForDeletion == account.id"
-        class="flex justify-between items-center py-1 rounded-sm text-red-900"
+        class="flex justify-between items-center py-1 rounded-sm text-red-900 dark:text-red-300"
       >
         <span class="font-medium text-sm tracking-tighter flex-grow pl-2">Really sure?</span>
         <aside class="flex justify-end items-center gap-2 px-2">
@@ -74,7 +74,7 @@ const trueDelete = (account: Account) => {
         <div
           class="flex items-center px-2 py-1 rounded-md hover:shadow-sm transition-all cursor-pointer flex-grow"
           :class="{'shadow-sm': isSelected(account)}"
-          :style="{backgroundColor: `${account.color}${ isSelected(account) ? 'ff' : '11'}`}"
+          :style="{backgroundColor: `${account.color}${ isSelected(account) ? 'ff' : '22'}`}"
           @click="router.push(`/accounts/${account.id}`)"
         >
           <Icon

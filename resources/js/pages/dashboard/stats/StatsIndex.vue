@@ -27,34 +27,34 @@ onMounted(() => {
           <div class="animate-pulse h-12 bg-gray-400 rounded-lg md:w-52 my-4" />
           <div class="flex flex-wrap justify-start">
             <div class="animate-pulse h-72 md:w-1/2 xl:w-1/3 2xl:w-1/4 p-2">
-              <div class="bg-gray-400/70 rounded-lg h-full" />
+              <div class="dark:bg-gray-600 bg-gray-400/70 rounded-lg h-full" />
             </div>
             <div class="animate-pulse h-72 md:w-1/2 xl:w-1/3 2xl:w-1/4 p-2">
-              <div class="bg-gray-400/80 rounded-lg h-full" />
+              <div class="dark:bg-gray-500 bg-gray-400/80 rounded-lg h-full" />
             </div>
             <div class="animate-pulse h-72 md:w-1/2 xl:w-1/3 2xl:w-1/4 p-2">
-              <div class="bg-gray-400/70 rounded-lg h-full" />
+              <div class="dark:bg-gray-700 bg-gray-400/70 rounded-lg h-full" />
             </div>
             <div class="animate-pulse h-72 md:w-1/2 xl:w-1/3 2xl:w-1/4 p-2">
-              <div class="bg-gray-400/80 rounded-lg h-full" />
+              <div class="dark:bg-gray-600 bg-gray-400/80 rounded-lg h-full" />
             </div>
             <div class="animate-pulse h-72 md:w-1/2 xl:w-1/3 2xl:w-1/4 p-2">
-              <div class="bg-gray-400/90 rounded-lg h-full" />
+              <div class="dark:bg-gray-700 bg-gray-400/90 rounded-lg h-full" />
             </div>
             <div class="animate-pulse h-72 md:w-1/2 xl:w-1/3 2xl:w-1/4 p-2">
-              <div class="bg-gray-400/50 rounded-lg h-full" />
+              <div class="dark:bg-gray-500 bg-gray-400/50 rounded-lg h-full" />
             </div>
             <div class="animate-pulse h-72 md:w-1/2 xl:w-1/3 2xl:w-1/4 p-2">
-              <div class="bg-gray-400/90 rounded-lg h-full" />
+              <div class="dark:bg-gray-600 bg-gray-400/90 rounded-lg h-full" />
             </div>
             <div class="animate-pulse h-72 md:w-1/2 xl:w-1/3 2xl:w-1/4 p-2">
-              <div class="bg-gray-400/60 rounded-lg h-full" />
+              <div class="dark:bg-gray-600 bg-gray-400/60 rounded-lg h-full" />
             </div>
             <div class="animate-pulse h-72 md:w-1/2 xl:w-1/3 2xl:w-1/4 p-2">
-              <div class="bg-gray-400/90 rounded-lg h-full" />
+              <div class="dark:bg-gray-600 bg-gray-400/90 rounded-lg h-full" />
             </div>
             <div class="animate-pulse h-72 md:w-1/2 xl:w-1/3 2xl:w-1/4 p-2">
-              <div class="bg-gray-400/60 rounded-lg h-full" />
+              <div class="dark:bg-gray-700 bg-gray-400/60 rounded-lg h-full" />
             </div>
           </div>
         </div>

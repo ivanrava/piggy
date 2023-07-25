@@ -2,7 +2,7 @@
   <Transition name="slide-fade">
     <aside
       v-if="store.showForm"
-      class="fixed bottom-0 md:bottom-8 right-0 md:right-8 bg-slate-50 p-4 m-4 rounded-2xl drop-shadow-2xl ring-stone-200 ring-1 z-10"
+      class="fixed bottom-0 md:bottom-8 right-0 md:right-8 bg-slate-50 dark:bg-stone-900 p-4 m-4 rounded-2xl drop-shadow-2xl ring-stone-200 dark:ring-stone-700 ring-1 dark:ring-2 z-10"
     >
       <header class="flex flex-row justify-between items-center">
         <h2 v-if="!store.isEditing">

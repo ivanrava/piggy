@@ -9,7 +9,7 @@ import {
   LinearScale,
   PointElement,
   LineElement,
-  BarElement
+  BarElement, Chart
 } from 'chart.js'
 import {computed} from "vue";
 ChartJS.register(Title, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, BarElement)
@@ -91,6 +91,16 @@ const options = {
     }
   }
 }
+
+const updateChartTextColor = () => {
+  if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+    Chart.defaults.color = '#ccc';
+  } else {
+    Chart.defaults.color = '#555';
+  }
+}
+updateChartTextColor();
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateChartTextColor)
 </script>
 
 <template>

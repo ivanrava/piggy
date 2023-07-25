@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 import BeneficiaryRenderer from "./renderers/BeneficiaryRenderer.vue";
 import CategoryRenderer from "./renderers/CategoryRenderer.vue";
 import AmountRenderer from "./renderers/AmountRenderer.vue";
@@ -92,10 +93,6 @@ const columnDefs = computed(() => {
 
 const overlayLoadingTemplate = '<span class="ag-overlay-loading-center">Loading transactions</span>';
 const overlayNoRowsTemplate = '<span class="text-xl opacity-60">No transactions to show</span>';
-
-const rowClassRules = {
-  'even-row': (params) => params.node.rowIndex % 2 === 0
-}
 </script>
 
 <template>
@@ -109,14 +106,16 @@ const rowClassRules = {
     :row-data="store.getOperations"
     :overlay-no-rows-template="overlayNoRowsTemplate"
     :overlay-loading-template="overlayLoadingTemplate"
-    :row-class-rules="rowClassRules"
     @grid-ready="onGridReady"
   />
 </template>
 
 <style>
-.even-row {
-  @apply bg-slate-100;
+.ag-row-even {
+  @apply bg-slate-100 dark:bg-stone-800/80 border-0;
+}
+.ag-row-odd {
+  @apply bg-slate-50 dark:bg-stone-900 border-0;
 }
 .ag-paging-panel {
   @apply justify-around md:justify-start;
@@ -125,22 +124,25 @@ const rowClassRules = {
   @apply text-[10px] md:text-xs;
 }
 .ag-paging-row-summary-panel, .ag-paging-page-summary-panel {
-  @apply ml-4 mr-0 md:my-4
+  @apply ml-4 mr-0 md:my-4 dark:text-gray-200;
 }
 .ag-paging-button {
   @apply m-0;
 }
 .ag-theme-piggy {
   --ag-font-family: 'Inter', sans;
+  --ag-header-cell-hover-background-color: #333333;
+  --ag-row-hover-color: #33333344;
+  --ag-disabled-foreground-color: #444;
 }
 .amount-cell {
   @apply md:text-[1.2rem] text-base text-center md:text-left;
 }
 .date-cell {
-  @apply text-left md:text-right ml-4 md:m-0 text-[0.85rem];
+  @apply text-left md:text-right ml-4 md:m-0 text-[0.85rem] dark:text-gray-200;
 }
 .ag-header-cell-label {
-  @apply md:text-[1.2rem] text-sm leading-5 md:leading-5 text-center ml-4 md:m-0;
+  @apply md:text-[1.2rem] text-sm leading-5 md:leading-5 text-center ml-4 md:m-0 dark:text-gray-100;
 }
 .ag-header-cell:nth-child(2) .ag-header-cell-label {
   @apply justify-center md:justify-start;
@@ -152,12 +154,15 @@ const rowClassRules = {
   @apply md:px-6;
 }
 .ag-header-cell {
-  @apply px-2 md:px-4;
+  @apply px-2 md:px-4 dark:bg-stone-900;
 }
 .ag-cell-value {
   @apply px-2 md:px-4;
 }
 .beneficiary-cell .ag-cell-value {
   @apply grow-0;
+}
+.ag-root-wrapper {
+  @apply dark:bg-stone-900 text-gray-100;
 }
 </style>

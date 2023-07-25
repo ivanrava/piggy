@@ -47,7 +47,7 @@
           </div>
           <router-link
             :to="`/categories/${store.selectedCategory.id}/transactions`"
-            class="unstyled uppercase tracking-wider text-stone-800/50 hover:text-pink-800/90 focus:font-medium transition-all"
+            class="unstyled uppercase tracking-wider text-stone-800/50 hover:text-pink-800/90 dark:text-stone-100/20 dark:hover:text-pink-100/90 focus:font-medium transition-all"
           >
             Show transactions
           </router-link>
@@ -60,16 +60,16 @@
         >
           <section v-if="isLoading">
             <div class="flex flex-row gap-x-2 mb-2">
-              <div class="h-5 bg-gray-400 rounded-md w-64 animate-pulse" />
-              <div class="h-5 bg-gray-500/70 rounded-md w-44 animate-pulse" />
+              <div class="h-5 dark:bg-gray-600 bg-gray-400 rounded-md w-64 animate-pulse" />
+              <div class="h-5 dark:bg-gray-600 bg-gray-500/70 rounded-md w-44 animate-pulse" />
             </div>
             <div class="flex flex-row gap-x-2 mb-2">
-              <div class="h-5 bg-gray-500/70 rounded-md w-32 animate-pulse" />
-              <div class="h-5 bg-gray-400 rounded-md w-96 animate-pulse" />
+              <div class="h-5 dark:bg-gray-600 bg-gray-500/70 rounded-md w-32 animate-pulse" />
+              <div class="h-5 dark:bg-gray-700 bg-gray-400 rounded-md w-96 animate-pulse" />
             </div>
             <div class="flex flex-row gap-x-2 mb-4">
-              <div class="h-5 bg-gray-500/80 rounded-md w-24 animate-pulse" />
-              <div class="h-5 bg-gray-400 rounded-md w-80 animate-pulse" />
+              <div class="h-5 dark:bg-gray-700 bg-gray-500/80 rounded-md w-24 animate-pulse" />
+              <div class="h-5 dark:bg-gray-600 bg-gray-400 rounded-md w-80 animate-pulse" />
             </div>
             <div
               class="w-full flex justify-around my-16 flex-col md:flex-row"

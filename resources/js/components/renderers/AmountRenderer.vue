@@ -24,7 +24,7 @@ export default defineComponent({
 <template>
   <div class="flex flex-row md:justify-end justify-center items-center h-full">
     <span
-      :class="isOut ? 'text-red-700' : 'text-green-700'"
+      :class="isOut ? 'text-red-700 dark:text-red-400' : 'text-green-700 dark:text-green-400'"
       class="w-32 flex justify-end px-4"
     >
       <span
