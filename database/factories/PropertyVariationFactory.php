@@ -24,7 +24,7 @@ class PropertyVariationFactory extends Factory
                 10,
                 1000
             ),
-            'notes' => fake()->text(500)
+            'notes' => fake()->text
         ];
     }
 }

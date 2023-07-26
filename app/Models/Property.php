@@ -14,7 +14,7 @@ class Property extends Model
 
     public function variations(): HasMany
     {
-        return $this->hasMany(PropertyVariation::class);
+        return $this->hasMany(PropertyVariation::class)->orderBy('date');
     }
 
     private function additions(): HasMany

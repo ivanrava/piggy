@@ -10,7 +10,7 @@ class PropertyController extends Controller
 {
     public function index(Request $request): AnonymousResourceCollection
     {
-        $properties = $request->user()->properties()->with('variations')->get();
+        $properties = $request->user()->properties()->with('variations')->orderBy('name')->get();
         return PropertyResource::collection($properties);
     }
 }
