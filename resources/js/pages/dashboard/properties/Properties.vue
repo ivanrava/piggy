@@ -4,12 +4,13 @@ import axios from "axios";
 import PropertyCard from "../../../components/PropertyCard.vue";
 import {Property} from "../../../composables/interfaces";
 import PropertyVariationForm from "../../../components/form/crud/PropertyVariationForm.vue";
+import {usePropertyStore} from "../../../composables/usePropertiesStore";
 
 const isLoading = ref<boolean>(true);
-const properties = ref<Array<Property>>([]);
+const store = usePropertyStore();
 onMounted(() => {
   axios.get('/properties').then(({data}) => {
-    properties.value = data.data;
+    store.setProperties(data.data);
   }).finally(() => {
     isLoading.value = false;
   })
@@ -25,7 +26,7 @@ const relatedProperty = ref<Property>(null);
     <h1>Properties</h1>
     <section class="flex flex-col gap-4">
       <PropertyCard
-        v-for="property in properties"
+        v-for="property in store.properties"
         :key="property.id"
         :property="property"
         class="w-full"
