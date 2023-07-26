@@ -13,7 +13,7 @@ defineEmits(['addIn', 'addOut'])
 </script>
 
 <template>
-  <article class="bg-stone-900/50 p-4 rounded-xl shadow-sm flex flex-col gap-4">
+  <article class="bg-stone-100 dark:bg-stone-900/50 p-4 rounded-xl shadow-sm flex flex-col gap-4">
     <div class="flex flex-row justify-between items-center">
       <div>
         <h2 class="font-semibold flex flex-row gap-2 items-center my-1">
@@ -34,7 +34,7 @@ defineEmits(['addIn', 'addOut'])
           </SubmitButton>
         </div>
         <div class="flex flex-col justify-center flex-1">
-          <span class="text-3xl bg-stone-700/50 p-0.5 pr-4 rounded-md text-right font-mono">
+          <span class="text-2xl bg-stone-200 dark:bg-stone-700/50 p-0.5 pr-4 rounded-md text-right font-mono">
             {{ useAgGridUtilites().currencyFormatterBare(property.value) }}
           </span>
         </div>
@@ -50,7 +50,7 @@ defineEmits(['addIn', 'addOut'])
     </div>
     <div
       v-if="property.variations.length > 0"
-      class="bg-stone-700/50 p-4 rounded-md"
+      class="bg-stone-200 dark:bg-stone-700/50 p-4 rounded-md"
     >
       <PropertyVariationsTable
         :property="property"

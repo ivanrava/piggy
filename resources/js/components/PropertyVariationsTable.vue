@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
   <table>
-    <thead class="border-b-2 border-stone-600">
+    <thead class="border-b-2 border-stone-400 dark:border-stone-600">
       <tr>
         <th
           scope="col"
@@ -53,7 +53,7 @@ defineProps<{
         <td class="italic w-3/4 text-xs">
           <span
             v-if="variation.notes == null"
-            class="text-stone-400"
+            class="text-stone-500 dark:text-stone-400"
           >
             (Empty notes)
           </span>
@@ -65,7 +65,7 @@ defineProps<{
           {{ useAgGridUtilites().dateFormatterBare(variation.date) }}
         </td>
         <td class="text-right font-mono">
-          <span :class="variation.type == 'out' ? 'text-red-400' : 'text-green-400'">
+          <span :class="variation.type == 'out' ? 'text-red-700 dark:text-red-400' : 'text-green-700 dark:text-green-400'">
             {{ variation.type == 'out' ? '-' : '' }}{{ useAgGridUtilites().currencyFormatterBare(variation.amount) }}
           </span>
         </td>
