@@ -20,7 +20,7 @@ const isOut = ref<boolean>(false);
 </script>
 
 <template>
-  <div class="flex-col">
+  <div class="flex-col pb-4">
     <h1>Properties</h1>
     <section class="flex flex-col gap-4">
       <PropertyCard
