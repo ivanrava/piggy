@@ -6,6 +6,7 @@ import {Property} from "../../../composables/interfaces";
 import PropertyVariationForm from "../../../components/form/crud/PropertyVariationForm.vue";
 import {usePropertyStore} from "../../../composables/usePropertiesStore";
 import PropertyForm from "../../../components/form/crud/PropertyForm.vue";
+import NoData from "../../../components/NoData.vue";
 
 const isLoading = ref<boolean>(true);
 const store = usePropertyStore();
@@ -23,9 +24,34 @@ const relatedProperty = ref<Property>(null);
 </script>
 
 <template>
-  <div class="flex-col pb-4">
-    <h1>Properties</h1>
-    <section class="flex flex-col gap-4">
+  <h1>Properties</h1>
+  <Transition
+    mode="out-in"
+    name="fade-loading"
+  >
+    <section
+      v-if="isLoading"
+      class="flex flex-col gap-4"
+    >
+      <div class="w-full animate-pulse h-24 dark:bg-gray-600 bg-gray-400 rounded-lg" />
+      <div class="w-full animate-pulse h-32 dark:bg-gray-500 bg-gray-400/70 rounded-lg" />
+      <div class="w-full animate-pulse h-28 dark:bg-gray-600 bg-gray-400 rounded-lg" />
+      <div class="w-full animate-pulse h-24 dark:bg-gray-600 bg-gray-400 rounded-lg" />
+      <div class="w-full animate-pulse h-24 dark:bg-gray-600 bg-gray-400/70 rounded-lg" />
+      <div class="w-full animate-pulse h-28 dark:bg-gray-700 bg-gray-400 rounded-lg" />
+      <div class="w-full animate-pulse h-24 dark:bg-gray-600 bg-gray-400 rounded-lg" />
+      <div class="w-full animate-pulse h-32 dark:bg-gray-600 bg-gray-400 rounded-lg" />
+      <div class="w-full animate-pulse h-28 dark:bg-gray-700 bg-gray-400 rounded-lg" />
+      <div class="w-full animate-pulse h-24 dark:bg-gray-600 bg-gray-400/70 rounded-lg" />
+      <div class="w-full animate-pulse h-24 dark:bg-gray-500 bg-gray-400 rounded-lg" />
+    </section>
+    <section v-else-if="store.properties.length == 0">
+      <no-data class="my-8" />
+    </section>
+    <section
+      v-else
+      class="flex flex-col gap-4"
+    >
       <PropertyCard
         v-for="property in store.properties"
         :key="property.id"
@@ -35,14 +61,14 @@ const relatedProperty = ref<Property>(null);
         @add-out="showVariationForm = true; isOut = true; relatedProperty = property"
       />
     </section>
-    <PropertyVariationForm
-      :show-form="showVariationForm"
-      :is-out="isOut"
-      :property="relatedProperty"
-      @close="showVariationForm = false"
-    />
-    <PropertyForm />
-  </div>
+  </Transition>
+  <PropertyVariationForm
+    :show-form="showVariationForm"
+    :is-out="isOut"
+    :property="relatedProperty"
+    @close="showVariationForm = false"
+  />
+  <PropertyForm />
 </template>
 
 <style scoped>
