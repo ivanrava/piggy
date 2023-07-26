@@ -155,6 +155,15 @@ const routes = [
                     title: 'New report',
                     requiresAuth: true
                 }
+            },
+            {
+                name: 'properties',
+                path: '/properties',
+                component: () => import('@/pages/dashboard/properties/Properties.vue'),
+                meta: {
+                    title: 'Properties',
+                    requiresAuth: true
+                }
             }
         ]
     },

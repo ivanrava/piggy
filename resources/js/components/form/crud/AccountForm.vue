@@ -139,7 +139,6 @@ const updateAccount = function (payload: StoreAccountPayload) {
     errors.value = [];
     console.log(data.data)
   }).catch(({response}) => {
-    console.log("Ciao")
     errors.value = response.data.errors;
   }).finally(() => {
     loading.value = false;

@@ -62,6 +62,11 @@ const links = [
     href: '/beneficiaries'
   },
   {
+    icon: 'mdi:property-tag',
+    name: 'Properties',
+    href: '/properties'
+  },
+  {
     icon: 'teenyicons:table-solid',
     name: 'Reporting',
     href: '/report'
