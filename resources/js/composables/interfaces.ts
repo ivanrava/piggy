@@ -59,6 +59,7 @@ interface Property {
     icon: string;
     description: string;
     initial_value: string;
+    value: string;
 }
 
 export {

@@ -22,7 +22,7 @@ defineEmits(['addIn', 'addOut'])
         {{ property.description }}
       </p>
     </div>
-    <div class="flex flex-row w-1/5 gap-2">
+    <div class="flex flex-row w-1/4 gap-2">
       <div class="button-wrapper">
         <SubmitButton
           class="new-variation-button"
@@ -32,8 +32,8 @@ defineEmits(['addIn', 'addOut'])
         </SubmitButton>
       </div>
       <div class="flex flex-col justify-center flex-1">
-        <span class="text-3xl bg-stone-700/50 p-0.5 pr-3 rounded-md text-right font-mono">
-          {{ useAgGridUtilites().currencyFormatterBare(property.initial_value) }}
+        <span class="text-3xl bg-stone-700/50 p-0.5 pr-4 rounded-md text-right font-mono">
+          {{ useAgGridUtilites().currencyFormatterBare(property.value) }}
         </span>
       </div>
       <div class="button-wrapper">
