@@ -20,6 +20,7 @@ const storeAccount = function (payload) {
   axios.post("/properties", payload).then(({data}) => {
     store.showForm = false;
     emit('store', data.data)
+    store.addProperty(data.data)
     errors.value = [];
   }).catch(({response}) => {
     errors.value = response.data.errors;
@@ -33,7 +34,6 @@ const updateAccount = function (payload) {
     store.showForm = false;
     emit('update', data.data)
     errors.value = [];
-    console.log(data.data)
   }).catch(({response}) => {
     errors.value = response.data.errors;
   }).finally(() => {

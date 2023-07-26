@@ -24,6 +24,7 @@ export const usePropertyStore = defineStore('properties', {
         },
         addProperty(property: Property) {
             this.properties.push(property)
+            this.properties = this.properties.sort((a,b) => a.name < b.name ? -1 : 1);
             this.isEditing = false
             this.showForm = false
         },
