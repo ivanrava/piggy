@@ -14,9 +14,9 @@ defineEmits(['addIn', 'addOut'])
 
 <template>
   <article class="bg-stone-900/50 p-4 rounded-xl shadow-sm flex flex-col gap-4">
-    <div class="flex flex-row justify-between">
+    <div class="flex flex-row justify-between items-center">
       <div>
-        <h2 class="font-semibold flex flex-row gap-2 items-center">
+        <h2 class="font-semibold flex flex-row gap-2 items-center my-1">
           <Icon :icon="property.icon" />
           <span>{{ property.name }}</span>
         </h2>
@@ -48,7 +48,10 @@ defineEmits(['addIn', 'addOut'])
         </div>
       </div>
     </div>
-    <div class="bg-stone-700/50 p-4 rounded-md">
+    <div
+      v-if="property.variations.length > 0"
+      class="bg-stone-700/50 p-4 rounded-md"
+    >
       <PropertyVariationsTable
         :property="property"
         class="w-full"

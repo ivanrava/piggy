@@ -5,8 +5,6 @@ import PropertyCard from "../../../components/PropertyCard.vue";
 import {Property} from "../../../composables/interfaces";
 import PropertyVariationForm from "../../../components/form/crud/PropertyVariationForm.vue";
 import {usePropertyStore} from "../../../composables/usePropertiesStore";
-import SubmitButton from "../../../components/form/inputs/SubmitButton.vue";
-import {Icon} from "@iconify/vue";
 import PropertyForm from "../../../components/form/crud/PropertyForm.vue";
 
 const isLoading = ref<boolean>(true);
