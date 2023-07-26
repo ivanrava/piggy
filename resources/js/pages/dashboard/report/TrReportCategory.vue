@@ -13,7 +13,7 @@ const isEmpty = computed(() => {
 })
 
 const emptyClass = computed(() => {
-  return isEmpty.value ? 'text-black/30' : 'text-black';
+  return isEmpty.value ? 'text-black/30 dark:text-stone-50/20' : 'text-black dark:text-stone-50';
 })
 
 const agUtilites = useAgGridUtilites()
@@ -52,7 +52,7 @@ const agUtilites = useAgGridUtilites()
   </tr>
   <tr
     v-if="!isEmpty"
-    class="text-blue-700"
+    class="text-blue-700 dark:text-blue-300/50"
   >
     <td class="pl-5 text-sm">
       Total for <b>{{ category.name }}</b>

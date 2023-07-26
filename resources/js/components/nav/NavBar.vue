@@ -62,7 +62,7 @@ const links = [
     href: '/beneficiaries'
   },
   {
-    icon: 'mdi:property-tag',
+    icon: 'gis:car',
     name: 'Properties',
     href: '/properties'
   },

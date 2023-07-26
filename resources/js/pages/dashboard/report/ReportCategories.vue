@@ -20,8 +20,8 @@ const formatCurrency = (num) => {
   <table
     class="w-full"
   >
-    <thead class="text-blue-900">
-      <tr class="border-b-2 border-black text-2xl">
+    <thead class="text-blue-900 dark:text-blue-300/70">
+      <tr class="border-b-2 border-black text-2xl dark:border-stone-400/30">
         <th class="w-3/6 text-left">
           Category
         </th>
@@ -33,10 +33,10 @@ const formatCurrency = (num) => {
       </tr>
     </thead>
     <tbody>
-      <tr class="border-b-2 border-black">
+      <tr class="border-b-2 border-black dark:border-stone-400/30">
         <th
           colspan="2"
-          class="text-left pt-4 text-blue-900 text-xl"
+          class="text-left pt-4 text-blue-900 dark:text-blue-300/70 text-xl"
         >
           Income categories
         </th>
@@ -54,10 +54,10 @@ const formatCurrency = (num) => {
           {{ formatCurrency(sumCategories(inCategories)) }}
         </th>
       </tr>
-      <tr class="border-b-2 border-black">
+      <tr class="border-b-2 border-black dark:border-stone-400/30">
         <th
           colspan="2"
-          class="text-left pt-4 text-blue-900 text-xl"
+          class="text-left pt-4 text-blue-900 dark:text-blue-300/70 text-xl"
         >
           Expense categories
         </th>
@@ -75,7 +75,7 @@ const formatCurrency = (num) => {
           {{ formatCurrency(sumCategories(outCategories)) }}
         </th>
       </tr>
-      <tr class="border-b-2 border-black text-left text-xl text-blue-900">
+      <tr class="border-b-2 border-black text-left text-xl text-blue-900 dark:text-blue-300/70 dark:border-stone-400/30">
         <th class="pt-4">
           Summary
         </th>
