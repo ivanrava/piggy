@@ -6,7 +6,6 @@ import CategoryForm from "./CategoryForm.vue";
 import {ref} from "vue";
 import {useCategoriesStore} from "../../../composables/useCategoriesStore";
 
-
 interface StoreCategoryPayload {
   name: string;
   type: string;
@@ -51,6 +50,7 @@ const updateCategory = function (payload: StoreCategoryPayload) {
   <category-form
     :show-form="store.showForm"
     :errors="errors"
+    :is-loading="loading"
     @store="(form) => storeCategory(form)"
     @update="(form) => updateCategory(form)"
     @close="store.showForm = false; store.isEditing = false"

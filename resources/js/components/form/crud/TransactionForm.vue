@@ -276,7 +276,7 @@ watchEffect(() => store.stagingTransaction.account_id = props.accountId);
           class="!w-full"
           :errors="errors.notes"
         />
-        <submit-button class="block w-full">
+        <submit-button class="block w-full" :is-loading="loading">
           Confirm
         </submit-button>
       </form>

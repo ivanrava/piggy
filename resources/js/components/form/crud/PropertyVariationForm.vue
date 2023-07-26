@@ -85,7 +85,10 @@ const storeVariation = () => {
           class="!w-full"
           :errors="errors.notes"
         />
-        <submit-button class="block w-full">
+        <submit-button
+          class="block w-full"
+          :is-loading="isLoading"
+        >
           Confirm
         </submit-button>
       </form>

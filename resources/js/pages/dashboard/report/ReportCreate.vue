@@ -13,7 +13,9 @@ const form = ref({
 const inCategories = ref<Array<Category>>([]);
 const outCategories = ref<Array<Category>>([]);
 const fetched = ref(false);
+const loading = ref(false);
 const fetchReport = (form) => {
+  loading.value = true;
   axios.get('/report', {
     params: {
       from: form.from,
@@ -26,6 +28,8 @@ const fetchReport = (form) => {
     setTimeout(() => {
       window.print();
     }, 1000)
+  }).finally(() => {
+    loading.value = false;
   })
 }
 
@@ -54,7 +58,7 @@ const fetchReport = (form) => {
         label="To"
         type="date"
       />
-      <submit-button>
+      <submit-button :is-loading="loading">
         Submit
       </submit-button>
     </div>

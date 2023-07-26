@@ -15,7 +15,8 @@ const props = defineProps<{
     name: String,
     parent_category_id: String,
     icon: String
-  }
+  },
+  isLoading: boolean
 }>();
 defineEmits(['store', 'update', 'close'])
 
@@ -102,7 +103,10 @@ watch(props, (newValue) => {
           :is-edit="store.isEditing"
           :errors="errors.icon"
         />
-        <submit-button class="block w-full">
+        <submit-button
+          class="block w-full"
+          :is-loading="isLoading"
+        >
           Confirm
         </submit-button>
       </form>

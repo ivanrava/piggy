@@ -59,9 +59,6 @@ const optionsInterval = ref([
       :options="optionsStats"
     />
   </div>
-  <submit-button class="w-full md:w-auto">
-    Add statistic
-  </submit-button>
 </template>
 
 <style scoped>

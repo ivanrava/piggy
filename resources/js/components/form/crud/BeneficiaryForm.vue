@@ -11,7 +11,8 @@ defineProps<{
   showForm: Boolean,
   errors: {
     name: String
-  }
+  },
+  isLoading: boolean
 }>()
 const domain = ref('');
 
@@ -129,7 +130,10 @@ defineEmits(['store', 'close', 'update'])
               />
             </div>
           </Transition>
-          <submit-button class="">
+          <submit-button
+            class=""
+            :is-loading="isLoading"
+          >
             Confirm
           </submit-button>
         </aside>

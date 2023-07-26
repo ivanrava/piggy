@@ -99,6 +99,7 @@ const updateAccount = function (payload) {
   </Transition>
   <submit-button
     class="md:fixed right-12 bottom-12 md:flex items-center shadow-lg !mt-4"
+    :is-loading="loading"
     @click="store.showForm = true; store.isEditing = false; store.emptyForm();"
   >
     <Icon

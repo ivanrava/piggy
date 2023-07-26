@@ -167,9 +167,6 @@ const optionsStats = ref([
       />
     </Transition>
   </div>
-  <submit-button class="!mt-4 md:m-auto w-full md:w-auto">
-    Add statistic
-  </submit-button>
 </template>
 
 <style scoped>

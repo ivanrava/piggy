@@ -50,6 +50,7 @@ const updateBeneficiary = function (payload: StoreBeneficiaryPayload) {
   <beneficiary-form
     :show-form="store.showForm"
     :errors="errors"
+    :is-loading="loading"
     @store="(form) => storeBeneficiary(form)"
     @update="(form) => updateBeneficiary(form)"
     @close="store.closeForm()"

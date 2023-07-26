@@ -93,17 +93,17 @@ const stagingForm = computed(() => {
             v-else-if="currentForm === 'pie'"
             v-model="forms.pie"
           />
-          <div class="flex justify-between mt-3.5">
-            <a
-              :class="disabledClassesIf(currentFormIndex == 0)"
-              @click="currentFormIndex = currentFormIndex == 0 ? currentFormIndex : currentFormIndex-1"
-            >&#10094; Previous statistic</a>
-            <a
-              :class="disabledClassesIf(currentFormIndex == availableForms.length-1)"
-              @click="currentFormIndex = currentFormIndex == availableForms.length-1 ? currentFormIndex : currentFormIndex+1"
-            >Next statistic &#10095;</a>
-          </div>
         </stat-form>
+        <div class="flex justify-between mt-3.5">
+          <a
+            :class="disabledClassesIf(currentFormIndex == 0)"
+            @click="currentFormIndex = currentFormIndex == 0 ? currentFormIndex : currentFormIndex-1"
+          >&#10094; Previous statistic</a>
+          <a
+            :class="disabledClassesIf(currentFormIndex == availableForms.length-1)"
+            @click="currentFormIndex = currentFormIndex == availableForms.length-1 ? currentFormIndex : currentFormIndex+1"
+          >Next statistic &#10095;</a>
+        </div>
       </div>
     </section>
     <div class="md:hidden mt-4">
