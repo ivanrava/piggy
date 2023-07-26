@@ -7,6 +7,8 @@ import {useAgGridUtilites} from "../composables/useAgGridUtilities";
 defineProps<{
   property: Property
 }>()
+
+defineEmits(['addIn', 'addOut'])
 </script>
 
 <template>
@@ -22,7 +24,10 @@ defineProps<{
     </div>
     <div class="flex flex-row w-1/5 gap-2">
       <div class="button-wrapper">
-        <SubmitButton class="new-variation-button">
+        <SubmitButton
+          class="new-variation-button"
+          @click="$emit('addOut')"
+        >
           <Icon icon="typcn:minus" />
         </SubmitButton>
       </div>
@@ -32,7 +37,10 @@ defineProps<{
         </span>
       </div>
       <div class="button-wrapper">
-        <SubmitButton class="new-variation-button">
+        <SubmitButton
+          class="new-variation-button"
+          @click="$emit('addIn')"
+        >
           <Icon icon="typcn:plus" />
         </SubmitButton>
       </div>
