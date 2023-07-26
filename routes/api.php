@@ -5,6 +5,7 @@ use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\TransactionController;
@@ -62,4 +63,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('transfers', TransferController::class);
     Route::get('/charts/favorites', [ChartController::class, 'favorites']);
     Route::apiResource('charts', ChartController::class);
+    Route::apiResource('properties', PropertyController::class);
 });

@@ -26,7 +26,7 @@ class PropertyFactory extends Factory
             'name' => fake()->word,
             'icon' => fake()->randomElement(['clarity:home-solid', 'fluent-emoji-high-contrast:framed-picture',
                 'cil:fridge', 'game-icons:pc']),
-            'description' => fake()->text(500)
+            'description' => fake()->text(100)
         ];
     }
 }

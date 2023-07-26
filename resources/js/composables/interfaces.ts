@@ -53,6 +53,14 @@ interface Beneficiary {
     transactions: Array<Transaction>;
 }
 
+interface Property {
+    id: number;
+    name: string;
+    icon: string;
+    description: string;
+    initial_value: string;
+}
+
 export {
-    Account, Category, Beneficiary, Transaction, Transfer
+    Account, Category, Beneficiary, Transaction, Transfer, Property
 }
