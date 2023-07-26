@@ -4,23 +4,38 @@ import {ref} from "vue";
 import DecimalInput from "../inputs/DecimalInput.vue";
 import FormTextarea from "../inputs/FormTextarea.vue";
 import SubmitButton from "../inputs/SubmitButton.vue";
+import {Property} from "../../../composables/interfaces";
+import axios from "axios";
 
-defineProps<{
+const props = defineProps<{
   showForm: boolean,
-  isOut: boolean
+  isOut: boolean,
+  property: Property
 }>()
 
-defineEmits(['close']);
+const emit = defineEmits(['close']);
 
 const form = ref({
   date: '',
   amount: 0,
   notes: '',
 });
-const errors = ref({});
 
+const errors = ref({});
+const isLoading = ref<boolean>();
 const storeVariation = () => {
-  alert(JSON.stringify(form.value));
+  isLoading.value = true;
+  axios.post(`/properties/${props.property.id}/variations`, {
+    ...form.value,
+    type: props.isOut ? 'out' : 'in'
+  }).then(() => {
+    emit('close');
+    errors.value = {};
+  }).catch(({response}) => {
+    errors.value = response.data.errors;
+  }).finally(() => {
+    isLoading.value = false;
+  })
 }
 </script>
 

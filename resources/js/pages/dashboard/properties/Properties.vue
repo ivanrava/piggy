@@ -17,6 +17,7 @@ onMounted(() => {
 
 const showVariationForm = ref<boolean>(false);
 const isOut = ref<boolean>(false);
+const relatedProperty = ref<Property>(null);
 </script>
 
 <template>
@@ -28,13 +29,14 @@ const isOut = ref<boolean>(false);
         :key="property.id"
         :property="property"
         class="w-full"
-        @add-in="showVariationForm = true; isOut = false;"
-        @add-out="showVariationForm = true; isOut = true;"
+        @add-in="showVariationForm = true; isOut = false; relatedProperty = property"
+        @add-out="showVariationForm = true; isOut = true; relatedProperty = property"
       />
     </section>
     <PropertyVariationForm
       :show-form="showVariationForm"
       :is-out="isOut"
+      :property="relatedProperty"
       @close="showVariationForm = false"
     />
   </div>
