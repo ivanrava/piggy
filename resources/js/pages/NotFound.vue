@@ -3,12 +3,12 @@
 </script>
 
 <template>
-  <main class="flex flex-col justify-center items-center w-full bg-pink-100/30">
-    <div class="w-3/4 h-2/3 drop-shadow-xl bg-stone-50/80 rounded-xl flex flex-col">
-      <header class="bg-pink-100/60 p-8 rounded-t-xl">
+  <main class="flex flex-col justify-center items-center w-full bg-pink-100/30 dark:bg-stone-900 dark:text-stone-200/50">
+    <div class="w-3/4 h-2/3 drop-shadow-xl bg-stone-50/80 rounded-xl flex flex-col dark:bg-stone-800/50">
+      <header class="bg-pink-100/60 dark:bg-stone-950/50 p-8 rounded-t-xl">
         <img
           alt="Piggy logo"
-          class="h-16"
+          class="h-16 dark:invert"
           src="/logo-align-left.svg"
         >
       </header>
