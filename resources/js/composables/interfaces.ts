@@ -55,10 +55,12 @@ interface Beneficiary {
 
 interface PropertyVariation {
     id: number;
+    property_id: number;
     type: string;
     notes: string;
     date: string;
     amount: string;
+    value: number;
 }
 
 interface Property {

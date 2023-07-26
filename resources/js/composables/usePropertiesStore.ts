@@ -1,6 +1,7 @@
 import {defineStore} from "pinia";
-import {Property} from "./interfaces";
+import {Property, PropertyVariation} from "./interfaces";
 import {elements} from "chart.js";
+import axios from "axios";
 
 const emptyProperty = {
     id: null,
@@ -19,12 +20,12 @@ export const usePropertyStore = defineStore('properties', {
     }),
     actions: {
         setProperties(properties: Array<Property>) {
-            this.properties = properties.sort((a,b) => a.name < b.name ? -1 : 1);
+            this.properties = properties.sort((a,b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1);
             this.stagingProperty = emptyProperty;
         },
         addProperty(property: Property) {
             this.properties.push(property)
-            this.properties = this.properties.sort((a,b) => a.name < b.name ? -1 : 1);
+            this.properties = this.properties.sort((a,b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1);
             this.isEditing = false
             this.showForm = false
         },
@@ -38,6 +39,13 @@ export const usePropertyStore = defineStore('properties', {
         },
         emptyForm() {
             this.stagingProperty = emptyProperty;
+        },
+        refreshProperties() {
+            axios.get('/properties').then(({data}) => {
+                this.properties = data.data;
+            }).catch((error) => {
+                console.log('Error! Could not reach the API. ' + error)
+            })
         },
         updateProperty(property: Property) {
             this.properties = this.properties.map(acc => acc.id === property.id ? property : acc)

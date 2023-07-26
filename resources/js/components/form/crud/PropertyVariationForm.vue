@@ -6,12 +6,15 @@ import FormTextarea from "../inputs/FormTextarea.vue";
 import SubmitButton from "../inputs/SubmitButton.vue";
 import {Property} from "../../../composables/interfaces";
 import axios from "axios";
+import {usePropertyStore} from "../../../composables/usePropertiesStore";
 
 const props = defineProps<{
   showForm: boolean,
   isOut: boolean,
   property: Property
 }>()
+
+const store = usePropertyStore();
 
 const emit = defineEmits(['close']);
 
@@ -30,6 +33,7 @@ const storeVariation = () => {
     type: props.isOut ? 'out' : 'in'
   }).then(() => {
     emit('close');
+    store.refreshProperties()
     errors.value = {};
   }).catch(({response}) => {
     errors.value = response.data.errors;

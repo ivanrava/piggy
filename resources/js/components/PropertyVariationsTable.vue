@@ -1,16 +1,10 @@
 <script setup lang="ts">
-
 import {Property} from "../composables/interfaces";
 import {useAgGridUtilites} from "../composables/useAgGridUtilities";
 
-const props = defineProps<{
+defineProps<{
   property: Property
 }>()
-
-let sum = Number(props.property.initial_value);
-const addVariation = (variation) => {
-  return variation.type === 'out' ? sum -= Number(variation.amount) : sum += Number(variation.amount)
-}
 </script>
 
 <template>
@@ -76,7 +70,7 @@ const addVariation = (variation) => {
           </span>
         </td>
         <td class="text-right font-mono">
-          {{ useAgGridUtilites().currencyFormatterBare(addVariation(variation)) }}
+          {{ useAgGridUtilites().currencyFormatterBare(variation.value) }}
         </td>
       </tr>
     </tbody>
