@@ -13,7 +13,7 @@ defineProps<{
       <tr>
         <th
           scope="col"
-          class="text-left"
+          class="text-left hidden lg:table-cell"
         >
           Notes
         </th>
@@ -39,7 +39,7 @@ defineProps<{
     </thead>
     <tbody>
       <tr>
-        <td />
+        <td class="hidden lg:table-cell" />
         <td />
         <td />
         <td class="text-right font-mono">
@@ -50,14 +50,16 @@ defineProps<{
         v-for="variation in property.variations"
         :key="variation.id"
       >
-        <td class="italic w-3/4 text-xs">
+        <td class="italic hidden lg:table-cell lg:w-2/5 xl:w-3/5 2xl:w-3/4 text-xs">
           <span
             v-if="variation.notes == null"
             class="text-stone-500 dark:text-stone-400"
           >
             (Empty notes)
           </span>
-          <span v-else>
+          <span
+            v-else
+          >
             {{ variation.notes }}
           </span>
         </td>

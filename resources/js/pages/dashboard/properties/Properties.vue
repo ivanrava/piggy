@@ -24,51 +24,55 @@ const relatedProperty = ref<Property>(null);
 </script>
 
 <template>
-  <h1>Properties</h1>
-  <Transition
-    mode="out-in"
-    name="fade-loading"
-  >
-    <section
-      v-if="isLoading"
-      class="flex flex-col gap-4"
-    >
-      <div class="w-full animate-pulse h-24 dark:bg-gray-600 bg-gray-400 rounded-lg" />
-      <div class="w-full animate-pulse h-32 dark:bg-gray-500 bg-gray-400/70 rounded-lg" />
-      <div class="w-full animate-pulse h-28 dark:bg-gray-600 bg-gray-400 rounded-lg" />
-      <div class="w-full animate-pulse h-24 dark:bg-gray-600 bg-gray-400 rounded-lg" />
-      <div class="w-full animate-pulse h-24 dark:bg-gray-600 bg-gray-400/70 rounded-lg" />
-      <div class="w-full animate-pulse h-28 dark:bg-gray-700 bg-gray-400 rounded-lg" />
-      <div class="w-full animate-pulse h-24 dark:bg-gray-600 bg-gray-400 rounded-lg" />
-      <div class="w-full animate-pulse h-32 dark:bg-gray-600 bg-gray-400 rounded-lg" />
-      <div class="w-full animate-pulse h-28 dark:bg-gray-700 bg-gray-400 rounded-lg" />
-      <div class="w-full animate-pulse h-24 dark:bg-gray-600 bg-gray-400/70 rounded-lg" />
-      <div class="w-full animate-pulse h-24 dark:bg-gray-500 bg-gray-400 rounded-lg" />
-    </section>
-    <section v-else-if="store.properties.length == 0">
-      <no-data class="my-8" />
-    </section>
-    <section
-      v-else
-      class="flex flex-col gap-4"
-    >
-      <PropertyCard
-        v-for="property in store.properties"
-        :key="property.id"
-        :property="property"
-        class="w-full"
-        @add-in="showVariationForm = true; isOut = false; relatedProperty = property"
-        @add-out="showVariationForm = true; isOut = true; relatedProperty = property"
+  <div class="h-full flex flex-col justify-between">
+    <section class="overflow-scroll">
+      <h1>Properties</h1>
+      <Transition
+        mode="out-in"
+        name="fade-loading"
+      >
+        <section
+          v-if="isLoading"
+          class="flex flex-col gap-4"
+        >
+          <div class="w-full animate-pulse h-24 dark:bg-gray-600 bg-gray-400 rounded-lg" />
+          <div class="w-full animate-pulse h-32 dark:bg-gray-500 bg-gray-400/70 rounded-lg" />
+          <div class="w-full animate-pulse h-28 dark:bg-gray-600 bg-gray-400 rounded-lg" />
+          <div class="w-full animate-pulse h-24 dark:bg-gray-600 bg-gray-400 rounded-lg" />
+          <div class="w-full animate-pulse h-24 dark:bg-gray-600 bg-gray-400/70 rounded-lg" />
+          <div class="w-full animate-pulse h-28 dark:bg-gray-700 bg-gray-400 rounded-lg" />
+          <div class="w-full animate-pulse h-24 dark:bg-gray-600 bg-gray-400 rounded-lg" />
+          <div class="w-full animate-pulse h-32 dark:bg-gray-600 bg-gray-400 rounded-lg" />
+          <div class="w-full animate-pulse h-28 dark:bg-gray-700 bg-gray-400 rounded-lg" />
+          <div class="w-full animate-pulse h-24 dark:bg-gray-600 bg-gray-400/70 rounded-lg" />
+          <div class="w-full animate-pulse h-24 dark:bg-gray-500 bg-gray-400 rounded-lg" />
+        </section>
+        <section v-else-if="store.properties.length == 0">
+          <no-data class="my-8" />
+        </section>
+        <section
+          v-else
+          class="flex flex-col gap-4"
+        >
+          <PropertyCard
+            v-for="property in store.properties"
+            :key="property.id"
+            :property="property"
+            class="w-full"
+            @add-in="showVariationForm = true; isOut = false; relatedProperty = property"
+            @add-out="showVariationForm = true; isOut = true; relatedProperty = property"
+          />
+        </section>
+      </Transition>
+      <PropertyVariationForm
+        :show-form="showVariationForm"
+        :is-out="isOut"
+        :property="relatedProperty"
+        @close="showVariationForm = false"
       />
     </section>
-  </Transition>
-  <PropertyVariationForm
-    :show-form="showVariationForm"
-    :is-out="isOut"
-    :property="relatedProperty"
-    @close="showVariationForm = false"
-  />
-  <PropertyForm />
+    <PropertyForm />
+  </div>
 </template>
 
 <style scoped>

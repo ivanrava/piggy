@@ -14,8 +14,8 @@ defineEmits(['addIn', 'addOut'])
 
 <template>
   <article class="bg-stone-100 dark:bg-stone-900/50 p-4 rounded-xl shadow-sm flex flex-col gap-4">
-    <div class="flex flex-row justify-between items-center">
-      <div>
+    <div class="flex flex-col lg:flex-row justify-between items-center gap-4 xl:gap-0">
+      <div class="lg:w-1/2 xl:w-auto">
         <h2 class="font-semibold flex flex-row gap-2 items-center my-1">
           <Icon :icon="property.icon" />
           <span>{{ property.name }}</span>
@@ -24,7 +24,7 @@ defineEmits(['addIn', 'addOut'])
           {{ property.description }}
         </p>
       </div>
-      <div class="flex flex-row w-1/4 gap-2">
+      <div class="flex flex-row w-full lg:w-1/2 xl:w-1/3 2xl:w-1/4 gap-2">
         <div class="button-wrapper">
           <SubmitButton
             class="new-variation-button"
