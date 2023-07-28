@@ -2,7 +2,7 @@
   <div class="my-1 w-48 relative">
     <label-input
       :for="label"
-      class="absolute left-2.5 top-3 transition-all px-1 bg-stone-50 rounded-t-md dark:bg-stone-900 dark:text-stone-200/50"
+      class="absolute left-2.5 top-3 transition-all text-stone-500 px-1 bg-stone-50 rounded-t-md dark:bg-stone-900 dark:text-stone-200/50"
       :class="{'!-top-2.5': focused || value.length > 0, '!text-pink-200 dark:!text-pink-100': focused}"
     >
       {{ label }}

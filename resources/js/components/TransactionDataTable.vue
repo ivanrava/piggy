@@ -92,7 +92,7 @@ const columnDefs = computed(() => {
     .concat(defaultColDefs)
 })
 
-const overlayLoadingTemplate = '<span class="ag-overlay-loading-center dark:text-stone-200"><Icon icon="line-md:loading-loop" />Loading transactions</span>';
+const overlayLoadingTemplate = '<span class="ag-overlay-loading-center text-stone-950 dark:text-stone-200"><Icon icon="line-md:loading-loop" />Loading transactions</span>';
 const overlayNoRowsTemplate = '<span class="text-xl opacity-60">No transactions to show</span>';
 </script>
 

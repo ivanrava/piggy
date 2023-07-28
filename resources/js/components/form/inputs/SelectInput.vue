@@ -160,7 +160,7 @@ const focused = ref(false);
 }
 
 .multiselect__content-wrapper {
-  @apply bg-stone-900 border-[1px] border-stone-700;
+  @apply dark:bg-stone-900 dark:border-[1px] dark:border-stone-700;
 }
 
 .option__title {
@@ -168,6 +168,6 @@ const focused = ref(false);
 }
 
 .multiselect {
-  @apply border-[1px] border-stone-200/50 dark:text-stone-100;
+  @apply dark:border-[1px] dark:border-stone-200/50 dark:text-stone-100;
 }
 </style>

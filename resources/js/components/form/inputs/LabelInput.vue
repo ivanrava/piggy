@@ -8,7 +8,7 @@ const props = defineProps({
 
 <template>
   <label
-    class="block mb-0.5 font-bold tracking-wide text-sm font-serif text-stone-200/50"
+    class="block mb-0.5 font-bold tracking-wide text-sm font-serif text-stone-500 dark:text-stone-200/50"
     :for="props.for"
   >
     <slot />

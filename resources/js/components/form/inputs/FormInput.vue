@@ -2,7 +2,7 @@
   <div class="my-2 w-full md:w-48 relative">
     <label-input
       :for="label"
-      class="z-10 absolute left-2.5 top-3 text-gray-500 dark:text-stone-200/50 cursor-text transition-all px-1 bg-stone-50 dark:bg-stone-900 rounded-t-md"
+      class="z-10 absolute left-2.5 top-3 text-stone-500 dark:text-stone-200/50 cursor-text transition-all px-1 bg-stone-50 dark:bg-stone-900 rounded-t-md"
       :class="{'!-top-2.5': focused || isFieldNonEmpty, '!text-pink-200 dark:!text-pink-100': focused}"
     >
       {{ label }}

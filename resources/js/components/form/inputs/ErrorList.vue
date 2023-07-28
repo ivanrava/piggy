@@ -7,7 +7,7 @@ defineProps<{
 <template>
   <ul
     v-if="errors.length > 0"
-    class="p-2 bg-red-50/30 dark:bg-red-800/10 rounded-b-md"
+    class="p-2 bg-red-200/30 dark:bg-red-800/10 rounded-b-md"
   >
     <li
       v-for="error in errors"
