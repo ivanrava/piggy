@@ -45,6 +45,7 @@ class TransactionController extends Controller
     {
         $transaction->hydrateFromRequest($request);
         $transaction->save();
+        $transaction->refresh();
         return new TransactionResource($transaction);
     }
 
