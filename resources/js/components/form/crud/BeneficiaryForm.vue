@@ -16,7 +16,6 @@ defineProps<{
 }>()
 const domain = ref('');
 
-const beneficiaryType = ref('person');
 const beneficiaryTypes = [
   {
     id: 'person',
@@ -37,10 +36,10 @@ const imgForType = computed(() => {
     person: 'bottts',
     generic: 'shapes'
   }
-  if (beneficiaryType.value === 'company')
+  if (store.beneficiaryType === 'company')
     return 'https://logo.clearbit.com/'+domain.value
   else
-    return defaultStyles[beneficiaryType.value]
+    return defaultStyles[store.beneficiaryType]
 })
 
 defineEmits(['store', 'close', 'update'])
@@ -71,8 +70,8 @@ defineEmits(['store', 'close', 'update'])
           v-for="t in beneficiaryTypes"
           :key="t.id"
           class="m-2 pb-1 border-pink-100/20 text-pink-700/70 dark:text-pink-100/40 font-light border-b-2 transition-all rounded-none hover:border-red-700/60 hover:text-red-700 dark:hover:border-pink-700/60 dark:hover:text-pink-700"
-          :class="{'!border-pink-700 dark:!border-pink-400 !text-pink-950 dark:!text-pink-400 !font-normal': t.id === beneficiaryType}"
-          @click="beneficiaryType = t.id; store.stagingBeneficiary.img = imgForType"
+          :class="{'!border-pink-700 dark:!border-pink-400 !text-pink-950 dark:!text-pink-400 !font-normal': t.id === store.beneficiaryType}"
+          @click="store.beneficiaryType = t.id; store.stagingBeneficiary.img = imgForType"
         >
           {{ t.display }}
         </button>
@@ -91,7 +90,7 @@ defineEmits(['store', 'close', 'update'])
             mode="out-in"
           >
             <div
-              v-if="beneficiaryType === 'company'"
+              v-if="store.beneficiaryType === 'company'"
               class="flex flex-row justify-between w-full gap-4"
             >
               <form-input
@@ -108,7 +107,7 @@ defineEmits(['store', 'close', 'update'])
               />
             </div>
             <div
-              v-else-if="beneficiaryType === 'person'"
+              v-else-if="store.beneficiaryType === 'person'"
               class="w-full"
             >
               <form-input

@@ -11,6 +11,7 @@ export const useBeneficiariesStore = defineStore('beneficiaries', {
     state: () => ({
         beneficiaries: [],
         stagingBeneficiary: emptyBeneficiary,
+        beneficiaryType: 'person',
         showForm: false,
         isEditing: false
     }),
@@ -23,6 +24,7 @@ export const useBeneficiariesStore = defineStore('beneficiaries', {
         },
         editBeneficiary(beneficiary: Beneficiary) {
             this.stagingBeneficiary = JSON.parse(JSON.stringify(beneficiary))
+            this.beneficiaryType = this.stagingBeneficiary.img == 'bottts' ? 'person' : this.stagingBeneficiary.img == 'shapes' ? 'generic' : 'company';
             this.showForm = true
             this.isEditing = true
         },
