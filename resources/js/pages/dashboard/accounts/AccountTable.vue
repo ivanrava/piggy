@@ -86,7 +86,7 @@ const textColor = computed(() => {
                 <small class="font-extralight whitespace-nowrap">{{ account.type }}</small>
               </div>
               <span class="text-4xl font-light whitespace-nowrap tracking-tighter">
-                {{ useAgGridUtilites().currencyFormatterBare(store.getTotal() + Number(account.initial_balance)) }}
+                {{ useAgGridUtilites().currencyFormatterBare(store.getTotal(route.params.id) + Number(account.initial_balance)) }}
               </span>
             </div>
           </div>
@@ -113,7 +113,7 @@ const textColor = computed(() => {
           </h2>
         </div>
         <span class="text-xl font-light whitespace-nowrap tracking-tighter">
-          {{ useAgGridUtilites().currencyFormatterBare(store.getTotal() + Number(account.initial_balance)) }}
+          {{ useAgGridUtilites().currencyFormatterBare(store.getTotal(route.params.id) + Number(account.initial_balance)) }}
         </span>
       </div>
     </div>

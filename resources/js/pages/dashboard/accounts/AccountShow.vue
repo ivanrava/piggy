@@ -127,7 +127,7 @@ const totalTransactions = computed(() => {
               <li>
                 <b>Total amount of money:</b>
                 <span class="pl-1">
-                  {{ useAgGridUtilites().currencyFormatterBare(useOperationsStore().getTotal() + Number(account.initial_balance)) }}
+                  {{ useAgGridUtilites().currencyFormatterBare(useOperationsStore().getTotal(route.params.id) + Number(account.initial_balance)) }}
                 </span>
               </li>
             </ul>
