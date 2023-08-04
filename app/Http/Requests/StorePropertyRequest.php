@@ -11,7 +11,11 @@ class StorePropertyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $property = $this->route()->parameter('property');
+        if ($property == null)
+            return true;
+
+        return $property->user_id == $this->user()->id;
     }
 
     /**

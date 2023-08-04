@@ -4,10 +4,14 @@ import {Icon} from "@iconify/vue";
 import SubmitButton from "./form/inputs/SubmitButton.vue";
 import {useAgGridUtilites} from "../composables/useAgGridUtilities";
 import PropertyVariationsTable from "./PropertyVariationsTable.vue";
+import ActionLink from "./ActionLink.vue";
+import {usePropertyStore} from "../composables/usePropertiesStore";
 
 defineProps<{
   property: Property
 }>()
+
+const store = usePropertyStore();
 
 defineEmits(['addIn', 'addOut'])
 </script>
@@ -16,10 +20,18 @@ defineEmits(['addIn', 'addOut'])
   <article class="bg-stone-100 dark:bg-stone-900/50 p-4 rounded-xl shadow-sm flex flex-col gap-4">
     <div class="flex flex-col lg:flex-row justify-between items-center gap-4 xl:gap-0">
       <div class="lg:w-1/2 xl:w-auto">
-        <h2 class="font-semibold flex flex-row gap-2 items-center my-1">
-          <Icon :icon="property.icon" />
-          <span>{{ property.name }}</span>
-        </h2>
+        <div class="flex gap-2 items-center">
+          <h2 class="font-semibold flex flex-row gap-2 items-center my-1">
+            <Icon :icon="property.icon" />
+            <span>{{ property.name }}</span>
+          </h2>
+          <ActionLink @click="store.editProperty(property)">
+            Edit
+          </ActionLink>
+          <ActionLink>
+            Delete
+          </ActionLink>
+        </div>
         <p>
           {{ property.description }}
         </p>

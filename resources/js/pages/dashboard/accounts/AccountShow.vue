@@ -10,6 +10,8 @@ import {Account} from "../../../composables/interfaces";
 import AccountForm from "../../../components/form/crud/AccountForm.vue";
 import GraphSkeleton from "../../../components/GraphSkeleton.vue";
 import {useOperationsStore} from "../../../composables/useOperationsStore";
+import ActionLink from "../../../components/ActionLink.vue";
+import {Icon} from "@iconify/vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -68,18 +70,18 @@ const totalTransactions = computed(() => {
             class="flex flex-col my-4"
           >
             <div class="flex items-center gap-3 mb-1">
-              <h1 class="flex items-center gap-2 my-0">
-                {{ account.name }}
-              </h1>
-              <a
-                class="cursor-pointer flex flex-col justify-center !text-lg pt-2"
-                role="button"
-                @click="store.editAccount(account)"
-              >
+              <Icon
+                class="text-4xl"
+                :icon="account.icon"
+              />
+              <h1 class="flex items-baseline gap-2 my-0">
                 <span>
-                  Edit
+                  {{ account.name }}
                 </span>
-              </a>
+                <ActionLink @click="store.editAccount(account)">
+                  Edit
+                </ActionLink>
+              </h1>
             </div>
             <router-link
               :to="`/accounts/${account.id}/transactions`"

@@ -14,13 +14,7 @@ class PropertyController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         $properties = $request->user()->properties()->with('variations')->orderBy('name')->get();
-        $properties->each(function (Property $property) {
-            $sum = $property['initial_value'];
-            $property['variations']->each(function (PropertyVariation $variation) use (&$sum) {
-                $sum = $sum + ($variation['type'] == 'out' ? -$variation['amount'] : $variation['amount']);
-                $variation['value'] = $sum;
-            });
-        });
+        $properties->each(fn (Property $property) => $property->unroll_variations());
         return PropertyResource::collection($properties);
     }
 
@@ -40,5 +34,14 @@ class PropertyController extends Controller
         $property->icon = $request->icon;
         $property->description = $request->description;
         return $property;
+    }
+
+    public function update(StorePropertyRequest $request, Property $property): PropertyResource
+    {
+        $property = $this->hydrate_from_request($property, $request);
+        $property->save();
+        $property->load('variations');
+        $property->unroll_variations();
+        return new PropertyResource($property);
     }
 }

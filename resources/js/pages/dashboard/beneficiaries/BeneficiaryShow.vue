@@ -10,6 +10,7 @@ import ChartPie from "../../../components/stats/ChartPie.vue";
 import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
 import BeneficiaryFormWrapper from "../../../components/form/crud/BeneficiaryFormWrapper.vue";
 import GraphSkeleton from "../../../components/GraphSkeleton.vue";
+import ActionLink from "../../../components/ActionLink.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -63,21 +64,15 @@ const totalTransactions = computed(() => {
             class="flex flex-col my-4"
           >
             <div class="flex items-center gap-3 mb-1">
-              <h1 class="flex items-center gap-2 my-0">
-                <beneficiary-image :beneficiary="beneficiary" />
+              <beneficiary-image :beneficiary="beneficiary" />
+              <h1 class="flex items-baseline gap-2 my-0">
                 <span>
                   {{ beneficiary.name }}
                 </span>
-              </h1>
-              <a
-                class="cursor-pointer flex flex-col justify-center !text-lg pt-2"
-                role="button"
-                @click="store.editBeneficiary(beneficiary)"
-              >
-                <span>
+                <ActionLink @click="store.editBeneficiary(beneficiary)">
                   Edit
-                </span>
-              </a>
+                </ActionLink>
+              </h1>
             </div>
             <router-link
               :to="`/beneficiaries/${beneficiary.id}/transactions`"

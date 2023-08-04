@@ -12,38 +12,33 @@
           v-else
           class="flex-col my-4"
         >
-          <div class="flex items-center gap-3 mb-1">
-            <h1 class="flex items-center gap-2 my-0">
-              <Icon :icon="store.selectedCategory.icon" />
+          <div class="flex items-end gap-3 mb-1">
+            <Icon
+              class="text-4xl"
+              :icon="store.selectedCategory.icon"
+            />
+            <h1 class="flex items-baseline gap-2 my-0">
               <span>
                 {{ store.selectedCategory.name }}
               </span>
-            </h1>
-            <a
-              class="cursor-pointer flex flex-col justify-center !text-lg pt-2"
-              role="button"
-              @click="store.editCategory()"
-            >
-              <span>
+              <ActionLink @click="store.editCategory()">
                 Edit
-              </span>
-            </a>
-            <a
-              class="cursor-pointer flex flex-col justify-center !text-lg pt-2"
-              :class="{'!decoration-red-900':askedForDeletion}"
-              role="button"
-              @click="askDelete(store.selectedCategory)"
-            >
-              <span
-                v-if="askedForDeletion"
-                class="text-red-900"
+              </ActionLink>
+              <ActionLink
+                :class="{'!decoration-red-900':askedForDeletion}"
+                @click="askDelete(store.selectedCategory)"
               >
-                Really sure?
-              </span>
-              <span v-else>
-                Delete
-              </span>
-            </a>
+                <span
+                  v-if="askedForDeletion"
+                  class="text-red-900"
+                >
+                  Really sure?
+                </span>
+                <span v-else>
+                  Delete
+                </span>
+              </ActionLink>
+            </h1>
           </div>
           <router-link
             :to="`/categories/${store.selectedCategory.id}/transactions`"
@@ -152,6 +147,7 @@ import {useRoute, useRouter} from "vue-router";
 import {Category} from "../../../composables/interfaces";
 import ChartPie from "../../../components/stats/ChartPie.vue";
 import GraphSkeleton from "../../../components/GraphSkeleton.vue";
+import ActionLink from "../../../components/ActionLink.vue";
 
 const store = useCategoriesStore()
 const route = useRoute();

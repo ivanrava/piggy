@@ -32,6 +32,7 @@ const updateAccount = function (payload) {
   loading.value = true;
   axios.put(`/properties/${store.stagingProperty.id}`, payload).then(({data}) => {
     store.showForm = false;
+    store.updateProperty(data.data)
     emit('update', data.data)
     errors.value = [];
   }).catch(({response}) => {

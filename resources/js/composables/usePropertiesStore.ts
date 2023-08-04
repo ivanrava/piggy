@@ -35,7 +35,7 @@ export const usePropertyStore = defineStore('properties', {
             this.showForm = true
         },
         deleteProperty(property: Property) {
-            this.properties = this.properties.filter(acc => acc.id != property.id)
+            this.properties = this.properties.filter(prp => prp.id != property.id)
         },
         emptyForm() {
             this.stagingProperty = emptyProperty;
@@ -48,7 +48,7 @@ export const usePropertyStore = defineStore('properties', {
             })
         },
         updateProperty(property: Property) {
-            this.properties = this.properties.map(acc => acc.id === property.id ? property : acc)
+            this.properties = this.properties.map(prp => prp.id === property.id ? property : prp)
         }
     }
 })

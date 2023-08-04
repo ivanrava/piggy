@@ -33,4 +33,13 @@ class Property extends Model
             get: fn () => $this->initial_value + $this->additions()->sum('amount') - $this->subtractions()->sum('amount'),
         );
     }
+
+    public function unroll_variations(): void
+    {
+        $sum = $this['initial_value'];
+        $this['variations']->each(function (PropertyVariation $variation) use (&$sum) {
+            $sum = $sum + ($variation['type'] == 'out' ? -$variation['amount'] : $variation['amount']);
+            $variation['value'] = $sum;
+        });
+    }
 }
