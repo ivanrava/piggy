@@ -4,7 +4,7 @@ defineEmits(['click'])
 
 <template>
   <a
-    class="cursor-pointer flex flex-col justify-center !text-lg ptx-2"
+    class="cursor-pointer flex flex-col justify-center !text-lg ptx-2 font-extralight"
     role="button"
     @click="$emit('click')"
   >

@@ -6,6 +6,7 @@ import {useAgGridUtilites} from "../composables/useAgGridUtilities";
 import PropertyVariationsTable from "./PropertyVariationsTable.vue";
 import ActionLink from "./ActionLink.vue";
 import {usePropertyStore} from "../composables/usePropertiesStore";
+import DeleteLink from "./DeleteLink.vue";
 
 defineProps<{
   property: Property
@@ -28,9 +29,7 @@ defineEmits(['addIn', 'addOut'])
           <ActionLink @click="store.editProperty(property)">
             Edit
           </ActionLink>
-          <ActionLink>
-            Delete
-          </ActionLink>
+          <DeleteLink />
         </div>
         <p>
           {{ property.description }}

@@ -24,20 +24,7 @@
               <ActionLink @click="store.editCategory()">
                 Edit
               </ActionLink>
-              <ActionLink
-                :class="{'!decoration-red-900':askedForDeletion}"
-                @click="askDelete(store.selectedCategory)"
-              >
-                <span
-                  v-if="askedForDeletion"
-                  class="text-red-900"
-                >
-                  Really sure?
-                </span>
-                <span v-else>
-                  Delete
-                </span>
-              </ActionLink>
+              <DeleteLink @delete="deleteCategory(store.selectedCategory)" />
             </h1>
           </div>
           <router-link
@@ -148,6 +135,7 @@ import {Category} from "../../../composables/interfaces";
 import ChartPie from "../../../components/stats/ChartPie.vue";
 import GraphSkeleton from "../../../components/GraphSkeleton.vue";
 import ActionLink from "../../../components/ActionLink.vue";
+import DeleteLink from "../../../components/DeleteLink.vue";
 
 const store = useCategoriesStore()
 const route = useRoute();
@@ -181,13 +169,7 @@ const totalTransactions = computed(() => {
   return accounts.value.reduce((previousValue, currentValue) => previousValue + currentValue.count, 0);
 })
 
-const askedForDeletion = ref(false);
-const askDelete = (category: Category) => {
-  if (!askedForDeletion.value) {
-    askedForDeletion.value = true;
-    return
-  }
-
+const deleteCategory = (category: Category) => {
   axios.delete(`/categories/${category.id}`)
     .then(() => {
       store.deleteCategory(category)
