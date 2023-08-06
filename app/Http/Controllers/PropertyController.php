@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthorizePropertyRequest;
 use App\Http\Requests\StorePropertyRequest;
 use App\Http\Resources\PropertyResource;
 use App\Models\Property;
 use App\Models\PropertyVariation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class PropertyController extends Controller
 {
@@ -43,5 +45,11 @@ class PropertyController extends Controller
         $property->load('variations');
         $property->unroll_variations();
         return new PropertyResource($property);
+    }
+
+    public function destroy(AuthorizePropertyRequest $request, Property $property): Response
+    {
+        $property->delete();
+        return response()->noContent();
     }
 }

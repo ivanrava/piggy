@@ -7,6 +7,7 @@ import PropertyVariationsTable from "./PropertyVariationsTable.vue";
 import ActionLink from "./ActionLink.vue";
 import {usePropertyStore} from "../composables/usePropertiesStore";
 import DeleteLink from "./DeleteLink.vue";
+import axios from "axios";
 
 defineProps<{
   property: Property
@@ -15,6 +16,16 @@ defineProps<{
 const store = usePropertyStore();
 
 defineEmits(['addIn', 'addOut'])
+
+const deleteProperty = (property: Property) => {
+  axios.delete(`/properties/${property.id}`)
+    .then(() => {
+      store.deleteProperty(property)
+    })
+    .catch((res) => {
+      console.log(res)
+    })
+}
 </script>
 
 <template>
@@ -29,7 +40,7 @@ defineEmits(['addIn', 'addOut'])
           <ActionLink @click="store.editProperty(property)">
             Edit
           </ActionLink>
-          <DeleteLink />
+          <DeleteLink @delete="deleteProperty(property)" />
         </div>
         <p>
           {{ property.description }}
