@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('account_type_id')->constrained();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('account_type_id')->constrained()->cascadeOnDelete();
             $table->decimal('initial_balance', self::TOTAL_DIGITS, 2);
             $table->string('name');
             $table->string('icon');
