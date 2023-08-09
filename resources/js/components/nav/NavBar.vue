@@ -67,6 +67,11 @@ const links = [
     href: '/properties'
   },
   {
+    icon: 'clarity:briefcase-solid',
+    name: 'Budget',
+    href: '/budget'
+  },
+  {
     icon: 'teenyicons:table-solid',
     name: 'Reporting',
     href: '/report'

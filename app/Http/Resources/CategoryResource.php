@@ -22,7 +22,9 @@ class CategoryResource extends JsonResource
             'parent' => $this->relationLoaded('parent') ? new CategoryResource($this->parent) : null,
             'parent_category_id' => $this->parent_category_id,
             'children' => $this->relationLoaded('children') ? CategoryResource::collection($this->children) : [],
-            'transactions' => $this->relationLoaded('transactions') ? TransactionResource::collection($this->transactions) : []
+            'transactions' => $this->relationLoaded('transactions') ? TransactionResource::collection($this->transactions) : [],
+            'expenditures' => $this->expenditures,
+            'budget' => $this->relationLoaded('budget') && $this->budget_overall == null ? new BudgetResource($this->budget) : $this->budget_overall
         ];
     }
 }

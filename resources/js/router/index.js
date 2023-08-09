@@ -164,6 +164,15 @@ const routes = [
                     title: 'Properties',
                     requiresAuth: true
                 }
+            },
+            {
+                name: 'budget',
+                path: '/budget',
+                component: () => import('@/pages/dashboard/budget/Budget.vue'),
+                meta: {
+                    title: 'Budget',
+                    requiresAuth: true
+                }
             }
         ]
     },

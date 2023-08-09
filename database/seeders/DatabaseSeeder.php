@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             $user->properties()->each(function (Property $property) {
                 PropertyVariationSeeder::seed($property);
             });
+            BudgetSeeder::seed($user);
         });
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 /**
  * App\Models\Transaction
@@ -78,5 +80,13 @@ class Transaction extends Model
         $this->notes = $request->notes;
         $this->amount = $request->amount;
         $this->date = $request->date;
+    }
+
+    public static function groupByMonthlyCategory(Builder $query): Builder
+    {
+        return $query
+            ->where('date', '>=', Carbon::now()->startOfYear())
+            ->selectRaw("category_id, date_trunc('month', date) as month, SUM(amount)")
+            ->groupBy("month", "category_id");
     }
 }

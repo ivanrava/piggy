@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('parent_category_id')->nullable()->index('parent_category');
+            $table->decimal('budget_overall', 10, 2)->nullable();
             $table->string('name');
             $table->enum('type', ['out', 'in']);
             $table->string('icon');
