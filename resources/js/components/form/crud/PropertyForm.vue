@@ -15,7 +15,7 @@ const errors = ref({});
 const loading = ref(false);
 const emit = defineEmits(['store', 'update'])
 
-const storeAccount = function (payload) {
+const storeProperty = function (payload) {
   loading.value = true;
   axios.post("/properties", payload).then(({data}) => {
     store.showForm = false;
@@ -28,7 +28,7 @@ const storeAccount = function (payload) {
     loading.value = false;
   })
 }
-const updateAccount = function (payload) {
+const updateProperty = function (payload) {
   loading.value = true;
   axios.put(`/properties/${store.stagingProperty.id}`, payload).then(({data}) => {
     store.showForm = false;
@@ -65,7 +65,7 @@ const updateAccount = function (payload) {
       </header>
       <form
         class="flex flex-col justify-center items-center gap-4 md:w-96 relative"
-        @submit.prevent="store.isEditing ? updateAccount(store.stagingProperty) : storeAccount(store.stagingProperty)"
+        @submit.prevent="store.isEditing ? updateProperty(store.stagingProperty) : storeProperty(store.stagingProperty)"
       >
         <div class="w-full flex flex-row justify-between items-start gap-4">
           <form-input
