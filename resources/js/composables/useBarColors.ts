@@ -14,13 +14,13 @@ const barTextColor = (percentage: number, isOut: boolean) => {
     if (isOut)
         return {
             'dark:text-red-50': percentage == 0,
-            'dark:text-red-200 text-red-800/80': percentage < 100 && percentage > 0,
+            'dark:text-red-400/80 text-red-800/80': percentage < 100 && percentage > 0,
             'dark:text-red-600 text-red-800/90 font-bold': percentage == 100
         }
     else
         return {
             'dark:text-green-50': percentage == 0,
-            'dark:text-green-200 text-green-800/80': percentage < 100 && percentage > 0,
+            'dark:text-green-400/80 text-green-800/80': percentage < 100 && percentage > 0,
             'dark:text-green-600 text-green-800/90 font-bold': percentage == 100
         }
 }
