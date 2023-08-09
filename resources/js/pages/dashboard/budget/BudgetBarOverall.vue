@@ -29,11 +29,11 @@ const percentage = computed(() => {
       {{ useAgGridUtilites().currencyFormatterBare(total) }}
     </span>
     <div
-      class="h-6 my-2 mx-8 flex-grow rounded-lg shadow-lg"
+      class="h-10 my-2 mx-8 flex-grow rounded-xl shadow-lg"
       :class="useBarColors().barBg"
     >
       <div
-        class="h-full rounded-lg"
+        class="h-full rounded-xl"
         :class="useBarColors().barBgColor(percentage, category.type === 'out')"
         :style="{width: `${percentage}%`}"
       />
