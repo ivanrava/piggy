@@ -17,7 +17,7 @@ class BudgetController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        $leaves = $request->user()->categories()->where('parent_category_id', '!=', null);
+        $leaves = $request->user()->categories()->where('parent_category_id', '!=', null)->orderBy('name');
         $leaves_with_budget = $leaves->with(['budget', 'transactions' => fn (Builder $query) => Transaction::groupByMonthlyCategory($query) ])->get();
         $leaves_with_budget->transform(fn (Category $category) => Budget::buildExpendituresFromGroupedTransactions($category));
 

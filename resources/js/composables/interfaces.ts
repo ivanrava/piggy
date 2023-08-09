@@ -35,12 +35,29 @@ interface Account {
     out_transfers: Array<Transfer>;
 }
 
+interface Budget {
+    jan: string;
+    feb: string;
+    mar: string;
+    apr: string;
+    may: string;
+    jun: string;
+    jul: string;
+    aug: string;
+    sep: string;
+    oct: string;
+    nov: string;
+    dec: string;
+}
+
 interface Category {
     id: number;
     icon: string;
     type: string;
     name: string;
     parent_category_id: number;
+    expenditures: Budget;
+    budget: string|Budget;
     children: Array<Category>;
     transactions: Array<Transaction>;
 }

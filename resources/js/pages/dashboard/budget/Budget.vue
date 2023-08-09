@@ -3,12 +3,13 @@
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import {Category} from "../../../composables/interfaces";
+import BudgetRow from "./BudgetRow.vue";
 
 const isLoading = ref<boolean>(true);
-const budget = ref<Array<Category>>(null);
+const categories = ref<Array<Category>>(null);
 onMounted(() => {
     axios.get('/budget').then(({data}) => {
-    budget.value = data;
+    categories.value = data.data;
   }).finally(() => {
     isLoading.value = false;
   })
@@ -16,10 +17,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1>Budget</h1>
-  <pre>
-    {{ budget }}
-  </pre>
+  <section class="flex flex-col">
+    <h1>Budget</h1>
+    <div class="flex flex-col pb-4">
+      <BudgetRow
+        v-for="category in categories"
+        :key="category.id"
+        :category="category"
+      />
+    </div>
+  </section>
 </template>
 
 <style scoped>
