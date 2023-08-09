@@ -29,7 +29,7 @@ const percentage = computed(() => {
       {{ useAgGridUtilites().currencyFormatterBare(total) }}
     </span>
     <div
-      class="h-6 my-2 mx-8 flex-grow rounded-lg"
+      class="h-6 my-2 mx-8 flex-grow rounded-lg shadow-lg"
       :class="useBarColors().barBg"
     >
       <div

@@ -24,7 +24,7 @@ const percentage = computed(() => {
       <span class="text-xs font-bold">{{ useAgGridUtilites().currencyFormatterBare(Number(budget)) }}</span>
     </div>
     <div
-      class="w-6 h-16 rounded-lg flex flex-col justify-end"
+      class="w-6 h-16 rounded-lg flex flex-col justify-end shadow-lg"
       :class="useBarColors().barBg"
     >
       <div
