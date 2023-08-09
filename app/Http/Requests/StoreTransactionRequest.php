@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Beneficiary;
+use App\Models\Budget;
 use App\Models\Category;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -40,6 +41,9 @@ class StoreTransactionRequest extends FormRequest
                 'category.name' => 'exclude_unless:category.id,<,0|max:100',
                 'category.icon' => 'exclude_unless:category.id,<,0|max:255',
                 'category.parent_category_id' => 'exclude_unless:category.id,<,0|exists:categories,id',
+                'category.budget_overall' => 'nullable|decimal:0,2|between:0,99999999.99',
+                'category.budget' => 'required_without:budget_overall|array:jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec',
+                'category.budget.*' => 'required|decimal:0,2|between:0,99999999.99',
                 'date' => 'required|date',
                 'amount' => 'required|decimal:0,2|between:0.01,99999999.99',
                 'notes' => 'nullable|max:500'
@@ -50,7 +54,9 @@ class StoreTransactionRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'amount.between' => 'Only positive amounts (less than 1 billion)'
+            'amount.between' => 'Only positive amounts (less than 1 billion)',
+            'category.budget_overall' => 'Less than 1 billion',
+            'category.budget.*' => 'Less than 1 billion'
         ];
     }
 
@@ -62,7 +68,7 @@ class StoreTransactionRequest extends FormRequest
         );
     }
 
-    public function beneficiary()
+    public function save_beneficiary(): Beneficiary
     {
         return Beneficiary::findOr($this->beneficiary['id'], function () {
             $b = new Beneficiary();
@@ -73,7 +79,7 @@ class StoreTransactionRequest extends FormRequest
         });
     }
 
-    public function category()
+    public function save_category(): Category
     {
         return Category::findOr($this->category['id'], function () {
             $c = new Category();
@@ -82,7 +88,31 @@ class StoreTransactionRequest extends FormRequest
             $c->icon = $this->category['icon'];
             $c->parent_category_id = $this->category['parent_category_id'];
             $c->type = Category::find($this->category['parent_category_id'])->type;
+            $c->budget_overall = $this->category['budget_overall'];
+            $c->save();
+            if ($c->budget_overall == null) {
+                $budget = $this->budget();
+                $c->budget()->save($budget);
+            }
             return $c;
         });
+    }
+
+    public function budget(): Budget
+    {
+        $budget = new Budget();
+        $budget->jan = $this->category['budget']['jan'];
+        $budget->feb = $this->category['budget']['feb'];
+        $budget->mar = $this->category['budget']['mar'];
+        $budget->apr = $this->category['budget']['apr'];
+        $budget->may = $this->category['budget']['may'];
+        $budget->jun = $this->category['budget']['jun'];
+        $budget->jul = $this->category['budget']['jul'];
+        $budget->aug = $this->category['budget']['aug'];
+        $budget->sep = $this->category['budget']['sep'];
+        $budget->oct = $this->category['budget']['oct'];
+        $budget->nov = $this->category['budget']['nov'];
+        $budget->dec = $this->category['budget']['dec'];
+        return $budget;
     }
 }

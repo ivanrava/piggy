@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Requests\StoreTransactionRequest;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -58,23 +59,21 @@ class Transaction extends Model
         return $this->belongsTo(Beneficiary::class);
     }
 
-    public static function fromRequest(Request $request): Transaction
+    public static function fromRequest(StoreTransactionRequest $request): Transaction
     {
         $transaction = new Transaction();
         $transaction->hydrateFromRequest($request);
         return $transaction;
     }
 
-    public function hydrateFromRequest(Request $request): void
+    public function hydrateFromRequest(StoreTransactionRequest $request): void
     {
         $this->account_id = $request->account_id;
 
-        $beneficiary = $request->beneficiary();
-        $beneficiary->save();
+        $beneficiary = $request->save_beneficiary();
         $this->beneficiary_id = $beneficiary->id;
 
-        $category = $request->category();
-        $category->save();
+        $category = $request->save_category();
         $this->category_id = $category->id;
 
         $this->notes = $request->notes;

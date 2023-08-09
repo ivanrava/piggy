@@ -4,15 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCategoryRequest extends FormRequest
+class UpdateCategoryRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->route()->parameter('category')->user_id == $this->user()->id;
     }
 
     /**
@@ -27,17 +26,6 @@ class StoreCategoryRequest extends FormRequest
             'type' => 'required_without:parent_category_id|in:out,in',
             'icon' => 'required|max:255',
             'parent_category_id' => 'nullable|exists:categories,id',
-            'budget_overall' => 'nullable|decimal:0,2|between:0,99999999.99',
-            'budget' => 'required_without:budget_overall|array:jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec',
-            'budget.*' => 'required|decimal:0,2|between:0,99999999.99'
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'budget_overall' => 'Less than 1 billion',
-            'budget.*' => 'Less than 1 billion'
         ];
     }
 }

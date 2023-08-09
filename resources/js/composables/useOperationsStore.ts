@@ -17,7 +17,9 @@ const defaultStagingTransaction = {
         id: null,
         name: '',
         parent_category_id: null,
-        icon: null
+        icon: null,
+        budget: {},
+        budget_overall: 0
     }
 }
 

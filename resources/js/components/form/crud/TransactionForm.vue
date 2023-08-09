@@ -132,6 +132,8 @@ const addCategory = (c: Category) => {
   store.stagingTransaction.category.name = c.name;
   store.stagingTransaction.category.parent_category_id = c.parent_category_id;
   store.stagingTransaction.category.icon = c.icon;
+  store.stagingTransaction.category.budget = c.budget;
+  store.stagingTransaction.category.budget_overall = c.budget_overall;
   // Show / hide shenanigans
   showCategoryForm.value = false;
   store.showForm();

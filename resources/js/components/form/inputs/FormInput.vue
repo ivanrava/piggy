@@ -26,7 +26,6 @@
       :class="type !== 'date' && type !== 'textDecimal' ? 'pr-8' : 'pr-2'"
       :name="label"
       :type="type"
-      v-bind="$attrs"
       @focus="focused = true"
       @blur="focused = false"
     >

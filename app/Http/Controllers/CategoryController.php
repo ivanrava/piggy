@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthorizeCategoryRequest;
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
+use App\Models\Budget;
 use App\Models\Category;
 use App\Models\Stats\CrossStats;
 use Carbon\Carbon;
@@ -47,6 +49,10 @@ class CategoryController extends Controller
     {
         $category = Category::fromRequest($request);
         $category->save();
+        if (!$request->filled('budget_overall')) {
+            $budget = Budget::fromRequest($request);
+            $category->budget()->save($budget);
+        }
         return new CategoryResource($category);
     }
 
@@ -63,7 +69,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreCategoryRequest $request, Category $category): CategoryResource
+    public function update(UpdateCategoryRequest $request, Category $category): CategoryResource
     {
         $category->hydrateFromRequest($request);
         $category->save();

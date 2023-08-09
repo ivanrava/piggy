@@ -8,6 +8,7 @@ import {onMounted, ref, watch} from "vue";
 import axios from "axios";
 import TabSelector from "../inputs/TabSelector.vue";
 import {useCategoriesStore} from "../../../composables/useCategoriesStore";
+import BudgetFields from "../../../pages/dashboard/budget/BudgetFields.vue";
 
 const props = defineProps<{
   showForm: Boolean,
@@ -75,7 +76,7 @@ watch(props, (newValue) => {
       />
       <form
         class="flex flex-col justify-center items-center gap-4 w-full md:w-96"
-        @submit.prevent="$emit(store.isEditing ? 'update' : 'store', store.stagingCategory)"
+        @submit.prevent="$emit(store.isEditing ? 'update' : 'store', store.isEditing ? store.stagingCategory : store.buildCategoryPayload())"
       >
         <form-input
           v-model="store.stagingCategory.name"
@@ -103,6 +104,18 @@ watch(props, (newValue) => {
           :is-edit="store.isEditing"
           :errors="errors.icon"
         />
+        <div
+          v-if="!store.isEditing"
+          class="w-full flex flex-col gap-2"
+        >
+          <h3 class="text-left w-full px-1 my-0">
+            Budget
+          </h3>
+          <BudgetFields
+            v-model="store.stagingCategory.budgetFields"
+            :errors="errors"
+          />
+        </div>
         <submit-button
           class="block w-full"
           :is-loading="isLoading"

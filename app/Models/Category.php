@@ -85,6 +85,7 @@ class Category extends Model
             $this->type = $this->parent->type;
         else
             $this->type = $request->type;
+        $this->budget_overall = $request->budget_overall;
     }
 
     public function transactions_full_with_children(): Builder|HasMany

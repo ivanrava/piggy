@@ -7,7 +7,25 @@ const emptyCategory = {
     type: 'out',
     icon: '',
     parent_category_id: null,
-    parent: {}
+    parent: {},
+    budgetFields: {
+        budget_type: 'overall',
+        budget_overall: 0,
+        budget: {
+            jan: 0,
+            feb: 0,
+            mar: 0,
+            apr: 0,
+            may: 0,
+            jun: 0,
+            jul: 0,
+            aug: 0,
+            sep: 0,
+            oct: 0,
+            nov: 0,
+            dec: 0,
+        }
+    }
 }
 
 export const useCategoriesStore = defineStore('categories', {
@@ -41,6 +59,30 @@ export const useCategoriesStore = defineStore('categories', {
         },
         deleteCategory(category: Category) {
             this.categories = this.categories.filter((cat: Category) => cat.id != category.id)
+        },
+        buildCategoryPayload() {
+            return {
+                name: this.stagingCategory.name,
+                type: this.stagingCategory.type,
+                icon: this.stagingCategory.icon,
+                parent_category_id: this.stagingCategory.parent_category_id,
+                parent: this.stagingCategory.parent,
+                budget_overall: this.stagingCategory.budgetFields.budget_type === 'overall' ? this.stagingCategory.budgetFields.budget_overall : null,
+                budget: this.stagingCategory.budgetFields.budget_type === 'fixed' ? {
+                    jan: this.stagingCategory.budgetFields.budget_overall,
+                    feb: this.stagingCategory.budgetFields.budget_overall,
+                    mar: this.stagingCategory.budgetFields.budget_overall,
+                    apr: this.stagingCategory.budgetFields.budget_overall,
+                    may: this.stagingCategory.budgetFields.budget_overall,
+                    jun: this.stagingCategory.budgetFields.budget_overall,
+                    jul: this.stagingCategory.budgetFields.budget_overall,
+                    aug: this.stagingCategory.budgetFields.budget_overall,
+                    sep: this.stagingCategory.budgetFields.budget_overall,
+                    oct: this.stagingCategory.budgetFields.budget_overall,
+                    nov: this.stagingCategory.budgetFields.budget_overall,
+                    dec: this.stagingCategory.budgetFields.budget_overall
+                } : this.stagingCategory.budgetFields.budget
+            }
         }
     }
 })
