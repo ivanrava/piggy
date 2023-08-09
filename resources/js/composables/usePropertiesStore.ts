@@ -1,6 +1,5 @@
 import {defineStore} from "pinia";
-import {Property, PropertyVariation} from "./interfaces";
-import {elements} from "chart.js";
+import {Property} from "./interfaces";
 import axios from "axios";
 
 const emptyProperty = {
