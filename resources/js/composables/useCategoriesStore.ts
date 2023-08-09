@@ -40,7 +40,7 @@ export const useCategoriesStore = defineStore('categories', {
             this.stagingCategory = emptyCategory
         },
         deleteCategory(category: Category) {
-            this.categories = this.categories.filter(cat => cat.id != category.id)
+            this.categories = this.categories.filter((cat: Category) => cat.id != category.id)
         }
     }
 })
