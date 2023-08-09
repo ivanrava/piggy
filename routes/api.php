@@ -67,5 +67,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('charts', ChartController::class);
     Route::apiResource('properties', PropertyController::class);
     Route::post('/properties/{property}/variations', [PropertyVariationController::class, 'store']);
+    Route::get('/budget/years', [BudgetController::class, 'years']);
     Route::apiResource('budget', BudgetController::class)->only(['index', 'update']);
 });

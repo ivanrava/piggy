@@ -10,6 +10,7 @@
       <side-bar-reports v-else-if="useRoute().path.startsWith('/report')" />
       <side-bar-stats v-else-if="useRoute().path.startsWith('/charts')" />
       <side-bar-properties v-else-if="useRoute().path.startsWith('/properties')" />
+      <side-bar-budget v-else-if="useRoute().path.startsWith('/budget')" />
     </Transition>
   </nav>
 </template>
@@ -22,6 +23,7 @@ import SideBarBeneficiaries from "./SideBarBeneficiaries.vue";
 import SideBarReports from "./SideBarReports.vue";
 import SideBarStats from "./SideBarStats.vue";
 import SideBarProperties from "./SideBarProperties.vue";
+import SideBarBudget from "./SideBarBudget.vue";
 
 </script>
 

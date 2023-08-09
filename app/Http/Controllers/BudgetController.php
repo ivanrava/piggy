@@ -6,6 +6,7 @@ use App\Http\Resources\CategoryResource;
 use App\Models\Budget;
 use App\Models\Category;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -18,7 +19,7 @@ class BudgetController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         $leaves = $request->user()->categories()->where('parent_category_id', '!=', null)->orderBy('name');
-        $leaves_with_budget = $leaves->with(['budget', 'transactions' => fn (Builder $query) => Transaction::groupByMonthlyCategory($query) ])->get();
+        $leaves_with_budget = $leaves->with(['budget', 'transactions' => fn (Builder $query) => Transaction::groupByMonthlyCategory($query, $request->input('year')) ])->get();
         $leaves_with_budget->transform(fn (Category $category) => Budget::buildExpendituresFromGroupedTransactions($category));
 
         return CategoryResource::collection($leaves_with_budget);
@@ -70,5 +71,15 @@ class BudgetController extends Controller
     public function destroy(Budget $budget)
     {
         //
+    }
+
+    public function years()
+    {
+        return Transaction::groupBy('year')
+            ->selectRaw("date_trunc('year', date) as year")
+            ->orderBy('year')
+            ->get()
+            ->pluck('year')
+            ->map(fn ($year) => Carbon::parse($year)->format('Y'));
     }
 }

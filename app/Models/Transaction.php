@@ -81,10 +81,11 @@ class Transaction extends Model
         $this->date = $request->date;
     }
 
-    public static function groupByMonthlyCategory(Builder $query): Builder
+    public static function groupByMonthlyCategory(Builder $query, $year): Builder
     {
         return $query
-            ->where('date', '>=', Carbon::now()->startOfYear())
+            ->where('date', '>=', Carbon::parse("$year-01-01"))
+            ->where('date', '<=', Carbon::parse("$year-12-31"))
             ->selectRaw("category_id, date_trunc('month', date) as month, SUM(amount)")
             ->groupBy("month", "category_id");
     }
