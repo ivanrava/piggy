@@ -41,9 +41,9 @@ class StoreTransactionRequest extends FormRequest
                 'category.name' => 'exclude_unless:category.id,<,0|max:100',
                 'category.icon' => 'exclude_unless:category.id,<,0|max:255',
                 'category.parent_category_id' => 'exclude_unless:category.id,<,0|exists:categories,id',
-                'category.budget_overall' => 'nullable|decimal:0,2|between:0,99999999.99',
-                'category.budget' => 'required_without:budget_overall|array:jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec',
-                'category.budget.*' => 'required|decimal:0,2|between:0,99999999.99',
+                'category.budget_overall' => 'exclude_unless:category.id,<,0|nullable|decimal:0,2|between:0,99999999.99',
+                'category.budget' => 'exclude_unless:category.id,<,0|required_without:budget_overall|array:jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec',
+                'category.budget.*' => 'exclude_unless:category.id,<,0|required|decimal:0,2|between:0,99999999.99',
                 'date' => 'required|date',
                 'amount' => 'required|decimal:0,2|between:0.01,99999999.99',
                 'notes' => 'nullable|max:500'
