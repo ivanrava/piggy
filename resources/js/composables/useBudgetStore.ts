@@ -26,8 +26,8 @@ export const useBudgetStore = defineStore('budget', {
         categories: [],
         year: new Date().getFullYear(),
         isLoading: true,
-        stagingBudget: emptyBudget,
-        stagingCategory: {}
+        stagingCategory: {id:0},
+        stagingBudget: emptyBudget
     }),
     actions: {
         setYear(year: number|string) {
@@ -40,14 +40,42 @@ export const useBudgetStore = defineStore('budget', {
             })
         },
         editBudget(category: Category) {
-            this.stagingBudget = JSON.parse(JSON.stringify(category))
+            this.stagingCategory = JSON.parse(JSON.stringify(category))
+            this.stagingBudget = JSON.parse(JSON.stringify(emptyBudget))
+            if (typeof category.budget === 'object') {
+                this.stagingBudget.budget_type = 'custom';
+                this.stagingBudget.budget = JSON.parse(JSON.stringify(category.budget));
+            } else {
+                this.stagingBudget.budget_type = 'overall';
+                this.stagingBudget.budget_overall = category.budget;
+            }
         },
         refreshBudgets() {
-            axios.get('/budget').then(({data}) => {
-                this.budget = data.data;
-            }).catch((error) => {
-                console.log('Error! Could not reach the API. ' + error)
-            })
+            this.setYear(this.year)
         },
+        buildCategoryPayload() {
+            return {
+                name: this.stagingCategory.name,
+                type: this.stagingCategory.type,
+                icon: this.stagingCategory.icon,
+                parent_category_id: this.stagingCategory.parent_category_id,
+                parent: this.stagingCategory.parent,
+                budget_overall: this.stagingBudget.budget_type === 'overall' ? this.stagingBudget.budget_overall : null,
+                budget: this.stagingBudget.budget_type === 'fixed' ? {
+                    jan: this.stagingBudget.budget_overall,
+                    feb: this.stagingBudget.budget_overall,
+                    mar: this.stagingBudget.budget_overall,
+                    apr: this.stagingBudget.budget_overall,
+                    may: this.stagingBudget.budget_overall,
+                    jun: this.stagingBudget.budget_overall,
+                    jul: this.stagingBudget.budget_overall,
+                    aug: this.stagingBudget.budget_overall,
+                    sep: this.stagingBudget.budget_overall,
+                    oct: this.stagingBudget.budget_overall,
+                    nov: this.stagingBudget.budget_overall,
+                    dec: this.stagingBudget.budget_overall
+                } : this.stagingBudget.budget
+            }
+        }
     }
 })

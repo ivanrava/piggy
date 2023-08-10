@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateBudgetRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Budget;
 use App\Models\Category;
@@ -10,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Http\Response;
 
 class BudgetController extends Controller
 {
@@ -23,14 +25,6 @@ class BudgetController extends Controller
         $leaves_with_budget->transform(fn (Category $category) => Budget::buildExpendituresFromGroupedTransactions($category));
 
         return CategoryResource::collection($leaves_with_budget);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -50,19 +44,24 @@ class BudgetController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Budget $budget)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Budget $budget)
+    public function update(UpdateBudgetRequest $request, Category $category): CategoryResource
     {
-        //
+        $category->hydrateFromRequest($request);
+        $category->save();
+        if (!$request->filled('budget_overall')) {
+            if ($budget = $category->budget) {
+                $budget->hydrateFromRequest($request);
+            } else {
+                $budget = Budget::fromRequest($request);
+            }
+            $category->budget()->save($budget);
+        } else {
+            Budget::where('category_id', $category->id)->delete();
+        }
+        Category::where('parent_category_id', $category->id)->update(['type' => $category->type]);
+        return new CategoryResource($category);
     }
 
     /**
