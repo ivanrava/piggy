@@ -75,6 +75,7 @@ class StoreTransactionRequest extends FormRequest
             $b->user_id = $this->user()->id;
             $b->name = $this->beneficiary['name'];
             $b->img = $this->beneficiary['img'];
+            $b->save();
             return $b;
         });
     }
