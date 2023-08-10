@@ -13,6 +13,7 @@ class ReportController extends Controller
     {
         $in = $request->user()
             ->categories()
+            ->with('children.budget')
             ->where('type', 'in')
             ->withSum([
                 'transactions' => fn ($query) => $query
@@ -28,6 +29,7 @@ class ReportController extends Controller
             ->get();
         $out = $request->user()
             ->categories()
+            ->with('children.budget')
             ->where('type', 'out')
             ->withSum([
                 'transactions' => fn ($query) => $query

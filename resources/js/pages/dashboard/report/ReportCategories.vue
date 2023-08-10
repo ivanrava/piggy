@@ -2,6 +2,7 @@
 import TrReportCategory from "./TrReportCategory.vue";
 import {Category} from "../../../composables/interfaces";
 import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
+import {useReportFunctions} from "../../../composables/useReportFunctions";
 
 defineProps<{
   inCategories: Array<Category>,
@@ -14,6 +15,22 @@ const sumCategories = (categories) => {
 const formatCurrency = (num) => {
   return useAgGridUtilites().currencyFormatterBare(num)
 }
+const budgetFor = (rootCategory: Category) => {
+  if (rootCategory.children.length == 0)
+    return 0
+  return rootCategory.children.reduce((acc, currCat) => acc + useReportFunctions().budgetSum(currCat), 0)
+}
+const offsetFor = (rootCategory: Category) => {
+  if (rootCategory.children.length == 0)
+    return 0
+  return rootCategory.children.reduce((acc, currCat) => acc + useReportFunctions().offsetForChildCategory(currCat), 0)
+}
+const sumBudgets = (categories: Array<Category>) => {
+  return categories.reduce((acc, currCat) => acc+budgetFor(currCat), 0)
+}
+const sumOffsets = (categories: Array<Category>) => {
+  return categories.reduce((acc, currCat) => acc+offsetFor(currCat), 0)
+}
 </script>
 
 <template>
@@ -25,11 +42,15 @@ const formatCurrency = (num) => {
         <th class="w-3/6 text-left">
           Category
         </th>
-        <th class="w-3/6 text-right">
+        <th class="w-1/6 text-right">
           Total
         </th>
-<!--        <th class="w-1/6 text-right" />-->
-<!--        <th class="w-1/6 text-right" />-->
+        <th class="w-1/6 text-right">
+          Budget
+        </th>
+        <th class="w-1/6 text-right">
+          Offset
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -53,6 +74,12 @@ const formatCurrency = (num) => {
         <th class="text-right pt-6">
           {{ formatCurrency(sumCategories(inCategories)) }}
         </th>
+        <th class="text-right pt-6">
+          {{ formatCurrency(sumBudgets(inCategories)) }}
+        </th>
+        <th class="text-right pt-6">
+          {{ formatCurrency(sumOffsets(inCategories)) }}
+        </th>
       </tr>
       <tr class="border-b-2 border-black dark:border-stone-400/30">
         <th
@@ -74,6 +101,12 @@ const formatCurrency = (num) => {
         <th class="text-right pt-6">
           {{ formatCurrency(sumCategories(outCategories)) }}
         </th>
+        <th class="text-right pt-6">
+          {{ formatCurrency(sumBudgets(outCategories)) }}
+        </th>
+        <th class="text-right pt-6">
+          {{ formatCurrency(sumOffsets(outCategories)) }}
+        </th>
       </tr>
       <tr class="border-b-2 border-black text-left text-xl text-blue-900 dark:text-blue-300/70 dark:border-stone-400/30">
         <th class="pt-4">
@@ -87,6 +120,12 @@ const formatCurrency = (num) => {
         <th class="text-right pt-2">
           {{ formatCurrency(sumCategories(inCategories)) }}
         </th>
+        <th class="text-right pt-2">
+          {{ formatCurrency(sumBudgets(inCategories)) }}
+        </th>
+        <th class="text-right pt-2">
+          {{ formatCurrency(sumOffsets(inCategories)) }}
+        </th>
       </tr>
       <tr>
         <th class="text-left pb-2 text-lg">
@@ -95,6 +134,12 @@ const formatCurrency = (num) => {
         <th class="text-right pb-2">
           {{ formatCurrency(-sumCategories(outCategories)) }}
         </th>
+        <th class="text-right pb-2">
+          {{ formatCurrency(-sumBudgets(outCategories)) }}
+        </th>
+        <th class="text-right pb-2">
+          {{ formatCurrency(sumOffsets(outCategories)) }}
+        </th>
       </tr>
       <tr class="border-t-2 border-dashed border-stone-500">
         <th class="text-left text-xl pt-2">
@@ -102,6 +147,12 @@ const formatCurrency = (num) => {
         </th>
         <th class="text-right pt-2">
           {{ formatCurrency(sumCategories(inCategories) - sumCategories(outCategories)) }}
+        </th>
+        <th class="text-right pt-2">
+          {{ formatCurrency(sumBudgets(inCategories) - sumBudgets(outCategories)) }}
+        </th>
+        <th class="text-right pt-2">
+          {{ formatCurrency(sumOffsets(inCategories) + sumOffsets(outCategories)) }}
         </th>
       </tr>
     </tbody>

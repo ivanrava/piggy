@@ -3,6 +3,7 @@ import {Category} from "../../../composables/interfaces";
 import {Icon} from "@iconify/vue";
 import {useAgGridUtilites} from "../../../composables/useAgGridUtilities";
 import {computed} from "vue";
+import {useReportFunctions} from "../../../composables/useReportFunctions";
 
 const props = defineProps<{
   category: Category
@@ -34,6 +35,18 @@ const agUtilites = useAgGridUtilites()
     >
       {{ agUtilites.currencyFormatterBare(category.transactions_sum_amount) }}
     </td>
+    <td
+      v-if="isEmpty"
+      class="text-sm font-semibold text-right pt-4"
+    >
+      {{ agUtilites.currencyFormatterBare(category.transactions_sum_amount) }}
+    </td>
+    <td
+      v-if="isEmpty"
+      class="text-sm font-semibold text-right pt-4"
+    >
+      {{ agUtilites.currencyFormatterBare(category.transactions_sum_amount) }}
+    </td>
   </tr>
   <tr
     v-for="c in category.children"
@@ -49,6 +62,12 @@ const agUtilites = useAgGridUtilites()
     <td class="text-sm text-right">
       {{ agUtilites.currencyFormatterBare(c.transactions_sum_amount) }}
     </td>
+    <td class="text-sm text-right">
+      {{ agUtilites.currencyFormatterBare(useReportFunctions().budgetSum(c)) }}
+    </td>
+    <td class="text-sm text-right">
+      {{ agUtilites.currencyFormatterBare(useReportFunctions().offsetForChildCategory(c)) }}
+    </td>
   </tr>
   <tr
     v-if="!isEmpty"
@@ -59,6 +78,12 @@ const agUtilites = useAgGridUtilites()
     </td>
     <td class="text-sm font-semibold text-right">
       {{ agUtilites.currencyFormatterBare(category.transactions_sum_amount) }}
+    </td>
+    <td class="text-sm font-semibold text-right">
+      {{ agUtilites.currencyFormatterBare(category.children.reduce((acc, currCat) => acc+useReportFunctions().budgetSum(currCat), 0)) }}
+    </td>
+    <td class="text-sm font-semibold text-right">
+      {{ agUtilites.currencyFormatterBare(category.children.reduce((acc, currCat) => acc+useReportFunctions().offsetForChildCategory(currCat), 0)) }}
     </td>
   </tr>
 </template>
