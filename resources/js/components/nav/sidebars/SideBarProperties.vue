@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {Icon} from "@iconify/vue";
-import {usePropertyStore} from "../../composables/usePropertiesStore";
+import {usePropertyStore} from "../../../composables/usePropertiesStore";
 
 const store = usePropertyStore();
 </script>

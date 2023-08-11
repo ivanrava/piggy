@@ -16,14 +16,14 @@
 </template>
 
 <script setup lang="ts">
-import SideBarCategories from "./SideBarCategories.vue";
+import SideBarCategories from "./sidebars/SideBarCategories.vue";
 import {useRoute} from "vue-router";
-import SideBarAccounts from "./SideBarAccounts.vue";
-import SideBarBeneficiaries from "./SideBarBeneficiaries.vue";
-import SideBarReports from "./SideBarReports.vue";
-import SideBarStats from "./SideBarStats.vue";
-import SideBarProperties from "./SideBarProperties.vue";
-import SideBarBudget from "./SideBarBudget.vue";
+import SideBarAccounts from "./sidebars/SideBarAccounts.vue";
+import SideBarBeneficiaries from "./sidebars/SideBarBeneficiaries.vue";
+import SideBarReports from "./sidebars/SideBarReports.vue";
+import SideBarStats from "./sidebars/SideBarStats.vue";
+import SideBarProperties from "./sidebars/SideBarProperties.vue";
+import SideBarBudget from "./sidebars/SideBarBudget.vue";
 
 </script>
 

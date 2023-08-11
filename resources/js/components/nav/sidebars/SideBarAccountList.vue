@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {Account} from "../../composables/interfaces";
+import {Account} from "../../../composables/interfaces";
 import {Icon} from "@iconify/vue";
 import {ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
-import {isColorDark} from "../../composables/colors";
+import {isColorDark} from "../../../composables/colors";
 import axios from "axios";
-import {useAccountsStore} from "../../composables/useAccountsStore";
-import EmptyListMessage from "../EmptyListMessage.vue";
+import {useAccountsStore} from "../../../composables/useAccountsStore";
+import EmptyListMessage from "../../EmptyListMessage.vue";
 
 defineProps<{
   accounts: Array<Account>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import BeneficiaryCard from "../BeneficiaryCard.vue";
-import {useBeneficiariesStore} from "../../composables/useBeneficiariesStore";
+import BeneficiaryCard from "../../BeneficiaryCard.vue";
+import {useBeneficiariesStore} from "../../../composables/useBeneficiariesStore";
 import {useRoute} from "vue-router";
-import {Beneficiary} from "../../composables/interfaces";
+import {Beneficiary} from "../../../composables/interfaces";
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import {Icon} from "@iconify/vue";
-import BeneficiaryImage from "../BeneficiaryImage.vue";
-import EmptyListMessage from "../EmptyListMessage.vue";
+import BeneficiaryImage from "../../BeneficiaryImage.vue";
+import EmptyListMessage from "../../EmptyListMessage.vue";
 
 const store = useBeneficiariesStore();
 

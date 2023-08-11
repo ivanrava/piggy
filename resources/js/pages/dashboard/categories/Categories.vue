@@ -2,7 +2,7 @@
 import CategoryForm from "../../../components/form/crud/CategoryFormWrapper.vue";
 import {onMounted} from "vue";
 import {useCategoriesStore} from "../../../composables/useCategoriesStore";
-import SideBarCategories from "../../../components/nav/SideBarCategories.vue";
+import SideBarCategories from "../../../components/nav/sidebars/SideBarCategories.vue";
 
 onMounted(() => {
   useCategoriesStore().selectCategory(null)

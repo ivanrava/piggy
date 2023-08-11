@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from "vue";
 import SideBarCategoriesList from "./SideBarCategoriesList.vue";
-import {useCategoriesStore} from "../../composables/useCategoriesStore";
-import EmptyListMessage from "../EmptyListMessage.vue";
+import {useCategoriesStore} from "../../../composables/useCategoriesStore";
+import EmptyListMessage from "../../EmptyListMessage.vue";
 
 const store = useCategoriesStore();
 

@@ -21,9 +21,9 @@
 </template>
 
 <script setup lang="ts">
-import {Category} from '../../composables/interfaces';
+import {Category} from '../../../composables/interfaces';
 import {Icon} from "@iconify/vue";
-import {useCategoriesStore} from "../../composables/useCategoriesStore";
+import {useCategoriesStore} from "../../../composables/useCategoriesStore";
 import {useRouter} from "vue-router";
 
 defineProps<{

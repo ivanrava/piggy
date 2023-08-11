@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SideBarAccountList from "./SideBarAccountList.vue";
-import {useAccountsStore} from "../../composables/useAccountsStore";
+import {useAccountsStore} from "../../../composables/useAccountsStore";
 import {onMounted} from "vue";
 import axios from "axios";
 
