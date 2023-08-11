@@ -49,7 +49,7 @@ class CategoryController extends Controller
     {
         $category = Category::fromRequest($request);
         $category->save();
-        if (!$request->filled('budget_overall')) {
+        if (!$request->filled('budget_overall') && $category->parent_category_id != null) {
             $budget = Budget::fromRequest($request);
             $category->budget()->save($budget);
         }

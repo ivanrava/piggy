@@ -28,8 +28,8 @@ class StoreCategoryRequest extends FormRequest
             'icon' => 'required|max:255',
             'parent_category_id' => 'nullable|exists:categories,id',
             'budget_overall' => 'nullable|decimal:0,2|between:0,99999999.99',
-            'budget' => 'required_without:budget_overall|array:jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec',
-            'budget.*' => 'required|decimal:0,2|between:0,99999999.99'
+            'budget' => 'required_without:budget_overall|exclude_unless:parent_category_id,!=,null|array:jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec',
+            'budget.*' => 'required|exclude_unless:parent_category_id,!=,null|decimal:0,2|between:0,99999999.99'
         ];
     }
 

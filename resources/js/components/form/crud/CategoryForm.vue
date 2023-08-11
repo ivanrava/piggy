@@ -105,7 +105,7 @@ watch(props, (newValue) => {
           :errors="errors.icon"
         />
         <div
-          v-if="!store.isEditing"
+          v-if="!store.isEditing && store.stagingCategory.parent_category_id != null"
           class="w-full flex flex-col gap-2"
         >
           <h3 class="text-left w-full px-1 my-0">

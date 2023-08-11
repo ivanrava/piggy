@@ -67,7 +67,7 @@ export const useCategoriesStore = defineStore('categories', {
                 icon: this.stagingCategory.icon,
                 parent_category_id: this.stagingCategory.parent_category_id,
                 parent: this.stagingCategory.parent,
-                budget_overall: this.stagingCategory.budgetFields.budget_type === 'overall' ? this.stagingCategory.budgetFields.budget_overall : null,
+                budget_overall: this.stagingCategory.parent_category_id == null ? null : (this.stagingCategory.budgetFields.budget_type === 'overall' ? this.stagingCategory.budgetFields.budget_overall : null),
                 budget: this.stagingCategory.budgetFields.budget_type === 'fixed' ? {
                     jan: this.stagingCategory.budgetFields.budget_overall,
                     feb: this.stagingCategory.budgetFields.budget_overall,
