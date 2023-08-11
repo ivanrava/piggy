@@ -20,11 +20,11 @@ class BudgetController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        $leaves = $request->user()->categories()->where('parent_category_id', '!=', null)->orderBy('name');
+        $leaves = $request->user()->categories()->with('parent')->where('parent_category_id', '!=', null)->orderBy('name');
         $leaves_with_budget = $leaves->with(['budget', 'transactions' => fn (Builder $query) => Transaction::groupByMonthlyCategory($query, $request->input('year')) ])->get();
         $leaves_with_budget->transform(fn (Category $category) => Budget::buildExpendituresFromGroupedTransactions($category));
 
-        return CategoryResource::collection($leaves_with_budget);
+        return CategoryResource::collection($leaves_with_budget->sortBy(['parent.name', 'name']));
     }
 
     /**

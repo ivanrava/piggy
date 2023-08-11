@@ -45,8 +45,20 @@ const showForm = ref<boolean>(false);
           v-else
           class="flex flex-col pb-4"
         >
+          <h2 class="font-semibold">
+            Expense categories
+          </h2>
           <BudgetRow
-            v-for="category in store.categories"
+            v-for="category in store.outCategories()"
+            :key="category.id"
+            :category="category"
+            @edit="store.editBudget(category); showForm = true"
+          />
+          <h2 class="mt-5 font-semibold">
+            Income categories
+          </h2>
+          <BudgetRow
+            v-for="category in store.inCategories()"
             :key="category.id"
             :category="category"
             @edit="store.editBudget(category); showForm = true"

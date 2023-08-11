@@ -76,6 +76,12 @@ export const useBudgetStore = defineStore('budget', {
                     dec: this.stagingBudget.budget_overall
                 } : this.stagingBudget.budget
             }
+        },
+        outCategories() {
+            return this.categories.filter((cat: Category) => cat.type === 'out')
+        },
+        inCategories() {
+            return this.categories.filter((cat: Category) => cat.type === 'in')
         }
     }
 })

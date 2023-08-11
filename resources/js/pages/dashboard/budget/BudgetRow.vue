@@ -20,11 +20,21 @@ defineEmits(['edit']);
 <template>
   <article class="p-2 flex flex-row items-center justify-between">
     <div class="flex flex-col py-2">
-      <h2 class="flex flex-row gap-2 items-center my-0">
+      <h3
+        class="flex flex-row gap-2 items-center my-0 font-extralight"
+        :class="category.type === 'out' ? 'dark:text-pink-200 text-pink-700' : 'dark:text-green-200/50 text-green-700'"
+      >
+        <Icon :icon="category.parent.icon" />
+        <span>{{ category.parent.name }}</span>
+      </h3>
+      <h2 class="flex flex-row gap-2 items-center my-0 font-light">
         <Icon :icon="category.icon" />
         <span>{{ category.name }}</span>
       </h2>
-      <ActionLink @click="$emit('edit', category)">
+      <ActionLink
+        class="mt-4"
+        @click="$emit('edit', category)"
+      >
         Edit budget
       </ActionLink>
     </div>

@@ -27,8 +27,8 @@ axios.get('/budget/years').then((data) => {
         class="text-center mr-4 w-16 text-lg"
       >
         <a
-          class="underline cursor-pointer hover:opacity-60 transition-all"
-          :class="{'text-pink-100': year == store.year}"
+          class="underline cursor-pointer transition-all"
+          :class="year == store.year ? 'dark:text-pink-400 text-pink-500 font-bold' : 'text-stone-900 opacity-40 hover:opacity-60 dark:text-stone-300/60'"
           @click="store.setYear(year)"
         >
           {{ year }}
