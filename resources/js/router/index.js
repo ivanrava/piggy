@@ -148,9 +148,28 @@ const routes = [
                 }
             },
             {
-                name: 'report',
-                path: '/report',
-                component: () => import('@/pages/dashboard/report/ReportCreate.vue'),
+                name: 'report.categories',
+                alias: '/report',
+                path: '/report/categories',
+                component: () => import('@/pages/dashboard/report/ReportCreateCategories.vue'),
+                meta: {
+                    title: 'New report',
+                    requiresAuth: true
+                }
+            },
+            {
+                name: 'report.accounts',
+                path: '/report/accounts',
+                component: () => import('@/pages/dashboard/report/ReportCreateAccounts.vue'),
+                meta: {
+                    title: 'New report',
+                    requiresAuth: true
+                }
+            },
+            {
+                name: 'report.properties',
+                path: '/report/properties',
+                component: () => import('@/pages/dashboard/report/ReportCreateProperties.vue'),
                 meta: {
                     title: 'New report',
                     requiresAuth: true

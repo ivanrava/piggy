@@ -4,14 +4,19 @@ import SideBarGeneric from "./SideBarGeneric.vue";
 const links = [
   {
     name: 'Categories',
-    to: '/report',
+    to: '/report/categories',
     description: 'Get a glimpse of the categories. Expenses VS Incomes'
   },
-  // {
-  //   name: 'Beneficiaries',
-  //   to: '/report/beneficiaries',
-  //   description: 'Get a glimpse of the beneficiaries.'
-  // }
+  {
+    name: 'Accounts',
+    to: '/report/accounts',
+    description: 'Builds a summary of the accounts. Starting balance and end balance.'
+  },
+  {
+    name: 'Properties',
+    to: '/report/properties',
+    description: 'Builds a summary of the properties. Starting value and end value.'
+  }
 ]
 </script>
 

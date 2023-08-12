@@ -1,29 +1,23 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import axios from "axios";
-import {Category} from "../../../composables/interfaces";
-import FormInput from "../../../components/form/inputs/FormInput.vue";
-import SubmitButton from "../../../components/form/inputs/SubmitButton.vue";
-import ReportCategories from "./ReportCategories.vue";
+import TimeframeSelector from "./TimeframeSelector.vue";
 
-const form = ref({
-  from: '',
-  to: ''
-})
-const inCategories = ref<Array<Category>>([]);
-const outCategories = ref<Array<Category>>([]);
 const fetched = ref(false);
 const loading = ref(false);
-const fetchReport = (form) => {
+const localForm = ref({from:'',to:''});
+
+const fetchedData = ref();
+const fetchReport = (form: { from: any; to: any; }) => {
+  localForm.value = form;
   loading.value = true;
-  axios.get('/report', {
+  axios.get(props.url, {
     params: {
       from: form.from,
       to: form.to,
     }
   }).then(({data}) => {
-    inCategories.value = data.in
-    outCategories.value = data.out
+    fetchedData.value = data;
     fetched.value = true;
     setTimeout(() => {
       window.print();
@@ -33,40 +27,25 @@ const fetchReport = (form) => {
   })
 }
 
+const props = defineProps<{
+  title: string,
+  url: string
+}>()
 </script>
 
 <template>
   <h1 class="print:hidden">
-    Report by categories
+    {{ title }}
   </h1>
-  <form
-    class="bg-stone-100 dark:bg-stone-900 p-4 rounded-lg my-4 shadow-sm print:hidden"
-    @submit.prevent="fetchReport(form)"
-  >
-    <h2>Customize your report</h2>
-    <p class="my-2 text-slate-900 dark:text-stone-400">
-      Choose the timeframe of the operations which you would like to capture using the controls below. Leave the fields empty if you want to avoid specifying an explicit timeframe.
-    </p>
-    <div class="flex flex-col md:flex-row justify-start gap-2 md:gap-8">
-      <form-input
-        v-model="form.from"
-        label="From"
-        type="date"
-      />
-      <form-input
-        v-model="form.to"
-        label="To"
-        type="date"
-      />
-      <submit-button :is-loading="loading">
-        Submit
-      </submit-button>
-    </div>
-  </form>
-  <report-categories
+  <TimeframeSelector
+    :is-loading="loading"
+    @submit="(form) => fetchReport(form)"
+  />
+  <slot
     v-if="fetched"
-    :in-categories="inCategories"
-    :out-categories="outCategories"
+    :fetched-data="fetchedData"
+    :from="localForm.from"
+    :to="localForm.to"
   />
   <div
     v-else

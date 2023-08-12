@@ -33,7 +33,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/account_types', [AccountTypeController::class, 'index']);
     Route::get('/categories/root', [CategoryController::class, 'root']);
     Route::get('/categories/leaves', [CategoryController::class, 'leaves']);
-    Route::get('/report', [ReportController::class, 'report']);
+
+    Route::get('/report/categories', [ReportController::class, 'categories']);
+    Route::get('/report/accounts', [ReportController::class, 'accounts']);
+    Route::get('/report/properties', [ReportController::class, 'properties']);
+
     Route::get('/stats/year', [StatsController::class, 'year']);
     Route::get('/stats/year/categories/{id}', [StatsController::class, 'year'])->name('year.categories');
     Route::get('/stats/year/beneficiaries/{id}', [StatsController::class, 'year'])->name('year.beneficiaries');

@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 
 class ReportController extends Controller
 {
-    public function report(MakeReportRequest $request): array
+    public function categories(MakeReportRequest $request): array
     {
         $in = $request->user()
             ->categories()
@@ -83,5 +83,70 @@ class ReportController extends Controller
         });
         $category['transactions_sum_amount'] += $sum;
         return $category;
+    }
+
+    public function accounts(MakeReportRequest $request)
+    {
+        $accounts = $request->user()->accounts()
+            ->with('type')
+            ->withSum([
+                'transactions as from_balance' => fn ($query) => $query
+                    ->when(
+                        $request->filled('from'),
+                        fn (Builder $query) => $query->where('date', '<=', $request->from)
+                    )
+            ], 'amount')
+            ->withSum([
+                'transactions as to_balance' => fn ($query) => $query
+                    ->when(
+                        $request->filled('to'),
+                        fn (Builder $query) => $query->where('date', '<=', $request->to)
+                    )
+            ], 'amount')
+            ->get();
+
+        return $accounts->map(function ($account) use ($request) {
+            if (!$request->filled('from'))
+                $account['from_balance'] = $account['initial_balance'];
+            else
+                $account['from_balance'] += $account['initial_balance'];
+            $account['to_balance'] = $account['to_balance'] + $account['initial_balance'];
+            $account['delta'] = $account['to_balance'] - $account['from_balance'];
+            $account['color'] = '#'.$account['color'];
+            $type = $account['type']['type'];
+            unset($account['type']);
+            $account['type'] = $type;
+            return $account;
+        });
+    }
+
+    public function properties(MakeReportRequest $request)
+    {
+        $properties = $request->user()->properties()
+            ->withSum([
+                'variations as from_value' => fn ($query) => $query
+                    ->when(
+                        $request->filled('from'),
+                        fn (Builder $query) => $query->where('date', '<=', $request->from)
+                    )
+            ], 'amount')
+            ->withSum([
+                'variations as to_value' => fn ($query) => $query
+                    ->when(
+                        $request->filled('to'),
+                        fn (Builder $query) => $query->where('date', '<=', $request->to)
+                    )
+            ], 'amount')
+            ->get();
+
+        return $properties->map(function ($property) use ($request) {
+            if (!$request->filled('from'))
+                $property['from_value'] = $property['initial_value'];
+            else
+                $property['from_value'] += $property['initial_value'];
+            $property['to_value'] = $property['to_value'] + $property['initial_value'];
+            $property['delta'] = $property['to_value'] - $property['from_value'];
+            return $property;
+        });
     }
 }
