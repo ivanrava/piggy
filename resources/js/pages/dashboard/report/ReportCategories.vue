@@ -9,9 +9,6 @@ defineProps<{
   outCategories: Array<Category>,
 }>()
 
-const sumCategories = (categories) => {
-  return categories.reduce((previousValue, currentValue) => previousValue + currentValue.transactions_sum_amount, 0)
-}
 const formatCurrency = (num) => {
   return useAgGridUtilites().currencyFormatterBare(num)
 }
@@ -25,11 +22,35 @@ const offsetFor = (rootCategory: Category) => {
     return 0
   return rootCategory.children.reduce((acc, currCat) => acc + useReportFunctions().offsetForChildCategory(currCat), 0)
 }
+const sumCategories = (categories) => {
+  return categories.reduce((previousValue, currRoot) => previousValue + currRoot.transactions_sum_amount, 0)
+}
 const sumBudgets = (categories: Array<Category>) => {
   return categories.reduce((acc, currCat) => acc+budgetFor(currCat), 0)
 }
 const sumOffsets = (categories: Array<Category>) => {
   return categories.reduce((acc, currCat) => acc+offsetFor(currCat), 0)
+}
+const sumVirtualCategories = (categories: Array<Category>) => {
+  return categories.reduce((previousValue, currRoot) => previousValue + (currRoot.children.length == 0 ? 0 : currRoot.children.reduce(
+    (p, currChild) => {
+      return p + (currChild.virtual ? currChild.transactions_sum_amount : 0);
+    }, 0)
+  ), 0)
+}
+const sumVirtualBudgets = (categories: Array<Category>) => {
+  return categories.reduce((previousValue, currRoot) => previousValue + (currRoot.children.length == 0 ? 0 : currRoot.children.reduce(
+    (previousValue, currChild) => {
+      return previousValue + (currChild.virtual ? useReportFunctions().budgetSum(currChild) : 0);
+    }, 0)
+  ), 0)
+}
+const sumVirtualOffsets = (categories: Array<Category>) => {
+  return categories.reduce((previousValue, currRoot) => previousValue + (currRoot.children.length == 0 ? 0 : currRoot.children.reduce(
+    (previousValue, currChild) => {
+      return previousValue + (currChild.virtual ? useReportFunctions().offsetForChildCategory(currChild) : 0);
+    }, 0)
+  ), 0)
 }
 </script>
 
@@ -126,31 +147,73 @@ const sumOffsets = (categories: Array<Category>) => {
         </th>
       </tr>
       <tr>
-        <th class="text-left pb-2 text-lg">
+        <th class="text-left text-lg">
+          Of which virtual
+        </th>
+        <th class="text-right">
+          {{ formatCurrency(sumVirtualCategories(inCategories)) }}
+        </th>
+        <th class="text-right">
+          {{ formatCurrency(sumVirtualBudgets(inCategories)) }}
+        </th>
+        <th class="text-right">
+          {{ formatCurrency(sumVirtualOffsets(inCategories)) }}
+        </th>
+      </tr>
+      <tr>
+        <th class="text-left text-lg">
           Total expenses
         </th>
-        <th class="text-right pb-2">
+        <th class="text-right">
           {{ formatCurrency(-sumCategories(outCategories)) }}
         </th>
-        <th class="text-right pb-2">
+        <th class="text-right">
           {{ formatCurrency(-sumBudgets(outCategories)) }}
         </th>
-        <th class="text-right pb-2">
+        <th class="text-right">
           {{ formatCurrency(sumOffsets(outCategories)) }}
+        </th>
+      </tr>
+      <tr>
+        <th class="text-left pb-2 text-lg">
+          Of which virtual
+        </th>
+        <th class="text-right pb-2">
+          {{ formatCurrency(-sumVirtualCategories(outCategories)) }}
+        </th>
+        <th class="text-right pb-2">
+          {{ formatCurrency(-sumVirtualBudgets(outCategories)) }}
+        </th>
+        <th class="text-right pb-2">
+          {{ formatCurrency(sumVirtualOffsets(outCategories)) }}
+        </th>
+      </tr>
+      <tr class="border-t-2 border-dashed border-stone-500">
+        <th class="text-left text-xl py-2">
+          Final balance
+        </th>
+        <th class="text-right py-2">
+          {{ formatCurrency(sumCategories(inCategories) - sumCategories(outCategories)) }}
+        </th>
+        <th class="text-right py-2">
+          {{ formatCurrency(sumBudgets(inCategories) - sumBudgets(outCategories)) }}
+        </th>
+        <th class="text-right py-2">
+          {{ formatCurrency(sumOffsets(inCategories) + sumOffsets(outCategories)) }}
         </th>
       </tr>
       <tr class="border-t-2 border-dashed border-stone-500">
         <th class="text-left text-xl pt-2">
-          Final balance
+          Real balance
         </th>
         <th class="text-right pt-2">
-          {{ formatCurrency(sumCategories(inCategories) - sumCategories(outCategories)) }}
+          {{ formatCurrency(sumCategories(inCategories) - sumVirtualCategories(inCategories) - sumCategories(outCategories) + sumVirtualCategories(outCategories)) }}
         </th>
         <th class="text-right pt-2">
-          {{ formatCurrency(sumBudgets(inCategories) - sumBudgets(outCategories)) }}
+          {{ formatCurrency(sumBudgets(inCategories) - sumVirtualBudgets(inCategories) - sumBudgets(outCategories) + sumVirtualBudgets(outCategories)) }}
         </th>
         <th class="text-right pt-2">
-          {{ formatCurrency(sumOffsets(inCategories) + sumOffsets(outCategories)) }}
+          {{ formatCurrency(sumOffsets(inCategories) - sumVirtualOffsets(inCategories) + sumOffsets(outCategories) - sumVirtualOffsets(outCategories)) }}
         </th>
       </tr>
     </tbody>

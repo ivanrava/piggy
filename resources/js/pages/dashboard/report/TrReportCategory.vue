@@ -18,6 +18,12 @@ const emptyClass = computed(() => {
 })
 
 const agUtilites = useAgGridUtilites()
+
+const categoryName = (category: Category) => {
+  if (category.virtual && category.parent_category_id != null)
+    return '('+category.name+')';
+  return category.name;
+}
 </script>
 
 <template>
@@ -57,7 +63,7 @@ const agUtilites = useAgGridUtilites()
         :icon="c.icon"
         class="inline mr-0.5"
       />
-      {{ c.name }}
+      {{ categoryName(c) }}
     </td>
     <td class="text-sm text-right">
       {{ agUtilites.currencyFormatterBare(c.transactions_sum_amount) }}
