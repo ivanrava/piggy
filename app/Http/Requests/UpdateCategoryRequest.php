@@ -26,6 +26,7 @@ class UpdateCategoryRequest extends FormRequest
             'type' => 'required_without:parent_category_id|in:out,in',
             'icon' => 'required|max:255',
             'parent_category_id' => 'nullable|exists:categories,id',
+            'virtual' => 'nullable|boolean'
         ];
     }
 }

@@ -8,6 +8,7 @@ const emptyCategory = {
     icon: '',
     parent_category_id: null,
     parent: {},
+    virtual: false,
     budgetFields: {
         budget_type: 'overall',
         budget_overall: 0,
@@ -81,7 +82,8 @@ export const useCategoriesStore = defineStore('categories', {
                     oct: this.stagingCategory.budgetFields.budget_overall,
                     nov: this.stagingCategory.budgetFields.budget_overall,
                     dec: this.stagingCategory.budgetFields.budget_overall
-                } : this.stagingCategory.budgetFields.budget
+                } : this.stagingCategory.budgetFields.budget,
+                virtual: this.stagingCategory.virtual
             }
         }
     }

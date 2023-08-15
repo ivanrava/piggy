@@ -55,6 +55,7 @@ interface Category {
     icon: string;
     type: string;
     name: string;
+    virtual: boolean;
     parent_category_id: number;
     expenditures: Budget;
     budget: string|Budget;

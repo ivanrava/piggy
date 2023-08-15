@@ -40,6 +40,7 @@ class StoreTransactionRequest extends FormRequest
                 'category.id' => 'required',
                 'category.name' => 'exclude_unless:category.id,<,0|max:100',
                 'category.icon' => 'exclude_unless:category.id,<,0|max:255',
+                'category.virtual' => 'exclude_unless:category.id,<,0|boolean',
                 'category.parent_category_id' => 'exclude_unless:category.id,<,0|exists:categories,id',
                 'category.budget_overall' => 'exclude_unless:category.id,<,0|nullable|decimal:0,2|between:0,99999999.99',
                 'category.budget' => 'exclude_unless:category.id,<,0|required_without:budget_overall|array:jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec',
@@ -90,6 +91,7 @@ class StoreTransactionRequest extends FormRequest
             $c->parent_category_id = $this->category['parent_category_id'];
             $c->type = Category::find($this->category['parent_category_id'])->type;
             $c->budget_overall = $this->category['budget_overall'];
+            $c->virtual = $this->category['virtual'];
             $c->save();
             if ($c->budget_overall == null) {
                 $budget = $this->budget();

@@ -87,6 +87,7 @@ class Category extends Model
             $this->type = $request->type;
         if (!$request->missing('budget_overall'))
             $this->budget_overall = $request->budget_overall;
+        $this->virtual = $request->virtual == null ? false : $request->virtual;
     }
 
     public function transactions_full_with_children(): Builder|HasMany

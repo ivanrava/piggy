@@ -12,7 +12,7 @@
         :icon="category.icon"
         class="inline"
       />
-      {{ category.name }}
+      {{ categoryName(category) }}
       <side-bar-categories-list
         :categories="category.children"
       />
@@ -39,6 +39,12 @@ const classes = function(c: Category) {
   } else {
     return c.type === 'out' ? 'hover:bg-red-100/50 hover:!text-red-950' : 'hover:bg-green-100/50 hover:!text-green-950'
   }
+}
+
+const categoryName = (category: Category) => {
+  if (category.virtual && category.parent_category_id != null)
+    return '('+category.name+')';
+  return category.name;
 }
 </script>
 

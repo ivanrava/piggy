@@ -9,6 +9,7 @@ import axios from "axios";
 import TabSelector from "../inputs/TabSelector.vue";
 import {useCategoriesStore} from "../../../composables/useCategoriesStore";
 import BudgetFields from "../../../pages/dashboard/budget/BudgetFields.vue";
+import CheckboxInput from "../inputs/CheckboxInput.vue";
 
 const props = defineProps<{
   showForm: Boolean,
@@ -80,7 +81,7 @@ watch(props, (newValue) => {
       >
         <form-input
           v-model="store.stagingCategory.name"
-          class="!w-full"
+          class="!w-full !mb-0"
           label="Category name"
           :errors="errors.name"
         />
@@ -103,6 +104,13 @@ watch(props, (newValue) => {
           v-model="store.stagingCategory.icon"
           :is-edit="store.isEditing"
           :errors="errors.icon"
+        />
+        <CheckboxInput
+          v-if="store.stagingCategory.parent_category_id != null"
+          v-model="store.stagingCategory.virtual"
+          label="Hide this category from your reports"
+          class="w-full pl-1"
+          :errors="errors.virtual"
         />
         <div
           v-if="!store.isEditing && store.stagingCategory.parent_category_id != null"

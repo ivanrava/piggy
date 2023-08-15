@@ -21,6 +21,7 @@ class CategoryFactory extends Factory
             'type' => fake()->randomElement(['out', 'in']),
             'icon' => fake()->randomElement(['mdi:abacus', 'mdi:access-point',
                 'solar:adhesive-plaster-2-linear', 'carbon:accumulation-snow']),
+            'virtual' => fake()->boolean
         ];
     }
 }
