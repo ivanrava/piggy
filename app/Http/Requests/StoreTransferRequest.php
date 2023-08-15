@@ -30,7 +30,8 @@ class StoreTransferRequest extends FormRequest
             'to_account_id' => 'required|exists:accounts,id',
             'date' => 'required|date',
             'amount' => 'required|decimal:0,2|between:0.01,99999999.99',
-            'notes' => 'nullable|max:500'
+            'notes' => 'nullable|max:500',
+            'checked' => 'required|boolean'
         ];
     }
 

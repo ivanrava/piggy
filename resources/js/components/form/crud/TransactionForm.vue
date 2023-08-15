@@ -11,16 +11,17 @@ import DecimalInput from "../inputs/DecimalInput.vue";
 import BeneficiaryForm from "./BeneficiaryForm.vue";
 import InOutInput from "../inputs/InOutInput.vue";
 import CategoryForm from "./CategoryForm.vue";
-import {Beneficiary, Category} from "../../../composables/interfaces";
+import {Account, Beneficiary, Category} from "../../../composables/interfaces";
 import {useOperationsStore} from "../../../composables/useOperationsStore";
 import TabSelector from "../inputs/TabSelector.vue";
 import {useCategoriesStore} from "../../../composables/useCategoriesStore";
+import CheckboxInput from "../inputs/CheckboxInput.vue";
 
 const store = useOperationsStore();
 const storeCategories = useCategoriesStore();
 
 const props = defineProps<{
-  accountId: number;
+  account: Account;
 }>();
 
 const categories = ref([]);
@@ -99,11 +100,12 @@ const updateOperation = () => {
 const actualPayload = computed(() => {
   // Computes between transaction & transfer
   return !store.isEditingTransfer ? store.stagingTransaction : {
-    from_account_id: store.stagingTransfer.isOut ? props.accountId : store.stagingTransfer.account_id,
-    to_account_id: store.stagingTransfer.isOut ? store.stagingTransfer.account_id : props.accountId,
+    from_account_id: store.stagingTransfer.isOut ? props.account.id : store.stagingTransfer.account_id,
+    to_account_id: store.stagingTransfer.isOut ? store.stagingTransfer.account_id : props.account.id,
     notes: store.stagingTransfer.notes,
     amount: store.stagingTransfer.amount,
-    date: store.stagingTransfer.date
+    date: store.stagingTransfer.date,
+    checked: store.stagingTransfer.checked
   }
 })
 
@@ -140,7 +142,7 @@ const addCategory = (c: Category) => {
 }
 
 // Updates the transaction account id when the page changes
-watchEffect(() => store.stagingTransaction.account_id = props.accountId);
+watchEffect(() => store.stagingTransaction.account_id = props.account.id);
 </script>
 
 <template>
@@ -240,7 +242,7 @@ watchEffect(() => store.stagingTransaction.account_id = props.accountId);
             <select-input
               v-slot="{option}"
               v-model="store.stagingTransfer.account_id"
-              :options="accounts.filter((acc) => acc.id != accountId)"
+              :options="accounts.filter((acc) => acc.id != account.id)"
               name="Other account"
               :errors="'to_account_id' in errors ? errors.to_account_id : errors.from_account_id"
             >
@@ -278,7 +280,17 @@ watchEffect(() => store.stagingTransaction.account_id = props.accountId);
           class="!w-full"
           :errors="errors.notes"
         />
-        <submit-button class="block w-full" :is-loading="loading">
+        <CheckboxInput
+          v-if="account.type === 'Bank account'"
+          v-model="store.getStagingOperation.checked"
+          label="Have you accounted this operation?"
+          class="w-full pl-1"
+          :errors="errors.checked"
+        />
+        <submit-button
+          class="block w-full"
+          :is-loading="loading"
+        >
           Confirm
         </submit-button>
       </form>

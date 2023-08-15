@@ -46,6 +46,7 @@ class StoreTransactionRequest extends FormRequest
                 'category.budget' => 'exclude_unless:category.id,<,0|required_without:budget_overall|array:jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec',
                 'category.budget.*' => 'exclude_unless:category.id,<,0|required|decimal:0,2|between:0,99999999.99',
                 'date' => 'required|date',
+                'checked' => 'required|boolean',
                 'amount' => 'required|decimal:0,2|between:0.01,99999999.99',
                 'notes' => 'nullable|max:500'
             ],

@@ -62,5 +62,12 @@ class Transfer extends Model
         $this->notes = $request->notes;
         $this->amount = $request->amount;
         $this->date = $request->date;
+
+        $from = Account::find($request->from_account_id);
+        $to = Account::find($request->to_account_id);
+        if ($from->type->type == "Bank account" || $to->type->type == "Bank account")
+            $this->checked = $request->checked;
+        else
+            $this->checked = true;
     }
 }

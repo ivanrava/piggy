@@ -70,6 +70,12 @@ class Transaction extends Model
     {
         $this->account_id = $request->account_id;
 
+        $account = Account::find($request->account_id);
+        if ($account->type->type === 'Bank account')
+            $this->checked = $request->checked;
+        else
+            $this->checked = true;
+
         $beneficiary = $request->save_beneficiary();
         $this->beneficiary_id = $beneficiary->id;
 

@@ -119,7 +119,7 @@ const textColor = computed(() => {
     </div>
     <transaction-form
       v-if="account"
-      :account-id="account.id"
+      :account="account"
     />
   </div>
 </template>

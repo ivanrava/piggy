@@ -23,6 +23,7 @@ class TransactionFactory extends Factory
                 0,
                 1000
             ),
+            'checked' => fake()->boolean,
             'notes' => fake()->text(500)
         ];
     }

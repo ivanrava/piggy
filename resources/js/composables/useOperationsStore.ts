@@ -20,7 +20,8 @@ const defaultStagingTransaction = {
         icon: null,
         budget: {},
         budget_overall: 0
-    }
+    },
+    checked: false
 }
 
 const defaultStagingTransfer = {
@@ -29,7 +30,8 @@ const defaultStagingTransfer = {
     amount: 0,
     isOut: true,
     notes: '',
-    date: ''
+    date: '',
+    checked: false
 }
 
 export const useOperationsStore = defineStore('operations', {

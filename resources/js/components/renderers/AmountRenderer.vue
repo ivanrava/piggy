@@ -16,6 +16,9 @@ export default defineComponent({
           return this.params.data.from.id == this.$route.params.id;
         } else return 'to' in this.params.data;
       }
+    },
+    checked() {
+      return this.params.data.checked
     }
   }
 })
@@ -24,7 +27,7 @@ export default defineComponent({
 <template>
   <div class="flex flex-row md:justify-end justify-center items-center h-full">
     <span
-      :class="isOut ? 'text-red-700 dark:text-red-400' : 'text-green-700 dark:text-green-400'"
+      :class="[isOut ? 'text-red-700 dark:text-red-400' : 'text-green-700 dark:text-green-400', {'opacity-20': !checked}]"
       class="w-32 flex justify-end px-4"
     >
       <span
@@ -33,7 +36,9 @@ export default defineComponent({
       >
         -
       </span>
-      <span>{{ params.valueFormatted }}</span>
+      <span>
+        {{ params.valueFormatted }}
+      </span>
     </span>
     <row-buttons :operation="params.data" />
   </div>
