@@ -52,15 +52,32 @@ const to = computed(() => {
             />
           </div>
         </td>
-        <td class="text-right text-sm">
+        <td class="text-right text-base">
           {{ agGridUtilities.currencyFormatterBare(account.from_balance) }}
         </td>
-        <td class="text-right text-sm">
+        <td class="text-right text-base">
           {{ agGridUtilities.currencyFormatterBare(account.to_balance) }}
         </td>
-        <td class="text-right text-sm">
+        <td class="text-right text-base">
           {{ agGridUtilities.currencyFormatterBare(account.delta) }}
         </td>
+      </tr>
+      <tr>
+        <td class="p-0.5" />
+      </tr>
+      <tr class="border-t-2 border-dashed border-stone-500">
+        <th class="text-left text-lg pt-0.5">
+          Grand total
+        </th>
+        <th class="text-right pt-0.5">
+          {{ agGridUtilities.currencyFormatterBare(accounts.reduce((prevVal, acc) => prevVal+Number(acc.from_balance), 0)) }}
+        </th>
+        <th class="text-right pt-0.5">
+          {{ agGridUtilities.currencyFormatterBare(accounts.reduce((prevVal, acc) => prevVal+Number(acc.to_balance), 0)) }}
+        </th>
+        <th class="text-right pt-0.5">
+          {{ agGridUtilities.currencyFormatterBare(accounts.reduce((prevVal, acc) => prevVal+Number(acc.delta), 0)) }}
+        </th>
       </tr>
     </tbody>
   </table>

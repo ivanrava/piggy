@@ -49,15 +49,29 @@ const to = computed(() => {
             <span>{{ property.name }}</span>
           </div>
         </td>
-        <td class="text-right text-sm">
+        <td class="text-right text-sm pt-1 pb-0.5">
           {{ agGridUtilities.currencyFormatterBare(Number(property.from_value)) }}
         </td>
-        <td class="text-right text-sm">
+        <td class="text-right text-sm pt-1 pb-0.5">
           {{ agGridUtilities.currencyFormatterBare(property.to_value) }}
         </td>
-        <td class="text-right text-sm">
+        <td class="text-right text-sm pt-1 pb-0.5">
           {{ agGridUtilities.currencyFormatterBare(property.delta) }}
         </td>
+      </tr>
+      <tr class="border-t-2 border-dashed border-stone-500">
+        <th class="text-left text-lg pt-0.5">
+          Grand total
+        </th>
+        <th class="text-right pt-0.5">
+          {{ agGridUtilities.currencyFormatterBare(properties.reduce((prevVal, prop) => prevVal+Number(prop.initial_value), 0)) }}
+        </th>
+        <th class="text-right pt-0.5">
+          {{ agGridUtilities.currencyFormatterBare(properties.reduce((prevVal, prop) => prevVal+Number(prop.to_value), 0)) }}
+        </th>
+        <th class="text-right pt-0.5">
+          {{ agGridUtilities.currencyFormatterBare(properties.reduce((prevVal, prop) => prevVal+Number(prop.delta), 0)) }}
+        </th>
       </tr>
     </tbody>
   </table>
