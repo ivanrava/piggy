@@ -50,7 +50,7 @@ const to = computed(() => {
           </div>
         </td>
         <td class="text-right text-sm">
-          {{ agGridUtilities.currencyFormatterBare(property.from_value) }}
+          {{ agGridUtilities.currencyFormatterBare(Number(property.from_value)) }}
         </td>
         <td class="text-right text-sm">
           {{ agGridUtilities.currencyFormatterBare(property.to_value) }}
