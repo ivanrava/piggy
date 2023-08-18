@@ -26,6 +26,7 @@ class AccountController extends Controller
         $account->opening = $request->opening;
         $account->closing = $request->closing;
         $account->description = $request->description;
+        $account->initial_balance = $request->initial_balance;
         return $account;
     }
 
@@ -43,7 +44,6 @@ class AccountController extends Controller
     public function store(StoreAccountRequest $request): AccountResource
     {
         $account = new Account();
-        $account->initial_balance = $request->initial_balance;
         $account = $this->hydrate_from_request($account, $request);
         $account->save();
         return new AccountResource($account);

@@ -14,7 +14,8 @@ class UpdateAccountRequest extends FormRequest
         'color' => 'required|max:7|min:7',
         'opening' => 'required|date',
         'closing' => 'nullable|date|after:opening',
-        'description' => 'nullable|max:500'
+        'description' => 'nullable|max:500',
+        'initial_balance' => 'required|decimal:0,2|between:0,99999999.99',
     ];
 
     /**
