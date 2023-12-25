@@ -26,7 +26,7 @@ const fallbackAvatar = (name) => {
     scale: 70,
     radius: 0,
     size: 96,
-    backgroundColor: ["b6e3f4","c0aede","d1d4f9","ffd5dc","ffdfbf"]
+    fontWeight: 800,
   }).toDataUriSync()
 }
 
@@ -41,7 +41,7 @@ const imageSrc = computed(() => {
     scale: 85,
     radius: 0,
     size: 96,
-    fontWeight: 800,
+    backgroundColor: ["b6e3f4","c0aede","d1d4f9","ffd5dc","ffdfbf"],
     shapeColor: ["0a5b83","1c799f","69d2e7","f1f4dc","f88c49"]
   }).toDataUriSync();
 })
