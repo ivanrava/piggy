@@ -23,10 +23,10 @@ const fallbackAvatar = (name) => {
     seed: name,
     flip: false,
     rotate: 0,
-    scale: 70,
+    scale: 100,
     radius: 0,
     size: 96,
-    fontWeight: 800,
+    fontWeight: 600,
   }).toDataUriSync()
 }
 
