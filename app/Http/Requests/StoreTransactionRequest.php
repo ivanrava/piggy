@@ -92,7 +92,7 @@ class StoreTransactionRequest extends FormRequest
             $c->parent_category_id = $this->category['parent_category_id'];
             $c->type = Category::find($this->category['parent_category_id'])->type;
             $c->budget_overall = $this->category['budget_overall'];
-            $c->virtual = $this->category['virtual'];
+            $c->virtual = array_key_exists('virtual',  $this->category) ? $this->category['virtual'] : false;
             $c->save();
             if ($c->budget_overall == null) {
                 $budget = $this->budget();
