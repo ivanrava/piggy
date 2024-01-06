@@ -25,7 +25,7 @@ const to = computed(() => {
     <thead class="text-blue-900 dark:text-blue-300/70">
       <tr class="border-b-2 border-black text-2xl dark:border-stone-400/30">
         <th class="w-3/6 text-left">
-          Property
+          Account
         </th>
         <th class="w-1/6 text-right text-lg">
           {{ from }}
