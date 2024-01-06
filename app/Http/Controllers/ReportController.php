@@ -103,19 +103,46 @@ class ReportController extends Controller
                         fn (Builder $query) => $query->where('date', '<=', $request->to)
                     )
             ], 'amount')
+            ->withSum([
+                'transactions as from_balance_minus' => fn ($query) => $query
+                    ->when(
+                        $request->filled('from'),
+                        fn (Builder $query) => $query->where('date', '<=', $request->from)
+                    )
+                    ->whereHas('category', function (Builder $query) {
+                        $query->where('type', '=', 'out');
+                    })
+            ], 'amount')
+            ->withSum([
+                'transactions as to_balance_minus' => fn ($query) => $query
+                    ->when(
+                        $request->filled('to'),
+                        fn (Builder $query) => $query->where('date', '<=', $request->to)
+                    )
+                    ->whereHas('category', function (Builder $query) {
+                        $query->where('type', '=', 'out');
+                    })
+            ], 'amount')
             ->get();
 
         return $accounts->map(function ($account) use ($request) {
             if (!$request->filled('from'))
                 $account['from_balance'] = $account['initial_balance'];
-            else
+            else {
                 $account['from_balance'] += $account['initial_balance'];
+                $account['from_balance'] -= $account['from_balance_minus'];
+                $account['from_balance'] -= $account['from_balance_minus'];
+            }
             $account['to_balance'] = $account['to_balance'] + $account['initial_balance'];
+            $account['to_balance'] -= $account['to_balance_minus'];
+            $account['to_balance'] -= $account['to_balance_minus'];
             $account['delta'] = $account['to_balance'] - $account['from_balance'];
+
             $account['color'] = '#'.$account['color'];
             $type = $account['type']['type'];
             unset($account['type']);
             $account['type'] = $type;
+
             return $account;
         });
     }
@@ -137,15 +164,37 @@ class ReportController extends Controller
                         fn (Builder $query) => $query->where('date', '<=', $request->to)
                     )
             ], 'amount')
+            ->withSum([
+                'transactions as from_value_minus' => fn ($query) => $query
+                    ->when(
+                        $request->filled('from'),
+                        fn (Builder $query) => $query->where('date', '<=', $request->from)
+                    )
+                    ->where('type', '=', 'out')
+            ], 'amount')
+            ->withSum([
+                'transactions as to_value_minus' => fn ($query) => $query
+                    ->when(
+                        $request->filled('to'),
+                        fn (Builder $query) => $query->where('date', '<=', $request->to)
+                    )
+                    ->where('type', '=', 'out')
+            ], 'amount')
             ->get();
 
         return $properties->map(function ($property) use ($request) {
             if (!$request->filled('from'))
                 $property['from_value'] = $property['initial_value'];
-            else
+            else {
                 $property['from_value'] += $property['initial_value'];
+                $property['from_value'] -= $property['from_value_minus'];
+                $property['from_value'] -= $property['from_value_minus'];
+            }
             $property['to_value'] = $property['to_value'] + $property['initial_value'];
+            $property['to_value'] -= $property['to_value_minus'];
+            $property['to_value'] -= $property['to_value_minus'];
             $property['delta'] = $property['to_value'] - $property['from_value'];
+
             return $property;
         });
     }
