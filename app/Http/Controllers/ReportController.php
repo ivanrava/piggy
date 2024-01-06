@@ -165,7 +165,7 @@ class ReportController extends Controller
                     )
             ], 'amount')
             ->withSum([
-                'transactions as from_value_minus' => fn ($query) => $query
+                'variations as from_value_minus' => fn ($query) => $query
                     ->when(
                         $request->filled('from'),
                         fn (Builder $query) => $query->where('date', '<=', $request->from)
@@ -173,7 +173,7 @@ class ReportController extends Controller
                     ->where('type', '=', 'out')
             ], 'amount')
             ->withSum([
-                'transactions as to_value_minus' => fn ($query) => $query
+                'variations as to_value_minus' => fn ($query) => $query
                     ->when(
                         $request->filled('to'),
                         fn (Builder $query) => $query->where('date', '<=', $request->to)
