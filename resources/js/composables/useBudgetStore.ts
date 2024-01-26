@@ -21,13 +21,23 @@ const emptyBudget = {
     }
 }
 
+const sumBudget = (budget) => {
+    return budget.jan + budget.feb + budget.mar + budget.apr + budget.may + budget.jun +
+        budget.jul + budget.aug + budget.sep + budget.oct + budget.nov + budget.dec
+}
+
+const isEmptyBudget = (category, forceNotEmpty: boolean) => {
+    return forceNotEmpty && ((typeof category.budget === 'object' && sumBudget(category.budget) == 0) || category.budget == 0)
+}
+
 export const useBudgetStore = defineStore('budget', {
     state: () => ({
         categories: [],
         year: new Date().getFullYear(),
         isLoading: true,
         stagingCategory: {id:0},
-        stagingBudget: emptyBudget
+        stagingBudget: emptyBudget,
+        hideEmptyBudgets: true
     }),
     actions: {
         setYear(year: number|string) {
@@ -78,10 +88,10 @@ export const useBudgetStore = defineStore('budget', {
             }
         },
         outCategories() {
-            return this.categories.filter((cat: Category) => cat.type === 'out')
+            return this.categories.filter((cat: Category) => cat.type === 'out' && !isEmptyBudget(cat, this.hideEmptyBudgets))
         },
         inCategories() {
-            return this.categories.filter((cat: Category) => cat.type === 'in')
+            return this.categories.filter((cat: Category) => cat.type === 'in' && !isEmptyBudget(cat, this.hideEmptyBudgets))
         }
     }
 })

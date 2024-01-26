@@ -4,6 +4,7 @@ import BudgetRow from "./BudgetRow.vue";
 import NoData from "../../../components/NoData.vue";
 import BudgetForm from "./BudgetForm.vue";
 import {useBudgetStore} from "../../../composables/useBudgetStore";
+import CheckboxInput from "../../../components/form/inputs/CheckboxInput.vue";
 
 const store = useBudgetStore();
 
@@ -18,6 +19,13 @@ const showForm = ref<boolean>(false);
   <div class="h-full flex flex-col justify-between">
     <section class="overflow-scroll">
       <h1>Budget</h1>
+      <p>
+        <CheckboxInput
+          v-model="store.hideEmptyBudgets"
+          label="Hide empty budgets"
+          class="w-full"
+        />
+      </p>
       <Transition
         mode="out-in"
         name="fade-loading"
