@@ -10,6 +10,7 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyVariationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StatsController;
+use App\Http\Controllers\TokenController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransferController;
 use Illuminate\Http\Request;
@@ -75,3 +76,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('budget', BudgetController::class)->only(['index']);
     Route::put('/categories/{category}/budget', [BudgetController::class, 'update']);
 });
+
+Route::post('/token', [TokenController::class, 'token']);
