@@ -26,7 +26,10 @@
       </submit-button>
     </form>
 
-    <span class="text-xs mt-4">
+    <span
+      v-if="isEnabledRegistration"
+      class="text-xs mt-4"
+    >
       <router-link to="/register">
         Create a new profile
       </router-link>
@@ -41,6 +44,7 @@ import SubmitButton from "../../components/form/inputs/SubmitButton.vue";
 import FormInput from "../../components/form/inputs/FormInput.vue";
 
 const {login, clearErrors, errors, loading} = useAuth()
+const isEnabledRegistration = ref<boolean>(import.meta.env.VITE_ENABLE_REGISTRATION);
 
 onMounted(() => {
   clearErrors();

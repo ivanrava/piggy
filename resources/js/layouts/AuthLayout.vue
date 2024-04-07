@@ -50,8 +50,6 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
-import BrandLogo from "../components/nav/BrandLogo.vue";
-import {useRoute} from "vue-router";
 
 const imgIdx = ref(0);
 const imgIdxMax = 2;

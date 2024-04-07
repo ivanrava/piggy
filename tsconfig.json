@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
         "types": ["vitest/globals"],
-        "module": "commonjs",
+        "module": "esnext",
+        "moduleResolution": "Node",
         "target": "es5",
         "sourceMap": true,
         "lib": [
