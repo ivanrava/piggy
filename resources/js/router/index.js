@@ -192,6 +192,15 @@ const routes = [
                     title: 'Budget',
                     requiresAuth: true
                 }
+            },
+            {
+                name: 'mobile',
+                path: '/companion',
+                component: () => import('@/pages/dashboard/mobile/Mobile.vue'),
+                meta: {
+                    title: 'Companion app',
+                    requiresAuth: true
+                }
             }
         ]
     },

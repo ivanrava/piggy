@@ -80,6 +80,11 @@ const links = [
     icon: 'fluent:data-pie-20-filled',
     name: 'Charts',
     href: '/charts'
+  },
+  {
+    icon: 'mdi:smartphone-arrow-down',
+    name: 'Companion',
+    href: '/companion'
   }
 ]
 </script>
