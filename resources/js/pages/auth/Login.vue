@@ -44,7 +44,7 @@ import SubmitButton from "../../components/form/inputs/SubmitButton.vue";
 import FormInput from "../../components/form/inputs/FormInput.vue";
 
 const {login, clearErrors, errors, loading} = useAuth()
-const isEnabledRegistration = ref<boolean>(import.meta.env.VITE_ENABLE_REGISTRATION);
+const isEnabledRegistration = ref<boolean>(import.meta.env.VITE_ENABLE_REGISTRATION === 'true');
 
 onMounted(() => {
   clearErrors();

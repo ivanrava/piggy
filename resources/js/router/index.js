@@ -18,9 +18,11 @@ const routes = [
             {
                 name: 'register',
                 path: '/register',
-                component: () => import('@/pages/auth/Register.vue'),
+                component: () => import.meta.env.VITE_REGISTRATION_ENABLED === 'true'
+                    ? import('@/pages/auth/Register.vue')
+                    : import('@/pages/NotFound.vue'),
                 meta: {
-                    title: 'Register',
+                    title: import.meta.env.VITE_REGISTRATION_ENABLED === 'true' ? 'Register' : 'Not found',
                     requiresAuth: false
                 }
             },
