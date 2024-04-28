@@ -16,17 +16,6 @@ const routes = [
                 }
             },
             {
-                name: 'register',
-                path: '/register',
-                component: () => import.meta.env.VITE_REGISTRATION_ENABLED === 'true'
-                    ? import('@/pages/auth/Register.vue')
-                    : import('@/pages/NotFound.vue'),
-                meta: {
-                    title: import.meta.env.VITE_REGISTRATION_ENABLED === 'true' ? 'Register' : 'Not found',
-                    requiresAuth: false
-                }
-            },
-            {
                 name: 'login',
                 path: '/login',
                 component: () => import('@/pages/auth/Login.vue'),
@@ -234,6 +223,22 @@ const routes = [
         }
     }
 ]
+
+if (import.meta.env.VITE_ENABLE_REGISTRATION === 'true') {
+    const publicLayout = routes[0]
+    publicLayout.children.push(
+        {
+            name: 'register',
+            path: '/register',
+            component: () => import('@/pages/auth/Register.vue'),
+            meta: {
+                title: 'Register',
+                requiresAuth: false
+            }
+        },
+    )
+}
+
 
 const router = createRouter({
     history: createWebHistory(),
