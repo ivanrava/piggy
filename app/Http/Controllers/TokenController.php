@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TokenRequest;
+use App\Http\Requests\TokenCreateRequest;
+use App\Http\Requests\TokenRevokeRequest;
 use App\Models\User;
 use Hash;
 use Illuminate\Validation\ValidationException;
@@ -12,7 +13,7 @@ class TokenController extends Controller
     /**
      * @throws ValidationException
      */
-    public function token(TokenRequest $request)
+    public function create(TokenCreateRequest $request)
     {
         $user = User::where('email', $request->email)->first();
 
@@ -24,6 +25,15 @@ class TokenController extends Controller
 
         return response()->json([
             'token' => $user->createToken($request->device_name)->plainTextToken
+        ]);
+    }
+
+    public function revoke(TokenRevokeRequest $request)
+    {
+        $user = $request->user();
+        $user->tokens()->where('id', $request->bearerToken())->delete();
+        return response()->json([
+            'token' => $request->bearerToken()
         ]);
     }
 }

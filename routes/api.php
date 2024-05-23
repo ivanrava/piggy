@@ -77,4 +77,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/categories/{category}/budget', [BudgetController::class, 'update']);
 });
 
-Route::post('/token', [TokenController::class, 'token']);
+Route::post('/token/create', [TokenController::class, 'create']);
+// This is manually protected in the request class (should have a bearer token)
+Route::post('/token/revoke', [TokenController::class, 'revoke']);
