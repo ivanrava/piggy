@@ -44,8 +44,7 @@ class TokenController extends Controller
 
     public function revoke(TokenRevokeRequest $request)
     {
-        $user = $request->user();
-        $user->tokens()->where('id', $request->bearerToken())->delete();
+        $request->user()->currentAccessToken()->delete();
         return response()->json([
             'token' => $request->bearerToken()
         ]);
