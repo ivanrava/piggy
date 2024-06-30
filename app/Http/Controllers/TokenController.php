@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TokenCreateRequest;
+use App\Http\Requests\TokenRegisterRequest;
 use App\Http\Requests\TokenRevokeRequest;
 use App\Models\User;
 use Hash;
@@ -22,6 +23,19 @@ class TokenController extends Controller
                 'email' => ['The provided credentials are incorrect.']
             ]);
         }
+
+        return response()->json([
+            'token' => $user->createToken($request->device_name)->plainTextToken
+        ]);
+    }
+
+    public function register(TokenRegisterRequest $request)
+    {
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
 
         return response()->json([
             'token' => $user->createToken($request->device_name)->plainTextToken

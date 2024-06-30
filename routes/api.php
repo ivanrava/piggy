@@ -78,5 +78,6 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::post('/token/create', [TokenController::class, 'create']);
+Route::post('/token/register', [TokenController::class, 'register']);
 // This is manually protected in the request class (should have a bearer token)
 Route::post('/token/revoke', [TokenController::class, 'revoke']);
